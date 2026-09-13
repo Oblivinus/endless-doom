@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bvxxkemiata6d"]
+
+[ext_resource type="Texture2D" uid="uid://b4yxydpdqudg2" path="res://assets/texture/Outdoors/Trim rocks/OUTDOOR_Trim_rocks_1.png" id="1_fyui0"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_71j4m"]
+albedo_color = Color(0.98234254, 0.9823423, 0.9823424, 1)
+albedo_texture = ExtResource("1_fyui0")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" unique_id=1488182600]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=839501120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39129353, 1.5995715, -0.6012535)
+use_collision = true
+collision_layer = 2
+collision_mask = 5
+size = Vector3(2.6572266, 3.2322998, 2.704834)
+material = SubResource("ORMMaterial3D_71j4m")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1560862941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0461607, 0.7435992, 0.6823559)
+use_collision = true
+collision_layer = 2
+collision_mask = 5
+size = Vector3(1.4534912, 1.5203552, 2.503662)
+material = SubResource("ORMMaterial3D_71j4m")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1914522524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.52677536, 0.38605142, 0.27866626)
+use_collision = true
+collision_layer = 2
+collision_mask = 5
+size = Vector3(3.329773, 0.8052597, 2.4140625)
+material = SubResource("ORMMaterial3D_71j4m")

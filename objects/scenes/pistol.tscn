@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://y3hx7u2hpsfj"]
+
+[ext_resource type="Script" uid="uid://d01cx7hxar4tp" path="res://scripts/guns/pistol.gd" id="1_buff3"]
+[ext_resource type="Texture2D" uid="uid://bo3ru05i8wvgy" path="res://assets/gun/Pistol.png" id="1_igbvm"]
+[ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/pistol_shot.wav" id="3_1e3ry"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
+atlas = ExtResource("1_igbvm")
+region = Rect2(0, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
+atlas = ExtResource("1_igbvm")
+region = Rect2(0, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
+atlas = ExtResource("1_igbvm")
+region = Rect2(160, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
+atlas = ExtResource("1_igbvm")
+region = Rect2(320, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("1_igbvm")
+region = Rect2(480, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("1_igbvm")
+region = Rect2(640, 0, 160, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smehm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2els")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhqgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqkch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlg0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}],
+"loop": false,
+"name": &"Shoot",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_buff3"]
+size = Vector3(2.5, 5, 20)
+
+[node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("animation", "hit_box", "omni_light")]
+script = ExtResource("1_buff3")
+animation = NodePath("CanvasLayer/Control/AnimatedSprite2D")
+hit_box = NodePath("Hit")
+omni_light = NodePath("OmniLight3D")
+damage = 20.0
+shot_sfx = ExtResource("3_1e3ry")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=2099543344]
+layout_mode = 3
+anchor_left = 0.4826389
+anchor_top = 0.9382716
+anchor_right = 0.5173611
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control" unique_id=1094526780]
+texture_filter = 1
+position = Vector2(-20, 144)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_smehm")
+animation = &"Idle"
+offset = Vector2(0, -80)
+
+[node name="Hit" type="Area3D" parent="." unique_id=922815929]
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hit" unique_id=975020322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.169, -10)
+shape = SubResource("BoxShape3D_buff3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1791588770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3040085)
+visible = false
+light_color = Color(1, 0.38039216, 0.023529412, 1)
+light_energy = 1.5
+shadow_enabled = true
+
+[node name="FarCenter" type="Marker3D" parent="." unique_id=1227016783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)

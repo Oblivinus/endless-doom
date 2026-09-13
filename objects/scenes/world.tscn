@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://behldxhl6rro4"]
+
+[ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://objects/scenes/player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://objects/scenes/terrain.tscn" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://objects/enemies/zombie/zombie.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://bvxxkemiata6d" path="res://objects/scenes/rock1.tscn" id="4_k0juu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e5uuo"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_nnsk1"]
+sky_material = SubResource("ProceduralSkyMaterial_e5uuo")
+
+[sub_resource type="Environment" id="Environment_rwgxs"]
+background_mode = 2
+sky = SubResource("Sky_nnsk1")
+tonemap_mode = 2
+fog_enabled = true
+fog_light_energy = 0.75
+fog_sky_affect = 0.25
+volumetric_fog_density = 1.0
+volumetric_fog_albedo = Color(0.35, 0.35, 0.35, 1)
+
+[node name="World" type="Node3D" unique_id=1190192303]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1496949108]
+transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 0.63517475)
+light_energy = 0.2
+shadow_enabled = true
+shadow_bias = 1.5
+shadow_normal_bias = 0.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=642854987]
+environment = SubResource("Environment_rwgxs")
+
+[node name="Terrain" parent="." unique_id=143276796 instance=ExtResource("2_rwgxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+size = Vector3(100, 0.1, 100)
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Terrain" unique_id=198062481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+size = Vector3(100, 0.1, 100)
+
+[node name="Rock1" parent="." unique_id=1488182600 instance=ExtResource("4_k0juu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1938853, 0.016578604, -2.4409764)
+use_collision = true
+collision_layer = 2
+collision_mask = 5
+
+[node name="Rock2" parent="." unique_id=1745278772 instance=ExtResource("4_k0juu")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.956115, 0.016578604, 9.509024)
+use_collision = true
+collision_layer = 2
+collision_mask = 5
+
+[node name="Player" parent="." unique_id=556148557 instance=ExtResource("1_nnsk1")]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999994, 0, 1.0735109, 22.95)
+
+[node name="Zombie" parent="." unique_id=1812481539 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.6000001)
+
+[node name="Zombie2" parent="." unique_id=1508311809 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1000001, 1, -0.8000001)
+
+[node name="Zombie3" parent="." unique_id=839209492 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, -9)
+
+[node name="Zombie4" parent="." unique_id=1755327889 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1, -7.55)
