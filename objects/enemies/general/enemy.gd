@@ -5,6 +5,7 @@ class_name Enemy extends CharacterBody3D
 @export var animation_tree: AnimationTree
 @export var audio_player: AudioStreamPlayer3D
 @export var state_machine: StateMachine
+@export var hitbox: Area3D
 
 @export_category("Stats")
 @export var max_health: float = 100.0
@@ -24,6 +25,7 @@ var detection_range: float = attack_range * detection_range_multiplier
 
 signal on_died
 signal on_hurt
+signal on_attack
 var timer: Timer
 var hurted: bool = false
 
@@ -34,6 +36,10 @@ var is_moving: bool = false
 const MOVE_TO_ARRIVAL_THRESHOLD: float = 0.05
 
 func _ready() -> void:
+	var collision_shape: CollisionShape3D = hitbox.find_child("CollisionShape3D")
+	collision_shape.shape.size.z = 0
+	collision_shape.shape.size += Vector3(0, 0, attack_range)
+	collision_shape.position += Vector3(0, 0, -attack_range/2)
 	state_machine.init(self)
 	set_collision_layer_value(3, true)
 	on_died.connect(func(): state_machine.change_state_name("dead"))

@@ -62,12 +62,13 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_buff3"]
 size = Vector3(2.5, 5, 20)
 
-[node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("animation", "hit_box", "omni_light")]
+[node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("animation", "hit_box", "omni_light", "far_center")]
 script = ExtResource("1_buff3")
 animation = NodePath("CanvasLayer/Control/AnimatedSprite2D")
 hit_box = NodePath("Hit")
 omni_light = NodePath("OmniLight3D")
-damage = 20.0
+far_center = NodePath("FarCenter")
+damage = 35.0
 shot_sfx = ExtResource("3_1e3ry")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]

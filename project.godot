@@ -26,6 +26,10 @@ Enums="*uid://b48nu1y5wvxn8"
 window/stretch/mode="viewport"
 window/stretch/aspect="ignore"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg")
+
 [input]
 
 ui_left={

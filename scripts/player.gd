@@ -11,8 +11,6 @@ const DEACCEL: float = 35
 
 var cur_speed: float = 0
 
-#var test_cube: CSGBox3D
-
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Globals.player = self

@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dcn4h0t4q7o25"]
+
+[ext_resource type="Texture2D" uid="uid://dp2i08lk8o8pk" path="res://assets/texture/vfx_texture/flipbooks/wispy_smoke_03_8x8.tga" id="1_lgofi"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1mux5"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, 1)
+initial_velocity_min = 0.5
+initial_velocity_max = 10.0
+collision_mode = 1
+collision_friction = 0.25
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71dq4"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.97, 0.59655005, 0.22310002, 1)
+emission_enabled = true
+emission = Color(0.5295093, 0.27610597, 1.92523e-07, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oll44"]
+material = SubResource("StandardMaterial3D_71dq4")
+top_radius = 0.02
+bottom_radius = 0.0
+height = 0.1
+
+[sub_resource type="Curve" id="Curve_oll44"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.34067625), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_w61o3"]
+curve = SubResource("Curve_oll44")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1k1mb"]
+direction = Vector3(0, 0, 1)
+spread = 120.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 1, 0)
+alpha_curve = SubResource("CurveTexture_w61o3")
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_odjkc"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_lgofi")
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_r2s56"]
+lightmap_size_hint = Vector2i(7, 7)
+material = SubResource("StandardMaterial3D_odjkc")
+
+[node name="BulletHit" type="Node3D" unique_id=859237487]
+
+[node name="Sparks" type="GPUParticles3D" parent="." unique_id=1221029587]
+emitting = false
+amount = 5
+one_shot = true
+explosiveness = 1.0
+collision_base_size = 0.05
+process_material = SubResource("ParticleProcessMaterial_1mux5")
+draw_pass_1 = SubResource("CylinderMesh_oll44")
+
+[node name="Smoke" type="GPUParticles3D" parent="." unique_id=426506980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14999998, 0.100000024)
+emitting = false
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_1k1mb")
+draw_pass_1 = SubResource("QuadMesh_r2s56")

@@ -5,8 +5,8 @@ class_name Gun extends Node3D
 @export var animation: AnimatedSprite2D
 @export var hit_box: Area3D
 @export var camera: Camera3D
-@export var gun_fire_sfx: AudioStreamPlayer3D
 @export var omni_light: OmniLight3D
+@export var far_center: Marker3D
 
 @export_category("stats")
 @export var fire_rate: float = 2.0
@@ -49,15 +49,25 @@ func equip(new_camera: Camera3D):
 func _check_and_shoot() -> void:
 	var enemies: Array[Node3D] = hit_box.get_overlapping_bodies()
 	enemies.sort_custom(func(a: Node3D, b: Node3D): return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position))
-	#print(enemies)
+	
+	if enemies.is_empty():
+		var obstruction = _check_ray_cast_query(far_center.global_position)
+		if obstruction.is_empty(): return
+		var vfx = VFX.new("bullet_hit", obstruction.position)
+		Globals.world.add_child(vfx)
+		vfx.global_basis = global_basis
+		vfx.restart()
+		return
+	
 	for enemy: Enemy in enemies:
 		var obstruction = _check_ray_cast_query(enemy.global_position)
 		
 		if obstruction.is_empty():
 			enemy.hurt(damage)
 		else:
-			var vfx = VFX.new("blood_splatter", obstruction.position)
+			var vfx = VFX.new("bullet_hit", obstruction.position)
 			Globals.world.add_child(vfx)
+			vfx.global_basis = global_basis
 			vfx.restart()
 		break
 
