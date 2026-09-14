@@ -1,16 +1,19 @@
 [gd_scene format=3 uid="uid://b413fxhnpypbp"]
 
-[ext_resource type="PackedScene" uid="uid://y3hx7u2hpsfj" path="res://objects/scenes/pistol.tscn" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://d18m7ef5j6hof" path="res://scripts/old_player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://y3hx7u2hpsfj" path="res://src/gameplay/guns/pistol.tscn" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bajene5gm72sy" path="res://src/gameplay/entities/player/player.gd" id="1_uu63q"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g0k4r"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=556148557 node_paths=PackedStringArray("gun")]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=556148557]
 collision_mask = 10
-script = ExtResource("1_g2els")
-gun = NodePath("Head/Pistol")
+script = ExtResource("1_uu63q")
+move_speed = 7.5
+use_acceleration = true
+accel = 15.0
+deaccel = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1605701664]
 shape = SubResource("CapsuleShape3D_u8vuu")

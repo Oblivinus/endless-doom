@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://slpsiu8xyi43"]
 
 [ext_resource type="Texture2D" uid="uid://c1x7wpl4omija" path="res://assets/enemies/Zombie_DOOM.png" id="1_1vlb3"]
-[ext_resource type="Script" uid="uid://pk7hsvrg480g" path="res://objects/enemies/zombie/zombie.gd" id="1_httt1"]
+[ext_resource type="Script" uid="uid://pk7hsvrg480g" path="res://src/gameplay/entities/enemies/zombie/zombie.gd" id="1_httt1"]
 [ext_resource type="AudioStream" uid="uid://cakvekw7csujy" path="res://assets/sounds/zombie_pain_faded.wav" id="2_ycv6i"]
 [ext_resource type="AudioStream" uid="uid://4wrnorisro7h" path="res://assets/sounds/zombie_death1.wav" id="3_pjjxt"]
-[ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://objects/state_machine/state_machine.gd" id="4_x680j"]
-[ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://objects/enemies/general/enemy_idle.gd" id="5_o3qke"]
-[ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://objects/enemies/general/enemy_dead.gd" id="6_x680j"]
-[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://objects/enemies/general/enemy_attack.gd" id="7_hy5wn"]
-[ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://objects/enemies/general/enemy_chase.gd" id="8_08hh8"]
-[ext_resource type="Script" uid="uid://doi7l11xnfcw0" path="res://objects/enemies/zombie/zombie_anim_tree.gd" id="9_yhxrr"]
+[ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="4_x680j"]
+[ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="5_o3qke"]
+[ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="6_x680j"]
+[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://src/gameplay/entities/shared/enemy_attack.gd" id="7_hy5wn"]
+[ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_08hh8"]
+[ext_resource type="Script" uid="uid://doi7l11xnfcw0" path="res://src/gameplay/entities/enemies/zombie/zombie_anim_tree.gd" id="9_yhxrr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_08hh8"]
 size = Vector3(0.5, 2.5, 1)
@@ -1311,6 +1311,8 @@ metadata/_custom_type_script = "uid://b6ssqeh0ysa1u"
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=216964935 node_paths=PackedStringArray("test_cube")]
 script = ExtResource("5_o3qke")
+FOV = null
+idle_status = null
 test_cube = NodePath("../../CSGBox3D")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 

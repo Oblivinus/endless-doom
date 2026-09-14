@@ -66,8 +66,8 @@ func _process_moving(delta: float) -> void:
 				global_position = move_target
 				stop_move()
 				move_to_finished.emit(prev_target)
-		else:
-			move_dir = Vector3.ZERO
+	else:
+		move_dir = Vector3.ZERO
 			
 	if move_dir != Vector3.ZERO:
 		cur_speed = move_toward(cur_speed, move_speed, accel * delta)

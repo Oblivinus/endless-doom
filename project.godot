@@ -17,9 +17,9 @@ config/icon="res://assets/texture/icon.svg"
 
 [autoload]
 
-Audio3dManagerGlobal="*uid://dt8qu6qi5tevu"
 Globals="*uid://lxcs4mge4p3i"
 Enums="*uid://b48nu1y5wvxn8"
+Audio3dManager="*uid://dt8qu6qi5tevu"
 
 [display]
 

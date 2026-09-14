@@ -110,7 +110,7 @@ func shoot():
 		omni_light.visible = false
 		)
 		
-	Audio3dManagerGlobal.play_sound_at_position(shot_sfx, self).max_db = -2.0
+	Audio3dManager.play_sound_at_position(shot_sfx, self).max_db = -2.0
 	
 	if has_animation:
 		animation.play("Shoot")
