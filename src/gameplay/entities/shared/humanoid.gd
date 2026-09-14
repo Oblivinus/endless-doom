@@ -21,6 +21,7 @@ var is_dead: bool = false
 var is_hurted: bool = false
 
 #region Movement
+const NEAREST_TARGET_LENGTH = 0.1
 var cur_speed: float = 0.0
 var is_moving_paused: bool = false
 var speed: float = 0.0
@@ -61,7 +62,7 @@ func _process_moving(delta: float) -> void:
 		if move_target:
 			move_dir = global_position.direction_to(move_target)
 			move_dir.y = 0
-			if global_position.distance_to(move_target) <= 0.05:
+			if global_position.distance_to(move_target) <= NEAREST_TARGET_LENGTH:
 				var prev_target = move_target
 				global_position = move_target
 				stop_move()
@@ -84,15 +85,17 @@ func _process_moving(delta: float) -> void:
 		velocity.z = move_dir.z * move_speed
 
 func  _face_rotation(dir: Vector3, delta: float) -> void:
-	if dir == Vector3.ZERO or not auto_rotate: return
+	if dir == Vector3.ZERO or not auto_rotate or not is_moving: return
 	var angle = atan2(-dir.x, -dir.z)
 	rotation.y = lerp_angle(rotation.y, angle, rotation_speed * delta)
 
 func move_to(target_pos: Vector3) -> void:
+	if is_moving_paused: return
 	move_target = target_pos
 	is_moving = true
 
 func move_to_direction(direction: Vector3) -> void:
+	if is_moving_paused: return
 	if not direction.is_normalized():
 		direction = direction.normalized()
 	
@@ -100,6 +103,7 @@ func move_to_direction(direction: Vector3) -> void:
 	is_moving = true
 
 func pause_move() -> void:
+	if not is_moving or move_dir == Vector3.ZERO: return
 	is_moving_paused = true
 	is_moving = false
 	
@@ -109,8 +113,8 @@ func continue_move() -> void:
 	is_moving = true
 
 func stop_move() -> void:
-	is_moving = false
 	move_dir = Vector3.ZERO
+	is_moving = false
 	move_target = null
 
 func get_facing_direction() -> Vector3:

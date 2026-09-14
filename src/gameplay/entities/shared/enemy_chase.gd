@@ -5,13 +5,13 @@ func process_physics(delta: float):
 	var distance = parent.global_position.distance_to(target_pos)
 	
 	if distance > parent.detection_range:
-		parent.stop_move_to()
+		parent.stop_move()
 		transitioned.emit(self, "idle")
-	
-	parent.move_to(target_pos)
-	parent.change_move_to_direction(target_pos)
+		parent.target = null
+		return
 	
 	if distance <= parent.attack_range:
-		parent.stop_move_to()
+		parent.stop_move()
 		transitioned.emit(self, "attack")
-		
+	else:
+		parent.move_to(target_pos)

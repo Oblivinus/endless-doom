@@ -1,4 +1,4 @@
-extends AnimationTree
+class_name ZombieAnimTree extends AnimationTree
 
 @export var enemy: Enemy
 
@@ -7,6 +7,7 @@ var playback: AnimationNodeStateMachinePlayback
 func _ready() -> void:
 	playback = get("parameters/playback")
 	enemy.on_attack.connect(_on_attack)
+	enemy.on_died.connect(_on_died)
 	active = true
 
 func _process(_delta: float) -> void:
@@ -18,10 +19,14 @@ func _process(_delta: float) -> void:
 	set("parameters/attack/blend_position", blend_pos)
 	
 
-#TODO: Fix this
 func _on_attack() -> void:
+	if enemy.is_hurted: return
 	playback.travel("attack")
-	#animation_finished.connect(func(_anim_name): playback.travel("idle"))
 
-func _on_zombie_on_died() -> void:
+func _on_died() -> void:
 	playback.start("died")
+
+
+func travel(node_name: String):
+	playback.travel(node_name)
+	

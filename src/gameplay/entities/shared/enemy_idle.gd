@@ -33,6 +33,8 @@ func enter() -> void:
 	anchor_pos = parent.global_position
 	#print(parent)
 
+func exit() -> void:
+	parent.stop_move()
 
 
 func process_physics(delta: float):
