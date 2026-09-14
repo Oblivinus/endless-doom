@@ -9,9 +9,10 @@ point_count = 2
 curve = SubResource("Curve_08hh8")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8kbla"]
-spread = 180.0
-initial_velocity_min = 0.5
-initial_velocity_max = 4.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
 gravity = Vector3(0, -12, 0)
 scale_curve = SubResource("CurveTexture_71dq4")
 collision_mode = 1
@@ -33,7 +34,7 @@ emitting = false
 amount = 10
 one_shot = true
 explosiveness = 0.8
-fixed_fps = 8
+fixed_fps = 0
 collision_base_size = 0.05
 process_material = SubResource("ParticleProcessMaterial_8kbla")
 draw_pass_1 = SubResource("SphereMesh_hho48")

@@ -4,7 +4,7 @@
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1mux5"]
 particle_flag_align_y = true
-direction = Vector3(0, 0, 1)
+direction = Vector3(0, 0.5, 1)
 initial_velocity_min = 0.5
 initial_velocity_max = 10.0
 collision_mode = 1
@@ -55,6 +55,7 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_r2s56"]
 lightmap_size_hint = Vector2i(7, 7)
 material = SubResource("StandardMaterial3D_odjkc")
+size = Vector2(0.5, 0.5)
 
 [node name="BulletHit" type="Node3D" unique_id=859237487]
 

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://d2s6g1dywgc3f"]
+
+[ext_resource type="Script" uid="uid://cpc50pct8lm87" path="res://objects/scenes/test/humanoid_test.gd" id="1_y4gin"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oll44"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w61o3"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_71dq4"]
+radius = 0.1
+height = 0.2
+radial_segments = 10
+rings = 10
+
+[node name="Humanoid" type="CharacterBody3D" unique_id=1847934725]
+collision_layer = 2
+collision_mask = 10
+script = ExtResource("1_y4gin")
+move_speed = 5.0
+accel = 2.0
+deaccel = 5.0
+auto_rotate = true
+rotation_speed = 10.0
+metadata/_custom_type_script = "uid://c06d05bmki05u"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=737611716]
+shape = SubResource("CapsuleShape3D_oll44")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1763697814]
+mesh = SubResource("CapsuleMesh_w61o3")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=548383759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("SphereMesh_71dq4")

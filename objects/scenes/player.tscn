@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b413fxhnpypbp"]
 
 [ext_resource type="PackedScene" uid="uid://y3hx7u2hpsfj" path="res://objects/scenes/pistol.tscn" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://d18m7ef5j6hof" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://d18m7ef5j6hof" path="res://scripts/old_player.gd" id="1_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
