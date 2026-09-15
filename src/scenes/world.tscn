@@ -60,6 +60,4 @@ collision_mask = 5
 transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999994, 0, 1.0735109, 22.95)
 
 [node name="Zombie" parent="." unique_id=1812481539 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, 5.3999996)
-auto_rotate = null
-rotation_speed = null
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)

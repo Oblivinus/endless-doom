@@ -1247,18 +1247,17 @@ state_machine = NodePath("StateMachine")
 hitbox = NodePath("Hitbox")
 attack_range = 7.5
 detection_range_multiplier = 1.5
+detection_range = 15.0
 sounds = Dictionary[String, AudioStream]({
 "death": ExtResource("3_pjjxt"),
 "hurt": ExtResource("2_ycv6i")
 })
 move_speed = 3.0
-use_acceleration = null
-accel = null
-deaccel = null
 auto_rotate = true
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=1604803488]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1492660801]
 shape = SubResource("BoxShape3D_08hh8")

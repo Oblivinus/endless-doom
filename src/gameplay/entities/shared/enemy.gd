@@ -8,11 +8,11 @@ class_name Enemy extends Humanoid
 @export var hitbox: Area3D
 
 @export_category("Combat")
-@export var target: CharacterBody3D
+@export var target: Humanoid
 @export var attack_cd: float = 4.0
 @export var attack_range: float = 10.0
 @export var detection_range_multiplier: float = 2
-@onready var detection_range: float = attack_range * detection_range_multiplier
+@export var detection_range: float = 12.0
 
 @export_category("Resources")
 @export var sounds: Dictionary[String, AudioStream]

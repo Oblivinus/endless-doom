@@ -27,20 +27,13 @@ func _check_ray_cast_query() -> Dictionary:
 	var result = space_state.intersect_ray(query)
 	return result
 
-
-
 func enter() -> void:
 	anchor_pos = parent.global_position
-	#print(parent)
-
-func exit() -> void:
-	parent.stop_move()
-
 
 func process_physics(delta: float):
 	var is_in_range = check_in_detection_range()
 	
-	if idle_status == Enums.IDLE_STATUS.WANDERING and not parent.is_moving:
+	if not parent.is_moving:
 		wander_random_timer += delta
 		if wander_random_timer >= 2:
 			wander_random_timer = 0
@@ -50,7 +43,7 @@ func process_physics(delta: float):
 	if is_in_range:
 		parent.target = Globals.player
 		transitioned.emit(self, "attack")
-		pass
+		return
 
 func check_in_detection_range() -> bool:
 	var distance = (parent.global_position - Globals.player.global_position).length()

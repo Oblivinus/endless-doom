@@ -21,7 +21,7 @@ var is_dead: bool = false
 var is_hurted: bool = false
 
 #region Movement
-const NEAREST_TARGET_LENGTH = 0.1
+const NEAREST_TARGET_LENGTH = 0.05
 var cur_speed: float = 0.0
 var is_moving_paused: bool = false
 var speed: float = 0.0
@@ -36,6 +36,8 @@ signal on_died()
 signal move_to_finished(vector3: Vector3)
 
 
+func _ready() -> void:
+	health = max_health
 
 func  _physics_process(delta: float) -> void:
 	_process_moving(delta)
@@ -62,9 +64,14 @@ func _process_moving(delta: float) -> void:
 		if move_target:
 			move_dir = global_position.direction_to(move_target)
 			move_dir.y = 0
-			if global_position.distance_to(move_target) <= NEAREST_TARGET_LENGTH:
+			
+			var flat_self = Vector2(global_position.x, global_position.z)
+			var flat_target = Vector2(move_target.x, move_target.z)
+			
+			if flat_self.distance_squared_to(flat_target) <= NEAREST_TARGET_LENGTH:
 				var prev_target = move_target
-				global_position = move_target
+				global_position.x = move_target.x
+				global_position.z = move_target.z
 				stop_move()
 				move_to_finished.emit(prev_target)
 	else:
