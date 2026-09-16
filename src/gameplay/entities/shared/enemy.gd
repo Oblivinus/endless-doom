@@ -11,6 +11,7 @@ class_name Enemy extends Humanoid
 @export var target: Humanoid
 @export var attack_cd: float = 4.0
 @export var attack_range: float = 10.0
+@export var attack_damage: float = 5.0
 @export var detection_range_multiplier: float = 2
 @export var detection_range: float = 12.0
 

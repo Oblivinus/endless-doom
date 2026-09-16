@@ -2,8 +2,11 @@ class_name Player extends Humanoid
 
 const MOUSE_SENS = 0.25
 
+@onready var colorrect: ColorRect = $Head/Camera3D/CanvasLayer/Control/ColorRect
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	on_hurt.connect(_on_hurt)
 	Globals.player = self
 
 func _input(_event: InputEvent) -> void:
@@ -28,3 +31,9 @@ func _physics_process(delta: float) -> void:
 		move_to_direction(new_move_dir)
 	else:
 		stop_move()
+
+func _on_hurt(dmg: float):
+	var fade_in = create_tween()
+	colorrect.modulate.a = 0.25
+	await get_tree().create_timer(0.15).timeout
+	colorrect.modulate.a = 0.0

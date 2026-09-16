@@ -68,6 +68,7 @@ animation = NodePath("CanvasLayer/Control/AnimatedSprite2D")
 hit_box = NodePath("Hit")
 omni_light = NodePath("OmniLight3D")
 far_center = NodePath("FarCenter")
+damage = 35.0
 shot_sfx = ExtResource("3_1e3ry")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]

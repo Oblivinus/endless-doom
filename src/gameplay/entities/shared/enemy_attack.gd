@@ -1,5 +1,7 @@
 class_name EnemyAttackState extends State
 
+@export var shot_vfx: AudioStream
+
 var on_cooldown := false
 var ready_to_attack := false
 var attacking := false
@@ -56,14 +58,45 @@ func _strafe(delta: float) -> void:
 		angle_offset = angle_offset[randi_range(0, angle_offset.size() - 1)]
 		away_dir = away_dir.rotated(Vector3.UP, angle_offset)
 		
-		var retreat_distance = randf_range(0.5, 1.5)
+		var retreat_distance = randf_range(1, 1.5)
 		var target_pos = parent.global_position + away_dir * retreat_distance
 		parent.move_to(target_pos)
-		
+
+func _check_for_target() -> Humanoid:
+	var targets = parent.hitbox.get_overlapping_bodies()
+	if targets.is_empty(): return null
+	
+	for humanoid: Humanoid in targets:
+		var query = _raycast_check(humanoid.global_position)
+		if query.is_empty():
+			return humanoid
+		else:
+			var intersect: Vector3 = query.position
+			var vfx = VFX.new("bullet_hit", intersect)
+			Globals.world.add_child(vfx)
+			vfx.global_basis = parent.global_basis
+			vfx.restart()
+	return null
+
+func _raycast_check(final_pos: Vector3):
+	var space_state = parent.get_world_3d().direct_space_state
+	
+	var origin = parent.global_position
+	var query = PhysicsRayQueryParameters3D.create(origin, final_pos)
+	query.collision_mask = (1 << 1)
+	
+	var result = space_state.intersect_ray(query)
+	return result
 
 func attack():
 	ready_to_attack = false
 	attacking = false
 	
 	if parent.is_dead or is_disturbed: return
-	print("calculate Hitbox")
+	$"../../OmniLight3D".visible = true
+	Audio3dManager.play_sound_at_position(shot_vfx, parent)
+	var humanoid: Humanoid = _check_for_target()
+	if humanoid:
+		humanoid.hurt(parent.attack_damage)
+	await get_tree().create_timer(0.1).timeout
+	$"../../OmniLight3D".visible = false

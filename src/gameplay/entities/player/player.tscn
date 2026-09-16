@@ -24,8 +24,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40928018, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1959136951]
 
-[node name="Pistol" parent="Head" unique_id=641094842 node_paths=PackedStringArray("camera") instance=ExtResource("1_3vyb7")]
-camera = NodePath("../Camera3D")
+[node name="Pistol" parent="Head/Camera3D" unique_id=641094842 node_paths=PackedStringArray("camera") instance=ExtResource("1_3vyb7")]
+camera = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera3D" unique_id=909447684]
+
+[node name="Control" type="Control" parent="Head/Camera3D/CanvasLayer" unique_id=1256394913]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Head/Camera3D/CanvasLayer/Control" unique_id=1208758890]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 1155.0
+offset_bottom = 649.0
+mouse_filter = 2
+color = Color(1, 0.13550001, 0.089999974, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1647494181]
 mesh = SubResource("CapsuleMesh_g0k4r")
