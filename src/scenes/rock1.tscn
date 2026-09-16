@@ -7,6 +7,7 @@ albedo_color = Color(0.98234254, 0.9823423, 0.9823424, 1)
 albedo_texture = ExtResource("1_fyui0")
 uv1_triplanar = true
 uv1_world_triplanar = true
+texture_filter = 2
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" unique_id=1488182600]
 

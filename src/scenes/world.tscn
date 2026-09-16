@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://behldxhl6rro4"]
 
 [ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="1_nnsk1"]
+[ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/Outdoors/Foliage/OUTDOOR_foliage_grass_spots_5.png" id="2_1l6e7"]
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/terrain.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://bvxxkemiata6d" path="res://src/scenes/rock1.tscn" id="4_k0juu"]
@@ -19,19 +20,30 @@ tonemap_mode = 2
 glow_enabled = true
 glow_intensity = 1.0
 fog_enabled = true
-fog_light_energy = 0.75
-fog_sky_affect = 0.25
+fog_light_color = Color(0.24, 0.24, 0.24, 1)
+fog_light_energy = 0.8
+fog_density = 0.1
+fog_sky_affect = 0.8
+fog_height = 5.0
+fog_height_density = 0.1
 volumetric_fog_density = 1.0
 volumetric_fog_albedo = Color(0.35, 0.35, 0.35, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0n45"]
+albedo_texture = ExtResource("2_1l6e7")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+texture_filter = 2
 
 [node name="World" type="Node3D" unique_id=1190192303]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1496949108]
-transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 0.63517475)
+transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 4.7351747)
 light_energy = 0.2
 shadow_enabled = true
 shadow_bias = 1.5
 shadow_normal_bias = 0.5
+sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=642854987]
 environment = SubResource("Environment_rwgxs")
@@ -39,6 +51,7 @@ environment = SubResource("Environment_rwgxs")
 [node name="Terrain" parent="." unique_id=143276796 instance=ExtResource("2_rwgxs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 size = Vector3(100, 0.1, 100)
+material = SubResource("StandardMaterial3D_c0n45")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Terrain" unique_id=198062481]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)

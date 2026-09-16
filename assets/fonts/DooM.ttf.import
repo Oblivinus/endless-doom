@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/DooM.ttf-d1dfc14fb297280e8f49d3d11029b4b3.fon
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false

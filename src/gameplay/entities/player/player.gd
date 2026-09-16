@@ -10,6 +10,8 @@ func _ready() -> void:
 	on_died.connect(_on_died)
 	property_changed.connect(_on_property_changed)
 	Globals.player = self
+	
+	_on_property_changed("health", health)
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
