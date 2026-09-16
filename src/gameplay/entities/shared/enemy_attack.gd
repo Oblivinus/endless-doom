@@ -15,7 +15,7 @@ func process_physics(delta: float):
 	if parent.is_hurted: is_disturbed = true
 	var distance = parent.global_position.distance_to(parent.target.global_position)
 	
-	if distance > parent.detection_range:
+	if distance > parent.detection_range or parent.target.is_dead:
 		transitioned.emit(self, "idle")
 		parent.target = null
 		return

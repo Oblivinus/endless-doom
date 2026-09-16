@@ -74,6 +74,7 @@ shot_sfx = ExtResource("3_1e3ry")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=2099543344]
+z_as_relative = false
 layout_mode = 3
 anchor_left = 0.4826389
 anchor_top = 0.9382716
@@ -85,7 +86,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control" unique_id=1094526780]
 texture_filter = 1
-position = Vector2(-20, 144)
+position = Vector2(-20, 100)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_smehm")
 animation = &"Idle"

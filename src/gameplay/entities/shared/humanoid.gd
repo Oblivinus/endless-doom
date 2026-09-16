@@ -5,7 +5,9 @@ class_name Humanoid extends CharacterBody3D
 @export var max_health: float = 100.0
 @export var health: float = max_health:
 	set(value):
+		if is_dead: return
 		health = clamp(value, 0, max_health)
+		property_changed.emit("health", health)
 		if health <= 0:
 			is_dead = true
 			on_died.emit()
@@ -34,6 +36,7 @@ var move_target = null
 signal on_hurt(amount: float)
 signal on_died()
 signal move_to_finished(vector3: Vector3)
+signal property_changed(property_name: String, value: Variant)
 
 
 func _ready() -> void:
@@ -128,5 +131,5 @@ func get_facing_direction() -> Vector3:
 	return -global_transform.basis.z
 
 func hurt(damage: float) -> void:
-	on_hurt.emit(damage)
 	health -= damage
+	if not is_dead: on_hurt.emit(damage)

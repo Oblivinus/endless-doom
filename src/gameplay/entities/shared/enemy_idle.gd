@@ -42,8 +42,9 @@ func process_physics(delta: float):
 		
 	if is_in_range:
 		parent.target = Globals.player
-		transitioned.emit(self, "attack")
-		return
+		if not parent.target.is_dead:
+			transitioned.emit(self, "attack")
+			return
 
 func check_in_detection_range() -> bool:
 	var distance = (parent.global_position - Globals.player.global_position).length()
@@ -61,7 +62,6 @@ func check_in_detection_range() -> bool:
 		parent.target = Globals.player
 		return true
 	else :
-		#print("In range and but not valid")
 		return false
 
 
@@ -71,7 +71,6 @@ func check_in_pov(target_pos: Vector3) -> bool:
 	var degree = parent.get_facing_degree_to(target_pos)
 	
 	if degree <= FOV and distance <= parent.attack_range * 1.5:
-		#print("in ", parent.name, "'s FOV")
 		test_cube.material_override.albedo_color = Color.RED
 		return true
 	else:

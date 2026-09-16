@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cyb13ek6qhogt"]
+
+[ext_resource type="FontFile" uid="uid://bnma8sgnp25e" path="res://assets/fonts/DooM.ttf" id="1_48p58"]
+[ext_resource type="Script" uid="uid://u6at0p1hqtin" path="res://src/core/ui/player_stats_ui.gd" id="1_57dxi"]
+
+[node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520]
+layer = 10
+follow_viewport_scale = 2.0
+script = ExtResource("1_57dxi")
+
+[node name="Control" type="Control" parent="." unique_id=299909541]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control" unique_id=576098427]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 12.775001
+anchor_right = 28.800001
+anchor_bottom = 16.201
+offset_top = 0.9999695
+offset_bottom = 0.95996094
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="Control/SubViewportContainer" unique_id=434413257]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(384, 45)
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Control/SubViewportContainer/SubViewport" unique_id=657082751]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16, 0.16, 0.16, 0.7058824)
+
+[node name="HealthName" type="Label" parent="Control/SubViewportContainer/SubViewport/ColorRect" unique_id=700055369]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.28729492, 0.28729492, 0.2872949, 1)
+theme_override_colors/font_outline_color = Color(0.19315353, 0.19315353, 0.19315347, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_48p58")
+theme_override_font_sizes/font_size = 10
+text = "Health
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HealthQuantity" type="Label" parent="Control/SubViewportContainer/SubViewport/ColorRect" unique_id=494773395]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0070001
+offset_top = -45.0
+offset_bottom = 22.523994
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.54901963, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.2642711, 2.8472348e-06, 1.4920532e-06, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_48p58")
+theme_override_font_sizes/font_size = 20
+text = "100%
+"
+horizontal_alignment = 1
+uppercase = true

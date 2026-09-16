@@ -7,6 +7,8 @@ const MOUSE_SENS = 0.25
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	on_hurt.connect(_on_hurt)
+	on_died.connect(_on_died)
+	property_changed.connect(_on_property_changed)
 	Globals.player = self
 
 func _input(_event: InputEvent) -> void:
@@ -32,8 +34,16 @@ func _physics_process(delta: float) -> void:
 	else:
 		stop_move()
 
-func _on_hurt(dmg: float):
-	var fade_in = create_tween()
+func _on_property_changed(property_name, new_value):
+	if property_name == "health":
+		PlayerStatsUi.health.text = str(int(new_value)) + "%"
+
+func _on_hurt(_dmg: float):
 	colorrect.modulate.a = 0.25
 	await get_tree().create_timer(0.15).timeout
 	colorrect.modulate.a = 0.0
+	
+func _on_died():
+	var tween = create_tween()
+	tween.tween_property(colorrect, "modulate:a", 1.0, 0.1)
+	#colorrect.modulate.a = 1.0
