@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://y3hx7u2hpsfj"]
 
-[ext_resource type="Script" uid="uid://d01cx7hxar4tp" path="res://src/gameplay/guns/pistol.gd" id="1_buff3"]
+[ext_resource type="Script" uid="uid://cau52pa8u1rcl" path="res://src/gameplay/guns/gun.gd" id="1_d7xh0"]
 [ext_resource type="Texture2D" uid="uid://bo3ru05i8wvgy" path="res://assets/gun/Pistol.png" id="1_igbvm"]
-[ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/pistol_shot.wav" id="3_1e3ry"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0k0bv"]
 animation = &"idle"
@@ -150,13 +149,11 @@ _data = {
 &"walking": SubResource("Animation_unhsc")
 }
 
-[node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("anim_tree", "hit_box", "far_center")]
-script = ExtResource("1_buff3")
-anim_tree = NodePath("AnimationTree")
-hit_box = NodePath("Hit")
-far_center = NodePath("FarCenter")
+[node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
+script = ExtResource("1_d7xh0")
 damage = 35.0
-shot_sfx = ExtResource("3_1e3ry")
+hitbox = NodePath("Hit")
+anim_tree = NodePath("AnimationTree")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
 
@@ -183,7 +180,6 @@ hframes = 5
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hit" unique_id=975020322]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 debug_color = Color(1, 0, 0.016666412, 1)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1575783866]

@@ -7,7 +7,3 @@ func _ready() -> void:
 	$Hit/CollisionShape3D.position = Vector3.ZERO
 	#animation.animation_finished.connect(_on_animation_finish)
 	#animation.play("Idle")
-
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Attack"):
-		shoot()

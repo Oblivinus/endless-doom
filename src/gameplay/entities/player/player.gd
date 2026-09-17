@@ -2,7 +2,7 @@ class_name Player extends Humanoid
 
 const MOUSE_SENS = 0.25
 
-@export var gun: Gun
+@export var gun: NewGun
 @export var camera: Camera3D
 
 @onready var colorrect: ColorRect = $Head/Camera3D/CanvasLayer/Control/ColorRect
@@ -27,7 +27,7 @@ func _ready() -> void:
 	_on_property_changed("health", health)
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Attack"):
+	if Input.is_action_just_pressed("Attack") and gun:
 		gun.shoot()
 	
 	if Input.is_action_just_pressed("ui_cancel"):

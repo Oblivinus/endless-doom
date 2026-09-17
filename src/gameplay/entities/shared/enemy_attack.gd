@@ -94,7 +94,7 @@ func attack():
 	
 	if parent.is_dead or is_disturbed: return
 	$"../../OmniLight3D".visible = true
-	Audio3dManager.play_sound_at_position(shot_vfx, parent)
+	Audio3D.new("pistol_shot", parent).play()
 	var humanoid: Humanoid = _check_for_target()
 	if humanoid:
 		humanoid.hurt(parent.attack_damage)
