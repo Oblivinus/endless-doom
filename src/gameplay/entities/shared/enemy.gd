@@ -22,6 +22,7 @@ signal on_attack
 var timer: Timer
 
 func _ready() -> void:
+	super()
 	var collision_shape: CollisionShape3D = hitbox.find_child("CollisionShape3D")
 	collision_shape.shape.size.z = 0
 	collision_shape.shape.size += Vector3(0, 0, attack_range)

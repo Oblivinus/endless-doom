@@ -7,27 +7,30 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g0k4r"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=556148557]
+[node name="Player" type="CharacterBody3D" unique_id=556148557 node_paths=PackedStringArray("gun", "camera")]
 collision_mask = 10
 script = ExtResource("1_uu63q")
+gun = NodePath("Head/Pistol")
+camera = NodePath("Head/Camera3D")
 move_speed = 7.5
+max_health = 200.0
 use_acceleration = true
 accel = 15.0
 deaccel = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1605701664]
 shape = SubResource("CapsuleShape3D_u8vuu")
+debug_color = Color(0, 0.5950001, 0.7, 0)
 debug_fill = false
 
 [node name="Head" type="Node3D" parent="." unique_id=1585083455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40928018, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1959136951]
-
-[node name="Pistol" parent="Head/Camera3D" unique_id=641094842 node_paths=PackedStringArray("camera") instance=ExtResource("1_3vyb7")]
-camera = NodePath("..")
+cull_mask = 1048063
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera3D" unique_id=909447684]
+layer = 5
 
 [node name="Control" type="Control" parent="Head/Camera3D/CanvasLayer" unique_id=1256394913]
 layout_mode = 3
@@ -43,5 +46,8 @@ offset_bottom = 649.0
 mouse_filter = 2
 color = Color(1, 0.13550001, 0.089999974, 1)
 
+[node name="Pistol" parent="Head" unique_id=641094842 instance=ExtResource("1_3vyb7")]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1647494181]
+layers = 512
 mesh = SubResource("CapsuleMesh_g0k4r")

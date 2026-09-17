@@ -4,69 +4,156 @@
 [ext_resource type="Texture2D" uid="uid://bo3ru05i8wvgy" path="res://assets/gun/Pistol.png" id="1_igbvm"]
 [ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/pistol_shot.wav" id="3_1e3ry"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
-atlas = ExtResource("1_igbvm")
-region = Rect2(0, 0, 160, 160)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0k0bv"]
+animation = &"idle"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
-atlas = ExtResource("1_igbvm")
-region = Rect2(0, 0, 160, 160)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hx8r4"]
+animation = &"shoot"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
-atlas = ExtResource("1_igbvm")
-region = Rect2(160, 0, 160, 160)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v5br4"]
+animation = &"walking"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
-atlas = ExtResource("1_igbvm")
-region = Rect2(320, 0, 160, 160)
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_unhsc"]
+advance_mode = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
-atlas = ExtResource("1_igbvm")
-region = Rect2(480, 0, 160, 160)
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3m76n"]
+switch_mode = 2
+advance_mode = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
-atlas = ExtResource("1_igbvm")
-region = Rect2(640, 0, 160, 160)
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0k0bv"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "parent.is_moving"
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_smehm"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g2els")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qhqgy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dqkch")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tuyoq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fjrip")
-}],
-"loop": false,
-"name": &"Shoot",
-"speed": 10.0
-}]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hx8r4"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "!parent.is_moving"
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_buff3"]
-size = Vector3(2.5, 5, 20)
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_y8p3r"]
+states/idle/node = SubResource("AnimationNodeAnimation_0k0bv")
+states/idle/position = Vector2(363.33, 101.33333)
+states/shoot/node = SubResource("AnimationNodeAnimation_hx8r4")
+states/shoot/position = Vector2(496.33, 149.66669)
+states/walking/node = SubResource("AnimationNodeAnimation_v5br4")
+states/walking/position = Vector2(364.55222, 209.66667)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_unhsc"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_3m76n"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_0k0bv"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_hx8r4")]
+graph_offset = Vector2(-0.33666992, 75)
 
-[node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("animation", "hit_box", "omni_light", "far_center")]
+[sub_resource type="Animation" id="Animation_0k0bv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Control/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 145)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OmniLight3D:light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hx8r4"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v5br4"]
+resource_name = "shoot"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(4, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.5, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_unhsc"]
+resource_name = "walking"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, 125), Vector2(47, 143), Vector2(0, 125), Vector2(-47, 143), Vector2(0, 125)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_unhsc"]
+_data = {
+&"RESET": SubResource("Animation_0k0bv"),
+&"idle": SubResource("Animation_hx8r4"),
+&"shoot": SubResource("Animation_v5br4"),
+&"walking": SubResource("Animation_unhsc")
+}
+
+[node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("anim_tree", "hit_box", "far_center")]
 script = ExtResource("1_buff3")
-animation = NodePath("CanvasLayer/Control/AnimatedSprite2D")
+anim_tree = NodePath("AnimationTree")
 hit_box = NodePath("Hit")
-omni_light = NodePath("OmniLight3D")
 far_center = NodePath("FarCenter")
 damage = 35.0
 shot_sfx = ExtResource("3_1e3ry")
@@ -76,35 +163,45 @@ shot_sfx = ExtResource("3_1e3ry")
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=2099543344]
 z_as_relative = false
 layout_mode = 3
-anchor_left = 0.4826389
-anchor_top = 0.9382716
-anchor_right = 0.5173611
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
+grow_vertical = 2
+size_flags_horizontal = 4
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control" unique_id=1094526780]
-texture_filter = 1
-position = Vector2(-20, 100)
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control" unique_id=1501756115]
+position = Vector2(0, 145)
 scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_smehm")
-animation = &"Idle"
-offset = Vector2(0, -80)
+texture = ExtResource("1_igbvm")
+offset = Vector2(-13, 0)
+hframes = 5
 
 [node name="Hit" type="Area3D" parent="." unique_id=922815929]
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hit" unique_id=975020322]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.169, -10)
-shape = SubResource("BoxShape3D_buff3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+debug_color = Color(1, 0, 0.016666412, 1)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1791588770]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3040085)
-visible = false
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1575783866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 light_color = Color(1, 0.38039216, 0.023529412, 1)
-light_energy = 1.5
+light_energy = 0.0
 shadow_enabled = true
+omni_range = 7.5
 
 [node name="FarCenter" type="Marker3D" parent="." unique_id=1227016783]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=637375146]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_y8p3r")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=1749064398]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_unhsc")

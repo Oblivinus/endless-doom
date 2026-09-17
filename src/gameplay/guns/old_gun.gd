@@ -2,15 +2,15 @@
 class_name Gun extends Node3D
 
 @export_category("dependacies")
-@export var animation: AnimatedSprite2D
+@export var anim_tree: AnimationTree
 @export var hit_box: Area3D
-@export var camera: Camera3D
-@export var omni_light: OmniLight3D
 @export var far_center: Marker3D
 
 @export_category("stats")
 @export var fire_rate: float = 2.0
 @export var damage: float = 10.0
+@export var max_enemy_hit: int = 1
+@export var auto: bool = false
 
 @export_category("resources")
 @export var shot_sfx: AudioStream
@@ -20,18 +20,16 @@ var last_shoot: float = 0.0
 
 var can_shot: bool = true
 var fire_cd: Timer
-
+var parent: Humanoid
+var playback: AnimationNodeStateMachinePlayback
 
 func _ready() -> void:
+	playback = anim_tree.get("parameters/playback")
+	anim_tree.active = true
 	fire_cd = Timer.new()
 	fire_cd.one_shot = true
 	fire_cd.timeout.connect(func(): can_shot = true)
 	add_child(fire_cd)
-	
-	if animation != null:
-		has_animation = true
-		animation.animation_finished.connect(_on_animation_finish)
-		animation.play("Idle")
 		
 
 
@@ -39,12 +37,13 @@ func _process(delta: float) -> void:
 	last_shoot += delta
 
 func _on_animation_finish() -> void:
-	if has_animation:
-		animation.play("Idle")
-		
+	pass
 
-func equip(new_camera: Camera3D):
-	camera = new_camera
+func equip(new_parent: Humanoid):
+	parent = new_parent
+
+func unequip():
+	parent = null
 
 func _check_and_shoot() -> void:
 	var enemies: Array[Node3D] = hit_box.get_overlapping_bodies()
@@ -100,19 +99,12 @@ func _get_enemy_ancestor(node: Node) -> Enemy:
 	return null
 
 func shoot():
-	if not can_shot:
+	if not can_shot or not parent:
 		return
 	can_shot = false
+	playback.travel("shoot")
 	fire_cd.start(1/fire_rate)
 	
-	omni_light.visible = true
-	get_tree().create_timer(0.1).timeout.connect(func():
-		omni_light.visible = false
-		)
-		
 	Audio3dManager.play_sound_at_position(shot_sfx, self).max_db = -2.0
-	
-	if has_animation:
-		animation.play("Shoot")
 	_check_and_shoot()
 	last_shoot = 0.0

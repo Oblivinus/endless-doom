@@ -3,7 +3,7 @@ class_name Humanoid extends CharacterBody3D
 @export_category("Stats")
 @export var move_speed: float = 2.5
 @export var max_health: float = 100.0
-@export var health: float = max_health:
+@export var health: float:
 	set(value):
 		if is_dead: return
 		health = clamp(value, 0, max_health)

@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://bnma8sgnp25e" path="res://assets/fonts/DooM.ttf" id="1_48p58"]
 [ext_resource type="Script" uid="uid://u6at0p1hqtin" path="res://src/core/ui/player_stats_ui.gd" id="1_57dxi"]
+[ext_resource type="Texture2D" uid="uid://bw78ldt2gibia" path="res://assets/ui/hud_smooth2.png" id="2_ut4o5"]
 [ext_resource type="Texture2D" uid="uid://bhgx074cuhx14" path="res://assets/ui/hud_smooth.png" id="2_vi1r7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vi1r7"]
@@ -18,7 +19,7 @@ width = 10
 layer = 10
 follow_viewport_scale = 2.0
 script = ExtResource("1_57dxi")
-health = NodePath("Control/SubViewportContainer/SubViewport/NinePatchRect/HealthQuantity")
+health = NodePath("Control/SubViewportContainer/SubViewport/NinePatchRect/NinePatchRect2/HealthQuantity")
 
 [node name="Control" type="Control" parent="." unique_id=299909541]
 layout_mode = 3
@@ -44,9 +45,21 @@ size = Vector2i(384, 45)
 render_target_update_mode = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport" unique_id=751944456]
-self_modulate = Color(0.8203659, 0.82036585, 0.8203658, 1)
 offset_right = 384.0
 offset_bottom = 45.000004
+texture = ExtResource("2_ut4o5")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport/NinePatchRect" unique_id=2120499005]
+layout_mode = 0
+offset_left = 152.33331
+offset_right = 227.66666
+offset_bottom = 45.0
 texture = ExtResource("2_vi1r7")
 patch_margin_left = 1
 patch_margin_top = 1
@@ -55,7 +68,7 @@ patch_margin_bottom = 1
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="HealthName" type="Label" parent="Control/SubViewportContainer/SubViewport/NinePatchRect" unique_id=700055369]
+[node name="HealthName" type="Label" parent="Control/SubViewportContainer/SubViewport/NinePatchRect/NinePatchRect2" unique_id=700055369]
 clip_children = 2
 z_index = 2
 clip_contents = true
@@ -65,10 +78,10 @@ anchor_left = 0.397
 anchor_top = 1.0
 anchor_right = 0.59300005
 anchor_bottom = 1.0150001
-offset_left = 0.88534546
-offset_top = -17.000004
-offset_right = 0.9546509
-offset_bottom = 11.324993
+offset_left = -19.907309
+offset_top = -17.0
+offset_right = 24.327354
+offset_bottom = 11.324997
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.37162217, 0.37162223, 0.37162212, 1)
@@ -86,7 +99,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/NinePatchRect/HealthName" unique_id=1594836753]
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/NinePatchRect/NinePatchRect2/HealthName" unique_id=1594836753]
 material = SubResource("CanvasItemMaterial_vi1r7")
 layout_mode = 1
 anchors_preset = -1
@@ -103,7 +116,7 @@ grow_vertical = 2
 rotation = 1.5707964
 texture = SubResource("GradientTexture1D_pewwn")
 
-[node name="HealthQuantity" type="Label" parent="Control/SubViewportContainer/SubViewport/NinePatchRect" unique_id=494773395]
+[node name="HealthQuantity" type="Label" parent="Control/SubViewportContainer/SubViewport/NinePatchRect/NinePatchRect2" unique_id=494773395]
 clip_children = 2
 z_index = 3
 clip_contents = true
@@ -113,10 +126,10 @@ anchor_left = 0.397
 anchor_top = 1.0
 anchor_right = 0.59000003
 anchor_bottom = 1.0
-offset_left = 1.8853455
-offset_top = -45.000004
-offset_right = 2.106659
-offset_bottom = 9.999996
+offset_left = -24.907309
+offset_top = -45.0
+offset_right = 29.553356
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.79, 0, 0, 1)
@@ -131,7 +144,7 @@ text = "100%
 horizontal_alignment = 1
 uppercase = true
 
-[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/NinePatchRect/HealthQuantity" unique_id=576376059]
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/NinePatchRect/NinePatchRect2/HealthQuantity" unique_id=576376059]
 material = SubResource("CanvasItemMaterial_vi1r7")
 layout_mode = 1
 anchors_preset = 15
@@ -146,16 +159,3 @@ grow_vertical = 2
 rotation = 1.5707964
 texture = SubResource("GradientTexture1D_pewwn")
 metadata/_edit_use_anchors_ = true
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport/NinePatchRect" unique_id=2120499005]
-layout_mode = 0
-offset_left = 152.33331
-offset_right = 227.66666
-offset_bottom = 45.0
-texture = ExtResource("2_vi1r7")
-patch_margin_left = 1
-patch_margin_top = 1
-patch_margin_right = 1
-patch_margin_bottom = 1
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
