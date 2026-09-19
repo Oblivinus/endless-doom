@@ -7,9 +7,6 @@ particle_flag_align_y = true
 direction = Vector3(0, 0.5, 1)
 initial_velocity_min = 0.5
 initial_velocity_max = 10.0
-collision_mode = 1
-collision_friction = 0.25
-collision_bounce = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71dq4"]
 vertex_color_use_as_albedo = true

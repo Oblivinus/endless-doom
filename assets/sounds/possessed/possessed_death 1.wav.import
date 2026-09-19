@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://4wrnorisro7h"
-path="res://.godot/imported/zombie_death1.wav-e8b8f3126242e37bd96dd05cf986bb0e.sample"
+path="res://.godot/imported/possessed_death 1.wav-fc0a08a41e30f7358239f9f4385aa301.sample"
 
 [deps]
 
-source_file="res://assets/sounds/zombie_death1.wav"
-dest_files=["res://.godot/imported/zombie_death1.wav-e8b8f3126242e37bd96dd05cf986bb0e.sample"]
+source_file="res://assets/sounds/possessed/possessed_death 1.wav"
+dest_files=["res://.godot/imported/possessed_death 1.wav-fc0a08a41e30f7358239f9f4385aa301.sample"]
 
 [params]
 

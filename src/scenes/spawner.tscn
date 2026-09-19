@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b2dajtcov8hi4"]
+
+[ext_resource type="Script" uid="uid://cn0810gwtj1vw" path="res://src/core/components/spawner.gd" id="1_vfdp4"]
+
+[node name="Spawner" type="Marker3D" unique_id=467570870]
+script = ExtResource("1_vfdp4")
+spawn_type = "zombie"
+interval = 0.1

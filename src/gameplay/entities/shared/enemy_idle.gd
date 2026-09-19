@@ -39,10 +39,14 @@ func process_physics(delta: float):
 			wander_random_timer = 0
 			var rand_pos = Vector3(randi_range(-2, 2), 0, randi_range(-2, 2))
 			parent.move_to(anchor_pos + rand_pos)
+			
+			if  randi_range(1, 5) == 1:
+				parent.event.emit("random_idle")
 		
 	if is_in_range:
 		parent.target = Globals.player
 		if not parent.target.is_dead:
+			parent.event.emit("in_sight")
 			transitioned.emit(self, "attack")
 			return
 

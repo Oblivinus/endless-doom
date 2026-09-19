@@ -1,9 +1,9 @@
-extends Gun
+class_name Pistol extends Gun
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+
+func shoot():
+	if not ready_to_shoot(): return
 	super()
-	$Hit/CollisionShape3D.shape = FrustumShape.new(Vector2(1, 3), 0.0, 45, 25)
-	$Hit/CollisionShape3D.position = Vector3.ZERO
-	#animation.animation_finished.connect(_on_animation_finish)
-	#animation.play("Idle")
+	Audio3D.new("pistol_shot", self).play()
+	if last_hit_count < 1:
+		create_bullet_hit_ray(farthest_center_vector())

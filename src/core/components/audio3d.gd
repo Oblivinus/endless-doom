@@ -5,6 +5,7 @@ const SUPPORTED_EXTENSIONS := ["ogg", "wav", "mp3"]
 func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 	var path := _find_audio_path(audio_name)
 	if path.is_empty():
+		print("Sound '%s' not found in res://assets/sounds/ (tried: %s)" % [audio_name, ", ".join(SUPPORTED_EXTENSIONS)])
 		push_error("Sound '%s' not found in res://assets/sounds/ (tried: %s)" % [audio_name, ", ".join(SUPPORTED_EXTENSIONS)])
 		return
 	

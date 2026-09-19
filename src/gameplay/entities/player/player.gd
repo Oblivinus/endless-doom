@@ -2,13 +2,13 @@ class_name Player extends Humanoid
 
 const MOUSE_SENS = 0.25
 
-@export var gun: NewGun
+@export var gun: Gun
 @export var camera: Camera3D
 
 @onready var colorrect: ColorRect = $Head/Camera3D/CanvasLayer/Control/ColorRect
 
 var sway_speed: float = 2.5
-var sway_amount: float = 0.15
+var sway_amount: float = 0.25
 var time_passed: float = 0.0
 var base_y := 0.0
 const TAU_F := TAU

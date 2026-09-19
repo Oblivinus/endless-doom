@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://btw2k18irws0b"
+path="res://.godot/imported/possessed_death 2.wav-a4ee49402727c02569cb1bd99cf98162.sample"
+
+[deps]
+
+source_file="res://assets/sounds/possessed/possessed_death 2.wav"
+dest_files=["res://.godot/imported/possessed_death 2.wav-a4ee49402727c02569cb1bd99cf98162.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

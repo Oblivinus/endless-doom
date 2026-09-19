@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/Outdoors/Foliage/OUTDOOR_foliage_grass_spots_5.png" id="2_1l6e7"]
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/terrain.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://b2dajtcov8hi4" path="res://src/scenes/spawner.tscn" id="3_c0n45"]
 [ext_resource type="PackedScene" uid="uid://bvxxkemiata6d" path="res://src/scenes/rock1.tscn" id="4_k0juu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e5uuo"]
@@ -56,6 +57,13 @@ material = SubResource("StandardMaterial3D_c0n45")
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Terrain" unique_id=198062481]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 size = Vector3(100, 0.1, 100)
+
+[node name="Spawner" parent="." unique_id=467570870 instance=ExtResource("3_c0n45")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1, 5.75, -9.65)
+interval = 0.3
+
+[node name="Spawner2" parent="." unique_id=1828868326 instance=ExtResource("3_c0n45")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.75, -9.65)
 
 [node name="Rock1" parent="." unique_id=1488182600 instance=ExtResource("4_k0juu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1938853, 0.016578604, -2.4409764)

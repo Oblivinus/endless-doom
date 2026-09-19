@@ -19,7 +19,13 @@ class_name Enemy extends Humanoid
 @export var sounds: Dictionary[String, AudioStream]
 
 signal on_attack
+signal event (event_name: String)
 var timer: Timer
+
+var in_sight_sfx: Array[String]
+var idle_sfx: Array[String]
+var dead_sfx: Array[String]
+var hurt_sfx: Array[String]
 
 func _ready() -> void:
 	super()
@@ -29,8 +35,9 @@ func _ready() -> void:
 	collision_shape.position += Vector3(0, 0, -attack_range/2)
 	state_machine.init(self)
 	set_collision_layer_value(3, true)
-	on_died.connect(func(): state_machine.change_state_name("dead"))
+	on_died.connect(_on_died)
 	on_hurt.connect(_on_hurt)
+	event.connect(_on_event)
 
 func _process_moving(delta: float) -> void:
 	if is_hurted and not is_moving_paused:
@@ -40,12 +47,23 @@ func _process_moving(delta: float) -> void:
 	super(delta)
 
 func _on_hurt(_dmg: float):
+	if not is_dead: play_sound("pain")
 	is_hurted = true
 	animation_tree.travel("hurt")
 	$Sprite3D.modulate = Color("ffb3b3ff")
 	await get_tree().create_timer(0.25).timeout
 	is_hurted = false
 	$Sprite3D.modulate = Color.WHITE
+
+func _on_died():
+	state_machine.change_state_name("dead")
+	play_sound("dead")
+
+func _on_event(event_name):
+	if event_name == "in_sight":
+		play_sound("in_sight")
+	if event_name == "random_idle":
+		play_sound("idle")
 
 func get_facing_direction() -> Vector3:
 	return -global_transform.basis.z
@@ -61,3 +79,20 @@ func get_facing_degree_to(target_pos: Vector3) -> int:
 	var angle = get_facing_direction().angle_to(to_target)
 	var degree = rad_to_deg(angle)
 	return degree
+
+func play_sound(sound_name: String):
+	var sound_array: Array
+	
+	if sound_name.to_lower() == "pain":
+		sound_array = hurt_sfx
+	if sound_name.to_lower() == "dead":
+		sound_array = dead_sfx
+	if sound_name.to_lower() == "in_sight":
+		sound_array = in_sight_sfx
+	if sound_name.to_lower() == "idle":
+		sound_array = idle_sfx
+	
+	if sound_array and not sound_array.is_empty():
+		var audio = Audio3D.new(sound_array.pick_random(), self)
+		audio.max_db = -5.0
+		audio.play()

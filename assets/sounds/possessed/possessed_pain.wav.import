@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://d1wn6g5bgrh6w"
-path="res://.godot/imported/zombie_pain.wav-2c63a4783488314e00248bd74a11ed91.sample"
+path="res://.godot/imported/possessed_pain.wav-66dbad5dd483c4b099c8d99a14be1e5b.sample"
 
 [deps]
 
-source_file="res://assets/sounds/zombie_pain.wav"
-dest_files=["res://.godot/imported/zombie_pain.wav-2c63a4783488314e00248bd74a11ed91.sample"]
+source_file="res://assets/sounds/possessed/possessed_pain.wav"
+dest_files=["res://.godot/imported/possessed_pain.wav-66dbad5dd483c4b099c8d99a14be1e5b.sample"]
 
 [params]
 

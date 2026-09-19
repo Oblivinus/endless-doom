@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bpa7b3s2rc4xo"
+path="res://.godot/imported/possessed_sight 2.wav-3a73b0afe2cceac819b78b6fb416669d.sample"
+
+[deps]
+
+source_file="res://assets/sounds/possessed/possessed_sight 2.wav"
+dest_files=["res://.godot/imported/possessed_sight 2.wav-3a73b0afe2cceac819b78b6fb416669d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
