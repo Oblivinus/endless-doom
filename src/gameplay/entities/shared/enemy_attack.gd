@@ -1,6 +1,7 @@
 class_name EnemyAttackState extends State
 
 @export var shot_vfx: AudioStream
+@export var attack_delay: float = 0.7
 
 var on_cooldown := false
 var ready_to_attack := false
@@ -35,7 +36,7 @@ func process_physics(delta: float):
 		on_cooldown = true
 		parent.look_at(Globals.player.global_position)
 		parent.on_attack.emit()
-		get_tree().create_timer(0.7).timeout.connect(attack)
+		get_tree().create_timer(attack_delay).timeout.connect(attack)
 		
 		await get_tree().create_timer(parent.attack_cd).timeout
 		on_cooldown = false
@@ -94,7 +95,7 @@ func attack():
 	
 	if parent.is_dead or is_disturbed: return
 	$"../../OmniLight3D".visible = true
-	Audio3D.new("pistol_shot", parent).play()
+	Audio3D.new("guns/pistol", parent).play()
 	var humanoid: Humanoid = _check_for_target()
 	if humanoid:
 		humanoid.hurt(parent.attack_damage)

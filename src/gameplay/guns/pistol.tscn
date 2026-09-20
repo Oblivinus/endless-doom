@@ -158,7 +158,6 @@ anim_tree = NodePath("AnimationTree")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=2099543344]
-visible = false
 z_as_relative = false
 layout_mode = 3
 anchors_preset = 8

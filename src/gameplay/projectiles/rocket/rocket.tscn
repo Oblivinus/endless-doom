@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cfon612srtwux"]
+
+[ext_resource type="Script" uid="uid://drynndg85ikfw" path="res://src/gameplay/projectiles/rocket/rocket.gd" id="1_4056u"]
+[ext_resource type="Texture2D" uid="uid://ddakd0wgwibol" path="res://assets/gun/rocket_launcher/rocket.png" id="2_4056u"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8rg7t"]
+radius = 0.1
+height = 0.2
+
+[node name="Rocket" type="RigidBody3D" unique_id=806922509]
+script = ExtResource("1_4056u")
+blast_radius = 5.0
+blast_mask = 5
+speed = 20.0
+collision_radius = 0.25
+hit_mask = 14
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=982684613]
+visible = false
+mesh = SubResource("SphereMesh_8rg7t")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1982590585]
+offset = Vector2(3, 0)
+pixel_size = 0.04
+billboard = 2
+texture_filter = 2
+texture = ExtResource("2_4056u")
+hframes = 5
+frame = 1

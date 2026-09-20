@@ -2,13 +2,14 @@ class_name Player extends Humanoid
 
 const MOUSE_SENS = 0.25
 
+@export var arsenal: Arsenal
 @export var gun: Gun
 @export var camera: Camera3D
 
-@onready var colorrect: ColorRect = $Head/Camera3D/CanvasLayer/Control/ColorRect
+@onready var colorrect: ColorRect = PlayerStatsUi.screen_modulate
 
 var sway_speed: float = 2.5
-var sway_amount: float = 0.25
+var sway_amount: float = 0.18
 var time_passed: float = 0.0
 var base_y := 0.0
 const TAU_F := TAU
@@ -22,13 +23,10 @@ func _ready() -> void:
 	on_died.connect(_on_died)
 	property_changed.connect(_on_property_changed)
 	Globals.player = self
-	gun.equip(self)
 	
 	_on_property_changed("health", health)
 
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Attack") and gun:
-		gun.shoot()
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -41,6 +39,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotation_degrees.y -= event.relative.x * MOUSE_SENS
 
+func _process(_delta: float) -> void:
+	if Input.is_action_pressed("Attack"):
+		arsenal.shoot_current()
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -54,6 +55,7 @@ func _physics_process(delta: float) -> void:
 		move_to_direction(new_move_dir)
 	else:
 		stop_move()
+	arsenal.is_moving = is_moving
 
 func _on_property_changed(property_name, new_value):
 	if property_name == "health":

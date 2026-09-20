@@ -1,19 +1,17 @@
 [gd_scene format=3 uid="uid://b413fxhnpypbp"]
 
-[ext_resource type="PackedScene" uid="uid://y3hx7u2hpsfj" path="res://src/gameplay/guns/pistol.tscn" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bajene5gm72sy" path="res://src/gameplay/entities/player/player.gd" id="1_uu63q"]
-[ext_resource type="Script" uid="uid://mkggxa46qv4y" path="res://src/gameplay/entities/player/head.gd" id="2_sv4p1"]
-[ext_resource type="PackedScene" uid="uid://hluv5vbiqwae" path="res://src/gameplay/guns/shotgun.tscn" id="3_dqloy"]
+[ext_resource type="Script" uid="uid://mkggxa46qv4y" path="res://src/gameplay/entities/player/arsenal.gd" id="2_sv4p1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g0k4r"]
 
-[node name="Player" type="CharacterBody3D" unique_id=556148557 node_paths=PackedStringArray("gun", "camera")]
+[node name="Player" type="CharacterBody3D" unique_id=556148557 node_paths=PackedStringArray("arsenal", "camera")]
 collision_mask = 10
 script = ExtResource("1_uu63q")
-gun = NodePath("Head/Shotgun")
-camera = NodePath("Head/Camera3D")
+arsenal = NodePath("Arsenal")
+camera = NodePath("Arsenal/Camera3D")
 move_speed = 7.5
 max_health = 200.0
 use_acceleration = true
@@ -25,27 +23,23 @@ shape = SubResource("CapsuleShape3D_u8vuu")
 debug_color = Color(0, 0.5950001, 0.7, 0)
 debug_fill = false
 
-[node name="Head" type="Node3D" parent="." unique_id=1585083455]
+[node name="Arsenal" type="Node3D" parent="." unique_id=1585083455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40928018, 0)
 script = ExtResource("2_sv4p1")
 
-[node name="Shotgun" parent="Head" unique_id=641094842 instance=ExtResource("3_dqloy")]
-
-[node name="Pistol" parent="Head" unique_id=896087149 instance=ExtResource("1_3vyb7")]
-
-[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1959136951]
+[node name="Camera3D" type="Camera3D" parent="Arsenal" unique_id=1959136951]
 cull_mask = 1048063
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Head/Camera3D" unique_id=909447684]
+[node name="CanvasLayer" type="CanvasLayer" parent="Arsenal/Camera3D" unique_id=909447684]
 layer = 5
 
-[node name="Control" type="Control" parent="Head/Camera3D/CanvasLayer" unique_id=1256394913]
+[node name="Control" type="Control" parent="Arsenal/Camera3D/CanvasLayer" unique_id=1256394913]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ColorRect" type="ColorRect" parent="Head/Camera3D/CanvasLayer/Control" unique_id=1208758890]
+[node name="ColorRect" type="ColorRect" parent="Arsenal/Camera3D/CanvasLayer/Control" unique_id=1208758890]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 1155.0

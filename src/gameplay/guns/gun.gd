@@ -14,7 +14,7 @@ class_name Gun extends Node3D
 
 var collision_shape3d: CollisionShape3D
 var timer: Timer
-var parent: Humanoid
+var parent: Variant
 var playback: AnimationNodeStateMachinePlayback
 
 var last_hit_count: int = 0
@@ -68,17 +68,49 @@ func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 	
 	return query
 
-func equip(new_owner: Humanoid):
+func _check_for_valid_enemies() -> Array[Humanoid]:
+	var result: Array[Humanoid] = []
+	var enemies = hitbox.get_overlapping_bodies()
+	enemies.sort_custom(func(a: Node3D, b: Node3D): return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position))
+	
+	if enemies.is_empty(): return result
+	
+	var check_count = 0
+	for enemy: Humanoid in enemies:
+		var query = _check_ray_cast(enemy.global_position)
+		if query.is_empty():
+			result.append(enemy)
+		
+		check_count += 1
+		if check_count >= max_hit:
+			break
+	
+	return result
+
+func equip(new_owner):
+	set_visibility(true, self)
+	#set_process(true)
+	visible = true
 	parent = new_owner
 
 func unequip():
+	set_visibility(false, self)
+	#set_process(false)
+	visible = false
 	parent = null
 
+func ready_to_shoot() -> bool:
+	return timer.time_left == 0 and parent
+
 func shoot() -> void:
-	if timer.time_left > 0 or not parent: return
+	if not ready_to_shoot(): return
 	timer.start()
 	playback.travel("shoot")
 	_check_and_shoot()
+
+func set_visibility(value: bool, node: Node = self) -> void:
+	for child in node.get_children():
+		if child is CanvasLayer: child.visible = value
 
 func create_bullet_hit(pos: Vector3):
 	var vfx = VFX.new("bullet_hit", pos)
@@ -98,8 +130,5 @@ func create_bullet_hit_ray(pos: Vector3):
 	if not query.is_empty():
 		create_bullet_hit(query.position)
 
-func ready_to_shoot() -> bool:
-	return timer.time_left == 0 and parent
-
-func farthest_center_vector():
+func farthest_center_vector() -> Vector3:
 	return global_position + (global_basis * Vector3.FORWARD).normalized() * max_range

@@ -1,4 +1,4 @@
-class_name ZombieAnimTree extends AnimationTree
+class_name ImpAnimationTree extends AnimationTree
 
 @export var enemy: Enemy
 
@@ -29,4 +29,3 @@ func _on_died() -> void:
 
 func travel(node_name: String):
 	playback.travel(node_name)
-	

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://b2dajtcov8hi4" path="res://src/scenes/spawner.tscn" id="3_c0n45"]
 [ext_resource type="PackedScene" uid="uid://bvxxkemiata6d" path="res://src/scenes/rock1.tscn" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://1yaovy5ukx3o" path="res://src/gameplay/entities/enemies/imp/imp.tscn" id="8_qxjwa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e5uuo"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -60,10 +61,11 @@ size = Vector3(100, 0.1, 100)
 
 [node name="Spawner" parent="." unique_id=467570870 instance=ExtResource("3_c0n45")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1, 5.75, -9.65)
-interval = 0.3
+interval = 1.0
 
 [node name="Spawner2" parent="." unique_id=1828868326 instance=ExtResource("3_c0n45")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.75, -9.65)
+interval = 1.0
 
 [node name="Rock1" parent="." unique_id=1488182600 instance=ExtResource("4_k0juu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1938853, 0.016578604, -2.4409764)
@@ -91,3 +93,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.75, 1.25, -4.7)
 
 [node name="Zombie4" parent="." unique_id=1608196855 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.25, 4.8500004)
+
+[node name="Imp" parent="." unique_id=2143698031 instance=ExtResource("8_qxjwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1500006, 1.2500002, 22.550001)

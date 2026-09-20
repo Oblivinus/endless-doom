@@ -15,17 +15,29 @@ colors = PackedColorArray(0.34407577, 0.34407574, 0.34407574, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_ut4o5")
 width = 10
 
-[node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520 node_paths=PackedStringArray("health")]
+[node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520 node_paths=PackedStringArray("health", "screen_modulate")]
 layer = 10
 follow_viewport_scale = 2.0
 script = ExtResource("1_57dxi")
 health = NodePath("Control/SubViewportContainer/SubViewport/NinePatchRect/NinePatchRect2/HealthQuantity")
+screen_modulate = NodePath("Control/ColorRect")
 
 [node name="Control" type="Control" parent="." unique_id=299909541]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=377589964]
+modulate = Color(1, 0, 0, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 28.800001
+anchor_bottom = 16.175001
+offset_bottom = -6.1035156e-05
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Control" unique_id=576098427]
 layout_mode = 1

@@ -2,7 +2,7 @@
 class_name Enemy extends Humanoid
 
 @export_category("Dependecies")
-@export var animation_tree: ZombieAnimTree
+@export var animation_tree: GenericAnimationTree
 @export var audio_player: AudioStreamPlayer3D
 @export var state_machine: StateMachine
 @export var hitbox: Area3D

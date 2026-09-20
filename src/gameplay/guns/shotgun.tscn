@@ -164,7 +164,7 @@ _data = {
 [node name="Shotgun" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
 script = ExtResource("1_cier5")
 damage = 50.0
-max_range = 15.0
+max_range = 18.0
 h_spread = 20.0
 fire_rate = 1.2
 max_hit = 5
