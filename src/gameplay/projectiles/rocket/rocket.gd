@@ -2,14 +2,20 @@ extends ExplodingProjectile
 
 @export var max_damage: float = 100.0
 @export var full_damage_radius: float = 2.0
-@export var falloff_radius: float = 7.5  # distance at which damage reaches 0
+@export var falloff_radius: float = 6.0
 
 
 func _on_explosion(targets: Array):
 	var last_pos: Vector3 = global_position
+	
+	var vfx = VFX.new("explosion", last_pos + Vector3(0, 0.05, 0))
+	Globals.world.add_child(vfx)
+	vfx.restart()
+	
 	var audio = Audio3D.new("guns/projectile_contact", last_pos)
 	audio.max_db = 15.0
 	audio.play()
+	
 	for target: Humanoid in targets:
 		if target is Humanoid:
 			var dist: float = target.global_position.distance_to(last_pos)

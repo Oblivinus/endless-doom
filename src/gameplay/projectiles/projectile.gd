@@ -33,6 +33,16 @@ func _ready() -> void:
 func launch(direction: Vector3):
 	linear_velocity = direction.normalized() * speed
 
+func ovewrite_mask(masks_layers:Array[int]):
+	hit_area.collision_mask = 0
+	for layer in masks_layers:
+		hit_area.collision_mask |= (1 << layer - 1)
+		
+func xor_mask(masks_layers:Array[int]):
+	hit_area.collision_mask = 0
+	for layer in masks_layers:
+		hit_area.collision_mask ^= (1 << layer - 1)
+
 func _on_hit(other: Node3D):
 	#print(other.name)
 	queue_free()

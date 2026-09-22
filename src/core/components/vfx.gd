@@ -43,7 +43,7 @@ func play() -> void:
 	for e in _emitters:
 		e.emitting = true
 	if _anim and _anim.get_animation_list().size() > 0:
-		_anim.play()
+		_anim.play("play")
 	if _audio:
 		_audio.play()
 	if _one_shot:
@@ -56,7 +56,7 @@ func restart() -> void:
 	if _anim:
 		_anim.seek(0.0, true)
 		if _anim.get_animation_list().size() > 0:
-			_anim.play()
+			_anim.play("play")
 	if _audio:
 		_audio.stop()
 		_audio.play()

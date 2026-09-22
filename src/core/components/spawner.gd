@@ -29,8 +29,8 @@ func spawn(id: String, pos: Vector3) -> Humanoid:
 	
 	var scene: PackedScene = spawnable[id]
 	var instance: Humanoid = scene.instantiate()
-	get_tree().current_scene.add_child(instance)
 	instance.global_position = pos
+	get_tree().current_scene.add_child(instance)
 	current_entities.append(instance)
 	return instance
 

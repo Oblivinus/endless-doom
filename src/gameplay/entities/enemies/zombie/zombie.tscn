@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="4_x680j"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="5_o3qke"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="6_x680j"]
-[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://src/gameplay/entities/shared/enemy_attack.gd" id="7_hy5wn"]
+[ext_resource type="Script" uid="uid://dpdjsflbhdh80" path="res://src/gameplay/entities/enemies/zombie/zombie_attack.gd" id="8_6t718"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_08hh8"]
 [ext_resource type="Script" uid="uid://doi7l11xnfcw0" path="res://src/gameplay/entities/shared/generic_anim_tree.gd" id="9_yhxrr"]
 [ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="10_7jnro"]
@@ -1285,7 +1285,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20258248, 0)
 pixel_size = 0.04
 billboard = 2
 shaded = true
-alpha_cut = 2
+alpha_cut = 1
 texture_filter = 2
 texture = ExtResource("1_1vlb3")
 hframes = 9
@@ -1323,7 +1323,7 @@ script = ExtResource("6_x680j")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=792155077]
-script = ExtResource("7_hy5wn")
+script = ExtResource("8_6t718")
 shot_vfx = ExtResource("10_7jnro")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 

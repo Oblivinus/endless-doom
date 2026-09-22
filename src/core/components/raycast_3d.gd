@@ -16,6 +16,6 @@ func mask(mask_layers: Array[int]) -> void:
 		query.collision_mask |= (1 << layer - 1)
 
 ##collider, collider_id, normal, position, rid, shape
-func interect() -> Dictionary:
+func intersect() -> Dictionary:
 	var result = direct_body_state.intersect_ray(query)
 	return result

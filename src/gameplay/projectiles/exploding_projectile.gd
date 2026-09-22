@@ -18,6 +18,7 @@ func _ready() -> void:
 	blast_area_shape.shape = SphereShape3D.new()
 	blast_area_shape.shape.radius = blast_radius
 	blast_area.add_child(blast_area_shape)
+	blast_area_shape.debug_color = Color.RED
 
 func _on_hit(other: Node3D):
 	super(other)
