@@ -95,4 +95,5 @@ func play_sound(sound_name: String):
 	if sound_array and not sound_array.is_empty():
 		var audio = Audio3D.new(sound_array.pick_random(), self)
 		audio.max_db = -5.0
+		audio.max_distance = 35.0
 		audio.play()

@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bq7tjx1gkaw1i" path="res://assets/enemies/imp.png" id="3_nlxyr"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="5_u74di"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="6_o30ei"]
+[ext_resource type="Script" uid="uid://cdmbqmy7nfh4x" path="res://src/gameplay/entities/enemies/imp/imp_attack.gd" id="7_034q2"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="7_ynrl7"]
-[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://src/gameplay/entities/shared/enemy_attack.gd" id="8_jmxx6"]
 [ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="9_qwo7k"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="10_ha6jn"]
 
@@ -1244,7 +1244,7 @@ script = ExtResource("1_4xsjr")
 animation_tree = NodePath("AnimationTree")
 state_machine = NodePath("StateMachine")
 hitbox = NodePath("Hitbox")
-detection_range = 0.0
+detection_range = 15.0
 auto_rotate = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]
@@ -1269,11 +1269,11 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -1.3214824)
 visible = false
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=934707470]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30258247, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29764894, 0)
 pixel_size = 0.04
 billboard = 2
 shaded = true
-double_sided = false
+alpha_cut = 1
 texture_filter = 2
 texture = ExtResource("3_nlxyr")
 hframes = 8
@@ -1301,9 +1301,8 @@ script = ExtResource("5_u74di")
 starting_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://b6ssqeh0ysa1u"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=216964935 node_paths=PackedStringArray("test_cube")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=216964935]
 script = ExtResource("6_o30ei")
-test_cube = NodePath("../../CSGBox3D")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Dead" type="Node" parent="StateMachine" unique_id=2038298742]
@@ -1311,7 +1310,7 @@ script = ExtResource("7_ynrl7")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=792155077]
-script = ExtResource("8_jmxx6")
+script = ExtResource("7_034q2")
 shot_vfx = ExtResource("9_qwo7k")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 

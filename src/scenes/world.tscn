@@ -65,6 +65,7 @@ interval = 1.0
 
 [node name="Spawner2" parent="." unique_id=1828868326 instance=ExtResource("3_c0n45")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.75, -9.65)
+spawn_type = "imp"
 interval = 1.0
 
 [node name="Rock1" parent="." unique_id=1488182600 instance=ExtResource("4_k0juu")]
@@ -95,4 +96,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.75, 1.25, -4.7)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.25, 4.8500004)
 
 [node name="Imp" parent="." unique_id=2143698031 instance=ExtResource("8_qxjwa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1500006, 1.2500002, 22.550001)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.250001, 1.2500001, 2.750001)

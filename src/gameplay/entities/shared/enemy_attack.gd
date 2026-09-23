@@ -30,7 +30,6 @@ func process_physics(_delta: float) -> void:
 	
 	if not check_if_target_valid(): return
 	if not check_if_in_range(): return
-	
 	strafe()
 	
 	attack_at_position(parent.target.global_position)
@@ -84,8 +83,8 @@ func check_if_in_range() -> bool:
 	return false
 
 func strafe() -> void:
+	if strafe_timer.is_stopped(): strafing = false
 	if not on_cooldown or attacking: return
-	if strafe_timer.time_left > 0: strafing = false
 	if strafing or parent.is_moving: return
 	
 	if not strafing and not parent.is_moving:
@@ -108,7 +107,7 @@ func on_missed_or_blocked(block_pos: Vector3 = Vector3.ZERO) -> void:
 	pass
 
 func attack_at_position(target_pos: Vector3) -> void:
-	target_pos.y = 0
+	var target_no_y := Vector3(target_pos.x, parent.global_position.y, target_pos.z)
 	if not ready_to_attack or on_cooldown: return
 	parent.stop_move()
 	attacking = true
@@ -116,17 +115,15 @@ func attack_at_position(target_pos: Vector3) -> void:
 	attack_pos = target_pos
 	
 	parent.on_attack.emit()
-	parent.look_at(attack_pos)
+	parent.look_at(target_no_y)
 	
 	get_tree().create_timer(attack_delay).timeout.connect(func():
 		if not parent.is_dead and not is_disturbed: 
 			attack()
 		ready_to_attack = false
 		attacking = false
+		get_tree().create_timer(parent.attack_cd).timeout.connect(_on_attack_cooldewn_finish)
 		)
-		
-	get_tree().create_timer(parent.attack_cd).timeout.connect(_on_attack_cooldewn_finish)
 
 func attack() -> void:
-	ready_to_attack = false
-	attacking = false
+	pass

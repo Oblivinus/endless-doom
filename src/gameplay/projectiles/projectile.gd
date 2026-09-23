@@ -2,9 +2,12 @@ class_name Projectile extends RigidBody3D
 
 @export var speed := 10.0
 @export var collision_radius := 0.1
+@export var life_time := 5.0
 
 @export_flags_3d_physics var hit_mask: int= 1
 var hit_area: Area3D
+var lifetime_timer: Timer
+
 
 func _ready() -> void:
 	collision_layer = 0
@@ -29,6 +32,14 @@ func _ready() -> void:
 	hit_area.add_child(area_shape)
 	
 	hit_area.body_entered.connect(_on_hit)
+	
+	lifetime_timer = Timer.new()
+	lifetime_timer.one_shot = true
+	lifetime_timer.wait_time = life_time
+	add_child(lifetime_timer)
+	
+	lifetime_timer.start()
+	lifetime_timer.timeout.connect(trigger_on_hit)
 
 func launch(direction: Vector3):
 	linear_velocity = direction.normalized() * speed

@@ -6,7 +6,8 @@ class_name Spawner extends Marker3D
 @export var spawn_rate_flactuation: bool = false
 
 var spawnable: Dictionary = {
-	zombie = preload("res://src/gameplay/entities/enemies/zombie/zombie.tscn")
+	zombie = preload("res://src/gameplay/entities/enemies/zombie/zombie.tscn"),
+	imp = preload("res://src/gameplay/entities/enemies/imp/imp.tscn")
 }
 
 var floor_y: float = 1.25

@@ -1249,7 +1249,6 @@ script = ExtResource("1_httt1")
 animation_tree = NodePath("AnimationTree")
 state_machine = NodePath("StateMachine")
 hitbox = NodePath("Hitbox")
-attack_range = 7.5
 detection_range_multiplier = 1.5
 detection_range = 15.0
 sounds = Dictionary[String, AudioStream]({
@@ -1276,12 +1275,8 @@ shape = SubResource("BoxShape3D_08hh8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]
 shape = SubResource("CapsuleShape3D_4wyf3")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2136194707]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -1.3214824)
-visible = false
-
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=934707470]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20258248, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2704374, 0)
 pixel_size = 0.04
 billboard = 2
 shaded = true
@@ -1313,9 +1308,8 @@ script = ExtResource("4_x680j")
 starting_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://b6ssqeh0ysa1u"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=216964935 node_paths=PackedStringArray("test_cube")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=216964935]
 script = ExtResource("5_o3qke")
-test_cube = NodePath("../../CSGBox3D")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Dead" type="Node" parent="StateMachine" unique_id=2038298742]

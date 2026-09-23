@@ -1,17 +1,17 @@
 class_name EnemyIdleState extends State
 
-@export var test_cube: CSGBox3D
-
 @export_category("detection")
 @export var FOV: int = 45
 @export var idle_status: Enums.IDLE_STATUS = Enums.IDLE_STATUS.WANDERING
 
+var wander_timer: Timer
 var anchor_pos: Vector3
-var wander_random_timer: float = 0.0
 
 func _ready() -> void:
-	test_cube.material_override = StandardMaterial3D.new()
-	test_cube.material_override.albedo_color = Color.WHITE
+	wander_timer = Timer.new()
+	wander_timer.one_shot = true
+	wander_timer.wait_time = 2
+	add_child(wander_timer)
 
 
 
@@ -32,25 +32,20 @@ func enter() -> void:
 
 func process_physics(delta: float):
 	var is_in_range = check_in_detection_range()
+	wander()
 	
-	if not parent.is_moving:
-		wander_random_timer += delta
-		if wander_random_timer >= 2:
-			wander_random_timer = 0
-			var rand_pos = Vector3(randi_range(-2, 2), 0, randi_range(-2, 2))
-			parent.move_to(anchor_pos + rand_pos)
-			
-			if  randi_range(1, 5) == 1:
-				parent.event.emit("random_idle")
-		
-	if is_in_range:
-		parent.target = Globals.player
-		if not parent.target.is_dead:
-			parent.event.emit("in_sight")
-			transitioned.emit(self, "attack")
-			return
+	if not is_in_range: return
+	_on_detection()
+
+func _on_detection():
+	parent.event.emit("in_sight")
+	transitioned.emit(self, "attack")
 
 func check_in_detection_range() -> bool:
+	if Globals.player.is_dead:
+		parent.target = null
+		return false
+	
 	var distance = (parent.global_position - Globals.player.global_position).length()
 	var is_in_range_valid: bool = false
 	
@@ -68,20 +63,19 @@ func check_in_detection_range() -> bool:
 	else :
 		return false
 
-
+func wander():
+	if wander_timer.time_left > 0 or parent.is_moving: return
+	wander_timer.start()
+	var rand_pos = Vector3(randi_range(-2, 2), 0, randi_range(-2, 2))
+	parent.move_to(anchor_pos + rand_pos)
+			
+	if randi_range(1, 5) == 1: parent.event.emit("random_idle")
 
 func check_in_pov(target_pos: Vector3) -> bool:
 	var distance = (Vector2(target_pos.x, target_pos.z) - Vector2(parent.global_position.x, parent.global_position.z)).length()
 	var degree = parent.get_facing_degree_to(target_pos)
 	
 	if degree <= FOV and distance <= parent.attack_range * 1.5:
-		test_cube.material_override.albedo_color = Color.RED
 		return true
 	else:
-		test_cube.material_override.albedo_color = Color.WHITE
 		return false
-
-
-
-func change_idle_status(status: Enums.IDLE_STATUS):
-	idle_status = status
