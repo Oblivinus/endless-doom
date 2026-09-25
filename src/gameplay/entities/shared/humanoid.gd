@@ -136,5 +136,6 @@ func get_facing_direction() -> Vector3:
 	return -global_transform.basis.z
 
 func hurt(damage: float) -> void:
+	if is_dead: return
 	health -= damage
 	if not is_dead: on_hurt.emit(damage)

@@ -17,12 +17,14 @@ colors = PackedColorArray(0.34407577, 0.34407574, 0.34407574, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_ut4o5")
 width = 10
 
-[node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520 node_paths=PackedStringArray("health", "ammo", "face_hud", "screen_modulate")]
+[node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520 node_paths=PackedStringArray("health", "ammo", "armor", "arm", "face_hud", "screen_modulate")]
 layer = 10
 follow_viewport_scale = 2.0
 script = ExtResource("1_57dxi")
 health = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/HealthFrame/HealthQuantity")
 ammo = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/AmmoFrame/AmmoQuantity")
+armor = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/ArmorFrame/ArmorQuantity")
+arm = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/GunFrame/GunQuantity")
 face_hud = NodePath("Control/HeadHud")
 screen_modulate = NodePath("Control/ColorRect")
 
@@ -70,6 +72,7 @@ size = Vector2i(384, 45)
 render_target_update_mode = 4
 
 [node name="BarFrame" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport" unique_id=751944456]
+self_modulate = Color(0.81467843, 0.8146786, 0.81467843, 1)
 offset_right = 384.0
 offset_bottom = 45.000004
 texture = ExtResource("2_ut4o5")
@@ -189,7 +192,116 @@ rotation = 1.5707964
 texture = SubResource("GradientTexture1D_pewwn")
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=683985797]
+[node name="ArmorFrame" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=384423077]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.043
+anchor_top = 1.0150001
+anchor_right = 0.24000001
+anchor_bottom = 1.0150001
+offset_left = 0.15466309
+offset_top = -45.675007
+offset_right = -0.16000366
+offset_bottom = -0.67500687
+texture = ExtResource("2_vi1r7")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="ArmorName" type="Label" parent="Control/SubViewportContainer/SubViewport/BarFrame/ArmorFrame" unique_id=1768400586]
+clip_children = 2
+z_index = 2
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.000027
+offset_top = -17.0
+offset_right = -6.3333054
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.37162217, 0.37162223, 0.37162212, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0.25323752, 0.2532376, 0.25323758, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("1_48p58")
+theme_override_font_sizes/font_size = 10
+text = "Armor
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/ArmorFrame/ArmorName" unique_id=412800726]
+material = SubResource("CanvasItemMaterial_vi1r7")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.091000006
+anchor_top = 0.055000003
+anchor_right = 0.88600004
+anchor_bottom = 0.42800003
+offset_left = 61.106094
+offset_top = -1.5949972
+offset_right = 15.716095
+offset_bottom = 50.387108
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+texture = SubResource("GradientTexture1D_pewwn")
+
+[node name="ArmorQuantity" type="Label" parent="Control/SubViewportContainer/SubViewport/BarFrame/ArmorFrame" unique_id=392029101]
+clip_children = 2
+z_index = 3
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0000267
+offset_top = -45.0
+offset_right = -1.3333054
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.79, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0.5224432, 1.2634322e-06, 3.3691526e-07, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("1_48p58")
+theme_override_font_sizes/font_size = 20
+text = "100%
+"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/ArmorFrame/ArmorQuantity" unique_id=1170797237]
+material = SubResource("CanvasItemMaterial_vi1r7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 69.64192
+offset_top = 4.1467314
+offset_right = 14.74646
+offset_bottom = 18.788635
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+texture = SubResource("GradientTexture1D_pewwn")
+metadata/_edit_use_anchors_ = true
+
+[node name="FaceHud" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=683985797]
 z_index = 2
 layout_mode = 1
 anchors_preset = 7
@@ -209,14 +321,14 @@ stretch_mode = 4
 [node name="AmmoFrame" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=42320133]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.24100001
+anchor_left = 0.56700003
 anchor_top = 1.0150001
-anchor_right = 0.437
-anchor_bottom = 1.0150001
-offset_left = 124.12265
-offset_top = -44.675007
-offset_right = 124.192
-offset_bottom = 0.32499313
+anchor_right = 0.76000005
+anchor_bottom = 1.0220001
+offset_left = -1.0613556
+offset_top = -45.675007
+offset_right = 0.15997314
+offset_bottom = -0.9900055
 texture = ExtResource("2_vi1r7")
 patch_margin_left = 1
 patch_margin_top = 1
@@ -302,6 +414,117 @@ horizontal_alignment = 1
 uppercase = true
 
 [node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/AmmoFrame/AmmoQuantity" unique_id=1998603695]
+material = SubResource("CanvasItemMaterial_vi1r7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 69.64192
+offset_top = 4.1467314
+offset_right = 14.74646
+offset_bottom = 18.788635
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+texture = SubResource("GradientTexture1D_pewwn")
+metadata/_edit_use_anchors_ = true
+
+[node name="GunFrame" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=974308110]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56700003
+anchor_top = 1.0150001
+anchor_right = 0.76000005
+anchor_bottom = 1.0220001
+offset_left = 74.938644
+offset_top = -45.675007
+offset_right = 76.15997
+offset_bottom = -0.9900055
+texture = ExtResource("2_vi1r7")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="GunName" type="Label" parent="Control/SubViewportContainer/SubViewport/BarFrame/GunFrame" unique_id=1412942248]
+clip_children = 2
+z_index = 2
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013
+anchor_top = 1.0
+anchor_right = 0.98200005
+anchor_bottom = 1.0
+offset_left = 9.020697
+offset_top = -17.0
+offset_right = -4.977318
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.37162217, 0.37162223, 0.37162212, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0.25323752, 0.2532376, 0.25323758, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("1_48p58")
+theme_override_font_sizes/font_size = 10
+text = "arm
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/GunFrame/GunName" unique_id=585847180]
+material = SubResource("CanvasItemMaterial_vi1r7")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.091000006
+anchor_top = 0.055000003
+anchor_right = 0.88600004
+anchor_bottom = 0.42800003
+offset_left = 61.106094
+offset_top = -1.5949972
+offset_right = 15.716095
+offset_bottom = 50.387108
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+texture = SubResource("GradientTexture1D_pewwn")
+
+[node name="GunQuantity" type="Label" parent="Control/SubViewportContainer/SubViewport/BarFrame/GunFrame" unique_id=1967748297]
+clip_children = 2
+z_index = 3
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013
+anchor_top = 1.0
+anchor_right = 0.98200005
+anchor_bottom = 1.0
+offset_left = 4.020697
+offset_top = -45.0
+offset_right = 0.02268219
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.79, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0.5224432, 1.2634322e-06, 3.3691526e-07, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("1_48p58")
+theme_override_font_sizes/font_size = 20
+text = "1
+"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/GunFrame/GunQuantity" unique_id=1590707297]
 material = SubResource("CanvasItemMaterial_vi1r7")
 layout_mode = 1
 anchors_preset = 15

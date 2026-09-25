@@ -53,7 +53,9 @@ func equip_slot(slot: int) -> void:
 	current_gun = gun_on_slot
 	current_gun_type = gun_on_slot.type
 	switch_timer.start()
+	
 	change_ammo_display()
+	player.player_stat_ui.arm.text = str(slot_number)
 
 func register_kill(enemy: Enemy):
 	player.on_kill.emit(enemy)

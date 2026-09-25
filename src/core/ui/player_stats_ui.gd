@@ -2,6 +2,9 @@ class_name PlayerStatUi extends CanvasLayer
 
 @export var health: Label
 @export var ammo: Label
+@export var armor: Label
+@export var arm: Label
+
 @export var face_hud: Sprite2D
 @export var screen_modulate: ColorRect
 
@@ -53,15 +56,19 @@ func _ready() -> void:
 func _on_property_changed(property_name, new_value):
 	if property_name == "health":
 		_handle_health_change(new_value)
-		pass
+	elif property_name == "armor":
+		_handle_armor_change(new_value)
 	pass
 
 func _handle_health_change(new_value: float) -> void:
-	change_face_hud()
-	health.text = str(int(new_value)) + "%"
+	health.text = str(ceili(new_value)) + "%"
+
+func _handle_armor_change(new_value: float) -> void:
+	armor.text = str(ceili(new_value)) + "%"
 	
  #region Hurt Anim
 func _on_hurt(dmg: float) -> void:
+	change_face_hud()
 	_hurt_face(dmg)
 	screen_modulate.modulate.a = 0.25
 	await get_tree().create_timer(0.15).timeout
@@ -92,6 +99,7 @@ func _on_ammo_used(type_enum_string: String, _amount: int) -> void:
 	ammo.text = str(arsenal.get_ammos(type))
 
 func idle():
+	if player.is_dead: return
 	var new_random_timer = randi_range(3, 5)
 	idle_timer.wait_time = new_random_timer
 	
@@ -127,6 +135,10 @@ func play_face_anim(anim_name: String, duration: float) -> void:
 	face_animation_priority = 0
 
 func change_face_hud(x: int = -1, priority: int = 0) -> void:
+	if player.is_dead:
+		face_hud.frame_coords = Vector2i(0, 5)
+		return
+	
 	var x_cord: int = face_hud.frame_coords.x
 	
 	if x > -1 and face_animation_priority < priority:

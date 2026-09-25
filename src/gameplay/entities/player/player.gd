@@ -8,6 +8,12 @@ const MOUSE_SENS = 0.25
 
 @export var player_stat_ui: PlayerStatUi
 
+@export_category("Stats")
+@export var armor: float = 100:
+	set(value):
+		armor = clamp(value, 0, max_health)
+		property_changed.emit("armor", armor)
+
 var colorrect: ColorRect
 
 var sway_speed: float = 2.5
@@ -72,6 +78,12 @@ func _on_hurt(_dmg: float):
 func _on_died():
 	pass
 
+func hurt(damage: float) -> void:
+	if armor > 0:
+		armor -= damage
+		on_hurt.emit(damage)
+	else:
+		super(damage)
 
 var sway_reset_deadzone: float
 func cam_sway(delta):

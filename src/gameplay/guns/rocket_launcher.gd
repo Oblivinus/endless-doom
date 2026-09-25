@@ -21,4 +21,5 @@ func  shoot() -> void:
 
 func _on_blast_hit(targets: Array):
 	for humanoid: Humanoid in targets:
+		if humanoid is Player: continue
 		if humanoid is Humanoid and humanoid.is_dead: parent.register_kill(humanoid)
