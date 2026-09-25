@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c04c2pun8perx"
-path.s3tc="res://.godot/imported/rocket_explosion.png-9c17de30242cb21445ce098b42947bc7.s3tc.ctex"
+uid="uid://c8wptsr7p51wx"
+path.s3tc="res://.godot/imported/imp_orb.png-a0d409162de165365cfb2fc4e10e8acc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/gun/rocket_launcher/rocket_explosion.png"
-dest_files=["res://.godot/imported/rocket_explosion.png-9c17de30242cb21445ce098b42947bc7.s3tc.ctex"]
+source_file="res://assets/gameplay/enemies/imp_orb.png"
+dest_files=["res://.godot/imported/imp_orb.png-a0d409162de165365cfb2fc4e10e8acc.s3tc.ctex"]
 
 [params]
 

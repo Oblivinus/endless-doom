@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://slpsiu8xyi43"]
 
-[ext_resource type="Texture2D" uid="uid://c1x7wpl4omija" path="res://assets/enemies/zombie.png" id="1_1vlb3"]
+[ext_resource type="Texture2D" uid="uid://c1x7wpl4omija" path="res://assets/gameplay/enemies/zombie.png" id="1_1vlb3"]
 [ext_resource type="Script" uid="uid://pk7hsvrg480g" path="res://src/gameplay/entities/enemies/zombie/zombie.gd" id="1_httt1"]
 [ext_resource type="AudioStream" uid="uid://4wrnorisro7h" path="res://assets/sounds/possessed/possessed_death 1.wav" id="3_pjjxt"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="4_x680j"]

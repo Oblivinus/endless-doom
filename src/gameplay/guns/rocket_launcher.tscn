@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://qc1awx7w5wej"]
 
 [ext_resource type="Script" uid="uid://clnypdm48j1i5" path="res://src/gameplay/guns/rocket_launcher.gd" id="1_fx5m5"]
-[ext_resource type="Texture2D" uid="uid://crvhpj6ri3i7v" path="res://assets/gun/rocket_launcher/rocket_launcher.png" id="2_n2lse"]
+[ext_resource type="Texture2D" uid="uid://crvhpj6ri3i7v" path="res://assets/gameplay/gun/rocket_launcher/rocket_launcher.png" id="2_n2lse"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0k0bv"]
 animation = &"idle"

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8wptsr7p51wx"
-path.s3tc="res://.godot/imported/imp_orb.png-765593473b2512d4abed26c7d63f17f1.s3tc.ctex"
+uid="uid://cirh0wkkyw41n"
+path.s3tc="res://.godot/imported/health_potion.png-b069dd1535446adff847a9fc0f4e25cf.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/enemies/imp_orb.png"
-dest_files=["res://.godot/imported/imp_orb.png-765593473b2512d4abed26c7d63f17f1.s3tc.ctex"]
+source_file="res://assets/gameplay/items/health_potion.png"
+dest_files=["res://.godot/imported/health_potion.png-b069dd1535446adff847a9fc0f4e25cf.s3tc.ctex"]
 
 [params]
 

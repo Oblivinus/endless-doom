@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1x7wpl4omija"
-path.s3tc="res://.godot/imported/zombie.png-5c779f120d84769a64791c03c6a2bec3.s3tc.ctex"
+uid="uid://c04c2pun8perx"
+path.s3tc="res://.godot/imported/rocket_explosion.png-6c19c65469c8daf29a7ed2785696f600.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/enemies/zombie.png"
-dest_files=["res://.godot/imported/zombie.png-5c779f120d84769a64791c03c6a2bec3.s3tc.ctex"]
+source_file="res://assets/gameplay/gun/rocket_launcher/rocket_explosion.png"
+dest_files=["res://.godot/imported/rocket_explosion.png-6c19c65469c8daf29a7ed2785696f600.s3tc.ctex"]
 
 [params]
 

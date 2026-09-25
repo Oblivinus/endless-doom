@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://behldxhl6rro4"]
 
 [ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://dd7eofvvodbqc" path="res://src/gameplay/items/health_potion/health_potion.tscn" id="1_pjcp1"]
 [ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/Outdoors/Foliage/OUTDOOR_foliage_grass_spots_5.png" id="2_1l6e7"]
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/terrain.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_4wyf3"]
@@ -39,6 +40,21 @@ texture_filter = 2
 
 [node name="World" type="Node3D" unique_id=1190192303]
 
+[node name="Item" parent="." unique_id=1523799676 instance=ExtResource("1_pjcp1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 22.300001)
+
+[node name="Item2" parent="." unique_id=138741393 instance=ExtResource("1_pjcp1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 20.900002)
+
+[node name="Item3" parent="." unique_id=185729521 instance=ExtResource("1_pjcp1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 19.750002)
+
+[node name="Item4" parent="." unique_id=581417926 instance=ExtResource("1_pjcp1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 18.350002)
+
+[node name="Item5" parent="." unique_id=1865613005 instance=ExtResource("1_pjcp1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 16.800003)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1496949108]
 transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 4.7351747)
 light_energy = 0.2
@@ -51,7 +67,7 @@ sky_mode = 1
 environment = SubResource("Environment_rwgxs")
 
 [node name="Terrain" parent="." unique_id=143276796 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.2, -0.55)
 size = Vector3(100, 0.1, 100)
 material = SubResource("StandardMaterial3D_c0n45")
 
@@ -81,7 +97,7 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("1_nnsk1")]
-transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999994, 0, 1.0735109, 22.95)
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999994, -9.45, 1.0735109, 29.05)
 
 [node name="Zombie" parent="." unique_id=1812481539 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)

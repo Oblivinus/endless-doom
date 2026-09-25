@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hluv5vbiqwae"]
 
 [ext_resource type="Script" uid="uid://bclghed1hh1yh" path="res://src/gameplay/guns/shotgun.gd" id="1_cier5"]
-[ext_resource type="Texture2D" uid="uid://b4ifi7guxfq11" path="res://assets/gun/Shotgun.png" id="2_cier5"]
+[ext_resource type="Texture2D" uid="uid://b4ifi7guxfq11" path="res://assets/gameplay/gun/Shotgun.png" id="2_cier5"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0k0bv"]
 animation = &"idle"

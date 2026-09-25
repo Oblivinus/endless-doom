@@ -9,6 +9,7 @@ const MOUSE_SENS = 0.25
 @export var player_stat_ui: PlayerStatUi
 
 @export_category("Stats")
+@export var armor_absorption: float = 0.35
 @export var armor: float = 100:
 	set(value):
 		armor = clamp(value, 0, max_health)
@@ -80,8 +81,10 @@ func _on_died():
 
 func hurt(damage: float) -> void:
 	if armor > 0:
-		armor -= damage
-		on_hurt.emit(damage)
+		var health_damage = damage * (1 - armor_absorption)
+		armor -= damage * armor_absorption
+		health -= health_damage
+		on_hurt.emit(health_damage)
 	else:
 		super(damage)
 

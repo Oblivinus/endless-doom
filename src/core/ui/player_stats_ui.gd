@@ -38,6 +38,11 @@ var hurt_state: int = 0 # 6 state, start from 0
 
 var idle_timer: Timer
 
+const MODULATE_SPEED: float = 5.0
+const HURT_FLASH_COLOR: Color = Color(1, 0, 0, 0.35)
+const  DEATH_FLASH_COLOR: Color = Color(1, 0, 0, 1)
+const PICKUP_FLASH_COLOR: Color = Color(1, 1, 1, 0.35)    
+
 func _ready() -> void:
 	idle_timer = Timer.new()
 	idle_timer.one_shot = true
@@ -49,9 +54,15 @@ func _ready() -> void:
 	player.property_changed.connect(_on_property_changed)
 	player.on_hurt.connect(_on_hurt)
 	player.on_died.connect(_on_died)
+	player.on_kill.connect(_on_kill)
+	player.on_pick_up.connect(_on_pick_up)
+	
 	idle_timer.timeout.connect(idle)
 	player.arsenal.on_ammo_used.connect(_on_ammo_used)
-	player.on_kill.connect(_on_kill)
+
+func _process(delta: float) -> void:
+	if screen_modulate.color.a > 0 and not player.is_dead:
+		screen_modulate.modulate.a = move_toward(screen_modulate.modulate.a, 0, delta)
 
 func _on_property_changed(property_name, new_value):
 	if property_name == "health":
@@ -70,13 +81,10 @@ func _handle_armor_change(new_value: float) -> void:
 func _on_hurt(dmg: float) -> void:
 	change_face_hud()
 	_hurt_face(dmg)
-	screen_modulate.modulate.a = 0.25
-	await get_tree().create_timer(0.15).timeout
-	screen_modulate.modulate.a = 0.0
+	flash_screen(HURT_FLASH_COLOR)
 
 func _on_died() -> void:
-	var tween = create_tween()
-	tween.tween_property(screen_modulate, "modulate:a", 1.0, 0.1)
+	flash_screen(DEATH_FLASH_COLOR)
 	change_face_hud(0, 100)
 
 func _hurt_face(dmg: float) -> void:
@@ -92,6 +100,9 @@ func _hurt_face(dmg: float) -> void:
 		on_hurt_anim = false
 	)
 #endregion
+
+func _on_pick_up(item: Item):
+	flash_screen(PICKUP_FLASH_COLOR)
 
 func _on_ammo_used(type_enum_string: String, _amount: int) -> void:
 	var type = Enums.GUN_TYPES.get(type_enum_string)
@@ -147,6 +158,12 @@ func change_face_hud(x: int = -1, priority: int = 0) -> void:
 	
 	hurt_state = get_hurt_state()
 	face_hud.frame_coords = Vector2i(x_cord, hurt_state)
+
+func flash_screen(color: Color) -> void:
+	if player.is_dead:
+		screen_modulate.modulate = DEATH_FLASH_COLOR
+		return
+	screen_modulate.modulate = color
 
 func get_hurt_state() -> int:
 	var plr_health = player.health

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnvsl1shqt7wh"]
 
 [ext_resource type="Script" uid="uid://bsc21fj206eqc" path="res://src/gameplay/projectiles/imp_orb/imp_orb.gd" id="1_1aslq"]
-[ext_resource type="Texture2D" uid="uid://c8wptsr7p51wx" path="res://assets/enemies/imp_orb.png" id="2_ycy0x"]
+[ext_resource type="Texture2D" uid="uid://c8wptsr7p51wx" path="res://assets/gameplay/enemies/imp_orb.png" id="2_ycy0x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0fvgs"]
 atlas = ExtResource("2_ycy0x")

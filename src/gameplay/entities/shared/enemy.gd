@@ -57,6 +57,7 @@ func _on_hurt(_dmg: float):
 
 func _on_died():
 	state_machine.change_state_name("dead")
+	Globals.any_enemy_died(self, global_position)
 	play_sound("dead")
 
 func _on_event(event_name):

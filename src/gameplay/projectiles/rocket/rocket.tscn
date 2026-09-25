@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfon612srtwux"]
 
 [ext_resource type="Script" uid="uid://drynndg85ikfw" path="res://src/gameplay/projectiles/rocket/rocket.gd" id="1_4056u"]
-[ext_resource type="Texture2D" uid="uid://ddakd0wgwibol" path="res://assets/gun/rocket_launcher/rocket.png" id="2_4056u"]
+[ext_resource type="Texture2D" uid="uid://ddakd0wgwibol" path="res://assets/gameplay/gun/rocket_launcher/rocket.png" id="2_4056u"]
 [ext_resource type="Texture2D" uid="uid://c3786tear6s05" path="res://assets/texture/vfx_texture/particles/alpha/circle_01_a.png" id="3_nii7v"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_8rg7t"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0s11hiipeofv" path="res://src/gameplay/entities/enemies/imp/imp.gd" id="1_4xsjr"]
 [ext_resource type="Script" uid="uid://doi7l11xnfcw0" path="res://src/gameplay/entities/shared/generic_anim_tree.gd" id="3_034q2"]
-[ext_resource type="Texture2D" uid="uid://bq7tjx1gkaw1i" path="res://assets/enemies/imp.png" id="3_nlxyr"]
+[ext_resource type="Texture2D" uid="uid://bq7tjx1gkaw1i" path="res://assets/gameplay/enemies/imp.png" id="3_nlxyr"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="5_u74di"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="6_o30ei"]
 [ext_resource type="Script" uid="uid://cdmbqmy7nfh4x" path="res://src/gameplay/entities/enemies/imp/imp_attack.gd" id="7_034q2"]

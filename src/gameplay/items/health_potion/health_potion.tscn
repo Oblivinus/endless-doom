@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dd7eofvvodbqc"]
+
+[ext_resource type="Script" uid="uid://5apkpfcaj6nu" path="res://src/gameplay/items/health_potion/health_potion.gd" id="1_3ipk3"]
+[ext_resource type="Texture2D" uid="uid://cirh0wkkyw41n" path="res://assets/gameplay/items/health_potion.png" id="2_a3a1d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pucbj"]
+atlas = ExtResource("2_a3a1d")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c667o"]
+atlas = ExtResource("2_a3a1d")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nk2wq"]
+atlas = ExtResource("2_a3a1d")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nglc"]
+atlas = ExtResource("2_a3a1d")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a3a1d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pucbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c667o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nk2wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nglc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3ytx6"]
+radius = 0.35
+
+[node name="HealthPotion" type="RigidBody3D" unique_id=1523799676]
+collision_layer = 0
+collision_mask = 10
+gravity_scale = 2.0
+linear_damp_mode = 1
+linear_damp = 2.0
+script = ExtResource("1_3ipk3")
+heal_amount = 2.0
+pick_up_radius = 1.2
+metadata/_custom_type_script = "uid://k4ruv2bleuw8"
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1922332041]
+offset = Vector2(0, 9)
+pixel_size = 0.05
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_a3a1d")
+autoplay = "default"
+frame_progress = 0.88568103
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1623388749]
+shape = SubResource("SphereShape3D_3ytx6")
+debug_color = Color(0, 0.5950001, 0.7, 1)

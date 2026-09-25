@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dfw663iw8g18o"]
 
 [ext_resource type="Texture2D" uid="uid://c3786tear6s05" path="res://assets/texture/vfx_texture/particles/alpha/circle_01_a.png" id="1_o6d6v"]
-[ext_resource type="Texture2D" uid="uid://c04c2pun8perx" path="res://assets/gun/rocket_launcher/rocket_explosion.png" id="2_i72il"]
+[ext_resource type="Texture2D" uid="uid://c04c2pun8perx" path="res://assets/gameplay/gun/rocket_launcher/rocket_explosion.png" id="2_i72il"]
 
 [sub_resource type="Curve" id="Curve_ffs4s"]
 _data = [Vector2(0.016129032, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.088707, 0.0, 0, 0]
