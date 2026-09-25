@@ -166,6 +166,7 @@ script = ExtResource("1_fx5m5")
 max_range = 30.0
 h_spread = 5.0
 fire_rate = 1.0
+type = 2
 hitbox = NodePath("Hit")
 anim_tree = NodePath("AnimationTree")
 

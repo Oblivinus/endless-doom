@@ -7,6 +7,7 @@ class_name Gun extends Node3D
 @export var v_spread: float = 45.0
 @export var fire_rate: float = 2.0
 @export var max_hit: int = 1
+@export var type: Enums.GUN_TYPES = Enums.GUN_TYPES.BULLET
 
 @export_category("Dependecies")
 @export var hitbox: Area3D
@@ -14,7 +15,7 @@ class_name Gun extends Node3D
 
 var collision_shape3d: CollisionShape3D
 var timer: Timer
-var parent: Variant
+var parent: Arsenal
 var playback: AnimationNodeStateMachinePlayback
 
 var last_hit_count: int = 0
@@ -52,6 +53,7 @@ func _check_and_shoot() -> void:
 		var query = _check_ray_cast(enemy.global_position)
 		if query.is_empty():
 			enemy.hurt(damage)
+			if enemy.is_dead: parent.register_kill(enemy)
 		else:
 			create_bullet_hit(query.position)
 		
@@ -87,26 +89,27 @@ func _check_for_valid_enemies() -> Array[Humanoid]:
 	
 	return result
 
-func equip(new_owner):
+func equip(new_owner: Arsenal):
 	set_visibility(true, self)
-	#set_process(true)
+	set_process(true)
 	visible = true
 	parent = new_owner
 
 func unequip():
 	set_visibility(false, self)
-	#set_process(false)
+	set_process(false)
 	visible = false
 	parent = null
 
 func ready_to_shoot() -> bool:
-	return timer.time_left == 0 and parent
+	return timer.time_left == 0 and parent and parent.get_ammos(type) > 0
 
 func shoot() -> void:
 	if not ready_to_shoot(): return
 	timer.start()
 	playback.travel("shoot")
 	_check_and_shoot()
+	parent.use_ammo(type)
 
 func set_visibility(value: bool, node: Node = self) -> void:
 	for child in node.get_children():

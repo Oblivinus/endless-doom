@@ -4,3 +4,9 @@ enum IDLE_STATUS {
 	WANDERING,
 	ALERTED
 }
+
+enum GUN_TYPES {
+	BULLET,
+	SHELL,
+	ROCKET
+}

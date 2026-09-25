@@ -5,6 +5,8 @@ class_name ExplodingProjectile extends Projectile
 
 var blast_area: Area3D
 
+signal on_blast_hit(humanoids: Array[Humanoid])
+
 func _ready() -> void:
 	super()
 	
@@ -25,8 +27,7 @@ func _on_hit(other: Node3D):
 	_on_explosion(get_blast_target())
 
 func _on_explosion(targets: Array):
-	#print(targets)
-	pass
+	on_blast_hit.emit(targets)
 
 func get_blast_target():
 	return blast_area.get_overlapping_bodies()

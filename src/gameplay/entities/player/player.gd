@@ -6,7 +6,9 @@ const MOUSE_SENS = 0.25
 @export var gun: Gun
 @export var camera: Camera3D
 
-@onready var colorrect: ColorRect = PlayerStatsUi.screen_modulate
+@export var player_stat_ui: PlayerStatUi
+
+var colorrect: ColorRect
 
 var sway_speed: float = 2.5
 var sway_amount: float = 0.18
@@ -14,9 +16,12 @@ var time_passed: float = 0.0
 var base_y := 0.0
 const TAU_F := TAU
 
+signal on_kill(enemy: Enemy)
+
 func _ready() -> void:
 	base_y = camera.position.y
 	health = 100.0
+	colorrect = player_stat_ui.screen_modulate
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	on_hurt.connect(_on_hurt)
@@ -25,6 +30,7 @@ func _ready() -> void:
 	Globals.player = self
 	
 	_on_property_changed("health", health)
+	#PlayerStatsUi.init(self)
 
 func _input(_event: InputEvent) -> void:
 	
@@ -58,17 +64,13 @@ func _physics_process(delta: float) -> void:
 	arsenal.is_moving = is_moving
 
 func _on_property_changed(property_name, new_value):
-	if property_name == "health":
-		PlayerStatsUi.health.text = str(int(new_value)) + "%"
+	pass
 
 func _on_hurt(_dmg: float):
-	colorrect.modulate.a = 0.25
-	await get_tree().create_timer(0.15).timeout
-	colorrect.modulate.a = 0.0
+	pass
 	
 func _on_died():
-	var tween = create_tween()
-	tween.tween_property(colorrect, "modulate:a", 1.0, 0.1)
+	pass
 
 
 var sway_reset_deadzone: float

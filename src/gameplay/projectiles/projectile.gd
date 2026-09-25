@@ -8,6 +8,7 @@ class_name Projectile extends RigidBody3D
 var hit_area: Area3D
 var lifetime_timer: Timer
 
+signal on_hit(hum: Humanoid)
 
 func _ready() -> void:
 	collision_layer = 0
@@ -55,7 +56,7 @@ func xor_mask(masks_layers:Array[int]):
 		hit_area.collision_mask ^= (1 << layer - 1)
 
 func _on_hit(other: Node3D):
-	#print(other.name)
+	on_hit.emit(other)
 	queue_free()
 
 func trigger_on_hit():

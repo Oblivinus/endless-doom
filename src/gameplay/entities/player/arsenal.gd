@@ -1,18 +1,24 @@
 class_name Arsenal extends Node3D
 
-var guns_ref_map: Array[String] = [
-	"pistol",
-	"shotgun",
-]
+@export var player: Player
 
 var guns_slot: Dictionary[int, Gun] = {}
 
+var current_gun: Gun
+var current_gun_type: Enums.GUN_TYPES
+var available_ammo: Dictionary[String, int] = {
+	"BULLET" = 100,
+	"SHELL" = 75,
+	"ROCKET" = 50,
+}
+
 var is_moving = false
 var switch_timer: Timer
-var current_gun: Gun
 var slot_number: int = 2:
 	set(value):
 		slot_number = wrapi(value, 1, 4)
+
+signal on_ammo_used(type: String, amount: int)
 
 func _ready() -> void:
 	switch_timer = Timer.new()
@@ -45,7 +51,12 @@ func equip_slot(slot: int) -> void:
 	if current_gun: current_gun.unequip()
 	gun_on_slot.equip(self)
 	current_gun = gun_on_slot
+	current_gun_type = gun_on_slot.type
 	switch_timer.start()
+	change_ammo_display()
+
+func register_kill(enemy: Enemy):
+	player.on_kill.emit(enemy)
 
 func shoot_current() -> void:
 	if current_gun: current_gun.shoot()
@@ -58,3 +69,26 @@ func add_gun(gun_name:String, slot: int) -> void:
 	guns_slot[slot] = gun_scene
 	gun_scene.unequip()
 	add_child(gun_scene)
+
+func get_ammos(type: Enums.GUN_TYPES) -> int:
+	var gun_type: String = Enums.GUN_TYPES.find_key(type)
+	return available_ammo[gun_type]
+	
+func use_ammo(type: Enums.GUN_TYPES, amount: int = 1) -> bool:
+	var gun_type: String = Enums.GUN_TYPES.find_key(type)
+	if not available_ammo.has(gun_type): return false
+	
+	var current_amount: int = available_ammo[gun_type]
+	var new_amount: int = current_amount - amount
+	
+	if new_amount >= 0:
+		available_ammo[gun_type] = max(0, new_amount)
+		on_ammo_used.emit(gun_type, amount)
+		return true
+	else:
+		return false
+
+func change_ammo_display() -> void:
+	var player_stat_ui: PlayerStatUi = player.player_stat_ui
+	if not player_stat_ui: return
+	player_stat_ui.ammo.text = str(get_ammos(current_gun_type))

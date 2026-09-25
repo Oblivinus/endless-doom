@@ -19,7 +19,6 @@ config/icon="res://assets/texture/icon.svg"
 
 Globals="*uid://lxcs4mge4p3i"
 Enums="*uid://b48nu1y5wvxn8"
-PlayerStatsUi="*uid://cyb13ek6qhogt"
 Ref="*uid://bmh5hp2i8c645"
 
 [display]
