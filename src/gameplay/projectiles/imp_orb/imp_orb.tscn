@@ -29,7 +29,7 @@ animations = [{
 script = ExtResource("1_1aslq")
 damage = 8.0
 speed = 20.0
-collision_radius = 0.2
+collision_radius = 0.4
 hit_mask = 3
 metadata/_custom_type_script = "uid://dv1non72mtx1i"
 

@@ -39,7 +39,6 @@ signal on_pick_up(item: Item)
 signal move_to_finished(vector3: Vector3)
 signal property_changed(property_name: String, value: Variant)
 
-
 func _ready() -> void:
 	health = max_health
 

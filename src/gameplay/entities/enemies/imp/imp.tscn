@@ -10,9 +10,6 @@
 [ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="9_qwo7k"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="10_ha6jn"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_08hh8"]
-size = Vector3(0.5, 2.5, 1)
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqtsj"]
@@ -197,7 +194,6 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0bubi"]
-switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7jnro"]
@@ -506,6 +502,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_cm607"]
 resource_name = "hurt_b"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -535,6 +532,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_tbtf0"]
 resource_name = "hurt_b_l"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -564,6 +562,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_3swd3"]
 resource_name = "hurt_b_r"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -593,6 +592,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_uxhow"]
 resource_name = "hurt_f"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -622,6 +622,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_ti1n0"]
 resource_name = "hurt_f_l"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -651,6 +652,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_md6yi"]
 resource_name = "hurt_f_r"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -680,6 +682,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_7h88x"]
 resource_name = "hurt_l"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -709,6 +712,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_l5pp7"]
 resource_name = "hurt_r"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1243,9 +1247,10 @@ collision_mask = 10
 script = ExtResource("1_4xsjr")
 animation_tree = NodePath("AnimationTree")
 state_machine = NodePath("StateMachine")
-hitbox = NodePath("Hitbox")
-attack_cd = 1.5
-detection_range = 15.0
+hitbox = NodePath("")
+attack_cd = 1.0
+detection_range = 20.0
+melee_range = 2.5
 auto_rotate = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]
@@ -1254,13 +1259,6 @@ visible = false
 light_color = Color(1, 0.38039216, 0.023529412, 1)
 light_energy = 1.5
 shadow_enabled = true
-
-[node name="Hitbox" type="Area3D" parent="." unique_id=1604803488]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
-collision_layer = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1492660801]
-shape = SubResource("BoxShape3D_08hh8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]
 shape = SubResource("CapsuleShape3D_4wyf3")

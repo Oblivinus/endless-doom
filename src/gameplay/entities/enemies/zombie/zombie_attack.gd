@@ -8,7 +8,6 @@ func on_missed_or_blocked(block_pos: Vector3 = Vector3.ZERO):
 		vfx.restart()
 
 func attack():
-	super()
 	if parent.is_dead or is_disturbed: return
 	$"../../OmniLight3D".visible = true
 	Audio3D.new("guns/pistol", parent).play()

@@ -9,6 +9,12 @@ func _ready() -> void:
 	enemy.on_attack.connect(_on_attack)
 	enemy.on_died.connect(_on_died)
 	active = true
+	
+	var sm: AnimationNodeStateMachine = tree_root as AnimationNodeStateMachine
+	for i in sm.get_transition_count():
+		if sm.get_transition_from(i) == "hurt" and sm.get_transition_to(i) == "idle":
+			var transition := sm.get_transition(i)
+			transition.advance_expression = "!in_pain"
 
 func _process(_delta: float) -> void:
 	var player_dir = enemy.get_local_direction_to(Globals.player.global_position)

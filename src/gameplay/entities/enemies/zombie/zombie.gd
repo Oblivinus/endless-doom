@@ -8,6 +8,6 @@ func _init() -> void:
 
 func _on_hurt(dmg: float) -> void:
 	super(dmg)
-	var blood = VFX.new("blood_splatter")
+	var blood = VFX.new("blood_splatter", global_position)
 	add_child(blood)
 	blood.restart()
