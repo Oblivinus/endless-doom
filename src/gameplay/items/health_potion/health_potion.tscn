@@ -3,19 +3,19 @@
 [ext_resource type="Script" uid="uid://5apkpfcaj6nu" path="res://src/gameplay/items/health_potion/health_potion.gd" id="1_3ipk3"]
 [ext_resource type="Texture2D" uid="uid://cirh0wkkyw41n" path="res://assets/gameplay/items/health_potion.png" id="2_a3a1d"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pucbj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ipk3"]
 atlas = ExtResource("2_a3a1d")
 region = Rect2(0, 0, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c667o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8j0w"]
 atlas = ExtResource("2_a3a1d")
 region = Rect2(16, 0, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nk2wq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u63i"]
 atlas = ExtResource("2_a3a1d")
 region = Rect2(32, 0, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1nglc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg2bp"]
 atlas = ExtResource("2_a3a1d")
 region = Rect2(48, 0, 16, 32)
 
@@ -23,16 +23,16 @@ region = Rect2(48, 0, 16, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pucbj")
+"texture": SubResource("AtlasTexture_3ipk3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_c667o")
+"texture": SubResource("AtlasTexture_w8j0w")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nk2wq")
+"texture": SubResource("AtlasTexture_5u63i")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1nglc")
+"texture": SubResource("AtlasTexture_bg2bp")
 }],
 "loop": true,
 "name": &"default",
@@ -51,6 +51,7 @@ linear_damp = 2.0
 script = ExtResource("1_3ipk3")
 heal_amount = 2.0
 pick_up_radius = 1.2
+lifetime = 60.0
 metadata/_custom_type_script = "uid://k4ruv2bleuw8"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1922332041]
@@ -62,7 +63,7 @@ alpha_cut = 1
 texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_a3a1d")
 autoplay = "default"
-frame_progress = 0.88568103
+frame_progress = 0.6691176
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1623388749]
 shape = SubResource("SphereShape3D_3ytx6")

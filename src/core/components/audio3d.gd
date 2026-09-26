@@ -2,6 +2,8 @@ class_name Audio3D extends AudioStreamPlayer3D
 
 const SUPPORTED_EXTENSIONS := ["ogg", "wav", "mp3"]
 
+var pos: Vector3
+
 func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 	var path := _find_audio_path(audio_name)
 	if path.is_empty():
@@ -19,12 +21,15 @@ func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 		pos_or_node3d.add_child(self)
 	elif pos_or_node3d is Vector3:
 		Globals.world.add_child(self)
-		global_position = pos_or_node3d
+		pos = pos_or_node3d
 	else:
 		push_error("Audio3D parameter 2 is not node3d or vector3")
 		queue_free()
 		return
 	finished.connect(queue_free)
+
+func _ready() -> void:
+	global_position = pos
 
 func _find_audio_path(audio_name: String) -> String:
 	for ext in SUPPORTED_EXTENSIONS:

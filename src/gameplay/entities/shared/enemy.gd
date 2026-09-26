@@ -22,10 +22,10 @@ signal on_attack
 signal event (event_name: String)
 var timer: Timer
 
-var in_sight_sfx: Array[String]
-var idle_sfx: Array[String]
-var dead_sfx: Array[String]
-var hurt_sfx: Array[String]
+var in_sight_sfx: Array[String] = ["possessed/possessed_sight 1", "possessed/possessed_sight 2", "possessed/possessed_sight 3"]
+var idle_sfx: Array[String] = ["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"]
+var dead_sfx: Array[String] = ["possessed/possessed_activity"]
+var hurt_sfx: Array[String] = ["possessed/possessed_pain"]
 
 func _ready() -> void:
 	super()
@@ -83,9 +83,11 @@ func get_facing_degree_to(target_pos: Vector3) -> int:
 
 func play_sound(sound_name: String):
 	var sound_array: Array
+	var volume: float = -5.0
 	
 	if sound_name.to_lower() == "pain":
 		sound_array = hurt_sfx
+		volume = -7.0
 	if sound_name.to_lower() == "dead":
 		sound_array = dead_sfx
 	if sound_name.to_lower() == "in_sight":
@@ -95,6 +97,6 @@ func play_sound(sound_name: String):
 	
 	if sound_array and not sound_array.is_empty():
 		var audio = Audio3D.new(sound_array.pick_random(), self)
-		audio.max_db = -5.0
+		audio.max_db = volume
 		audio.max_distance = 35.0
 		audio.play()

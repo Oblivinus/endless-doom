@@ -3,7 +3,12 @@
 @export_flags_3d_physics var pick_up_mask: int = (1 << 0)
 @export var pick_up_radius: float = 0.25
 
+@export_category("Lifetime")
+@export var expired: bool = false
+@export var lifetime: float = 30
+
 var collision_area: Area3D
+var _lifetime_timer: Timer
 
 static func _create_from_script(script: Script) -> Item:
 	var path := script.resource_path.get_basename() + ".tscn"
@@ -35,6 +40,15 @@ func _ready() -> void:
 	mat.bounce = 0.0
 	physics_material_override = mat
 	linear_damp = 2.0
+	lock_rotation = true
+	
+	if expired:
+		_lifetime_timer = Timer.new()
+		_lifetime_timer.one_shot = true
+		_lifetime_timer.wait_time = lifetime
+		_lifetime_timer.timeout.connect(queue_free)
+		add_child(_lifetime_timer)
+		_lifetime_timer.start()
 
 func _on_pickup(other: Node3D) -> void:
 	var hum: Humanoid = other

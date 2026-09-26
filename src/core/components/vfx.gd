@@ -6,12 +6,16 @@ var _audio: Node
 var _one_shot: bool = false
 var _content: Node3D
 
+var this_pos: Vector3
 
 func  _init(vfx_name: String, pos: Vector3 = Vector3.ZERO) -> void:
 	if vfx_name != "":
 		_load(vfx_name)
-	global_position = pos
+	
+	this_pos = pos
 
+func _ready() -> void:
+	global_position = this_pos
 
 func _load(vfx_name: String) -> void:
 	var path := "res://assets/vfx/%s.tscn" % vfx_name

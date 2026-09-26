@@ -1,7 +1,10 @@
 class_name RocketLauncher extends Gun
 
+var cache_parent: Arsenal #NOTE: when switch gun the parent is null, this is the reason.
+
 func  shoot() -> void:
 	if not ready_to_shoot(): return
+	cache_parent = parent
 	parent.use_ammo(type)
 	playback.travel("shoot")
 	timer.start()
@@ -22,4 +25,4 @@ func  shoot() -> void:
 func _on_blast_hit(targets: Array):
 	for humanoid: Humanoid in targets:
 		if humanoid is Player: continue
-		if humanoid is Humanoid and humanoid.is_dead: parent.register_kill(humanoid)
+		if humanoid is Humanoid and humanoid.is_dead: cache_parent.register_kill(humanoid)

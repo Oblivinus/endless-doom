@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dy6oqhri07ybb"]
+
+[ext_resource type="Script" uid="uid://klvvxfijv68d" path="res://src/gameplay/items/armor_point/armor_point.gd" id="1_eyexu"]
+[ext_resource type="Texture2D" uid="uid://csctdt3c8o3et" path="res://assets/gameplay/items/armor_point.png" id="2_rfbti"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyexu"]
+atlas = ExtResource("2_rfbti")
+region = Rect2(0, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfbti"]
+atlas = ExtResource("2_rfbti")
+region = Rect2(16, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvo2v"]
+atlas = ExtResource("2_rfbti")
+region = Rect2(32, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2aca"]
+atlas = ExtResource("2_rfbti")
+region = Rect2(48, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqa33"]
+atlas = ExtResource("2_rfbti")
+region = Rect2(32, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ecbl"]
+atlas = ExtResource("2_rfbti")
+region = Rect2(16, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhx1g"]
+atlas = ExtResource("2_rfbti")
+region = Rect2(0, 0, 16, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eyexu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyexu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfbti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvo2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2aca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqa33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ecbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhx1g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3ytx6"]
+radius = 0.35
+
+[node name="ArmorPoint" type="RigidBody3D" unique_id=1523799676]
+collision_layer = 0
+collision_mask = 10
+gravity_scale = 2.0
+linear_damp_mode = 1
+linear_damp = 2.0
+script = ExtResource("1_eyexu")
+pick_up_radius = 1.2
+metadata/_custom_type_script = "uid://k4ruv2bleuw8"
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1922332041]
+offset = Vector2(0, 2.5)
+pixel_size = 0.05
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_eyexu")
+autoplay = "default"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1623388749]
+shape = SubResource("SphereShape3D_3ytx6")
+debug_color = Color(0, 0.5950001, 0.7, 1)

@@ -1244,6 +1244,7 @@ script = ExtResource("1_4xsjr")
 animation_tree = NodePath("AnimationTree")
 state_machine = NodePath("StateMachine")
 hitbox = NodePath("Hitbox")
+attack_cd = 1.5
 detection_range = 15.0
 auto_rotate = true
 

@@ -2,10 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dd7eofvvodbqc" path="res://src/gameplay/items/health_potion/health_potion.tscn" id="1_pjcp1"]
+[ext_resource type="PackedScene" uid="uid://dy6oqhri07ybb" path="res://src/gameplay/items/armor_point/armor_point.tscn" id="1_qxjwa"]
 [ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/Outdoors/Foliage/OUTDOOR_foliage_grass_spots_5.png" id="2_1l6e7"]
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/terrain.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://b2dajtcov8hi4" path="res://src/scenes/spawner.tscn" id="3_c0n45"]
+[ext_resource type="PackedScene" uid="uid://g2qi1ggxwspu" path="res://src/gameplay/items/ammos/ammos.tscn" id="3_ccq23"]
 [ext_resource type="PackedScene" uid="uid://bvxxkemiata6d" path="res://src/scenes/rock1.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://1yaovy5ukx3o" path="res://src/gameplay/entities/enemies/imp/imp.tscn" id="8_qxjwa"]
 
@@ -40,22 +42,46 @@ texture_filter = 2
 
 [node name="World" type="Node3D" unique_id=1190192303]
 
-[node name="Item" parent="." unique_id=1523799676 instance=ExtResource("1_pjcp1")]
+[node name="Items" type="Node" parent="." unique_id=1349097826]
+
+[node name="ArmorPoint" parent="Items" unique_id=1523799676 instance=ExtResource("1_qxjwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.65, 0.19999966, 22.3)
+
+[node name="ArmorPoint2" parent="Items" unique_id=1398952111 instance=ExtResource("1_qxjwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.65, 0.19999966, 20.9)
+
+[node name="ArmorPoint3" parent="Items" unique_id=1249349603 instance=ExtResource("1_qxjwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.65, 0.19999966, 19.75)
+
+[node name="ArmorPoint4" parent="Items" unique_id=85317641 instance=ExtResource("1_qxjwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.65, 0.19999966, 18.35)
+
+[node name="ArmorPoint5" parent="Items" unique_id=1202927763 instance=ExtResource("1_qxjwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.65, 0.19999966, 16.75)
+
+[node name="HealthPotion" parent="Items" unique_id=1271569974 instance=ExtResource("1_pjcp1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 22.300001)
 
-[node name="Item2" parent="." unique_id=138741393 instance=ExtResource("1_pjcp1")]
+[node name="HealthPotion2" parent="Items" unique_id=138741393 instance=ExtResource("1_pjcp1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 20.900002)
 
-[node name="Item3" parent="." unique_id=185729521 instance=ExtResource("1_pjcp1")]
+[node name="HealthPotion3" parent="Items" unique_id=185729521 instance=ExtResource("1_pjcp1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 19.750002)
 
-[node name="Item4" parent="." unique_id=581417926 instance=ExtResource("1_pjcp1")]
+[node name="HealthPotion4" parent="Items" unique_id=581417926 instance=ExtResource("1_pjcp1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 18.350002)
 
-[node name="Item5" parent="." unique_id=1865613005 instance=ExtResource("1_pjcp1")]
+[node name="HealthPotion5" parent="Items" unique_id=1865613005 instance=ExtResource("1_pjcp1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.500001, 0.35000002, 16.800003)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1496949108]
+[node name="Ammos" parent="Items" unique_id=1716523268 instance=ExtResource("3_ccq23")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.85, 0.1999999, 22.1)
+ammo_type = 1
+amount = 10
+
+[node name="Terrains" type="Node" parent="." unique_id=1471261095]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Terrains" unique_id=1496949108]
 transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 4.7351747)
 light_energy = 0.2
 shadow_enabled = true
@@ -63,17 +89,46 @@ shadow_bias = 1.5
 shadow_normal_bias = 0.5
 sky_mode = 1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=642854987]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Terrains" unique_id=642854987]
 environment = SubResource("Environment_rwgxs")
 
-[node name="Terrain" parent="." unique_id=143276796 instance=ExtResource("2_rwgxs")]
+[node name="Terrain" parent="Terrains" unique_id=143276796 instance=ExtResource("2_rwgxs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.2, -0.55)
 size = Vector3(100, 0.1, 100)
 material = SubResource("StandardMaterial3D_c0n45")
 
-[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Terrain" unique_id=198062481]
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Terrains/Terrain" unique_id=198062481]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 size = Vector3(100, 0.1, 100)
+
+[node name="Rock1" parent="Terrains" unique_id=1488182600 instance=ExtResource("4_k0juu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1938853, 0.016578604, -2.4409764)
+use_collision = true
+collision_layer = 2
+collision_mask = 5
+
+[node name="Rock2" parent="Terrains" unique_id=1745278772 instance=ExtResource("4_k0juu")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.956115, 0.016578604, 9.509024)
+use_collision = true
+collision_layer = 2
+collision_mask = 5
+
+[node name="Enemies" type="Node" parent="." unique_id=1974575586]
+
+[node name="Zombie" parent="Enemies" unique_id=1812481539 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+
+[node name="Zombie2" parent="Enemies" unique_id=1574600822 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35, 4.4823, -3.3999996)
+
+[node name="Zombie3" parent="Enemies" unique_id=926816916 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.75, 1.25, -4.7)
+
+[node name="Zombie4" parent="Enemies" unique_id=1608196855 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.25, 4.8500004)
+
+[node name="Imp" parent="Enemies" unique_id=2143698031 instance=ExtResource("8_qxjwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.250001, 1.2500001, 2.750001)
 
 [node name="Spawner" parent="." unique_id=467570870 instance=ExtResource("3_c0n45")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1, 5.75, -9.65)
@@ -84,32 +139,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.75, -9.65)
 spawn_type = "imp"
 interval = 1.0
 
-[node name="Rock1" parent="." unique_id=1488182600 instance=ExtResource("4_k0juu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1938853, 0.016578604, -2.4409764)
-use_collision = true
-collision_layer = 2
-collision_mask = 5
-
-[node name="Rock2" parent="." unique_id=1745278772 instance=ExtResource("4_k0juu")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.956115, 0.016578604, 9.509024)
-use_collision = true
-collision_layer = 2
-collision_mask = 5
-
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("1_nnsk1")]
 transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999994, -9.45, 1.0735109, 29.05)
-
-[node name="Zombie" parent="." unique_id=1812481539 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-
-[node name="Zombie2" parent="." unique_id=1574600822 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35, 4.4823, -3.3999996)
-
-[node name="Zombie3" parent="." unique_id=926816916 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.75, 1.25, -4.7)
-
-[node name="Zombie4" parent="." unique_id=1608196855 instance=ExtResource("3_4wyf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.25, 4.8500004)
-
-[node name="Imp" parent="." unique_id=2143698031 instance=ExtResource("8_qxjwa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.250001, 1.2500001, 2.750001)

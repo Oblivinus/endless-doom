@@ -10,3 +10,6 @@ enum GUN_TYPES {
 	SHELL,
 	ROCKET
 }
+
+func get_guns_type() -> Array:
+	return GUN_TYPES.keys()

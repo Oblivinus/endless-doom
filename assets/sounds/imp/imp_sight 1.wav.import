@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvk7s6cxncft"
+path="res://.godot/imported/imp_sight 1.wav-d14b570e318c3d7503db42c9e5311898.sample"
+
+[deps]
+
+source_file="res://assets/sounds/imp/imp_sight 1.wav"
+dest_files=["res://.godot/imported/imp_sight 1.wav-d14b570e318c3d7503db42c9e5311898.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

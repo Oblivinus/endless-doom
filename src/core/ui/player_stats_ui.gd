@@ -103,6 +103,10 @@ func _hurt_face(dmg: float) -> void:
 
 func _on_pick_up(item: Item):
 	flash_screen(PICKUP_FLASH_COLOR)
+	var sfx = Audio3D.new("gameplay/item_up", player)
+	sfx.max_db = -2.5
+	sfx.pitch_scale = randf_range(0.99, 1.01)
+	sfx.play()
 
 func _on_ammo_used(type_enum_string: String, _amount: int) -> void:
 	var type = Enums.GUN_TYPES.get(type_enum_string)

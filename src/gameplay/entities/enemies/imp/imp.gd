@@ -1,10 +1,10 @@
 class_name Imp extends Enemy
 
 func _init() -> void:
-	in_sight_sfx = ["possessed/possessed_sight 1", "possessed/possessed_sight 2", "possessed/possessed_sight 3"]
-	dead_sfx = ["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"]
-	idle_sfx = ["possessed/possessed_activity"]
-	hurt_sfx = ["possessed/possessed_pain"]
+	in_sight_sfx = ["imp/imp_sight 1", "imp/imp_sight 2"]
+	dead_sfx = ["imp/imp_death 1", "imp/imp_death 2"]
+	idle_sfx = ["imp/imp_activity"]
+	hurt_sfx = []
 
 func _on_hurt(dmg: float) -> void:
 	super(dmg)
