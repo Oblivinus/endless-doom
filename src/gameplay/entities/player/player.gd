@@ -80,7 +80,6 @@ func _on_died():
 	pass
 
 func hurt(damage: float) -> void:
-	if is_dead: return
 	if armor > 0:
 		var health_damage = damage * (1 - armor_absorption)
 		armor -= damage * armor_absorption
