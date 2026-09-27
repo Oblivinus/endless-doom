@@ -32,7 +32,6 @@ func _on_attack() -> void:
 func _on_died() -> void:
 	playback.start("died")
 
-
 func travel(node_name: String):
 	playback.travel(node_name)
 	

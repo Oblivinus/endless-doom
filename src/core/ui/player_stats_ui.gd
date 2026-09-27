@@ -39,7 +39,7 @@ var hurt_state: int = 0 # 6 state, start from 0
 var idle_timer: Timer
 
 const MODULATE_SPEED: float = 5.0
-const HURT_FLASH_COLOR: Color = Color(1, 0, 0, 0.35)
+const HURT_FLASH_COLOR: Color = Color(1, 0, 0, 0.5)
 const  DEATH_FLASH_COLOR: Color = Color(1, 0, 0, 1)
 const PICKUP_FLASH_COLOR: Color = Color(1, 1, 1, 0.35)    
 

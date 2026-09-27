@@ -2,10 +2,8 @@
 class_name Enemy extends Humanoid
 
 @export_category("Dependecies")
-@export var animation_tree: GenericAnimationTree
-@export var audio_player: AudioStreamPlayer3D
+@export var animation_tree: AnimationTree
 @export var state_machine: StateMachine
-@export var hitbox: Area3D
 
 @export_category("Combat")
 @export var target: Humanoid
@@ -19,6 +17,7 @@ class_name Enemy extends Humanoid
 @export var detection_range: float = 12.0
 @export var attack_range: float = 10.0
 @export var melee_range: float = 0.0
+@export var fov: int = 45
 
 @export_category("Resources")
 @export var sounds: Dictionary[String, AudioStream]
@@ -62,6 +61,9 @@ func _process_moving(delta: float) -> void:
 		continue_move()
 	super(delta)
 
+func hurt(damage: float, type: String = "normal", dir: Vector3 = Vector3.ZERO) -> void:
+	super(damage)
+
 #region CONNECTION
 func _on_hurt(_dmg: float) -> void:
 	flash_sprite(Color(1.0, 0.316, 0.252, 1.0))
@@ -103,7 +105,6 @@ func _create_range_area(frustum_shape: FrustumShape) -> Area3D:
 #endregion
 
 func get_enemies_in_attack_range() -> Array[Player]:
-	print("yes")
 	if attack_range <= 0: return []
 	var bodies = range_attack_area.get_overlapping_bodies()
 	var players: Array[Player] = []
@@ -135,6 +136,12 @@ func get_facing_degree_to(target_pos: Vector3) -> int:
 	var angle = get_facing_direction().angle_to(to_target)
 	var degree = rad_to_deg(angle)
 	return degree
+
+func is_in_sight(target_pos: Vector3) -> bool:
+	if get_facing_degree_to(target_pos) > fov:
+		return false
+	else:
+		return true
 
 func flash_sprite(color: Color):
 	$Sprite3D.modulate = color
