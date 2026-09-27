@@ -6,6 +6,23 @@ func _init() -> void:
 	idle_sfx = ["possessed/possessed_activity"]
 	hurt_sfx = ["possessed/possessed_pain"]
 
+func _on_missed_or_blocked(pos: Vector3 = Vector3.ZERO, _context: String = "none") -> void:
+	if pos == Vector3.ZERO: return
+	var vfx = VFX.new("bullet_hit", pos)
+	Globals.world.add_child(vfx)
+	vfx.global_basis = global_basis
+	vfx.restart()
+
+func attack_action() -> void:
+	if is_dead: return
+	$OmniLight3D.visible = true
+	Audio3D.new("guns/pistol", self).play()
+	var humanoid: Humanoid = _check_for_target()
+	if humanoid:
+		humanoid.hurt(attack_damage)
+	await get_tree().create_timer(0.1).timeout
+	$OmniLight3D.visible = false
+
 func _on_hurt(dmg: float) -> void:
 	super(dmg)
 	var blood = VFX.new("blood_splatter", global_position)

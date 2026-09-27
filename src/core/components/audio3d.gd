@@ -19,6 +19,7 @@ func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 	stream = loaded_stream
 	if pos_or_node3d is Node3D:
 		pos_or_node3d.add_child(self)
+		position = Vector3.ZERO
 	elif pos_or_node3d is Vector3:
 		Globals.world.add_child(self)
 		pos = pos_or_node3d
