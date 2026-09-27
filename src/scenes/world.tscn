@@ -129,7 +129,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.75, 1.25, -4.7)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9, 1.25, 4.8500004)
 
 [node name="Imp" parent="Enemies" unique_id=2143698031 instance=ExtResource("8_qxjwa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0500016, 1.2500001, -11.749999)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.900002, 1.2500001, 35.5)
 
 [node name="Pinky" parent="Enemies" unique_id=1846040182 instance=ExtResource("9_0ls5i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7, 0.8499999, 6.299999)

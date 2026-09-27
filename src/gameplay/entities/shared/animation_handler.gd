@@ -1,4 +1,4 @@
-extends AnimationTree
+class_name AnimationHandler extends AnimationTree
 
 @export var enemy: Enemy
 @export var sprite: Sprite3D
@@ -43,6 +43,14 @@ func _ready() -> void:
 		if sm.get_transition_from(i) == "hurt" and sm.get_transition_to(i) == "idle":
 			var transition := sm.get_transition(i)
 			transition.advance_expression = "!in_pain"
+			
+		if sm.get_transition_from(i) == "idle" and sm.get_transition_to(i) == "walk":
+			var transition := sm.get_transition(i)
+			transition.advance_expression = "is_moving"
+		
+		if sm.get_transition_from(i) == "walk" and sm.get_transition_to(i) == "idle":
+			var transition := sm.get_transition(i)
+			transition.advance_expression = "!is_moving"
 	
 	enemy.on_attack.connect(_on_attack)
 	enemy.on_died.connect(_on_died)

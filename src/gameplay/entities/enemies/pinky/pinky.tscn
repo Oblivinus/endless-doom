@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0s11hiipeofv" path="res://src/gameplay/entities/enemies/imp/imp.gd" id="1_tngwj"]
 [ext_resource type="Texture2D" uid="uid://bf6pt26qv33b0" path="res://assets/gameplay/enemies/pinky.png" id="2_2rpxy"]
-[ext_resource type="Script" uid="uid://c6vjvkg7pkvv6" path="res://src/gameplay/entities/enemies/pinky/pinky_at.gd" id="3_2rpxy"]
+[ext_resource type="Script" uid="uid://c6vjvkg7pkvv6" path="res://src/gameplay/entities/shared/animation_handler.gd" id="3_2rpxy"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="3_p1r2f"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="4_v0wyv"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="5_b7q7s"]
