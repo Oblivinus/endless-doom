@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://c1x7wpl4omija" path="res://assets/gameplay/enemies/zombie.png" id="1_1vlb3"]
 [ext_resource type="Script" uid="uid://pk7hsvrg480g" path="res://src/gameplay/entities/enemies/zombie/zombie.gd" id="1_httt1"]
+[ext_resource type="Script" uid="uid://c7idyy17w1qo5" path="res://src/core/components/angled_sprites/angled_sprite_3d.gd" id="3_0bubi"]
+[ext_resource type="Script" uid="uid://leaqmp3rfm7v" path="res://src/core/components/angled_sprites/angle_parameters.gd" id="4_ef3fu"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="4_x680j"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="5_o3qke"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="6_x680j"]
@@ -9,9 +11,57 @@
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_08hh8"]
 [ext_resource type="Script" uid="uid://doi7l11xnfcw0" path="res://src/gameplay/entities/shared/generic_anim_tree.gd" id="9_yhxrr"]
 [ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="10_7jnro"]
-[ext_resource type="Script" uid="uid://cbhknj3fwycf2" path="res://src/gameplay/entities/enemies/imp/imp_ah.gd" id="11_7jnro"]
+[ext_resource type="Script" uid="uid://c6vjvkg7pkvv6" path="res://src/gameplay/entities/shared/animation_handler.gd" id="12_q2t7v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
+
+[sub_resource type="Resource" id="Resource_molof"]
+script = ExtResource("4_ef3fu")
+
+[sub_resource type="Resource" id="Resource_4cnso"]
+script = ExtResource("4_ef3fu")
+ANGLE_STRING = "F_L"
+angle_vect = Vector2(-0.5, -0.5)
+value = 1
+
+[sub_resource type="Resource" id="Resource_66vg1"]
+script = ExtResource("4_ef3fu")
+ANGLE_STRING = "L"
+angle_vect = Vector2(-1, 0)
+value = 2
+
+[sub_resource type="Resource" id="Resource_vj6am"]
+script = ExtResource("4_ef3fu")
+ANGLE_STRING = "B_L"
+angle_vect = Vector2(-0.5, 0.5)
+value = 3
+
+[sub_resource type="Resource" id="Resource_7wbhk"]
+script = ExtResource("4_ef3fu")
+ANGLE_STRING = "B"
+angle_vect = Vector2(0, 1)
+value = 4
+
+[sub_resource type="Resource" id="Resource_4dq4q"]
+script = ExtResource("4_ef3fu")
+ANGLE_STRING = "F_R"
+angle_vect = Vector2(0.5, -0.5)
+value = 1
+flip = true
+
+[sub_resource type="Resource" id="Resource_5vo2a"]
+script = ExtResource("4_ef3fu")
+ANGLE_STRING = "R"
+angle_vect = Vector2(1, 0)
+value = 2
+flip = true
+
+[sub_resource type="Resource" id="Resource_8b0yi"]
+script = ExtResource("4_ef3fu")
+ANGLE_STRING = "B_R"
+angle_vect = Vector2(0.5, 0.5)
+value = 3
+flip = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqtsj"]
 animation = &"attack_b"
@@ -1454,6 +1504,8 @@ texture = ExtResource("1_1vlb3")
 hframes = 9
 vframes = 8
 frame = 4
+script = ExtResource("3_0bubi")
+angle_params = Array[ExtResource("4_ef3fu")]([SubResource("Resource_molof"), SubResource("Resource_4cnso"), SubResource("Resource_66vg1"), SubResource("Resource_vj6am"), SubResource("Resource_7wbhk"), SubResource("Resource_4dq4q"), SubResource("Resource_5vo2a"), SubResource("Resource_8b0yi")])
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite3D" unique_id=987326939 node_paths=PackedStringArray("enemy")]
 active = false
@@ -1500,7 +1552,7 @@ root_node = NodePath(".")
 tree_root = SubResource("AnimationNodeStateMachine_0bubi")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("AnimationPlayer")
-script = ExtResource("11_7jnro")
+script = ExtResource("12_q2t7v")
 enemy = NodePath("..")
 sprite = NodePath("../Sprite3D")
 metadata/_custom_type_script = "uid://c6vjvkg7pkvv6"
