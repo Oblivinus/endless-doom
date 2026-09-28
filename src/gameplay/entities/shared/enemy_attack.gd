@@ -41,9 +41,7 @@ func process_physics(_delta: float) -> void:
 	else:
 		strafe()
 	
-	if ready_to_attack:
-		parent.attack_at_position(parent.target.global_position)
-	#attack_at_position(parent.target.global_position)
+	attack_at_position(parent.target.global_position)
 
 func _check_for_target() -> Humanoid:
 	var targets = parent.get_enemies_in_attack_range()
@@ -106,15 +104,14 @@ func check_if_in_range() -> bool:
 	if attack_range_valid or melee_range_valid:
 		ready_to_attack = true
 		return true
-		
-	ready_to_attack = false
-	if not attacking:
-		return not switch_to_chase()
+	elif not attacking:
+		transitioned.emit(self, "chase")
+		return false
 	return false
 
 func strafe() -> void:
 	if strafe_timer.is_stopped(): strafing = false
-	if not parent.is_on_cooldown() or parent.is_attacking: return
+	if not on_cooldown or attacking: return
 	if strafing or parent.is_moving: return
 	
 	if not strafing and not parent.is_moving:
@@ -137,10 +134,8 @@ func on_missed_or_blocked(block_pos: Vector3 = Vector3.ZERO) -> void:
 	pass
 
 func attack_at_position(target_pos: Vector3) -> void:
-	if parent.in_pain: return
 	var target_no_y := Vector3(target_pos.x, parent.global_position.y, target_pos.z)
 	if not ready_to_attack or on_cooldown: return
-	_on_attack()
 	parent.stop_move()
 	attacking = true
 	on_cooldown = true
@@ -160,16 +155,8 @@ func attack_at_position(target_pos: Vector3) -> void:
 		get_tree().create_timer(parent.attack_cd).timeout.connect(_on_attack_cooldewn_finish)
 		)
 
-func switch_to_chase() -> bool:
-	if parent.is_attacking: return false
-	transitioned.emit(self, "chase")
-	return true
-
 func attack() -> void:
 	pass
 
 func melee_attack() -> void:
-	pass
-
-func _on_attack() -> void:
 	pass

@@ -23,8 +23,7 @@ var anim_angle_axis_dict: Dictionary[String, String] = {
 	"walk": "y",
 	"attack": "y",
 	"hurt": "x",
-	"died": "n/a",
-	"xdied": "n/a",
+	"died": "nan",
 }
 
 class AngleParameters:

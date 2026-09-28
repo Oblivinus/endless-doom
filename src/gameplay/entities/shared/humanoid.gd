@@ -101,7 +101,7 @@ func  _face_rotation(dir: Vector3, delta: float) -> void:
 
 func move_to(target_pos: Vector3) -> void:
 	if is_moving_paused: return
-	#if is_moving: stop_move()
+	if is_moving: stop_move()
 	move_target = target_pos
 	is_moving = true
 
@@ -114,7 +114,7 @@ func move_to_direction(direction: Vector3) -> void:
 	is_moving = true
 
 func pause_move() -> void:
-	if not is_moving: return #or move_dir == Vector3.ZERO
+	if not is_moving or move_dir == Vector3.ZERO: return
 	is_moving_paused = true
 	is_moving = false
 	

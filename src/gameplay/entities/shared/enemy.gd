@@ -20,13 +20,15 @@ class_name Enemy extends Humanoid
 @export var fov: int = 45
 
 @export_category("Resources")
+@export var sounds: Dictionary[String, AudioStream]
 
 var timer: Timer
+var in_pain: bool = false
 
-@export var in_sight_sfx: Array[String] = ["possessed/possessed_sight 1", "possessed/possessed_sight 2", "possessed/possessed_sight 3"]
-@export var idle_sfx: Array[String] = ["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"]
-@export var dead_sfx: Array[String] = ["possessed/possessed_activity"]
-@export var hurt_sfx: Array[String] = ["possessed/possessed_pain"]
+var in_sight_sfx: Array[String] = ["possessed/possessed_sight 1", "possessed/possessed_sight 2", "possessed/possessed_sight 3"]
+var idle_sfx: Array[String] = ["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"]
+var dead_sfx: Array[String] = ["possessed/possessed_activity"]
+var hurt_sfx: Array[String] = ["possessed/possessed_pain"]
 
 signal on_pain()
 signal on_attack
@@ -34,19 +36,6 @@ signal event (event_name: String)
 
 var range_attack_area: Area3D
 var melee_attack_area: Area3D
-
-#region IN COMBAT
-@export_category("In Combat")
-@export var attack_delay: float = 0.7
-var attack_timer: Timer
-var attack_pos: Vector3 = Vector3.ZERO
-var is_attacking: bool = false
-var has_melee: bool = false
-var has_range: bool = false
-
-var is_disturbed: bool = false
-var in_pain: bool = false
-#endregion
 
 func _ready() -> void:
 	super()
@@ -56,28 +45,19 @@ func _ready() -> void:
 	
 	on_died.connect(_on_died)
 	on_hurt.connect(_on_hurt)
-	on_attack.connect(_on_attack)
 	event.connect(_on_event)
-	
-	attack_timer = Timer.new()
-	attack_timer.one_shot = true
-	attack_timer.wait_time = attack_cd
-	add_child(attack_timer)
 	
 	if attack_range > 0:
 		range_attack_area = _create_range_area(FrustumShape.new(Vector2(0.5, 1), 0, 45, attack_range))
 		add_child(range_attack_area)
-		has_range = true
 	if melee_range > 0:
 		melee_attack_area = _create_range_area(FrustumShape.new(Vector2(1.5, 2), 0, 0, melee_range))
 		add_child(melee_attack_area)
-		has_melee = true
 
 func _process_moving(delta: float) -> void:
-	if in_pain: is_disturbed = true
-	if in_pain and not is_moving_paused:
+	if is_hurted and not is_moving_paused:
 		pause_move()
-	elif not in_pain and is_moving_paused:
+	elif not is_hurted and is_moving_paused:
 		continue_move()
 	super(delta)
 
@@ -99,24 +79,6 @@ func _on_event(event_name) -> void:
 		play_sound("in_sight")
 	if event_name == "random_idle":
 		play_sound("idle")
-
-func _on_attack():
-	pass
-
-func _on_missed_or_blocked(pos: Vector3 = Vector3.ZERO, context: String = "none") -> void:
-	pass
-
-func _attack_sequeance(current_distance: float):
-	if is_dead or is_disturbed: return
-	
-	if has_melee and current_distance <= melee_range:
-		melee_attack_action();
-		return
-	
-	if has_range and current_distance <= attack_range:
-		attack_action();
-		return
-
 #endregion
 
 #region HELPER
@@ -140,49 +102,8 @@ func _create_range_area(frustum_shape: FrustumShape) -> Area3D:
 	area_shape.debug_color = Color(0.0, 1.0, 0.0, 1.0)
 	area.add_child(area_shape)
 	return area
-
-func _raycast_check(final_pos: Vector3) -> Dictionary:
-	var raycast = Raycast3d.new(self)
-	raycast.from_to(global_position, final_pos)
-	raycast.mask([2])
-	var result = raycast.intersect()
-	return result
-
-func _check_for_target() -> Humanoid:
-	var targets = get_enemies_in_attack_range()
-	if targets.is_empty(): return null
-	
-	for humanoid: Humanoid in targets:
-		var query = _raycast_check(humanoid.global_position)
-		if query.is_empty():
-			return humanoid
-		else:
-			var intersect: Vector3 = query.position
-			_on_missed_or_blocked(intersect, "range")
-			return
-	_on_missed_or_blocked()
-	return null
-
-func _check_for_target_in_melee() -> Humanoid:
-	var targets = get_enemies_in_melee_range()
-	if targets.is_empty(): return null
-	
-	for humanoid: Humanoid in targets:
-		var query = _raycast_check(humanoid.global_position)
-		if query.is_empty():
-			return humanoid
-		else:
-			var intersect: Vector3 = query.position
-			_on_missed_or_blocked(intersect, "melee")
-			return
-	_on_missed_or_blocked()
-	return null
-
-
-
 #endregion
 
-#region METHOD
 func get_enemies_in_attack_range() -> Array[Player]:
 	if attack_range <= 0: return []
 	var bodies = range_attack_area.get_overlapping_bodies()
@@ -224,7 +145,7 @@ func is_in_sight(target_pos: Vector3) -> bool:
 
 func flash_sprite(color: Color):
 	$Sprite3D.modulate = color
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(pain_time).timeout
 	$Sprite3D.modulate = Color.WHITE
 
 func play_sound(sound_name: String):
@@ -246,40 +167,3 @@ func play_sound(sound_name: String):
 		audio.max_db = volume
 		audio.max_distance = 35.0
 		audio.play()
-#endregion
-
-#region ATTACK METHOD
-func attack_at_position(target_pos: Vector3) -> void:
-	if in_pain or is_on_cooldown() or is_attacking: return
-	
-	var target_no_y := Vector3(target_pos.x, global_position.y, target_pos.z)
-	var current_distance: float = get_target_distance()
-	
-	on_attack.emit()
-	attack_timer.start()
-	look_at(target_no_y)
-	stop_move()
-	is_disturbed = false
-	is_attacking = true
-	attack_pos = target_pos
-	
-	await get_tree().create_timer(attack_delay).timeout
-	_attack_sequeance(current_distance)
-	is_attacking = false
-
-func is_on_cooldown() -> bool:
-	return attack_timer.time_left > 0
-
-func attack_action() -> void:
-	pass
-
-func melee_attack_action() -> void:
-	pass
-
-func get_target_distance() -> float:
-	if not target: return -1
-	var target2d = Vector2(target.global_position.x, target.global_position.z)
-	var origin2d = Vector2(global_position.x, global_position.z)
-	
-	return origin2d.distance_to(target2d)
-#endregion

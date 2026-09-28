@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://daw4e6ejy8xij"]
 
-[ext_resource type="Script" uid="uid://h7am6pidd4bu" path="res://src/gameplay/entities/enemies/pinky/pinky.gd" id="1_2rpxy"]
+[ext_resource type="Script" uid="uid://b0s11hiipeofv" path="res://src/gameplay/entities/enemies/imp/imp.gd" id="1_tngwj"]
 [ext_resource type="Texture2D" uid="uid://bf6pt26qv33b0" path="res://assets/gameplay/enemies/pinky.png" id="2_2rpxy"]
 [ext_resource type="Script" uid="uid://c6vjvkg7pkvv6" path="res://src/gameplay/entities/shared/animation_handler.gd" id="3_2rpxy"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="3_p1r2f"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="4_v0wyv"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="5_b7q7s"]
-[ext_resource type="Script" uid="uid://bmspsn444xjbn" path="res://src/gameplay/entities/enemies/pinky/pinky_attack.gd" id="7_2rpxy"]
+[ext_resource type="Script" uid="uid://cdmbqmy7nfh4x" path="res://src/gameplay/entities/enemies/imp/imp_attack.gd" id="6_iqgtt"]
 [ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="7_t8omw"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_onru0"]
 
@@ -77,23 +77,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_onru0"]
 resource_name = "attack"
-length = 0.5
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite3D:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2i(4, 0), Vector2i(6, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_p1r2f"]
-resource_name = "died"
 length = 0.8
 step = 0.1
 tracks/0/type = "value"
@@ -104,6 +87,22 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(4, 0), Vector2i(6, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p1r2f"]
+resource_name = "died"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2i(0, 9), Vector2i(5, 9)]
@@ -147,7 +146,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ocada"]
 resource_name = "walk"
-length = 0.5
+length = 0.8
 loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
@@ -157,7 +156,7 @@ tracks/0/path = NodePath("../Sprite3D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2i(0, 0), Vector2i(3, 0)]
@@ -176,20 +175,15 @@ _data = {
 [node name="Pinky" type="CharacterBody3D" unique_id=1812481539 node_paths=PackedStringArray("animation_tree", "state_machine")]
 collision_layer = 4
 collision_mask = 10
-script = ExtResource("1_2rpxy")
+script = ExtResource("1_tngwj")
 animation_tree = NodePath("AnimationTree")
 state_machine = NodePath("StateMachine")
-attack_cd = 2.0
+attack_cd = 1.0
 attack_damage = 0.0
 melee_damage = 10.0
 detection_range = 20.0
 attack_range = 0.0
 melee_range = 3.0
-in_sight_sfx = Array[String](["pinky/pinky_sight"])
-idle_sfx = Array[String]([])
-dead_sfx = Array[String](["pinky/pinky_death"])
-hurt_sfx = Array[String]([])
-attack_delay = 0.6
 move_speed = 5.0
 max_health = 200.0
 auto_rotate = true
@@ -247,9 +241,8 @@ script = ExtResource("5_b7q7s")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=792155077]
-script = ExtResource("7_2rpxy")
+script = ExtResource("6_iqgtt")
 shot_vfx = ExtResource("7_t8omw")
-attack_delay = 0.5
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]
