@@ -36,10 +36,6 @@ func _default_table() -> Array[AngleParameter]:
 		AngleParameter.new(AngleParameter.ANGLE.B_R, 3, true)
 	] as Array[AngleParameter]
 
-func _enter_tree() -> void:
-	if Engine.is_editor_hint() and angle_params.is_empty():
-		angle_params = _default_table()
-
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	

@@ -11,7 +11,7 @@ enum ANGLE {
 	B,
 }
 
-var angle_vect_dict: Dictionary[ANGLE, Vector2] = {
+static var angle_vect_dict: Dictionary[ANGLE, Vector2] = {
 	ANGLE.F: Vector2(0, -1),
 	ANGLE.F_L: Vector2(-0.5, -0.5),
 	ANGLE.L: Vector2(-1, 0),
@@ -28,7 +28,7 @@ var angle_vect_dict: Dictionary[ANGLE, Vector2] = {
 @export var value: int = 0
 @export var flip: bool = false
 
-func _init(new_angle: ANGLE, frame_value: int, flipped: bool = false) -> void:
+func _init(new_angle: ANGLE = ANGLE.F, frame_value: int = 0, flipped: bool = false) -> void:
 	ANGLE_STRING = get_angle_string(new_angle)
 	angle_vect = angle_vect_dict[new_angle]
 	value = frame_value

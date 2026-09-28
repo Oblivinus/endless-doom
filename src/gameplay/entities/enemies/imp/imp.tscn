@@ -255,6 +255,7 @@ in_sight_sfx = Array[String](["imp/imp_sight 1", "imp/imp_sight 2"])
 idle_sfx = Array[String](["imp/imp_activity"])
 dead_sfx = Array[String](["imp/imp_death 1", "imp/imp_death 2"])
 hurt_sfx = Array[String]([])
+attack_delay = 0.65
 auto_rotate = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]

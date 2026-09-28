@@ -41,9 +41,11 @@ func _ready() -> void:
 	
 	lifetime_timer.start()
 	lifetime_timer.timeout.connect(trigger_on_hit)
+	lock_rotation = true
 
 func launch(direction: Vector3):
 	linear_velocity = direction.normalized() * speed
+	look_at(global_position + linear_velocity.normalized())
 
 func ovewrite_mask(masks_layers:Array[int]):
 	hit_area.collision_mask = 0
