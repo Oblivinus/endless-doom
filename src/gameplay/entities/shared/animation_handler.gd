@@ -56,17 +56,18 @@ func _ready() -> void:
 	enemy.on_died.connect(_on_died)
 
 func _process(_delta: float) -> void:
-	current_state = playback.get_current_node()
-	var player_dir = enemy.get_local_direction_to(Globals.player.global_position)
-	var blend_pos = Vector2(player_dir.x, player_dir.z)
-	
-	var angle_params: AngleParameters = get_nearest_blend_data(blend_pos)
-	if anim_angle_axis_dict[current_state] == "y":
-		sprite.frame_coords.y = angle_params.frame_value
-	elif anim_angle_axis_dict[current_state] == "x":
-		sprite.frame_coords.x = angle_params.frame_value
-		
-	sprite.flip_h = angle_params.flip_h
+	pass
+	#current_state = playback.get_current_node()
+	#var player_dir = enemy.get_local_direction_to(Globals.player.global_position)
+	#var blend_pos = Vector2(player_dir.x, player_dir.z)
+	#
+	#var angle_params: AngleParameters = get_nearest_blend_data(blend_pos)
+	#if anim_angle_axis_dict[current_state] == "y":
+		#sprite.frame_coords.y = angle_params.frame_value
+	#elif anim_angle_axis_dict[current_state] == "x":
+		#sprite.frame_coords.x = angle_params.frame_value
+		#
+	#sprite.flip_h = angle_params.flip_h
 
 func _on_attack() -> void:
 	if enemy.in_pain: return

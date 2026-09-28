@@ -140,7 +140,6 @@ interval = 1.0
 
 [node name="Spawner2" parent="." unique_id=1828868326 instance=ExtResource("3_c0n45")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.75, -9.65)
-spawn_type = "imp"
 interval = 1.0
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("1_nnsk1")]

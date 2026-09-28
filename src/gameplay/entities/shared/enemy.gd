@@ -25,10 +25,10 @@ class_name Enemy extends Humanoid
 var timer: Timer
 var in_pain: bool = false
 
-var in_sight_sfx: Array[String] = ["possessed/possessed_sight 1", "possessed/possessed_sight 2", "possessed/possessed_sight 3"]
-var idle_sfx: Array[String] = ["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"]
-var dead_sfx: Array[String] = ["possessed/possessed_activity"]
-var hurt_sfx: Array[String] = ["possessed/possessed_pain"]
+@export var in_sight_sfx: Array[String] = ["possessed/possessed_sight 1", "possessed/possessed_sight 2", "possessed/possessed_sight 3"]
+@export var idle_sfx: Array[String] = ["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"]
+@export var dead_sfx: Array[String] = ["possessed/possessed_activity"]
+@export var hurt_sfx: Array[String] = ["possessed/possessed_pain"]
 
 signal on_pain()
 signal on_attack

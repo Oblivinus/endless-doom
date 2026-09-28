@@ -2,16 +2,66 @@
 
 [ext_resource type="Script" uid="uid://b0s11hiipeofv" path="res://src/gameplay/entities/enemies/imp/imp.gd" id="1_4xsjr"]
 [ext_resource type="Script" uid="uid://doi7l11xnfcw0" path="res://src/gameplay/entities/shared/generic_anim_tree.gd" id="3_034q2"]
+[ext_resource type="Script" uid="uid://c7idyy17w1qo5" path="res://src/core/components/angled_sprites/angled_sprite_3d.gd" id="3_afe4i"]
 [ext_resource type="Texture2D" uid="uid://bq7tjx1gkaw1i" path="res://assets/gameplay/enemies/imp.png" id="3_nlxyr"]
+[ext_resource type="Script" uid="uid://leaqmp3rfm7v" path="res://src/core/components/angled_sprites/angle_parameters.gd" id="4_nlxyr"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="5_u74di"]
+[ext_resource type="Script" uid="uid://c6vjvkg7pkvv6" path="res://src/gameplay/entities/shared/animation_handler.gd" id="6_nlxyr"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="6_o30ei"]
 [ext_resource type="Script" uid="uid://cdmbqmy7nfh4x" path="res://src/gameplay/entities/enemies/imp/imp_attack.gd" id="7_034q2"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="7_ynrl7"]
 [ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="9_qwo7k"]
-[ext_resource type="Script" uid="uid://cbhknj3fwycf2" path="res://src/gameplay/entities/enemies/imp_ah.gd" id="10_4xsjr"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="10_ha6jn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
+
+[sub_resource type="Resource" id="Resource_nlxyr"]
+script = ExtResource("4_nlxyr")
+
+[sub_resource type="Resource" id="Resource_i3hy4"]
+script = ExtResource("4_nlxyr")
+ANGLE_STRING = "F_L"
+angle_vect = Vector2(-0.5, -0.5)
+value = 1
+
+[sub_resource type="Resource" id="Resource_u74di"]
+script = ExtResource("4_nlxyr")
+ANGLE_STRING = "L"
+angle_vect = Vector2(-1, 0)
+value = 2
+
+[sub_resource type="Resource" id="Resource_o30ei"]
+script = ExtResource("4_nlxyr")
+ANGLE_STRING = "B_L"
+angle_vect = Vector2(-0.5, 0.5)
+value = 3
+
+[sub_resource type="Resource" id="Resource_ynrl7"]
+script = ExtResource("4_nlxyr")
+ANGLE_STRING = "B"
+angle_vect = Vector2(0, 1)
+value = 4
+
+[sub_resource type="Resource" id="Resource_jmxx6"]
+script = ExtResource("4_nlxyr")
+ANGLE_STRING = "F_R"
+angle_vect = Vector2(0.5, -0.5)
+value = 1
+flip = true
+
+[sub_resource type="Resource" id="Resource_qwo7k"]
+script = ExtResource("4_nlxyr")
+ANGLE_STRING = "R"
+angle_vect = Vector2(1, 0)
+value = 2
+flip = true
+
+[sub_resource type="Resource" id="Resource_ha6jn"]
+script = ExtResource("4_nlxyr")
+ANGLE_STRING = "B_R"
+angle_vect = Vector2(0.5, 0.5)
+value = 3
+flip = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqtsj"]
 animation = &"attack_b"
@@ -1327,6 +1377,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ha6jn"]
 resource_name = "died"
+length = 0.5
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1335,7 +1386,7 @@ tracks/0/path = NodePath("Sprite3D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2i(0, 6), Vector2i(4, 6)]
@@ -1397,6 +1448,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_tmgra"]
 resource_name = "xdied"
+length = 0.5
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1405,7 +1457,7 @@ tracks/0/path = NodePath("Sprite3D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2i(0, 7), Vector2i(7, 7)]
@@ -1447,7 +1499,7 @@ shape = SubResource("CapsuleShape3D_4wyf3")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -1.3214824)
 visible = false
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=934707470]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=934707470 node_paths=PackedStringArray("anim_tree")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29764894, 0)
 pixel_size = 0.04
 billboard = 2
@@ -1458,6 +1510,9 @@ texture = ExtResource("3_nlxyr")
 hframes = 8
 vframes = 8
 frame = 1
+script = ExtResource("3_afe4i")
+anim_tree = NodePath("../AnimationHandler")
+angle_params = Array[ExtResource("4_nlxyr")]([SubResource("Resource_nlxyr"), SubResource("Resource_i3hy4"), SubResource("Resource_u74di"), SubResource("Resource_o30ei"), SubResource("Resource_ynrl7"), SubResource("Resource_jmxx6"), SubResource("Resource_qwo7k"), SubResource("Resource_ha6jn")])
 
 [node name="AnimationTree" type="AnimationTree" parent="Sprite3D" unique_id=987326939 node_paths=PackedStringArray("enemy")]
 active = false
@@ -1476,6 +1531,20 @@ enemy = NodePath("../..")
 active = false
 root_node = NodePath("../../..")
 libraries/ = SubResource("AnimationLibrary_627gg")
+
+[node name="AnimationHandler" type="AnimationTree" parent="." unique_id=1814291202 node_paths=PackedStringArray("enemy", "sprite")]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_afe4i")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("AnimationPlayer")
+script = ExtResource("6_nlxyr")
+enemy = NodePath("..")
+sprite = NodePath("../Sprite3D")
+metadata/_custom_type_script = "uid://c6vjvkg7pkvv6"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationHandler" unique_id=1212456835]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_04tgi")
 
 [node name="StateMachine" type="Node" parent="." unique_id=456199103 node_paths=PackedStringArray("starting_state")]
 script = ExtResource("5_u74di")
@@ -1498,17 +1567,3 @@ metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]
 script = ExtResource("10_ha6jn")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
-
-[node name="AnimationHandler" type="AnimationTree" parent="." unique_id=1814291202 node_paths=PackedStringArray("enemy", "sprite")]
-active = false
-tree_root = SubResource("AnimationNodeStateMachine_afe4i")
-advance_expression_base_node = NodePath("..")
-anim_player = NodePath("AnimationPlayer")
-script = ExtResource("10_4xsjr")
-enemy = NodePath("..")
-sprite = NodePath("../Sprite3D")
-metadata/_custom_type_script = "uid://c6vjvkg7pkvv6"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationHandler" unique_id=1212456835]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_04tgi")
