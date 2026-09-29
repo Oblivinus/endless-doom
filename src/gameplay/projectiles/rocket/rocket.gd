@@ -19,11 +19,14 @@ func _on_explosion(targets: Array):
 	audio.max_db = 15.0
 	audio.play()
 	
-	for target: Humanoid in targets:
+	for target in targets:
 		if target is Humanoid:
 			var dist: float = target.global_position.distance_to(last_pos)
 			var damage: float = _calculate_damage(dist)
-			target.hurt(damage)
+			if target is Enemy:
+				target.hurt(damage, DamageInfo.new("forceful", projectile_owner))
+			else:
+				target.hurt(damage)
 	on_blast_hit.emit(targets)
 
 func _calculate_damage(dist: float) -> float:

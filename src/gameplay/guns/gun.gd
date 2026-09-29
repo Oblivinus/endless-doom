@@ -8,6 +8,7 @@ class_name Gun extends Node3D
 @export var fire_rate: float = 2.0
 @export var max_hit: int = 1
 @export var type: Enums.GUN_TYPES = Enums.GUN_TYPES.BULLET
+@export var damage_type: String = "normal"
 
 @export_category("Dependecies")
 @export var hitbox: Area3D
@@ -49,10 +50,10 @@ func _check_and_shoot() -> void:
 	if enemies.is_empty(): return
 	
 	var check_count = 0
-	for enemy: Humanoid in enemies:
+	for enemy: Enemy in enemies:
 		var query = _check_ray_cast(enemy.global_position)
 		if query.is_empty():
-			enemy.hurt(damage)
+			hurt_enemy(enemy)
 			if enemy.is_dead: parent.register_kill(enemy)
 		else:
 			create_bullet_hit(query.position)
@@ -61,6 +62,9 @@ func _check_and_shoot() -> void:
 		check_count += 1
 		if check_count >= max_hit:
 			break
+
+func hurt_enemy(enemy: Enemy):
+	enemy.hurt(damage, DamageInfo.new(damage_type, parent.player))
 
 func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 	var raycast = Raycast3d.new(self)
@@ -110,6 +114,7 @@ func shoot() -> void:
 	playback.travel("shoot")
 	_check_and_shoot()
 	parent.use_ammo(type)
+	Globals.trigger_sound_detection(global_position)
 
 func set_visibility(value: bool, node: Node = self) -> void:
 	for child in node.get_children():

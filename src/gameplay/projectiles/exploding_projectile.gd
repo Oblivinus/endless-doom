@@ -3,6 +3,7 @@ class_name ExplodingProjectile extends Projectile
 @export var blast_radius: float = 2.0
 @export_flags_3d_physics var blast_mask: int = (1 << 2)
 
+var projectile_owner: Humanoid
 var blast_area: Area3D
 
 signal on_blast_hit(humanoids: Array[Humanoid])

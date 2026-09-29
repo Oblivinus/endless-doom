@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="4_v0wyv"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="5_b7q7s"]
 [ext_resource type="Script" uid="uid://bmspsn444xjbn" path="res://src/gameplay/entities/enemies/pinky/pinky_attack.gd" id="7_2rpxy"]
-[ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="7_t8omw"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_onru0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
@@ -230,15 +229,16 @@ state_machine = NodePath("StateMachine")
 attack_cd = 2.0
 attack_damage = 0.0
 melee_damage = 10.0
-detection_range = 20.0
+detection_range = 15.0
 attack_range = 0.0
 melee_range = 3.0
+fov = 75
 in_sight_sfx = Array[String](["pinky/pinky_sight"])
 idle_sfx = Array[String]([])
 dead_sfx = Array[String](["pinky/pinky_death"])
 hurt_sfx = Array[String]([])
 attack_delay = 0.6
-move_speed = 5.0
+move_speed = 6.0
 max_health = 200.0
 auto_rotate = true
 
@@ -299,8 +299,6 @@ metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=792155077]
 script = ExtResource("7_2rpxy")
-shot_vfx = ExtResource("7_t8omw")
-attack_delay = 0.5
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]

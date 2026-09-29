@@ -13,6 +13,8 @@ func  shoot() -> void:
 	var enemies = _check_for_valid_enemies()
 	var origin = global_position + Vector3(0, -0.35, 0)
 	var launcher: ProjectileLauncher = ProjectileLauncher.new("rocket", origin)
+	var projectile: ExplodingProjectile = launcher.projectile as ExplodingProjectile
+	projectile.projectile_owner = cache_parent.player
 	
 	if enemies.is_empty():
 		launcher.launch(farthest_center_vector())

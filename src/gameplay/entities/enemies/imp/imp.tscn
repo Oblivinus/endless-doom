@@ -7,9 +7,8 @@
 [ext_resource type="Script" uid="uid://leaqmp3rfm7v" path="res://src/core/components/angled_sprites/angle_parameters.gd" id="4_afe4i"]
 [ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="5_u74di"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="6_o30ei"]
-[ext_resource type="Script" uid="uid://cdmbqmy7nfh4x" path="res://src/gameplay/entities/enemies/imp/imp_attack.gd" id="7_034q2"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="7_ynrl7"]
-[ext_resource type="AudioStream" uid="uid://dak4dmfltoik4" path="res://assets/sounds/guns/pistol.wav" id="9_qwo7k"]
+[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://src/gameplay/entities/shared/enemy_attack.gd" id="9_4xsjr"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="10_ha6jn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
@@ -125,7 +124,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(1, 0)]
+"values": [Vector2i(3, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_qwo7k"]
@@ -225,7 +224,7 @@ tracks/0/path = NodePath("Sprite3D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2i(0, 7), Vector2i(7, 7)]
@@ -249,8 +248,9 @@ script = ExtResource("1_4xsjr")
 animation_tree = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
 attack_cd = 1.5
-detection_range = 20.0
+detection_range = 15.0
 melee_range = 2.5
+fov = 45
 in_sight_sfx = Array[String](["imp/imp_sight 1", "imp/imp_sight 2"])
 idle_sfx = Array[String](["imp/imp_activity"])
 dead_sfx = Array[String](["imp/imp_death 1", "imp/imp_death 2"])
@@ -282,7 +282,7 @@ texture_filter = 2
 texture = ExtResource("3_nlxyr")
 hframes = 8
 vframes = 8
-frame = 1
+frame = 3
 script = ExtResource("3_4xsjr")
 anim_tree = NodePath("../AnimationHandler")
 angle_params = Array[ExtResource("4_afe4i")]([SubResource("Resource_nlxyr"), SubResource("Resource_i3hy4"), SubResource("Resource_u74di"), SubResource("Resource_o30ei"), SubResource("Resource_ynrl7"), SubResource("Resource_jmxx6"), SubResource("Resource_qwo7k"), SubResource("Resource_ha6jn")])
@@ -314,8 +314,7 @@ script = ExtResource("7_ynrl7")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Attack" type="Node" parent="StateMachine" unique_id=792155077]
-script = ExtResource("7_034q2")
-shot_vfx = ExtResource("9_qwo7k")
+script = ExtResource("9_4xsjr")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]

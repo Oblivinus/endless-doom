@@ -31,7 +31,6 @@ var is_moving: bool = false
 var move_dir: Vector3 = Vector3.ZERO
 var last_move_dir: Vector3 = Vector3.ZERO
 var move_target = null
-var current_path_blocked: bool = false
 #endregion 
 
 signal on_hurt(amount: float)
@@ -47,8 +46,6 @@ func  _physics_process(delta: float) -> void:
 	_process_moving(delta)
 	_process_gravity(delta)
 	move_and_slide()
-
-
 
 func _process_gravity(delta):
 	if not is_on_floor():

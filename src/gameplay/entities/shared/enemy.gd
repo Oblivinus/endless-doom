@@ -17,7 +17,7 @@ class_name Enemy extends Humanoid
 @export var detection_range: float = 12.0
 @export var attack_range: float = 10.0
 @export var melee_range: float = 0.0
-@export var fov: int = 45
+@export var fov: int = 90
 
 @export_category("Movement")
 @export var steer_y_origin_offset: float = -0.75
@@ -31,12 +31,14 @@ var timer: Timer
 @export var dead_sfx: Array[String] = ["possessed/possessed_activity"]
 @export var hurt_sfx: Array[String] = ["possessed/possessed_pain"]
 
+signal on_hurt_ex(dmg_info: DamageInfo)
 signal on_pain()
 signal on_attack
 signal event (event_name: String)
 
 var range_attack_area: Area3D
 var melee_attack_area: Area3D
+var prev_dmg_type = "normal"
 
 #region IN COMBAT
 @export_category("In Combat")
@@ -57,8 +59,9 @@ func _ready() -> void:
 	state_machine.init(self)
 	set_collision_layer_value(3, true)
 	
-	on_died.connect(_on_died)
+	on_died.connect(_on_died, CONNECT_ONE_SHOT)
 	on_hurt.connect(_on_hurt)
+	on_hurt_ex.connect(_on_hurt_ex)
 	on_attack.connect(_on_attack)
 	event.connect(_on_event)
 	
@@ -84,14 +87,15 @@ func _process_moving(delta: float) -> void:
 		continue_move()
 	super(delta)
 
-func hurt(damage: float, type: String = "normal", dir: Vector3 = Vector3.ZERO) -> void:
+func hurt(damage: float, dmg_info: DamageInfo = null) -> void:
+	if not is_dead: on_hurt_ex.emit(dmg_info)
 	super(damage)
 
 #region STEERING
 var avoid_side: int = 0               # 0 = not avoiding, -1 / 1 = locked side
 var avoid_step: int = 1               # current detour angle = step * AVOID_STEP_DEG
 var avoid_clear_time: float = 0.0
-var avoid_release_time: float = 0.35  # how long the direct path must stay clear before we stop detouring
+var avoid_release_time: float = 0.4  # how long the direct path must stay clear before we stop detouring
 var avoid_look_ahead: float = 2.0
 var avoid_radius: float = 0.7
 const AVOID_STEP_DEG := 30.0
@@ -116,7 +120,7 @@ func _modify_move_dir(desired: Vector3) -> Vector3:
 		
 	avoid_clear_time = 0.0
 	if avoid_side == 0:
-		avoid_side = [-1, 1].pick_random()   # random side, chosen once per obstacle
+		avoid_side = [-1, 1].pick_random()
 
 	for attempt in 2:
 		for step in range(1, AVOID_MAX_STEPS + 1):
@@ -124,8 +128,12 @@ func _modify_move_dir(desired: Vector3) -> Vector3:
 			if not _ray_blocked(dir, avoid_look_ahead):
 				avoid_step = step
 				return dir
-		avoid_side = -avoid_side   # this side is a dead end, try the other one
-	return desired                 # boxed in on both sides
+		avoid_side = -avoid_side
+	
+	#NOTE: Stop move no path to it
+	print("not path")
+	stop_move()
+	return desired
 
 func _rotate_dir(dir: Vector3, step: int, side: int) -> Vector3:
 	return dir.rotated(Vector3.UP, deg_to_rad(AVOID_STEP_DEG * step) * side)
@@ -153,6 +161,12 @@ func stop_move() -> void:
 func _on_hurt(_dmg: float) -> void:
 	flash_sprite(Color(1.0, 0.316, 0.252, 1.0))
 	_process_pain()
+
+func _on_hurt_ex(dmg_info: DamageInfo):
+	if dmg_info:
+		prev_dmg_type = dmg_info.type
+	else:
+		prev_dmg_type = "normal"
 
 func _on_died() -> void:
 	state_machine.change_state_name("dead")

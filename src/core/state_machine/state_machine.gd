@@ -36,6 +36,7 @@ func init(parent: Node) -> void:
 	for state: State in get_children():
 		state.parent = parent
 		state.machine = self
+		starting_state._state_machine_ready()
 	change_state(starting_state)
 
 func change_state(new_state: State):

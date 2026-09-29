@@ -4,6 +4,9 @@ class_name State extends Node
 @export var machine: StateMachine
 signal transitioned(self_state: State, new_state: String)
 
+func _state_machine_ready() -> void:
+	pass
+
 func enter() -> void:
 	pass
 	

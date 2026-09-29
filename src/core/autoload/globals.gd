@@ -7,6 +7,7 @@ var world: Node3D
 var item_spawner: ItemSpawner
 
 signal enemy_died(enemy: Enemy, last_pos: Vector3)
+signal detected_sound(pos: Vector3, type: String)
 
 class ItemSpawner:
 	var parent: Globals
@@ -56,3 +57,6 @@ func get_enemies_node() -> Node:
 func get_items_node() -> Node:
 	if not world: return null
 	return world.get_node("Items")
+
+func trigger_sound_detection(pos: Vector3, type: String = "generic"):
+	detected_sound.emit(pos, type)
