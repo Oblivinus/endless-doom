@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_onru0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
+radius = 0.6
 
 [sub_resource type="Resource" id="Resource_iqgtt"]
 script = ExtResource("4_b7q7s")
