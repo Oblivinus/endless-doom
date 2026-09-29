@@ -31,6 +31,7 @@ var is_moving: bool = false
 var move_dir: Vector3 = Vector3.ZERO
 var last_move_dir: Vector3 = Vector3.ZERO
 var move_target = null
+var current_path_blocked: bool = false
 #endregion 
 
 signal on_hurt(amount: float)
@@ -67,6 +68,7 @@ func _process_moving(delta: float) -> void:
 		if move_target:
 			move_dir = global_position.direction_to(move_target)
 			move_dir.y = 0
+			move_dir = _modify_move_dir(move_dir.normalized())
 			
 			var flat_self = Vector2(global_position.x, global_position.z)
 			var flat_target = Vector2(move_target.x, move_target.z)
@@ -132,6 +134,9 @@ func stop_move() -> void:
 	is_moving_paused = false
 	move_target = null
 
+func _modify_move_dir(dir: Vector3) -> Vector3:
+	return dir
+
 func get_facing_direction() -> Vector3:
 	return -global_transform.basis.z
 
@@ -139,3 +144,12 @@ func hurt(damage: float) -> void:
 	if is_dead: return
 	health -= damage
 	if not is_dead: on_hurt.emit(damage)
+
+func is_movement_blocked(length: float) -> bool:
+	if move_dir == Vector3.ZERO: return false
+	var target: Vector3 = global_position + move_dir * length
+	var raycast = Raycast3d.new(self)
+	raycast.from_to(global_position, target)
+	raycast.mask([2, 4])
+	var query = raycast.intersect()
+	return not query.is_empty()

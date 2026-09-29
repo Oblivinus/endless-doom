@@ -110,7 +110,6 @@ mesh = SubResource("SphereMesh_8rg7t")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1982590585]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.100000024)
-offset = Vector2(3, 0)
 pixel_size = 0.04
 billboard = 2
 texture_filter = 2

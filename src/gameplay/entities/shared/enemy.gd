@@ -84,6 +84,36 @@ func _process_moving(delta: float) -> void:
 func hurt(damage: float, type: String = "normal", dir: Vector3 = Vector3.ZERO) -> void:
 	super(damage)
 
+#region STEERING
+var avoid_side: int = 1
+var avoid_look_ahead: float = 1.5
+const AVOID_STEP_DEG := 30.0
+const AVOID_MAX_STEPS := 5
+
+func _modify_move_dir(desired: Vector3) -> Vector3:
+	if desired == Vector3.ZERO: return desired
+	if not _ray_blocked(desired, avoid_look_ahead):
+		return desired
+	for step in range(1, AVOID_MAX_STEPS + 1):
+		for side in [avoid_side, -avoid_side]:
+			var dir := desired.rotated(Vector3.UP, deg_to_rad(AVOID_STEP_DEG * step) * side)
+			if not _ray_blocked(dir, avoid_look_ahead):
+				avoid_side = side  # keep the side that worked, prevents jitter
+				return dir
+	return desired  # boxed in
+
+func _ray_blocked(dir: Vector3, length: float) -> bool:
+	var raycast = Raycast3d.new(self)
+	var origin = global_position
+	var target = global_position + dir * length
+	
+	origin.y -= 0.75
+	
+	raycast.from_to(origin, global_position + dir * length)
+	raycast.mask([2, 4])
+	return not raycast.intersect().is_empty()
+#endregion
+
 #region CONNECTION
 func _on_hurt(_dmg: float) -> void:
 	flash_sprite(Color(1.0, 0.316, 0.252, 1.0))

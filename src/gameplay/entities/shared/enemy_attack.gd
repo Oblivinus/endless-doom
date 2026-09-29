@@ -43,7 +43,6 @@ func process_physics(_delta: float) -> void:
 	
 	if ready_to_attack:
 		parent.attack_at_position(parent.target.global_position)
-	#attack_at_position(parent.target.global_position)
 
 func _check_for_target() -> Humanoid:
 	var targets = parent.get_enemies_in_attack_range()

@@ -1479,7 +1479,6 @@ collision_mask = 10
 script = ExtResource("1_httt1")
 animation_tree = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
-pain_chance = 1.0
 attack_range = 5.0
 auto_rotate = true
 
