@@ -39,14 +39,13 @@ func _ready() -> void:
 	_on_property_changed("health", health)
 	#PlayerStatsUi.init(self)
 
-func _input(_event: InputEvent) -> void:
-	
-	if Input.is_action_just_pressed("ui_cancel"):
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
