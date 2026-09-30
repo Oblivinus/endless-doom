@@ -3,11 +3,13 @@ class_name Spawner extends Marker3D
 @export var spawn_type: String
 @export var interval: float = 0.5
 @export var max_spawn: int = 10
+@export var spawn_range: Array[int] = [2, 10]
 @export var spawn_rate_flactuation: bool = false
 
 var spawnable: Dictionary = {
 	zombie = preload("res://src/gameplay/entities/enemies/zombie/zombie.tscn"),
-	imp = preload("res://src/gameplay/entities/enemies/imp/imp.tscn")
+	imp = preload("res://src/gameplay/entities/enemies/imp/imp.tscn"),
+	pinky = preload("res://src/gameplay/entities/enemies/pinky/pinky.tscn")
 }
 
 var floor_y: float = 1.25
@@ -36,8 +38,8 @@ func spawn(id: String, pos: Vector3) -> Humanoid:
 	return instance
 
 func random_pos():
-	var x: int = randi_range(2, 10)
-	var z: int = randi_range(2, 10)
+	var x: int = randi_range(spawn_range[0], spawn_range[1])
+	var z: int = randi_range(spawn_range[0], spawn_range[1])
 	var direction: Array[int] = [-1, 1]
 	
 	var vec3 = Vector3(x * direction.pick_random(), 0, z * direction.pick_random())

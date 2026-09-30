@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Doom Godot"
-run/main_scene="uid://behldxhl6rro4"
+run/main_scene="uid://b8iw6m4p3gjn8"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://assets/texture/icon.svg"
 

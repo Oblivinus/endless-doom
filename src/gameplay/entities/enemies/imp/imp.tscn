@@ -249,6 +249,7 @@ animation_tree = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
 attack_cd = 1.5
 detection_range = 15.0
+attack_range = 15.0
 melee_range = 2.5
 fov = 45
 in_sight_sfx = Array[String](["imp/imp_sight 1", "imp/imp_sight 2"])

@@ -37,7 +37,6 @@ func _ready() -> void:
 	Globals.player = self
 	
 	_on_property_changed("health", health)
-	#PlayerStatsUi.init(self)
 
 
 func _input(event: InputEvent) -> void:

@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://b8iw6m4p3gjn8"]
+
+[ext_resource type="Material" uid="uid://dpdolnb2kv0my" path="res://assets/models/roads/sidewalks/sidewalks.tres" id="1_dcu34"]
+[ext_resource type="PackedScene" uid="uid://utqqbvj53n7j" path="res://assets/models/roads/road_1_straight.glb" id="1_f0rxn"]
+[ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="2_dcu34"]
+[ext_resource type="PackedScene" uid="uid://bjaxwj8i0b7it" path="res://assets/models/roads/road_1_junction.glb" id="3_32kk5"]
+[ext_resource type="PackedScene" uid="uid://b4xwxdd814rlg" path="res://assets/models/buildings/scenes/building_square.tscn" id="4_47c5l"]
+[ext_resource type="PackedScene" uid="uid://cthrnxms7m6ok" path="res://assets/models/buildings/scenes/building_square2.tscn" id="6_wwodm"]
+[ext_resource type="PackedScene" uid="uid://b2dajtcov8hi4" path="res://src/scenes/spawner.tscn" id="7_xkr0v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_32kk5"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_nnsk1"]
+sky_material = SubResource("ProceduralSkyMaterial_32kk5")
+
+[sub_resource type="Environment" id="Environment_47c5l"]
+background_mode = 2
+sky = SubResource("Sky_nnsk1")
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 1.0
+fog_enabled = true
+fog_light_color = Color(0.24, 0.24, 0.24, 1)
+fog_light_energy = 0.8
+fog_density = 0.1
+fog_sky_affect = 0.8
+fog_height = 5.0
+fog_height_density = 0.1
+volumetric_fog_density = 1.0
+volumetric_fog_albedo = Color(0.35, 0.35, 0.35, 1)
+
+[node name="City" type="Node3D" unique_id=2067424684]
+
+[node name="Function" type="Node" parent="." unique_id=130919573]
+
+[node name="Spawner" parent="Function" unique_id=467570870 instance=ExtResource("7_xkr0v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 8, -5.5)
+spawn_range = Array[int]([15, 35])
+
+[node name="Spawner2" parent="Function" unique_id=781472255 instance=ExtResource("7_xkr0v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 8, -5.5)
+spawn_type = "imp"
+spawn_range = Array[int]([15, 35])
+
+[node name="Spawner3" parent="Function" unique_id=1266395196 instance=ExtResource("7_xkr0v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 8, -5.5)
+spawn_type = "pinky"
+spawn_range = Array[int]([15, 35])
+
+[node name="Map" type="Node" parent="." unique_id=1427063853]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map" unique_id=873345054]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 5.9, 0)
+light_energy = 0.05
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Map" unique_id=1493087651]
+environment = SubResource("Environment_47c5l")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map" unique_id=232463964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25, 0.16, 0)
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+size = Vector3(111.5, 0.32, 96)
+material = ExtResource("1_dcu34")
+
+[node name="RoadSection" type="Node3D" parent="Map" unique_id=187730338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 0)
+
+[node name="road_1_straight5" parent="Map/RoadSection" unique_id=56570160 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 4)
+
+[node name="road_1_straight6" parent="Map/RoadSection" unique_id=2073797727 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 20)
+
+[node name="road_1_straight7" parent="Map/RoadSection" unique_id=618570835 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 36)
+
+[node name="road_1_straight8" parent="Map/RoadSection" unique_id=373284381 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -20, 0, -8)
+
+[node name="road_1_straight9" parent="Map/RoadSection" unique_id=679303751 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -36, 0, -8)
+
+[node name="road_1_straight10" parent="Map/RoadSection" unique_id=806079058 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -52, 0, -8)
+
+[node name="road_1_straight11" parent="Map/RoadSection" unique_id=382166353 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 43.5, 0, -8)
+
+[node name="road_1_straight12" parent="Map/RoadSection" unique_id=2099293167 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 27.5, 0, -8)
+
+[node name="road_1_straight13" parent="Map/RoadSection" unique_id=1767305024 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 11.5, 0.001, -8)
+
+[node name="road_1_straight3" parent="Map/RoadSection" unique_id=2139968902 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -28)
+
+[node name="road_1_straight4" parent="Map/RoadSection" unique_id=241120806 instance=ExtResource("1_f0rxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -44)
+
+[node name="road_1_junction2" parent="Map/RoadSection" unique_id=382855111 instance=ExtResource("3_32kk5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 6)
+
+[node name="BuildingSection" type="Node3D" parent="Map" unique_id=2045239076]
+
+[node name="BuildingSquareAlt" parent="Map/BuildingSection" unique_id=802742635 instance=ExtResource("6_wwodm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.32000136, 9)
+
+[node name="BuildingSquareAlt2" parent="Map/BuildingSection" unique_id=1143811008 instance=ExtResource("6_wwodm")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -28.5, 0.32000136, -25)
+
+[node name="BuildingSquareAlt4" parent="Map/BuildingSection" unique_id=1423431041 instance=ExtResource("6_wwodm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 34.5, 0.32000136, -28)
+
+[node name="BuildingSquareAlt3" parent="Map/BuildingSection" unique_id=1518016023 instance=ExtResource("6_wwodm")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -28.5, 0.32000136, 35.5)
+
+[node name="BuildingSquare" parent="Map/BuildingSection" unique_id=1867966872 instance=ExtResource("4_47c5l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.178474, 0.31999922, -24.630512)
+
+[node name="BuildingSquare3" parent="Map/BuildingSection" unique_id=1834335772 instance=ExtResource("4_47c5l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.178474, 0.31999922, 37.369488)
+
+[node name="BuildingSquare2" parent="Map/BuildingSection" unique_id=1674185437 instance=ExtResource("4_47c5l")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -24.821526, 0.31999922, 12.369488)
+
+[node name="Items" type="Node" parent="." unique_id=539363120]
+
+[node name="Player" parent="." unique_id=556148557 instance=ExtResource("2_dcu34")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.76305, 2.3244133, -4.931426)
