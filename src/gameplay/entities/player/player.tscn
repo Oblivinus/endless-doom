@@ -9,7 +9,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g0k4r"]
 
 [node name="Player" type="CharacterBody3D" unique_id=556148557 node_paths=PackedStringArray("arsenal", "camera", "player_stat_ui")]
-collision_mask = 10
+collision_mask = 26
 script = ExtResource("1_uu63q")
 arsenal = NodePath("Arsenal")
 camera = NodePath("Arsenal/Camera3D")

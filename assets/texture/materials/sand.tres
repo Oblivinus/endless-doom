@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c5ksbwa35x37f"]
+
+[ext_resource type="Texture2D" uid="uid://3ekkxlukpg15" path="res://assets/texture/Outdoors/Sands/OUTDOOR_sand_dune_big_2.png" id="1_jy7rw"]
+
+[resource]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.76, 0.7004667, 0.40279996, 1)
+albedo_texture = ExtResource("1_jy7rw")
+uv1_scale = Vector3(0.45, 0.45, 0.45)
+uv1_triplanar = true
+texture_filter = 2

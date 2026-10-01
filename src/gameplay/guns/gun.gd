@@ -69,7 +69,7 @@ func hurt_enemy(enemy: Enemy):
 func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 	var raycast = Raycast3d.new(self)
 	raycast.from_to(global_position, final_pos)
-	raycast.mask([2,4])
+	raycast.mask([2])
 	var query = raycast.intersect()
 	
 	return query

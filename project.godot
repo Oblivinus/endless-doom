@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Doom Godot"
-run/main_scene="uid://b8iw6m4p3gjn8"
+run/main_scene="uid://behldxhl6rro4"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://assets/texture/icon.svg"
 
@@ -89,6 +89,7 @@ mouse_escape={
 3d_physics/layer_2="World"
 3d_physics/layer_3="Enemy"
 3d_physics/layer_4="WorldLowOb"
+3d_physics/layer_5="PlayerBarrier"
 
 [physics]
 

@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://b4xwxdd814rlg"]
-
-[ext_resource type="PackedScene" uid="uid://cex57dryveilg" path="res://assets/models/buildings/raw/flat_square_concrete.glb" id="1_xmf6i"]
-
-[node name="BuildingSquare" type="Node3D" unique_id=1867966872]
-
-[node name="flat_square_concrete2" parent="." unique_id=1999733671 instance=ExtResource("1_xmf6i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -20, 62.5)

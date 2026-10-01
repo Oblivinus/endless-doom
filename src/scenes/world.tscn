@@ -104,20 +104,14 @@ size = Vector3(100, 0.1, 100)
 
 [node name="Rock1" parent="Terrains" unique_id=1488182600 instance=ExtResource("4_k0juu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1938853, 0.016578604, -2.4409764)
-use_collision = true
-collision_layer = 2
 collision_mask = 5
 
 [node name="Rock2" parent="Terrains" unique_id=1745278772 instance=ExtResource("4_k0juu")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.956115, 0.016578604, 9.509024)
-use_collision = true
-collision_layer = 2
 collision_mask = 5
 
 [node name="Rock3" parent="Terrains" unique_id=938299342 instance=ExtResource("4_k0juu")]
 transform = Transform3D(-1.1627228e-07, 0, -0.552, 0, 1, 0, 2.6599998, 0, -2.4128685e-08, 12.193886, 0.016578604, 32.509026)
-use_collision = true
-collision_layer = 2
 collision_mask = 5
 
 [node name="Enemies" type="Node" parent="." unique_id=1974575586]

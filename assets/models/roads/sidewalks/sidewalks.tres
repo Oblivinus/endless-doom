@@ -1,9 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://dpdolnb2kv0my"]
-
-[ext_resource type="Texture2D" uid="uid://s0qo2qw6j5jr" path="res://assets/models/roads/textures/road_1_corner_concrete_base.jpg" id="1_o0j0d"]
-
-[resource]
-albedo_texture = ExtResource("1_o0j0d")
-uv1_scale = Vector3(0.2, 0.2, 0.2)
-uv1_triplanar = true
-uv1_world_triplanar = true
