@@ -134,7 +134,7 @@ draw_pass_1 = SubResource("PlaneMesh_uok8d")
 
 [node name="Blast" type="Sprite3D" parent="." unique_id=1792449626]
 pixel_size = 0.08
-billboard = 1
+billboard = 2
 alpha_cut = 1
 texture_filter = 2
 texture = ExtResource("2_i72il")

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dkt0mog8mplll"]
+
+[ext_resource type="PackedScene" uid="uid://1fvojfnrihds" path="res://assets/models/objects/sandbag/Sandbag_Box.glb" id="1_hpb62"]
+
+[node name="SandBoxPile1v" type="Node3D" unique_id=1935947122]
+
+[node name="Sandbag_Box" parent="." unique_id=1258447949 instance=ExtResource("1_hpb62")]
+transform = Transform3D(0.9961947, 0, -0.08715574, 0, 1, 0, 0.08715574, 0, 0.9961947, 0.6, 0, 0)
+
+[node name="Sandbag_Box4" parent="." unique_id=63126368 instance=ExtResource("1_hpb62")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6999999, 0, 0)
+
+[node name="Sandbag_Box6" parent="." unique_id=869455925 instance=ExtResource("1_hpb62")]
+transform = Transform3D(0.9848077, 0, 0.17364818, 0, 1, 0, -0.17364818, 0, 0.9848077, 2.8, 0, 0)
+
+[node name="Sandbag_Box8" parent="." unique_id=2140517914 instance=ExtResource("1_hpb62")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0, 0)
+
+[node name="Sandbag_Box3" parent="." unique_id=2104291051 instance=ExtResource("1_hpb62")]
+transform = Transform3D(0.9961947, 0, 0.08715573, 0, 1, 0, -0.08715573, 0, 0.9961947, 0.05, 0.8, 0)
+
+[node name="Sandbag_Box5" parent="." unique_id=745046742 instance=ExtResource("1_hpb62")]
+transform = Transform3D(1, 0, -7.450581e-09, 0, 1, 0, 7.450581e-09, 0, 1, 1.15, 0.8, 0)
+
+[node name="Sandbag_Box7" parent="." unique_id=1204370999 instance=ExtResource("1_hpb62")]
+transform = Transform3D(0.9961948, 0, -0.08715575, 0, 1, 0, 0.08715575, 0, 0.9961948, 2.25, 0.8, 0)
+
+[node name="Sandbag_Box9" parent="." unique_id=592951244 instance=ExtResource("1_hpb62")]
+transform = Transform3D(0.9961947, 0, 0.08715573, 0, 1, 0, -0.08715573, 0, 0.9961947, 3.35, 0.8, 0)
+
+[node name="Sandbag_Box2" parent="." unique_id=158866567 instance=ExtResource("1_hpb62")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)

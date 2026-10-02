@@ -30,6 +30,14 @@ window/stretch/aspect="ignore"
 
 enabled=PackedStringArray("res://addons/brackeys_particle_controls/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "green",
+"res://assets/": "purple",
+"res://src/": "orange"
+}
+
 [input]
 
 ui_left={

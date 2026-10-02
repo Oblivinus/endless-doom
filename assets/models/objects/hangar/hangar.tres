@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bsduqngvb5jc3"]
+
+[ext_resource type="Texture2D" uid="uid://l4d4c77ctmoi" path="res://assets/models/objects/hangar/Hangar_houses.png" id="1_hnqaj"]
+
+[resource]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_hnqaj")
+texture_filter = 2

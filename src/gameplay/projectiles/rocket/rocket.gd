@@ -9,7 +9,7 @@ extends ExplodingProjectile
 	#on_blast_hit.connect(test)
 
 func _on_explosion(targets: Array):
-	var last_pos: Vector3 = global_position
+	var last_pos: Vector3 = global_position + global_basis.z * 0.5
 	
 	var vfx = VFX.new("explosion", last_pos + Vector3(0, 0.05, 0))
 	Globals.world.add_child(vfx)

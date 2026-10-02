@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://du2gp86r4elfu"]
+
+[ext_resource type="Texture2D" uid="uid://d10sgm2b44mr3" path="res://assets/models/objects/sandbag/Sandbag_Box_CONCRETE_brick_rough_66.png" id="1_jqnvf"]
+
+[resource]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_jqnvf")
+metallic = 1.0
+metallic_texture = ExtResource("1_jqnvf")
+texture_filter = 2
