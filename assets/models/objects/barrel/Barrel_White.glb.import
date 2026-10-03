@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d2lmac6mmrsn3"
-path="res://.godot/imported/Barrel.glb-36b063fdd3320e926b078a2e047f7cbf.scn"
+uid="uid://diul65paver3x"
+path="res://.godot/imported/Barrel_White.glb-d40c349832ec4292d2dae9d14f154e8d.scn"
 
 [deps]
 
-source_file="res://assets/models/objects/barrel/Barrel.glb"
-dest_files=["res://.godot/imported/Barrel.glb-36b063fdd3320e926b078a2e047f7cbf.scn"]
+source_file="res://assets/models/objects/barrel/Barrel_White.glb"
+dest_files=["res://.godot/imported/Barrel_White.glb-d40c349832ec4292d2dae9d14f154e8d.scn"]
 
 [params]
 
@@ -39,7 +39,22 @@ import_script/path=""
 materials/extract=1
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"metal": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/models/objects/barrel/metal.tres",
+"use_external/path": "uid://d3xcssuqa8b2u"
+}
+},
+"nodes": {
+"PATH:Cylinder": {
+"generate/physics": true,
+"physics/layer": 2,
+"physics/mask": 0
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
 gltf/texture_map_mode=1

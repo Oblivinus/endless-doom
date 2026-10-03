@@ -5,12 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://y6qhjq06pe6e" path="res://assets/models/walls/plackard/raw/plackard_slab_boken.glb" id="3_5nmpq"]
 [ext_resource type="PackedScene" uid="uid://dgo2efymqxyul" path="res://assets/models/walls/plackard/raw/plackard_slab_broken_alt.glb" id="4_2fkmg"]
 [ext_resource type="PackedScene" uid="uid://dmjy4eel60nh0" path="res://assets/models/walls/plackard/raw/plackard_corner_open_alt.glb" id="5_gno27"]
-[ext_resource type="PackedScene" uid="uid://ddwiuiqdpcejl" path="res://src/scenes/plackard_walls/_plackard_wall_1.tscn" id="6_2ufx3"]
+[ext_resource type="PackedScene" uid="uid://ddwiuiqdpcejl" path="res://src/scenes/object/plackard_walls/_plackard_wall_1.tscn" id="6_2ufx3"]
 [ext_resource type="PackedScene" uid="uid://gkil3pke1hv3" path="res://assets/models/objects/hangar/hangar.glb" id="7_w8wlw"]
 [ext_resource type="PackedScene" uid="uid://de7jo1f3wa06d" path="res://src/scenes/object/sand_box_wall_corner_1v.tscn" id="8_5nmpq"]
 [ext_resource type="PackedScene" uid="uid://dkt0mog8mplll" path="res://src/scenes/object/sand_box_wall_1v.tscn" id="8_5qumh"]
 [ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="9_8h3f6"]
 [ext_resource type="PackedScene" uid="uid://cxubhawpoy37k" path="res://src/scenes/object/sand_box_pile_1v.tscn" id="10_2fkmg"]
+[ext_resource type="PackedScene" uid="uid://cww381yeftso6" path="res://src/scenes/object/barrel_pile_1v.tscn" id="12_2fkmg"]
+[ext_resource type="PackedScene" uid="uid://c232b4na3wu61" path="res://src/scenes/object/barrel_pile_2v.tscn" id="13_gno27"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xqe1h"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -584,6 +586,21 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.5
 
 [node name="Objects" type="Node3D" parent="Maps/MapObj" unique_id=197159660]
 
+[node name="BarrelPile1v6" parent="Maps/MapObj/Objects" unique_id=1587756177 instance=ExtResource("12_2fkmg")]
+transform = Transform3D(0.42261824, 0, -0.9063078, 0, 1, 0, 0.9063078, 0, 0.42261824, 11.5, -0.14999998, -11)
+
+[node name="BarrelPile1v7" parent="Maps/MapObj/Objects" unique_id=1857456227 instance=ExtResource("12_2fkmg")]
+transform = Transform3D(0.42261827, 0, 0.9063078, 0, 1, 0, -0.9063078, 0, 0.42261827, 21, -0.14999998, -21)
+
+[node name="BarrelPile1v8" parent="Maps/MapObj/Objects" unique_id=738332137 instance=ExtResource("13_gno27")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -17, -0.2, -44)
+
+[node name="BarrelPile1v9" parent="Maps/MapObj/Objects" unique_id=329573771 instance=ExtResource("12_2fkmg")]
+transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, 26, -0.14999998, -56)
+
+[node name="BarrelPile1v10" parent="Maps/MapObj/Objects" unique_id=628704210 instance=ExtResource("13_gno27")]
+transform = Transform3D(-0.9961947, 0, 0.08715581, 0, 1, 0, -0.08715581, 0, -0.9961947, 41, -0.2, -52.5)
+
 [node name="SandBoxPile1v7" parent="Maps/MapObj/Objects" unique_id=1935947122 instance=ExtResource("8_5nmpq")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -21.5, -0.1500001, -7)
 
@@ -691,6 +708,21 @@ transform = Transform3D(-0.99999994, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 
 
 [node name="SandBoxPile1v36" parent="Maps/MapObj/Objects" unique_id=1022423767 instance=ExtResource("10_2fkmg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.75, -0.15, 22.5)
+
+[node name="BarrelPile1v" parent="Maps/MapObj/Objects" unique_id=1849120317 instance=ExtResource("12_2fkmg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, -0.14999998, 26.5)
+
+[node name="BarrelPile1v2" parent="Maps/MapObj/Objects" unique_id=1463361873 instance=ExtResource("12_2fkmg")]
+transform = Transform3D(0.17364822, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, 0.17364822, 45, -0.14999998, 29.5)
+
+[node name="BarrelPile1v3" parent="Maps/MapObj/Objects" unique_id=28796791 instance=ExtResource("12_2fkmg")]
+transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, 45, -0.14999998, 32)
+
+[node name="BarrelPile1v4" parent="Maps/MapObj/Objects" unique_id=924888191 instance=ExtResource("13_gno27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -0.2, -3)
+
+[node name="BarrelPile1v5" parent="Maps/MapObj/Objects" unique_id=1236301318 instance=ExtResource("13_gno27")]
+transform = Transform3D(-0.25881904, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25881904, -17.5, -0.2, -22.5)
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("9_8h3f6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84999967, 0)

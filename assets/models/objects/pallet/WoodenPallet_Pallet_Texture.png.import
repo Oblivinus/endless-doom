@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xxqrd7a3s0jn"
-path.s3tc="res://.godot/imported/Barrel_material Base Color.png-9f12604ef0190dd12af750a1f0ddbbed.s3tc.ctex"
+uid="uid://c3wt6chbk3yue"
+path.s3tc="res://.godot/imported/WoodenPallet_Pallet_Texture.png-a4c2509917a13be270d431cd450099f6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "e85a19c11fd06887b8697c972800211e"
+"md5": "61eab1f56903464bb2bd34ad02afde64"
 }
 
 [deps]
 
-source_file="res://assets/models/objects/barrel/Barrel_material Base Color.png"
-dest_files=["res://.godot/imported/Barrel_material Base Color.png-9f12604ef0190dd12af750a1f0ddbbed.s3tc.ctex"]
+source_file="res://assets/models/objects/pallet/WoodenPallet_Pallet_Texture.png"
+dest_files=["res://.godot/imported/WoodenPallet_Pallet_Texture.png-a4c2509917a13be270d431cd450099f6.s3tc.ctex"]
 
 [params]
 

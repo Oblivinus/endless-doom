@@ -1,0 +1,42 @@
+[gd_scene format=4 uid="uid://j3x58oct46bc"]
+
+[ext_resource type="Material" uid="uid://d3xcssuqa8b2u" path="res://assets/models/objects/barrel/metal.tres" id="1_dd50c"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_i45d3"]
+_surfaces = [{
+"aabb": AABB(-0.9749279, -1, -1, 1.9498558, 2.4285715, 1.9009688),
+"format": 34896613377,
+"index_count": 156,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAAAAIABAADAAAABQACAAEABAACAAYABwACAAUABwAGAAIABQAIAAcACQAEAAYACQADAAQABQAKAAgABwAIAAsACgALAAgADAAGAAcABwALAAwACQAGAA0ADAANAAYADgAJAA0ADAALAA8AEAAJAA4AAwAJABAADgANABEAEAAOABEAEgANAAwADAAPABIAEgARAA0ACwATAA8AEgAPABMACgATAAsAFAARABIAEgATABQAEwAKABUAFAATABUAFQAKABYAFAAXABEAEAARABcAFAAVABgAGAAVABYAGAAXABQAGQAQABcAAwAQABkAGQAXABoAAwAZABoAGAAaABcAAwAaAAEAGAAWABsAGwAaABgAGwAWAAoAGwABABoAGwAKAAUABQABABsA"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("/38AAAAAAACk5v//tDIAAP9///8AAAAApOYAALQyAABaGQAAtDIAAP9///95BwAAWhn//7QyAAAMH///XDcAAAwfevtcNwAAAAAAAKGkAAD/f3r7eQcAABoHevv4ogAAGgf///iiAAAAAP//oaQAAAhHAAD//wAAMUp6+0P5AAD2uAAA//8AAAhH/////wAAMUr//0P5AADNtXr7Q/kAAM21//9D+QAA5Ph6+/iiAADy4Hr7XDcAAPa4/////wAA5Pj///iiAAD//wAAoaQAAP////+hpAAA8uD//1w3AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ccxp0"]
+resource_name = "Barrel_White_Cylinder"
+_surfaces = [{
+"aabb": AABB(-0.9749279, -1, -1, 1.9498558, 2.4285715, 1.9009688),
+"attribute_data": PackedByteArray("KHEthWiVxfUoccX1aJUthWiVLYWjvcX1aJXF9aO9LYWjvS2FudbF9aO9xfW51i2FudYthfT+xfW51sX19P4thWoELYWqKMX1agTF9aooLYXtahPKL23/8O1q//AvbRPKqigthelMxfWqKMX16UwthelMLYUoccX16UzF9ShxLYXXIhJVBycwNl4so0adEZ5W/Af6OKoFHkrWFhwwxGQcx9hTUfAFUgjuQSd/+rBnHMfoJ6X3BVIxoH8D+t3YU+edIga23OgnlJZ/Az6wQSe6kyIGg7HLsyo6vJkNBMuz1Ri8mfJOx2p/KT55h0c+eXgLL20TynFv//Avbf/wcW8TynFv3aq0cczFcW/MxbRx3artaiijL20Tyu1qE8ovbSijL20oo3FvE8ovbRPKcW8oo7RxzMX2c//wtHH/8PZzzMVxb8zFtHH/8HFv//C0cczF"),
+"format": 34896613399,
+"index_count": 156,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIwAhACAAIQAjACQAJAAjACUAIQAkACYAJwAoACkAKQAoACoAJwArACgAKQAqACwALQArACcALAAqAC4ALQAvACsALAAuADAAMQAvAC0AMAAuADIAMQAzAC8AMAAyADQANAAzADEANAAyADMANQA2ADcAOAA2ADUANgA4ADkAOQA4ADoANgA5ADsAPAA9AD4APAA/AD0AQABBAEIAQABDAEEARABFAEYARABHAEUASABJAEoASABLAEkATABNAE4ATABPAE0AUABRAFIAUABTAFEA"),
+"material": ExtResource("1_dd50c"),
+"name": "metal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 84,
+"vertex_data": PackedByteArray("/38AAAAA//+k5v//tDL///9///8AAP//pOYAALQy//+k5gAAtDL///////+hpP//pOb//7Qy/////wAAoaT/////AAChpP//9rj/////////////oaT///a4AAD/////9rgAAP////8IR/////////a4////////CEcAAP////8IRwAA/////wAA//+hpP//CEf///////8AAAAAoaT///9///95BwPCDB96+1w3A8IMH///XDcDwv9/evt5BwPCAAAAAKGk//9aGf//tDL//wAA//+hpP//WhkAALQy//9aGQAAtDL///9///8AAP//Whn//7Qy////fwAAAAD//1oZAAC0MjzSpOYAALQyPNL/fwAAAAA80gAAAAChpDzS9rgAAP//PNIIRwAA//880v//AAChpDzS/3///3kHVNWk5v//tDJU1fLg//9cN1TV/////6GkVNX/f///AABU1eT4///4olTVDB///1w3VNX2uP////9U1VoZ//+0MlTVzbX//0P5VNUaB///+KJU1QhH/////1TVAAD//6GkVNUxSv//Q/lU1eT4evv4ooLA/396+3kHgsDy4Hr7XDeCwM21evtD+YLAGgd6+/iigsAxSnr7Q/mCwAwfevtcN4LAGgf///iiluYxSnr7Q/mW5jFK//9D+ZbmGgd6+/iilubNtf//Q/mW5uT4evv4opbm5Pj///iilubNtXr7Q/mW5vLg//9cNwPC/396+3kHA8L/f///eQcDwvLgevtcNwPCDB///1w3Q9AaB3r7+KJD0BoH///4okPQDB96+1w3Q9AxSv//Q/n//821evtD+f//zbX//0P5//8xSnr7Q/n//+T4///4okPQ8uB6+1w3Q9Dy4P//XDdD0OT4evv4okPQNej/fzXo/3816P9/Nej/fzXH/381x/9/Ncf/fzXH/3+aqf9/mqn/f5qp/3+aqf9//3//f/9//3//f/9//3//f2RW/39kVv9/ZFb/f2RW/38OlPBrDpTwaw6U8GsOlPBr///JuP//ybj//8m4///JuP//yJf//8iX///Il///yJdnUUtXZ1FLV2dRS1dnUUtXZ1FLV2dRS1dnUUtXVNWqKlTVqipU1aoqVNWqKlTVqipU1aoqVNWqKlTVqipU1aoqVNWqKlTVqipU1aoqVNWqKlTVqio59HVoOfR1aDn0dWg59HVoOfR1aDn0dWg59HVok7NrTJOza0yTs2tMk7NrTGtMk7NrTJOza0yTs2tMk7Pwaw6U8GsOlPBrDpTwaw6UVaepWFWnqVhVp6lYVaepWP8//7//P/+//z//v/8//7+pWFWnqVhVp6lYVaepWFWn")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_i45d3")
+
+[node name="Barrel_White" type="Node3D" unique_id=1564466286]
+
+[node name="Cylinder" type="MeshInstance3D" parent="." unique_id=1774778286]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, 0)
+mesh = SubResource("ArrayMesh_ccxp0")
+surface_material_override/0 = ExtResource("1_dd50c")
