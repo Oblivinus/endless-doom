@@ -2,14 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3wt6chbk3yue"
+uid="uid://emn7pmfa2n5c"
 path.s3tc="res://.godot/imported/WoodenPallet_Pallet_Texture.png-a4c2509917a13be270d431cd450099f6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "61eab1f56903464bb2bd34ad02afde64"
+"md5": "34196557ee049fa5f305cbe243696f0c"
 }
 
 [deps]
@@ -40,5 +40,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=126
 detect_3d/compress_to=0

@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://me6a03sr7wio"
+uid="uid://lur84do8oeu3"
 path="res://.godot/imported/WoodenPallet.glb-3606baa2d0a759e08461430d66944ef3.scn"
 
 [deps]
@@ -39,7 +39,14 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:Cube_007": {
+"generate/physics": true,
+"physics/layer": 2
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
 gltf/texture_map_mode=1

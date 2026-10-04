@@ -7,12 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://dmjy4eel60nh0" path="res://assets/models/walls/plackard/raw/plackard_corner_open_alt.glb" id="5_gno27"]
 [ext_resource type="PackedScene" uid="uid://ddwiuiqdpcejl" path="res://src/scenes/object/plackard_walls/_plackard_wall_1.tscn" id="6_2ufx3"]
 [ext_resource type="PackedScene" uid="uid://gkil3pke1hv3" path="res://assets/models/objects/hangar/hangar.glb" id="7_w8wlw"]
-[ext_resource type="PackedScene" uid="uid://de7jo1f3wa06d" path="res://src/scenes/object/sand_box_wall_corner_1v.tscn" id="8_5nmpq"]
-[ext_resource type="PackedScene" uid="uid://dkt0mog8mplll" path="res://src/scenes/object/sand_box_wall_1v.tscn" id="8_5qumh"]
+[ext_resource type="PackedScene" uid="uid://de7jo1f3wa06d" path="res://src/scenes/object/sandbags/sand_box_wall_corner_1v.tscn" id="8_5nmpq"]
+[ext_resource type="PackedScene" uid="uid://dkt0mog8mplll" path="res://src/scenes/object/sandbags/sand_box_wall_1v.tscn" id="8_5qumh"]
 [ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="9_8h3f6"]
-[ext_resource type="PackedScene" uid="uid://cxubhawpoy37k" path="res://src/scenes/object/sand_box_pile_1v.tscn" id="10_2fkmg"]
-[ext_resource type="PackedScene" uid="uid://cww381yeftso6" path="res://src/scenes/object/barrel_pile_1v.tscn" id="12_2fkmg"]
-[ext_resource type="PackedScene" uid="uid://c232b4na3wu61" path="res://src/scenes/object/barrel_pile_2v.tscn" id="13_gno27"]
+[ext_resource type="PackedScene" uid="uid://cxubhawpoy37k" path="res://src/scenes/object/sandbags/sand_box_pile_1v.tscn" id="10_2fkmg"]
+[ext_resource type="PackedScene" uid="uid://cww381yeftso6" path="res://src/scenes/object/barrels/barrel_pile_1v.tscn" id="12_2fkmg"]
+[ext_resource type="PackedScene" uid="uid://mnj0chd5464b" path="res://assets/models/objects/tents/GreenTent.glb" id="13_2ufx3"]
+[ext_resource type="PackedScene" uid="uid://c232b4na3wu61" path="res://src/scenes/object/barrels/barrel_pile_2v.tscn" id="13_gno27"]
+[ext_resource type="PackedScene" uid="uid://b4mmxb5uv7e2o" path="res://src/scenes/object/barrels/barrel_pile_3v.tscn" id="14_w8wlw"]
+[ext_resource type="PackedScene" uid="uid://bpskk71f2ajt" path="res://src/scenes/object/wooden_pallet.tscn" id="15_5qumh"]
+[ext_resource type="PackedScene" uid="uid://cfqcowkw03105" path="res://src/scenes/object/wooden_pallet_pile_1v.tscn" id="16_8h3f6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xqe1h"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -723,6 +727,84 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -0.2, -3)
 
 [node name="BarrelPile1v5" parent="Maps/MapObj/Objects" unique_id=1236301318 instance=ExtResource("13_gno27")]
 transform = Transform3D(-0.25881904, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25881904, -17.5, -0.2, -22.5)
+
+[node name="GreenTent" parent="Maps/MapObj/Objects" unique_id=1112113220 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -0.1500001, -40)
+
+[node name="GreenTent2" parent="Maps/MapObj/Objects" unique_id=154193109 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -0.1500001, -33.5)
+
+[node name="GreenTent3" parent="Maps/MapObj/Objects" unique_id=801119681 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -0.1500001, -27)
+
+[node name="GreenTent4" parent="Maps/MapObj/Objects" unique_id=1678293201 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1500001, -40)
+
+[node name="GreenTent5" parent="Maps/MapObj/Objects" unique_id=118575243 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1500001, -33.5)
+
+[node name="GreenTent6" parent="Maps/MapObj/Objects" unique_id=1825494177 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1500001, -27)
+
+[node name="GreenTent7" parent="Maps/MapObj/Objects" unique_id=501433335 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, -0.1500001, 37.5)
+
+[node name="GreenTent8" parent="Maps/MapObj/Objects" unique_id=218546352 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, -0.1500001, 31)
+
+[node name="GreenTent9" parent="Maps/MapObj/Objects" unique_id=27390890 instance=ExtResource("13_2ufx3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, -0.1500001, 24.5)
+
+[node name="BarrelPile3v" parent="Maps/MapObj/Objects" unique_id=1373606933 instance=ExtResource("14_w8wlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, -0.14999998, 39)
+
+[node name="BarrelPile3v5" parent="Maps/MapObj/Objects" unique_id=1301487027 instance=ExtResource("14_w8wlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, -0.14999998, 35.5)
+
+[node name="BarrelPile3v2" parent="Maps/MapObj/Objects" unique_id=1020220975 instance=ExtResource("14_w8wlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 1.8, 39)
+
+[node name="BarrelPile3v3" parent="Maps/MapObj/Objects" unique_id=1041830043 instance=ExtResource("14_w8wlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, -0.14999998, 40.5)
+
+[node name="BarrelPile3v4" parent="Maps/MapObj/Objects" unique_id=1902568444 instance=ExtResource("14_w8wlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 1.8, 40.5)
+
+[node name="BarrelPile3v6" parent="Maps/MapObj/Objects" unique_id=1312569797 instance=ExtResource("14_w8wlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -0.14999998, -44.5)
+
+[node name="BarrelPile3v7" parent="Maps/MapObj/Objects" unique_id=623340156 instance=ExtResource("14_w8wlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, -0.14999998, -44.5)
+
+[node name="BarrelPile1v11" parent="Maps/MapObj/Objects" unique_id=1146884838 instance=ExtResource("13_gno27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, -0.2, -26.5)
+
+[node name="WoodenPallet" parent="Maps/MapObj/Objects" unique_id=1196261282 instance=ExtResource("15_5qumh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -0.14999998, 44.5)
+
+[node name="WoodenPallet2" parent="Maps/MapObj/Objects" unique_id=1961160079 instance=ExtResource("15_5qumh")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -26, 0.050000012, 44.5)
+
+[node name="WoodenPallet3" parent="Maps/MapObj/Objects" unique_id=511243621 instance=ExtResource("15_5qumh")]
+transform = Transform3D(0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0, 1, -30.1, 1.1490381, 44.5)
+
+[node name="WoodenPalletPile1v" parent="Maps/MapObj/Objects" unique_id=1516571323 instance=ExtResource("16_8h3f6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -0.14999998, 28.7)
+
+[node name="WoodenPalletPile1v3" parent="Maps/MapObj/Objects" unique_id=1547775423 instance=ExtResource("16_8h3f6")]
+transform = Transform3D(-0.08715577, 0, -0.9961947, 0, 1, 0, 0.9961947, 0, -0.08715577, 22, 0.64999986, 28.7)
+
+[node name="WoodenPalletPile1v2" parent="Maps/MapObj/Objects" unique_id=1936028301 instance=ExtResource("16_8h3f6")]
+transform = Transform3D(-0.9396926, 0, -0.3420202, 0, 1, 0, 0.3420202, 0, -0.9396926, 25.7, -0.14999998, 27.500002)
+
+[node name="WoodenPallet4" parent="Maps/MapObj/Objects" unique_id=1802588628 instance=ExtResource("15_5qumh")]
+transform = Transform3D(0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0, 1, 31.7, 1.2595391, 40.7)
+
+[node name="WoodenPallet5" parent="Maps/MapObj/Objects" unique_id=533778011 instance=ExtResource("15_5qumh")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.9659258, 0.25881907, 4.222196e-08, 0.25881907, 0.9659258, -1.1313341e-08, 42, 1.2988886, -23.6)
+
+[node name="WoodenPalletPile1v4" parent="Maps/MapObj/Objects" unique_id=174500572 instance=ExtResource("16_8h3f6")]
+transform = Transform3D(0.9848077, 0, 0.17364818, 0, 1, 0, -0.17364818, 0, 0.9848077, 11.4, -0.14999998, -21)
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("9_8h3f6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84999967, 0)

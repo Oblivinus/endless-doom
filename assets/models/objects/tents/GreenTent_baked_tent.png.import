@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cm8i56mv74wl5"
-path.s3tc="res://.godot/imported/WoodenPallet_Pallet_Texture.png-209eb674df0d3307aa63f3f50b3b4bb4.s3tc.ctex"
+uid="uid://c8rhsjxfkwh0f"
+path.s3tc="res://.godot/imported/GreenTent_baked_tent.png-958f7add59790dd92f80e9851b5d0447.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "61eab1f56903464bb2bd34ad02afde64"
+"md5": "bd617d869fef13b29b5ed6c761787a7b"
 }
 
 [deps]
 
-source_file="res://assets/WoodenPallet_Pallet_Texture.png"
-dest_files=["res://.godot/imported/WoodenPallet_Pallet_Texture.png-209eb674df0d3307aa63f3f50b3b4bb4.s3tc.ctex"]
+source_file="res://assets/models/objects/tents/GreenTent_baked_tent.png"
+dest_files=["res://.godot/imported/GreenTent_baked_tent.png-958f7add59790dd92f80e9851b5d0447.s3tc.ctex"]
 
 [params]
 
@@ -40,5 +40,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=256
 detect_3d/compress_to=0

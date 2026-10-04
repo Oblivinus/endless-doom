@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bpskk71f2ajt"]
+
+[ext_resource type="PackedScene" uid="uid://lur84do8oeu3" path="res://assets/models/objects/pallet/WoodenPallet.glb" id="1_lxk5f"]
+
+[node name="WoodenPallet" type="Node3D" unique_id=1196261282]
+
+[node name="WoodenPallet" parent="." unique_id=1309008258 instance=ExtResource("1_lxk5f")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.1, 0)

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://b4mmxb5uv7e2o"]
+
+[ext_resource type="PackedScene" uid="uid://lur84do8oeu3" path="res://assets/models/objects/pallet/WoodenPallet.glb" id="1_jyofg"]
+[ext_resource type="PackedScene" uid="uid://diul65paver3x" path="res://assets/models/objects/barrel/Barrel_White.glb" id="2_3ke82"]
+[ext_resource type="Texture2D" uid="uid://6u3wtv3783f2" path="res://assets/models/objects/barrel/Barrel_White_baked.png" id="3_8qnfx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pouwv"]
+resource_name = "metal"
+cull_mode = 2
+albedo_color = Color(0.4437377, 0.6381453, 0.68759304, 1)
+albedo_texture = ExtResource("3_8qnfx")
+metallic = 0.5
+roughness = 0.5
+texture_filter = 2
+metadata/_gltf_primary_texture_coord = 0
+
+[node name="BarrelPile3v" type="Node3D" unique_id=1373606933]
+
+[node name="WoodenPallet" parent="." unique_id=1591594096 instance=ExtResource("1_jyofg")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.1, 0)
+
+[node name="Barrel_White" parent="." unique_id=1882675337 instance=ExtResource("2_3ke82")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.2, -0.50000006)
+
+[node name="Cylinder" parent="Barrel_White" index="0" unique_id=505770986]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.3, 0.7, -0.15000004)
+material_override = SubResource("StandardMaterial3D_pouwv")
+
+[node name="Barrel_White2" parent="." unique_id=2130147142 instance=ExtResource("2_3ke82")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.2, 0.99999994)
+
+[node name="Cylinder" parent="Barrel_White2" index="0" unique_id=505770986]
+transform = Transform3D(0.44995135, 0, -0.5362311, 0, 0.7, 0, 0.5362311, 0, 0.44995135, -0.3, 0.7, -0.35000002)
+material_override = SubResource("StandardMaterial3D_pouwv")
+
+[node name="Barrel_White3" parent="." unique_id=465708508 instance=ExtResource("2_3ke82")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.3, 0.2, 0.99999994)
+
+[node name="Cylinder" parent="Barrel_White3" index="0" unique_id=505770986]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.35000002, 0.7, -0.29999998)
+material_override = SubResource("StandardMaterial3D_pouwv")
+
+[node name="Barrel_White4" parent="." unique_id=1069006637 instance=ExtResource("2_3ke82")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.2, -0.6000001)
+
+[node name="Cylinder" parent="Barrel_White4" index="0" unique_id=505770986]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.7, -0.050000012)
+material_override = SubResource("StandardMaterial3D_pouwv")
+
+[editable path="Barrel_White"]
+[editable path="Barrel_White2"]
+[editable path="Barrel_White3"]
+[editable path="Barrel_White4"]
