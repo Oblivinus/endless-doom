@@ -1,0 +1,902 @@
+[gd_scene format=3 uid="uid://n5inmiln7lwc"]
+
+[ext_resource type="Script" uid="uid://dj5nj5a47gkr1" path="res://src/core/components/world.gd" id="1_5qocg"]
+[ext_resource type="PackedScene" uid="uid://g2qi1ggxwspu" path="res://src/gameplay/items/ammos/ammos.tscn" id="1_07vid"]
+[ext_resource type="PackedScene" uid="uid://dy6oqhri07ybb" path="res://src/gameplay/items/armor_point/armor_point.tscn" id="2_5qocg"]
+[ext_resource type="Script" uid="uid://c0ecj4cxyxvrg" path="res://src/core/components/combat/wave_entry.gd" id="2_rwvjs"]
+[ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/object/terrain.tscn" id="3_daofb"]
+[ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_giy1m"]
+[ext_resource type="Material" uid="uid://c5ksbwa35x37f" path="res://assets/materials/sand.tres" id="4_rwvjs"]
+[ext_resource type="PackedScene" uid="uid://y6qhjq06pe6e" path="res://assets/models/walls/plackard/raw/plackard_slab_boken.glb" id="5_giy1m"]
+[ext_resource type="PackedScene" uid="uid://dgo2efymqxyul" path="res://assets/models/walls/plackard/raw/plackard_slab_broken_alt.glb" id="6_jgcle"]
+[ext_resource type="PackedScene" uid="uid://dmjy4eel60nh0" path="res://assets/models/walls/plackard/raw/plackard_corner_open_alt.glb" id="7_yl2br"]
+[ext_resource type="PackedScene" uid="uid://ddwiuiqdpcejl" path="res://src/scenes/object/plackard_walls/_plackard_wall_1.tscn" id="8_0i5df"]
+[ext_resource type="PackedScene" uid="uid://gkil3pke1hv3" path="res://assets/models/objects/hangar/hangar.glb" id="9_s4c1s"]
+[ext_resource type="PackedScene" uid="uid://cww381yeftso6" path="res://src/scenes/object/barrels/barrel_pile_1v.tscn" id="10_g5cuy"]
+[ext_resource type="PackedScene" uid="uid://c232b4na3wu61" path="res://src/scenes/object/barrels/barrel_pile_2v.tscn" id="11_wrm08"]
+[ext_resource type="PackedScene" uid="uid://de7jo1f3wa06d" path="res://src/scenes/object/sandbags/sand_box_wall_corner_1v.tscn" id="12_50rt4"]
+[ext_resource type="PackedScene" uid="uid://dkt0mog8mplll" path="res://src/scenes/object/sandbags/sand_box_wall_1v.tscn" id="13_luqia"]
+[ext_resource type="PackedScene" uid="uid://cxubhawpoy37k" path="res://src/scenes/object/sandbags/sand_box_pile_1v.tscn" id="14_7wap8"]
+[ext_resource type="PackedScene" uid="uid://mnj0chd5464b" path="res://assets/models/objects/tents/GreenTent.glb" id="15_d5nwk"]
+[ext_resource type="PackedScene" uid="uid://b4mmxb5uv7e2o" path="res://src/scenes/object/barrels/barrel_pile_3v.tscn" id="16_xaesh"]
+[ext_resource type="PackedScene" uid="uid://bpskk71f2ajt" path="res://src/scenes/object/wooden_pallet.tscn" id="17_4tpiw"]
+[ext_resource type="PackedScene" uid="uid://cfqcowkw03105" path="res://src/scenes/object/wooden_pallet_pile_1v.tscn" id="18_lvd4q"]
+[ext_resource type="PackedScene" uid="uid://ddvxo7cub337f" path="res://assets/models/objects/box/Box.glb" id="19_jqny5"]
+[ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="20_pb3xg"]
+
+[sub_resource type="Resource" id="Resource_5qocg"]
+script = ExtResource("2_rwvjs")
+enemy_scene = ExtResource("3_giy1m")
+wave_appear = 1
+initial_amount = 10
+amount_cap = 50
+max_amount_available = 10
+max_amount_increment = 3
+metadata/_custom_type_script = "uid://c0ecj4cxyxvrg"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xqe1h"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_nou0h"]
+sky_material = SubResource("ProceduralSkyMaterial_xqe1h")
+
+[sub_resource type="Environment" id="Environment_54ndj"]
+background_mode = 2
+sky = SubResource("Sky_nou0h")
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 1.0
+fog_enabled = true
+fog_light_color = Color(0.76, 0.7004667, 0.40279996, 1)
+fog_light_energy = 0.1
+fog_density = 0.1
+fog_sky_affect = 0.8
+fog_height = 5.0
+fog_height_density = 0.1
+volumetric_fog_density = 1.0
+volumetric_fog_albedo = Color(0.35, 0.35, 0.35, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kvrig"]
+size = Vector3(2.5, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbkwi"]
+size = Vector3(2, 3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5c0cf"]
+size = Vector3(0.5, 3, 9)
+
+[node name="World_DSand" type="Node3D" unique_id=1930089467]
+script = ExtResource("1_5qocg")
+enemy_wave_entries = Array[ExtResource("2_rwvjs")]([SubResource("Resource_5qocg")])
+
+[node name="Items" type="Node" parent="." unique_id=552544306]
+
+[node name="Ammos" parent="Items" unique_id=1523799676 instance=ExtResource("1_07vid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.800001, 0.22917253, -27.300001)
+amount = 6
+
+[node name="Ammos2" parent="Items" unique_id=2009975635 instance=ExtResource("1_07vid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.1, 0.22917253, -27.300001)
+amount = 6
+
+[node name="Ammos3" parent="Items" unique_id=1049803866 instance=ExtResource("1_07vid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.22917253, -27.300001)
+amount = 6
+
+[node name="ArmorPoint" parent="Items" unique_id=205769892 instance=ExtResource("2_5qocg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2, 0.19999984, 24.800001)
+
+[node name="ArmorPoint2" parent="Items" unique_id=1814563691 instance=ExtResource("2_5qocg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.6, 0.19999984, 24.800001)
+
+[node name="ArmorPoint3" parent="Items" unique_id=132873370 instance=ExtResource("2_5qocg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.1, 0.19999984, 24.800001)
+
+[node name="Maps" type="Node3D" parent="." unique_id=1144546639]
+
+[node name="Terrain2" parent="Maps" unique_id=143276796 instance=ExtResource("3_daofb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.2, -0.55)
+size = Vector3(300, 0.1, 450)
+material = ExtResource("4_rwvjs")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Maps/Terrain2" unique_id=1941717175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+size = Vector3(100, 0.1, 100)
+
+[node name="Enviorment" type="Node" parent="Maps" unique_id=988418502]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Maps/Enviorment" unique_id=1228731714]
+transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 4.7351747)
+light_energy = 0.2
+shadow_enabled = true
+shadow_bias = 1.5
+shadow_normal_bias = 0.5
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Maps/Enviorment" unique_id=1694381972]
+environment = SubResource("Environment_54ndj")
+
+[node name="MapObj" type="Node3D" parent="Maps" unique_id=1834730413]
+
+[node name="Walls" type="Node3D" parent="Maps/MapObj" unique_id=1212199745]
+
+[node name="BreachedWall1" type="Node3D" parent="Maps/MapObj/Walls" unique_id=1040805193]
+
+[node name="plackard_slab_boken2" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=737870721 instance=ExtResource("5_giy1m")]
+transform = Transform3D(0.2588191, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.2588191, -34, -0.1500001, -9)
+
+[node name="plackard_slab_broken_alt2" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=1441243870 instance=ExtResource("6_jgcle")]
+transform = Transform3D(0.42261824, 0, 0.9063078, 0.23456973, 0.9659258, -0.109381646, -0.8754261, 0.25881904, 0.40821788, -33.5, 0, -16.5)
+
+[node name="plackard_corner_open_alt2" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=1621311832 instance=ExtResource("7_yl2br")]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, -34, -0.5, -14.5)
+
+[node name="plackard_slab_broken_alt3" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=1123772796 instance=ExtResource("6_jgcle")]
+transform = Transform3D(0.42261824, 0, -0.9063078, -0.7424039, 0.57357645, -0.3461886, 0.51983684, 0.81915206, 0.24240386, -33, -1, -10.5)
+
+[node name="plackard_corner_open_alt3" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=1527647919 instance=ExtResource("7_yl2br")]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -35.5, -0.5, -10.5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=115139103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -10)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/MapObj/Walls/BreachedWall1/StaticBody3D" unique_id=1863189975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, -0.5)
+shape = SubResource("BoxShape3D_kvrig")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=929267948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -15.5)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/MapObj/Walls/BreachedWall1/StaticBody3D2" unique_id=1781299517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_jbkwi")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Maps/MapObj/Walls/BreachedWall1" unique_id=1210980696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -13)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/MapObj/Walls/BreachedWall1/StaticBody3D3" unique_id=838475680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1, -0.25)
+shape = SubResource("BoxShape3D_5c0cf")
+
+[node name="BreachedWall2" type="Node3D" parent="Maps/MapObj/Walls" unique_id=128037936]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 32, 0, -74)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Maps/MapObj/Walls/BreachedWall2" unique_id=264138035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -2)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/MapObj/Walls/BreachedWall2/StaticBody3D" unique_id=1470226488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, -0.5)
+shape = SubResource("BoxShape3D_kvrig")
+
+[node name="plackard_slab_boken2" parent="Maps/MapObj/Walls/BreachedWall2/StaticBody3D" unique_id=1559026458 instance=ExtResource("5_giy1m")]
+transform = Transform3D(0.2588191, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.2588191, 0, -0.1500001, 1)
+
+[node name="plackard_slab_broken_alt3" parent="Maps/MapObj/Walls/BreachedWall2/StaticBody3D" unique_id=1433447665 instance=ExtResource("6_jgcle")]
+transform = Transform3D(0.42261824, 0, -0.9063078, -0.7424039, 0.57357645, -0.3461886, 0.51983684, 0.81915206, 0.24240386, 1, -1, -0.5)
+
+[node name="plackard_corner_open_alt3" parent="Maps/MapObj/Walls/BreachedWall2/StaticBody3D" unique_id=1905397618 instance=ExtResource("7_yl2br")]
+transform = Transform3D(0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0, 1, -1.5, -0.5, -0.5)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Maps/MapObj/Walls/BreachedWall2" unique_id=2059068120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 2)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/MapObj/Walls/BreachedWall2/StaticBody3D2" unique_id=2077407921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_jbkwi")
+
+[node name="plackard_slab_broken_alt2" parent="Maps/MapObj/Walls/BreachedWall2/StaticBody3D2" unique_id=1145972756 instance=ExtResource("6_jgcle")]
+transform = Transform3D(0.42261824, 0, 0.9063078, 0.23456973, 0.9659258, -0.109381646, -0.8754261, 0.25881904, 0.40821788, 0.5, 0, -1)
+
+[node name="plackard_corner_open_alt2" parent="Maps/MapObj/Walls/BreachedWall2/StaticBody3D2" unique_id=896634780 instance=ExtResource("7_yl2br")]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, -0.5, 1)
+
+[node name="Barrier" type="StaticBody3D" parent="Maps/MapObj/Walls/BreachedWall2" unique_id=527942039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0.5)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/MapObj/Walls/BreachedWall2/Barrier" unique_id=1105058586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, -0.75)
+shape = SubResource("BoxShape3D_5c0cf")
+
+[node name="BreachedWall3" type="Node3D" parent="Maps/MapObj/Walls" unique_id=1604159473]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, 0, 2)
+
+[node name="Barrier" type="StaticBody3D" parent="Maps/MapObj/Walls/BreachedWall3" unique_id=1577599416]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0, -1.5)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/MapObj/Walls/BreachedWall3/Barrier" unique_id=1612805700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, -1)
+shape = SubResource("BoxShape3D_5c0cf")
+
+[node name="_PlackardWall1" parent="Maps/MapObj/Walls" unique_id=261531764 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -72.5)
+
+[node name="_PlackardWall3" parent="Maps/MapObj/Walls" unique_id=598457941 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -69.5)
+
+[node name="_PlackardWall4" parent="Maps/MapObj/Walls" unique_id=351130644 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -66.5)
+
+[node name="_PlackardWall5" parent="Maps/MapObj/Walls" unique_id=496409290 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -63.5)
+
+[node name="_PlackardWall6" parent="Maps/MapObj/Walls" unique_id=1613767285 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -60.5)
+
+[node name="_PlackardWall7" parent="Maps/MapObj/Walls" unique_id=49435767 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -57.5)
+
+[node name="_PlackardWall8" parent="Maps/MapObj/Walls" unique_id=1195914303 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -54.5)
+
+[node name="_PlackardWall9" parent="Maps/MapObj/Walls" unique_id=83611612 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -51.5)
+
+[node name="_PlackardWall10" parent="Maps/MapObj/Walls" unique_id=1371426432 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -48.5)
+
+[node name="_PlackardWall11" parent="Maps/MapObj/Walls" unique_id=406356357 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -45.5)
+
+[node name="_PlackardWall12" parent="Maps/MapObj/Walls" unique_id=894272048 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -42.5)
+
+[node name="_PlackardWall13" parent="Maps/MapObj/Walls" unique_id=2040534328 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -39.5)
+
+[node name="_PlackardWall14" parent="Maps/MapObj/Walls" unique_id=1025373366 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -36.5)
+
+[node name="_PlackardWall15" parent="Maps/MapObj/Walls" unique_id=429275667 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -33.5)
+
+[node name="_PlackardWall16" parent="Maps/MapObj/Walls" unique_id=437484092 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -30.5)
+
+[node name="_PlackardWall17" parent="Maps/MapObj/Walls" unique_id=1799427198 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -27.5)
+
+[node name="_PlackardWall18" parent="Maps/MapObj/Walls" unique_id=1472278936 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -24.499998)
+
+[node name="_PlackardWall19" parent="Maps/MapObj/Walls" unique_id=1143022097 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -21.499998)
+
+[node name="_PlackardWall20" parent="Maps/MapObj/Walls" unique_id=1905272090 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -18.499998)
+
+[node name="_PlackardWall21" parent="Maps/MapObj/Walls" unique_id=518118098 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -15.499999)
+
+[node name="_PlackardWall22" parent="Maps/MapObj/Walls" unique_id=1686554909 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -12.499999)
+
+[node name="_PlackardWall23" parent="Maps/MapObj/Walls" unique_id=314473770 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -9.499999)
+
+[node name="_PlackardWall24" parent="Maps/MapObj/Walls" unique_id=1140924257 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -6.499999)
+
+[node name="_PlackardWall25" parent="Maps/MapObj/Walls" unique_id=1642842245 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, -3.4999988)
+
+[node name="_PlackardWall28" parent="Maps/MapObj/Walls" unique_id=1508120175 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 8.5)
+
+[node name="_PlackardWall29" parent="Maps/MapObj/Walls" unique_id=927017406 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 11.5)
+
+[node name="_PlackardWall30" parent="Maps/MapObj/Walls" unique_id=225692231 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 14.5)
+
+[node name="_PlackardWall31" parent="Maps/MapObj/Walls" unique_id=1620206021 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 17.5)
+
+[node name="_PlackardWall32" parent="Maps/MapObj/Walls" unique_id=202434740 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 20.5)
+
+[node name="_PlackardWall33" parent="Maps/MapObj/Walls" unique_id=2123523037 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 23.5)
+
+[node name="_PlackardWall34" parent="Maps/MapObj/Walls" unique_id=1202375662 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 26.5)
+
+[node name="_PlackardWall35" parent="Maps/MapObj/Walls" unique_id=2022678380 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 29.5)
+
+[node name="_PlackardWall36" parent="Maps/MapObj/Walls" unique_id=666189571 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 32.5)
+
+[node name="_PlackardWall37" parent="Maps/MapObj/Walls" unique_id=1797387666 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 35.5)
+
+[node name="_PlackardWall38" parent="Maps/MapObj/Walls" unique_id=962087553 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 47.994305, -0.1500001, 38.50005)
+
+[node name="_PlackardWall39" parent="Maps/MapObj/Walls" unique_id=1032042756 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 45.195446, -0.1500001, 39.58004)
+
+[node name="_PlackardWall40" parent="Maps/MapObj/Walls" unique_id=193707028 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 42.396584, -0.1500001, 40.66003)
+
+[node name="_PlackardWall41" parent="Maps/MapObj/Walls" unique_id=136732449 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 39.59772, -0.1500001, 41.74002)
+
+[node name="_PlackardWall42" parent="Maps/MapObj/Walls" unique_id=1027282274 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 36.79886, -0.1500001, 42.82001)
+
+[node name="_PlackardWall43" parent="Maps/MapObj/Walls" unique_id=885337315 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 34, -0.1500001, 43.9)
+
+[node name="_PlackardWall44" parent="Maps/MapObj/Walls" unique_id=2067998895 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 31.201141, -0.1500001, 44.979992)
+
+[node name="_PlackardWall45" parent="Maps/MapObj/Walls" unique_id=800555655 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 28.402277, -0.1500001, 46.059982)
+
+[node name="_PlackardWall46" parent="Maps/MapObj/Walls" unique_id=964450244 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 25.603418, -0.1500001, 47.139973)
+
+[node name="_PlackardWall47" parent="Maps/MapObj/Walls" unique_id=2061452605 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 22.804554, -0.1500001, 48.219963)
+
+[node name="_PlackardWall48" parent="Maps/MapObj/Walls" unique_id=1683280338 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-0.9329536, 0, -0.3599968, 0, 1, 0, 0.3599968, 0, -0.9329536, 20.005695, -0.1500001, 49.299953)
+
+[node name="_PlackardWall49" parent="Maps/MapObj/Walls" unique_id=796447497 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1.3113419e-07, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 1.3113419e-07, 17.15, -0.15, 50.3)
+
+[node name="_PlackardWall50" parent="Maps/MapObj/Walls" unique_id=858083454 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1.3113419e-07, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 1.3113419e-07, 17.15, -0.15, 53.3)
+
+[node name="_PlackardWall51" parent="Maps/MapObj/Walls" unique_id=456525512 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1.3113419e-07, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 1.3113419e-07, 17.15, -0.15, 56.3)
+
+[node name="_PlackardWall52" parent="Maps/MapObj/Walls" unique_id=1996538754 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1.3113419e-07, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 1.3113419e-07, 17.15, -0.15, 59.3)
+
+[node name="_PlackardWall53" parent="Maps/MapObj/Walls" unique_id=1570078770 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, 17.15, -0.15, 62.3)
+
+[node name="_PlackardWall54" parent="Maps/MapObj/Walls" unique_id=101233447 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, 14.15, -0.15, 62.3)
+
+[node name="_PlackardWall55" parent="Maps/MapObj/Walls" unique_id=1408904516 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, 11.15, -0.15, 62.3)
+
+[node name="_PlackardWall56" parent="Maps/MapObj/Walls" unique_id=548681815 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, 8.15, -0.15, 62.3)
+
+[node name="_PlackardWall57" parent="Maps/MapObj/Walls" unique_id=132377541 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, 5.1499996, -0.15, 62.3)
+
+[node name="_PlackardWall58" parent="Maps/MapObj/Walls" unique_id=1325079486 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, 2.1499996, -0.15, 62.3)
+
+[node name="_PlackardWall59" parent="Maps/MapObj/Walls" unique_id=1608364665 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -0.8500004, -0.15, 62.3)
+
+[node name="_PlackardWall60" parent="Maps/MapObj/Walls" unique_id=538716597 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -3.8500004, -0.15, 62.3)
+
+[node name="_PlackardWall61" parent="Maps/MapObj/Walls" unique_id=464454181 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -6.8500004, -0.15, 62.3)
+
+[node name="_PlackardWall62" parent="Maps/MapObj/Walls" unique_id=1133810723 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -9.85, -0.15, 62.3)
+
+[node name="_PlackardWall63" parent="Maps/MapObj/Walls" unique_id=241014907 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -12.85, -0.15, 62.3)
+
+[node name="_PlackardWall64" parent="Maps/MapObj/Walls" unique_id=437129759 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -15.85, -0.15, 62.3)
+
+[node name="_PlackardWall65" parent="Maps/MapObj/Walls" unique_id=1718977787 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -18.85, -0.15, 62.3)
+
+[node name="_PlackardWall66" parent="Maps/MapObj/Walls" unique_id=1073536598 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -21.85, -0.15, 62.3)
+
+[node name="_PlackardWall67" parent="Maps/MapObj/Walls" unique_id=2139096690 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -24.85, -0.15, 62.3)
+
+[node name="_PlackardWall68" parent="Maps/MapObj/Walls" unique_id=898240574 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1.0000001, -27.85, -0.15, 62.3)
+
+[node name="_PlackardWall69" parent="Maps/MapObj/Walls" unique_id=1136614100 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 62.299995)
+
+[node name="_PlackardWall70" parent="Maps/MapObj/Walls" unique_id=445311512 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 59.3)
+
+[node name="_PlackardWall71" parent="Maps/MapObj/Walls" unique_id=1109915525 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 56.3)
+
+[node name="_PlackardWall72" parent="Maps/MapObj/Walls" unique_id=1388593225 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 53.3)
+
+[node name="_PlackardWall73" parent="Maps/MapObj/Walls" unique_id=1106542086 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 50.299995)
+
+[node name="_PlackardWall74" parent="Maps/MapObj/Walls" unique_id=1073884804 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 47.3)
+
+[node name="_PlackardWall75" parent="Maps/MapObj/Walls" unique_id=232091325 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 44.3)
+
+[node name="_PlackardWall76" parent="Maps/MapObj/Walls" unique_id=1407778977 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 41.3)
+
+[node name="_PlackardWall77" parent="Maps/MapObj/Walls" unique_id=1794021526 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 38.299995)
+
+[node name="_PlackardWall78" parent="Maps/MapObj/Walls" unique_id=589142574 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 35.3)
+
+[node name="_PlackardWall79" parent="Maps/MapObj/Walls" unique_id=389942319 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 32.3)
+
+[node name="_PlackardWall80" parent="Maps/MapObj/Walls" unique_id=784696090 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 29.3)
+
+[node name="_PlackardWall81" parent="Maps/MapObj/Walls" unique_id=445279536 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 26.299995)
+
+[node name="_PlackardWall82" parent="Maps/MapObj/Walls" unique_id=1257482858 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 23.3)
+
+[node name="_PlackardWall83" parent="Maps/MapObj/Walls" unique_id=830204316 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 20.3)
+
+[node name="_PlackardWall84" parent="Maps/MapObj/Walls" unique_id=260711609 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 17.3)
+
+[node name="_PlackardWall85" parent="Maps/MapObj/Walls" unique_id=1987898930 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 14.299995)
+
+[node name="_PlackardWall86" parent="Maps/MapObj/Walls" unique_id=1569810878 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 11.299999)
+
+[node name="_PlackardWall87" parent="Maps/MapObj/Walls" unique_id=522115923 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 8.299999)
+
+[node name="_PlackardWall88" parent="Maps/MapObj/Walls" unique_id=1884666931 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 5.299999)
+
+[node name="_PlackardWall89" parent="Maps/MapObj/Walls" unique_id=786765790 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, 2.2999954)
+
+[node name="_PlackardWall90" parent="Maps/MapObj/Walls" unique_id=1517914025 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -0.70000076)
+
+[node name="_PlackardWall91" parent="Maps/MapObj/Walls" unique_id=1478948605 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -3.7000008)
+
+[node name="_PlackardWall92" parent="Maps/MapObj/Walls" unique_id=607288125 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -6.700001)
+
+[node name="_PlackardWall94" parent="Maps/MapObj/Walls" unique_id=863217054 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -15.700001)
+
+[node name="_PlackardWall95" parent="Maps/MapObj/Walls" unique_id=186167760 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -18.7)
+
+[node name="_PlackardWall97" parent="Maps/MapObj/Walls" unique_id=1427833650 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -21.7)
+
+[node name="_PlackardWall98" parent="Maps/MapObj/Walls" unique_id=1662810897 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -24.7)
+
+[node name="_PlackardWall99" parent="Maps/MapObj/Walls" unique_id=1056067552 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -27.7)
+
+[node name="_PlackardWall100" parent="Maps/MapObj/Walls" unique_id=656434940 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -30.7)
+
+[node name="_PlackardWall101" parent="Maps/MapObj/Walls" unique_id=1992399420 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -33.7)
+
+[node name="_PlackardWall102" parent="Maps/MapObj/Walls" unique_id=447040689 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-4.3711406e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711406e-08, -30.849998, -0.15, -36.7)
+
+[node name="_PlackardWall103" parent="Maps/MapObj/Walls" unique_id=1419822421 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -30.95, -0.15, -39.7)
+
+[node name="_PlackardWall104" parent="Maps/MapObj/Walls" unique_id=1628780991 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -28.82868, -0.15, -41.82132)
+
+[node name="_PlackardWall105" parent="Maps/MapObj/Walls" unique_id=1322089425 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -26.70736, -0.15, -43.942642)
+
+[node name="_PlackardWall106" parent="Maps/MapObj/Walls" unique_id=1940969372 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -24.58604, -0.15, -46.06396)
+
+[node name="_PlackardWall107" parent="Maps/MapObj/Walls" unique_id=1921777322 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -22.46472, -0.15, -48.185284)
+
+[node name="_PlackardWall108" parent="Maps/MapObj/Walls" unique_id=350424698 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -20.3434, -0.15, -50.306602)
+
+[node name="_PlackardWall109" parent="Maps/MapObj/Walls" unique_id=369633402 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -18.222078, -0.15, -52.427925)
+
+[node name="_PlackardWall110" parent="Maps/MapObj/Walls" unique_id=525560109 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -16.10076, -0.15, -54.549244)
+
+[node name="_PlackardWall111" parent="Maps/MapObj/Walls" unique_id=554614889 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -13.979439, -0.15, -56.670567)
+
+[node name="_PlackardWall112" parent="Maps/MapObj/Walls" unique_id=433242865 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -11.858118, -0.15, -58.791885)
+
+[node name="_PlackardWall113" parent="Maps/MapObj/Walls" unique_id=195591993 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -9.736797, -0.15, -60.913208)
+
+[node name="_PlackardWall114" parent="Maps/MapObj/Walls" unique_id=521058375 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -7.6154785, -0.15, -63.034527)
+
+[node name="_PlackardWall115" parent="Maps/MapObj/Walls" unique_id=632970956 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -5.494158, -0.15, -65.15585)
+
+[node name="_PlackardWall116" parent="Maps/MapObj/Walls" unique_id=1552791528 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -3.372837, -0.15, -67.27717)
+
+[node name="_PlackardWall117" parent="Maps/MapObj/Walls" unique_id=1237234163 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, -1.2515163, -0.15, -69.39849)
+
+[node name="_PlackardWall118" parent="Maps/MapObj/Walls" unique_id=266679580 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.70710677, 0, 0.7071069, 0, 1, 0, -0.7071069, 0, 0.70710677, 0.8698025, -0.15, -71.519806)
+
+[node name="_PlackardWall119" parent="Maps/MapObj/Walls" unique_id=1582020693 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 2.9911227, -0.15, -73.64113)
+
+[node name="_PlackardWall120" parent="Maps/MapObj/Walls" unique_id=1785680194 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 5.9911227, -0.15, -73.64113)
+
+[node name="_PlackardWall121" parent="Maps/MapObj/Walls" unique_id=1265327684 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 8.991123, -0.15, -73.64113)
+
+[node name="_PlackardWall122" parent="Maps/MapObj/Walls" unique_id=1880045379 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 11.991123, -0.15, -73.64113)
+
+[node name="_PlackardWall123" parent="Maps/MapObj/Walls" unique_id=545509958 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 14.991123, -0.15, -73.64113)
+
+[node name="_PlackardWall124" parent="Maps/MapObj/Walls" unique_id=1254911908 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 17.991123, -0.15, -73.64113)
+
+[node name="_PlackardWall125" parent="Maps/MapObj/Walls" unique_id=968820286 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 20.991123, -0.15, -73.64113)
+
+[node name="_PlackardWall126" parent="Maps/MapObj/Walls" unique_id=849825514 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 23.991123, -0.15, -73.64113)
+
+[node name="_PlackardWall127" parent="Maps/MapObj/Walls" unique_id=993454819 instance=ExtResource("8_0i5df")]
+transform = Transform3D(1, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, 1, 26.991123, -0.15, -73.64113)
+
+[node name="_PlackardWall133" parent="Maps/MapObj/Walls" unique_id=683403124 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.9961947, 0, 0.08715583, 0, 1, 0, -0.08715583, 0, 0.9961947, 42.991, -0.15, -74.35)
+
+[node name="_PlackardWall134" parent="Maps/MapObj/Walls" unique_id=1947470833 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.9961947, 0, 0.08715583, 0, 1, 0, -0.08715583, 0, 0.9961947, 40.00242, -0.15, -74.08853)
+
+[node name="_PlackardWall135" parent="Maps/MapObj/Walls" unique_id=1842583248 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.9961947, 0, 0.08715583, 0, 1, 0, -0.08715583, 0, 0.9961947, 37.013836, -0.15, -73.827065)
+
+[node name="_PlackardWall136" parent="Maps/MapObj/Walls" unique_id=210549344 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.9961947, 0, 0.08715583, 0, 1, 0, -0.08715583, 0, 0.9961947, 34.025253, -0.15, -73.5656)
+
+[node name="_PlackardWall93" parent="Maps/MapObj/Walls" unique_id=1504152215 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.7422805e-08, 0, 1, 0, 8.7422805e-08, 0, -1.0000001, -30.849998, -0.15, -9.700001)
+
+[node name="_PlackardWall96" parent="Maps/MapObj/Walls" unique_id=368570585 instance=ExtResource("8_0i5df")]
+transform = Transform3D(-1.0000001, 0, -8.742282e-08, 0, 1, 0, 8.742282e-08, 0, -1.0000001, -30.849998, -0.15, -15.700001)
+
+[node name="plackard_corner_open_alt3" parent="Maps/MapObj/Walls/_PlackardWall96" unique_id=347839190 instance=ExtResource("7_yl2br")]
+transform = Transform3D(-0.9999999, 0, 8.7422755e-08, 0, 1, 0, -8.7422755e-08, 0, -0.9999999, 0, 0, 0)
+
+[node name="_PlackardWallR2" parent="Maps/MapObj/Walls" unique_id=410262534 instance=ExtResource("8_0i5df")]
+transform = Transform3D(0.6427876, 0, -0.76604444, 0, 1, 0, 0.76604444, 0, 0.6427876, 46.02, -0.15, -74.7)
+
+[node name="plackard_corner_open_alt2" parent="Maps/MapObj/Walls" unique_id=2038290839 instance=ExtResource("7_yl2br")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, -0.1500001, -73.575)
+
+[node name="plackard_corner_open_alt3" parent="Maps/MapObj/Walls" unique_id=1649355381 instance=ExtResource("7_yl2br")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 48, -0.1500001, 8.5)
+
+[node name="Buildings" type="Node3D" parent="Maps/MapObj" unique_id=2121669243]
+
+[node name="Hangar" parent="Maps/MapObj/Buildings" unique_id=149680061 instance=ExtResource("9_s4c1s")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 11.5, -0.1500001, 56)
+
+[node name="Hangar2" parent="Maps/MapObj/Buildings" unique_id=1992941252 instance=ExtResource("9_s4c1s")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, -0.1500001, 56)
+
+[node name="Hangar3" parent="Maps/MapObj/Buildings" unique_id=1111545894 instance=ExtResource("9_s4c1s")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.5, -0.1500001, 56)
+
+[node name="Objects" type="Node3D" parent="Maps/MapObj" unique_id=197159660]
+
+[node name="BarrelPile1v6" parent="Maps/MapObj/Objects" unique_id=1587756177 instance=ExtResource("10_g5cuy")]
+transform = Transform3D(0.42261824, 0, -0.9063078, 0, 1, 0, 0.9063078, 0, 0.42261824, 11.5, -0.14999998, -11)
+
+[node name="BarrelPile1v7" parent="Maps/MapObj/Objects" unique_id=1857456227 instance=ExtResource("10_g5cuy")]
+transform = Transform3D(0.42261827, 0, 0.9063078, 0, 1, 0, -0.9063078, 0, 0.42261827, 21, -0.14999998, -21)
+
+[node name="BarrelPile1v8" parent="Maps/MapObj/Objects" unique_id=738332137 instance=ExtResource("11_wrm08")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -17, -0.2, -44)
+
+[node name="BarrelPile1v9" parent="Maps/MapObj/Objects" unique_id=329573771 instance=ExtResource("10_g5cuy")]
+transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, 26, -0.14999998, -56)
+
+[node name="BarrelPile1v10" parent="Maps/MapObj/Objects" unique_id=628704210 instance=ExtResource("11_wrm08")]
+transform = Transform3D(-0.9961947, 0, 0.08715581, 0, 1, 0, -0.08715581, 0, -0.9961947, 41, -0.2, -52.5)
+
+[node name="SandBoxPile1v7" parent="Maps/MapObj/Objects" unique_id=1935947122 instance=ExtResource("12_50rt4")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -21.5, -0.1500001, -7)
+
+[node name="SandBoxPile1v8" parent="Maps/MapObj/Objects" unique_id=1454594648 instance=ExtResource("12_50rt4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -0.15000004, -22.5)
+
+[node name="SandBoxPile1v9" parent="Maps/MapObj/Objects" unique_id=1104025210 instance=ExtResource("12_50rt4")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 22.5, -0.15000004, -9.5)
+
+[node name="SandBoxPile1v10" parent="Maps/MapObj/Objects" unique_id=1781116582 instance=ExtResource("12_50rt4")]
+transform = Transform3D(-1, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -1, 9.5, -0.15000004, -9.5)
+
+[node name="SandBoxPile1v11" parent="Maps/MapObj/Objects" unique_id=1891521834 instance=ExtResource("12_50rt4")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 9.5, -0.15000004, -22.5)
+
+[node name="SandBoxPile1v" parent="Maps/MapObj/Objects" unique_id=1883895532 instance=ExtResource("13_luqia")]
+transform = Transform3D(0.90630776, 0, 0.42261827, 0, 1, 0, -0.42261827, 0, 0.90630776, 17, -0.1500001, 10.5)
+
+[node name="SandBoxPile1v2" parent="Maps/MapObj/Objects" unique_id=1275764095 instance=ExtResource("13_luqia")]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 11.5, -0.1500001, 11)
+
+[node name="SandBoxPile1v3" parent="Maps/MapObj/Objects" unique_id=1893097922 instance=ExtResource("14_7wap8")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -26.5, -0.1500001, -10)
+
+[node name="SandBoxPile1v4" parent="Maps/MapObj/Objects" unique_id=1969916635 instance=ExtResource("14_7wap8")]
+transform = Transform3D(0.49999997, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, 0.49999997, -27.5, -0.1500001, -15.5)
+
+[node name="SandBoxPile1v5" parent="Maps/MapObj/Objects" unique_id=1304597459 instance=ExtResource("13_luqia")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -22, -0.1500001, -11.5)
+
+[node name="SandBoxPile1v6" parent="Maps/MapObj/Objects" unique_id=604864368 instance=ExtResource("12_50rt4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -21.5, -0.1500001, -19)
+
+[node name="SandBoxPile1v12" parent="Maps/MapObj/Objects" unique_id=1432199785 instance=ExtResource("13_luqia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1500001, -62.5)
+
+[node name="SandBoxPile1v13" parent="Maps/MapObj/Objects" unique_id=1143636946 instance=ExtResource("13_luqia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, -0.1500001, -62.5)
+
+[node name="SandBoxPile1v14" parent="Maps/MapObj/Objects" unique_id=672491994 instance=ExtResource("14_7wap8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -0.1500001, -65)
+
+[node name="SandBoxPile1v15" parent="Maps/MapObj/Objects" unique_id=729021142 instance=ExtResource("12_50rt4")]
+transform = Transform3D(1, 0, 1.0977452e-07, 0, 1, 0, -1.0977452e-07, 0, 1, 29, -0.1500001, -71)
+
+[node name="SandBoxPile1v16" parent="Maps/MapObj/Objects" unique_id=802243377 instance=ExtResource("14_7wap8")]
+transform = Transform3D(0.17364822, 0, 0.9848077, 0, 1, 0, -0.9848077, 0, 0.17364822, -12, -0.1500001, -44.5)
+
+[node name="SandBoxPile1v17" parent="Maps/MapObj/Objects" unique_id=2098806281 instance=ExtResource("14_7wap8")]
+transform = Transform3D(0.96592593, 0, -0.25881916, 0, 1, 0, 0.25881916, 0, 0.96592593, -8, -0.1500001, -47)
+
+[node name="SandBoxPile1v18" parent="Maps/MapObj/Objects" unique_id=1736142536 instance=ExtResource("14_7wap8")]
+transform = Transform3D(0.96592593, 0, -0.25881916, 0, 1, 0, 0.25881916, 0, 0.96592593, -13.5, -0.1500001, -37.5)
+
+[node name="SandBoxPile1v19" parent="Maps/MapObj/Objects" unique_id=1447543624 instance=ExtResource("14_7wap8")]
+transform = Transform3D(0.25881895, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.25881895, -1.5, -0.1500001, -42.5)
+
+[node name="SandBoxPile1v21" parent="Maps/MapObj/Objects" unique_id=371476908 instance=ExtResource("14_7wap8")]
+transform = Transform3D(-0.5735766, 0, -0.81915206, 0, 1, 0, 0.81915206, 0, -0.5735766, -7, -0.1500001, -40)
+
+[node name="SandBoxPile1v20" parent="Maps/MapObj/Objects" unique_id=2007038616 instance=ExtResource("14_7wap8")]
+transform = Transform3D(0.7660446, 0, 0.64278764, 0, 1, 0, -0.64278764, 0, 0.7660446, -8, -0.1500001, -33)
+
+[node name="SandBoxPile1v22" parent="Maps/MapObj/Objects" unique_id=979947091 instance=ExtResource("13_luqia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.5, -0.1500001, -25.5)
+
+[node name="SandBoxPile1v23" parent="Maps/MapObj/Objects" unique_id=1292106619 instance=ExtResource("13_luqia")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, -0.1500001, -25.5)
+
+[node name="SandBoxPile1v24" parent="Maps/MapObj/Objects" unique_id=1264930265 instance=ExtResource("13_luqia")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -12, -0.1500001, -25.5)
+
+[node name="SandBoxPile1v25" parent="Maps/MapObj/Objects" unique_id=621768648 instance=ExtResource("13_luqia")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6.5, -0.1500001, -25.5)
+
+[node name="SandBoxPile1v26" parent="Maps/MapObj/Objects" unique_id=102010966 instance=ExtResource("13_luqia")]
+transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, -4.5, -0.1500001, -24.5)
+
+[node name="SandBoxPile1v27" parent="Maps/MapObj/Objects" unique_id=1707325703 instance=ExtResource("13_luqia")]
+transform = Transform3D(-5.9604645e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -5.9604645e-08, -1.5, -0.1500001, -20)
+
+[node name="SandBoxPile1v28" parent="Maps/MapObj/Objects" unique_id=472841986 instance=ExtResource("13_luqia")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 17.5, -0.1500001, 43)
+
+[node name="SandBoxPile1v29" parent="Maps/MapObj/Objects" unique_id=120747721 instance=ExtResource("13_luqia")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 17.5, -0.1500001, 37)
+
+[node name="SandBoxPile1v30" parent="Maps/MapObj/Objects" unique_id=1194947400 instance=ExtResource("13_luqia")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 17.5, -0.1500001, 28)
+
+[node name="SandBoxPile1v31" parent="Maps/MapObj/Objects" unique_id=1180276295 instance=ExtResource("13_luqia")]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, 20.5, -0.1500001, 23.5)
+
+[node name="SandBoxPile1v32" parent="Maps/MapObj/Objects" unique_id=1679618882 instance=ExtResource("13_luqia")]
+transform = Transform3D(-0.99999994, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -0.99999994, 26, -0.1500001, 22.5)
+
+[node name="SandBoxPile1v33" parent="Maps/MapObj/Objects" unique_id=1701249704 instance=ExtResource("13_luqia")]
+transform = Transform3D(-0.99999994, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -0.99999994, 33.5, -0.1500001, 22.5)
+
+[node name="SandBoxPile1v34" parent="Maps/MapObj/Objects" unique_id=1805203928 instance=ExtResource("13_luqia")]
+transform = Transform3D(-0.99999994, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -0.99999994, 39, -0.1500001, 22.5)
+
+[node name="SandBoxPile1v35" parent="Maps/MapObj/Objects" unique_id=2009487038 instance=ExtResource("13_luqia")]
+transform = Transform3D(-0.99999994, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -0.99999994, 44.5, -0.1500001, 22.5)
+
+[node name="SandBoxPile1v36" parent="Maps/MapObj/Objects" unique_id=1022423767 instance=ExtResource("14_7wap8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.75, -0.15, 22.5)
+
+[node name="SandBoxPile1v37" parent="Maps/MapObj/Objects" unique_id=1029827987 instance=ExtResource("13_luqia")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13, -0.14999999, -70.9)
+
+[node name="SandBoxPile1v38" parent="Maps/MapObj/Objects" unique_id=1977503888 instance=ExtResource("13_luqia")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13, -0.14999999, -65.4)
+
+[node name="SandBoxPile1v39" parent="Maps/MapObj/Objects" unique_id=57790905 instance=ExtResource("13_luqia")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13, -0.14999999, -59.9)
+
+[node name="SandBoxPile1v40" parent="Maps/MapObj/Objects" unique_id=1825563555 instance=ExtResource("13_luqia")]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, 12.3, -0.14999999, -54.300003)
+
+[node name="BarrelPile1v" parent="Maps/MapObj/Objects" unique_id=1849120317 instance=ExtResource("10_g5cuy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, -0.14999998, 26.5)
+
+[node name="BarrelPile1v2" parent="Maps/MapObj/Objects" unique_id=1463361873 instance=ExtResource("10_g5cuy")]
+transform = Transform3D(0.17364822, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, 0.17364822, 45, -0.14999998, 29.5)
+
+[node name="BarrelPile1v3" parent="Maps/MapObj/Objects" unique_id=28796791 instance=ExtResource("10_g5cuy")]
+transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, 45, -0.14999998, 32)
+
+[node name="BarrelPile1v4" parent="Maps/MapObj/Objects" unique_id=924888191 instance=ExtResource("11_wrm08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -0.2, -3)
+
+[node name="BarrelPile1v5" parent="Maps/MapObj/Objects" unique_id=1236301318 instance=ExtResource("11_wrm08")]
+transform = Transform3D(-0.25881904, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25881904, -17.5, -0.2, -22.5)
+
+[node name="GreenTent" parent="Maps/MapObj/Objects" unique_id=1112113220 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -0.1500001, -40)
+
+[node name="GreenTent2" parent="Maps/MapObj/Objects" unique_id=154193109 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -0.1500001, -33.5)
+
+[node name="GreenTent3" parent="Maps/MapObj/Objects" unique_id=801119681 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, -0.1500001, -27)
+
+[node name="GreenTent4" parent="Maps/MapObj/Objects" unique_id=1678293201 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1500001, -40)
+
+[node name="GreenTent5" parent="Maps/MapObj/Objects" unique_id=118575243 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1500001, -33.5)
+
+[node name="GreenTent6" parent="Maps/MapObj/Objects" unique_id=1825494177 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -0.1500001, -27)
+
+[node name="GreenTent7" parent="Maps/MapObj/Objects" unique_id=501433335 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, -0.1500001, 37.5)
+
+[node name="GreenTent8" parent="Maps/MapObj/Objects" unique_id=218546352 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, -0.1500001, 31)
+
+[node name="GreenTent9" parent="Maps/MapObj/Objects" unique_id=27390890 instance=ExtResource("15_d5nwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, -0.1500001, 24.5)
+
+[node name="BarrelPile3v" parent="Maps/MapObj/Objects" unique_id=1373606933 instance=ExtResource("16_xaesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, -0.14999998, 39)
+
+[node name="BarrelPile3v5" parent="Maps/MapObj/Objects" unique_id=1301487027 instance=ExtResource("16_xaesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, -0.14999998, 35.5)
+
+[node name="BarrelPile3v2" parent="Maps/MapObj/Objects" unique_id=1020220975 instance=ExtResource("16_xaesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 1.8, 39)
+
+[node name="BarrelPile3v3" parent="Maps/MapObj/Objects" unique_id=1041830043 instance=ExtResource("16_xaesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, -0.14999998, 40.5)
+
+[node name="BarrelPile3v4" parent="Maps/MapObj/Objects" unique_id=1902568444 instance=ExtResource("16_xaesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 1.8, 40.5)
+
+[node name="BarrelPile3v6" parent="Maps/MapObj/Objects" unique_id=1312569797 instance=ExtResource("16_xaesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -0.14999998, -44.5)
+
+[node name="BarrelPile3v7" parent="Maps/MapObj/Objects" unique_id=623340156 instance=ExtResource("16_xaesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, -0.14999998, -44.5)
+
+[node name="BarrelPile1v11" parent="Maps/MapObj/Objects" unique_id=1146884838 instance=ExtResource("11_wrm08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, -0.2, -26.5)
+
+[node name="WoodenPallet" parent="Maps/MapObj/Objects" unique_id=1196261282 instance=ExtResource("17_4tpiw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -0.14999998, 44.5)
+
+[node name="WoodenPallet2" parent="Maps/MapObj/Objects" unique_id=1961160079 instance=ExtResource("17_4tpiw")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -26, 0.050000012, 44.5)
+
+[node name="WoodenPallet3" parent="Maps/MapObj/Objects" unique_id=511243621 instance=ExtResource("17_4tpiw")]
+transform = Transform3D(0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0, 1, -30.1, 1.1490381, 44.5)
+
+[node name="WoodenPalletPile1v" parent="Maps/MapObj/Objects" unique_id=1516571323 instance=ExtResource("18_lvd4q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -0.14999998, 28.7)
+
+[node name="WoodenPalletPile1v3" parent="Maps/MapObj/Objects" unique_id=1547775423 instance=ExtResource("18_lvd4q")]
+transform = Transform3D(-0.08715577, 0, -0.9961947, 0, 1, 0, 0.9961947, 0, -0.08715577, 22, 0.64999986, 28.7)
+
+[node name="WoodenPalletPile1v2" parent="Maps/MapObj/Objects" unique_id=1936028301 instance=ExtResource("18_lvd4q")]
+transform = Transform3D(-0.9396926, 0, -0.3420202, 0, 1, 0, 0.3420202, 0, -0.9396926, 25.7, -0.14999998, 27.500002)
+
+[node name="WoodenPallet4" parent="Maps/MapObj/Objects" unique_id=1802588628 instance=ExtResource("17_4tpiw")]
+transform = Transform3D(0.34202015, -0.9396926, 0, 0.9396926, 0.34202015, 0, 0, 0, 1, 31.7, 1.2595391, 40.7)
+
+[node name="WoodenPallet5" parent="Maps/MapObj/Objects" unique_id=533778011 instance=ExtResource("17_4tpiw")]
+transform = Transform3D(-4.371139e-08, 0, -1, -0.9659258, 0.25881907, 4.222196e-08, 0.25881907, 0.9659258, -1.1313341e-08, 42, 1.2988886, -23.6)
+
+[node name="WoodenPalletPile1v4" parent="Maps/MapObj/Objects" unique_id=174500572 instance=ExtResource("18_lvd4q")]
+transform = Transform3D(0.9848077, 0, 0.17364818, 0, 1, 0, -0.17364818, 0, 0.9848077, 11.4, -0.14999998, -21)
+
+[node name="Box" parent="Maps/MapObj/Objects" unique_id=671710054 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9961947, 0, -0.08715574, 0, 1, 0, 0.08715574, 0, 0.9961947, -10.900001, 0.84999996, 34.5)
+
+[node name="Box3" parent="Maps/MapObj/Objects/Box" unique_id=1925888830 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9396926, 0, 0.34202015, 0, 1, 0, -0.34202015, 0, 0.9396926, 0.89160776, 2, -1.282589)
+
+[node name="Box2" parent="Maps/MapObj/Objects/Box" unique_id=224992241 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -0.20917416, 0, -2.3908691)
+
+[node name="Box4" parent="Maps/MapObj/Objects/Box" unique_id=444224195 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9961949, 0, -0.087155715, 0, 1, 0, 0.087155715, 0, 0.9961949, 2.0783277, 5.9604645e-08, -1.4867935)
+
+[node name="Box7" parent="Maps/MapObj/Objects" unique_id=2085290818 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.984808, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.984808, -7.999998, 0.85, 19.1)
+
+[node name="Box8" parent="Maps/MapObj/Objects" unique_id=1497365584 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.906308, 0, 0.4226184, 0, 1, 0, -0.4226184, 0, 0.906308, -5.699998, 0.85, 19.600002)
+
+[node name="Box5" parent="Maps/MapObj/Objects" unique_id=1474243129 instance=ExtResource("19_jqny5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1, 0.84999996, 39.2)
+
+[node name="Box6" parent="Maps/MapObj/Objects" unique_id=938336203 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9961947, 0, 0.08715574, 0, 1, 0, -0.08715574, 0, 0.9961947, -24, 0.84999996, 39.2)
+
+[node name="Box2" parent="Maps/MapObj/Objects" unique_id=378839436 instance=ExtResource("19_jqny5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, 0.84999996, 20.400002)
+
+[node name="Box3" parent="Maps/MapObj/Objects" unique_id=970917541 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, 44.8, 0.84999996, -22.8)
+
+[node name="Box4" parent="Maps/MapObj/Objects" unique_id=1033427951 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9961947, 0, 0.08715574, 0, 1, 0, -0.08715574, 0, 0.9961947, 33.8, 0.84999996, 24.5)
+
+[node name="Box9" parent="Maps/MapObj/Objects" unique_id=1266209881 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.9396927, 0, 0.34202015, 0, 1, 0, -0.34202015, 0, 0.9396927, 36.1, 0.84999996, 24.5)
+
+[node name="Box10" parent="Maps/MapObj/Objects" unique_id=155339117 instance=ExtResource("19_jqny5")]
+transform = Transform3D(0.57357645, 0, -0.81915206, 0, 1, 0, 0.81915206, 0, 0.57357645, 35.1, 2.85, 24.5)
+
+[node name="Player" parent="." unique_id=556148557 instance=ExtResource("20_pb3xg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.84999967, -15.8)
