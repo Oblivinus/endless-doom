@@ -1,5 +1,6 @@
 class_name WaveManager extends Node
 
+var initial_spawn_interval: float = 0.5
 
 @export var enemy_spawn_pos: Array[Marker3D]
 @export var enemy_patrol_pos: Array[Marker3D]
@@ -10,11 +11,13 @@ var current_wave: int = 0
 
 var max_enemies: int = 10
 var total_enemies: int = 0
-var max_current_amount = 10
+
 var alive: Array[Enemy] = []
+var max_alive: int = 10
 
 var ongoing: bool = false
 var between_wave: Timer
+var spawn_timer: Timer
 
 signal wave_finished
 signal wave_start
@@ -26,20 +29,119 @@ func _ready() -> void:
 	
 	between_wave = Timer.new()
 	between_wave.one_shot = true
-	between_wave.wait_time = 30
+	between_wave.wait_time = 1
 	add_child(between_wave)
+	
+	spawn_timer = Timer.new()
+	spawn_timer.one_shot = true
+	spawn_timer.wait_time = initial_spawn_interval
+	add_child(spawn_timer)
+	
+	between_wave.timeout.connect(next_wave)
+	between_wave.start()
 
-func next_wave():
-	current_wave += 1
+func _physics_process(_delta: float) -> void:
+	alive = alive.filter(_filter_alive)
+	
+	_process_wave()
+	
+	if is_wave_cleared():
+		finish()
+
+func _process_wave():
+	spawn_next()
+
+func _roll_entry(wave: int) -> WaveEntry:
+	var total: float = 0.0
+	var available: Array[WaveEntry] = []
+
+	for entry in enemy_wave_entries:
+		if wave >= entry.wave_appear and entry.weight > 0.0:
+			total += entry.weight
+			available.append(entry)
+
+	if available.is_empty():
+		return null
+
+	var chance: float = randf() * total
+	for entry in available:
+		chance -= entry.weight
+		if chance < 0.0:
+			return entry
+
+	return available.back()
+
+func _filter_alive(obj) -> bool:
+	var valid = true
+		
+	if obj is Humanoid and obj.is_dead:
+		valid = false
+	else:
+		valid = not obj.is_queued_for_deletion() or is_instance_valid(obj)
+		
+	return valid
+
+func _calculate_wave() -> void:
+	max_enemies = int( 10 + current_wave * 6 + pow(current_wave, 1.35) )
+	max_alive = int( 10 + (current_wave * 5) )
+	
+	max_enemies = min(max_enemies, 120)
+	max_alive = min(max_alive, 50)
+
+func next_wave() -> void:
+	if ongoing: return
+	print("Wave %d" % [get_current_wave()])
+	
+	_calculate_wave()
+	
 	ongoing = true
 	wave_start.emit()
 
 func finish():
+	current_wave += 1
 	ongoing = false
 	wave_finished.emit()
+	between_wave.start()
+	
+	print("Cleared")
 
-func roll_to_spawn():
-	pass
+func is_wave_cleared() -> bool:
+	var reach_enemy_total: bool = total_enemies >= max_enemies
+	var no_more_alive: bool = alive.size() == 0
+	
+	return reach_enemy_total and no_more_alive and ongoing
 
-func spawn(entry: WaveEntry):
-	pass
+func get_current_wave() -> int:
+	return current_wave + 1
+
+func spawn_next():
+	if not spawn_timer.is_stopped() or not ongoing: return
+	if total_enemies >= max_enemies: return
+	if alive.size() >= max_alive: return
+	
+	total_enemies += 1
+	
+	var enemy: Enemy = roll_to_spawn().enemy_scene.instantiate() as Enemy
+	enemy.position = enemy_spawn_pos.pick_random().global_position
+	enemies_parent.add_child(enemy)
+	
+	alive.append(enemy)
+	spawn_timer.start()
+	
+	var patrol_pos = enemy_patrol_pos.pick_random().global_position
+	if Globals.player:
+		patrol_pos = Globals.player.position
+	
+	enemy.move(patrol_pos)
+
+func roll_to_spawn() -> WaveEntry:
+	return _roll_entry(current_wave)
+
+func simulate_wave(wave: int, count: int = max_enemies) -> Dictionary[String, int]:
+	var result: Dictionary[String, int] = {}
+	for i in count:
+		var entry := _roll_entry(wave)
+		if entry == null: continue
+		var enemy_name: String = entry.enemy_scene.resource_path.get_file().get_basename()
+		result[enemy_name] = result.get(enemy_name, 0) + 1
+	return result
