@@ -31,6 +31,7 @@ var is_moving: bool = false
 var move_dir: Vector3 = Vector3.ZERO
 var last_move_dir: Vector3 = Vector3.ZERO
 var move_target = null
+
 #endregion 
 
 signal on_hurt(amount: float)
@@ -38,6 +39,38 @@ signal on_died()
 signal on_pick_up(item: Item)
 signal move_to_finished(vector3: Vector3)
 signal property_changed(property_name: String, value: Variant)
+
+class Pathfind:
+	var has_target: bool = false
+	var target_pos: Vector3
+	var humanoid: Humanoid
+	
+	var nav_agent: NavigationAgent3D
+	
+	func _init(parent: Humanoid) -> void:
+		humanoid = parent
+		
+		nav_agent = NavigationAgent3D.new()
+		nav_agent.debug_enabled = true
+		humanoid.add_child(nav_agent)
+	
+	func navigate(target: Vector3):
+		has_target = true
+		target_pos = target
+	
+	func process(_delta: float):
+		if not has_target: return
+		nav_agent.target_position = target_pos
+		var next_path_pos = nav_agent.get_next_path_position()
+		
+		humanoid.move_to(next_path_pos)
+		
+		if nav_agent.is_navigation_finished():
+			stop()
+	
+	func stop():
+		has_target = false
+		nav_agent.target_position = humanoid.global_position
 
 func _ready() -> void:
 	health = max_health
@@ -50,7 +83,6 @@ func  _physics_process(delta: float) -> void:
 func _process_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
 
 func _process_moving(delta: float) -> void:
 	if is_dead:
@@ -100,7 +132,6 @@ func  _face_rotation(dir: Vector3, delta: float) -> void:
 
 func move_to(target_pos: Vector3) -> void:
 	if is_moving_paused: return
-	#if is_moving: stop_move()
 	move_target = target_pos
 	is_moving = true
 

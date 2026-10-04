@@ -8,6 +8,9 @@ var strafe_timer: Timer
 var strafing := false
 var dist_to_target: float = 0.0
 
+func enter() -> void:
+	parent.stop_move()
+
 func  _ready() -> void:
 	strafe_timer = Timer.new()
 	strafe_timer.one_shot = true

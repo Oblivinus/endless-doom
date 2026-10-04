@@ -11,7 +11,6 @@ func strafe() -> void:
 		strafe_timer.start()
 		
 		var away_dir = parent.target.global_position.direction_to(parent.global_position)
-		away_dir.y = 0
 		away_dir = away_dir.normalized()
 		
 		var angle_offset = [-45, 45, 20, -20]
@@ -19,4 +18,4 @@ func strafe() -> void:
 		
 		var retreat_distance = randf_range(3, 5)
 		var target_pos = parent.global_position + away_dir * retreat_distance
-		parent.move_to(target_pos)
+		parent.move(target_pos)

@@ -6,6 +6,13 @@ var guns_slot: Dictionary[int, Gun] = {}
 
 var current_gun: Gun
 var current_gun_type: Enums.GUN_TYPES
+
+var max_ammo: Dictionary[String, int] = {
+	"BULLET" = 200,
+	"SHELL" = 75,
+	"ROCKET" = 50,
+}
+
 var available_ammo: Dictionary[String, int] = {
 	"BULLET" = 100,
 	"SHELL" = 75,

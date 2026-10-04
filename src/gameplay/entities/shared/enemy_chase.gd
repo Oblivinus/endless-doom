@@ -13,7 +13,7 @@ func process_physics(delta: float):
 	var attack_range_valid: bool = distance <= parent.attack_range and parent.attack_range > 0.0
 	var melee_range_valid: bool = distance <= parent.melee_range and parent.melee_range > 0.0
 	
-	if distance > parent.detection_range * 2.5:
+	if distance > parent.detection_range * 4:
 		_on_outside_range()
 		parent.stop_move()
 		transitioned.emit(self, "idle")
@@ -34,4 +34,4 @@ func _on_inside_range() -> void:
 	pass
 
 func _on_outside_attack_range() -> void:
-	parent.move_to(target_pos)
+	parent.move(target_pos)

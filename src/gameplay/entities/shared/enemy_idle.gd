@@ -60,7 +60,7 @@ func wander():
 	if wander_timer.time_left > 0 or parent.is_moving: return
 	wander_timer.start()
 	var rand_pos = Vector3(randi_range(-2, 2), 0, randi_range(-2, 2))
-	parent.move_to(anchor_pos + rand_pos)
+	parent.move(anchor_pos + rand_pos)
 			
 	if randi_range(1, 5) == 1: parent.event.emit("random_idle")
 
