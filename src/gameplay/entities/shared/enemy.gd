@@ -64,23 +64,30 @@ class Pathfind:
 	func _init(parent: Humanoid) -> void:
 		humanoid = parent
 		
+		var feet := Node3D.new()
+		feet.position = Vector3(0, -humanoid.get_enemy_floor_Y_offset(), 0)   # same as steer_y_origin_offset
+		humanoid.add_child(feet)
+		
 		nav_agent = NavigationAgent3D.new()
-		nav_agent.debug_enabled = true
-		humanoid.add_child(nav_agent)
+		nav_agent.debug_enabled = false
+		nav_agent.path_desired_distance = 0.5
+		nav_agent.target_desired_distance = 0.5
+		feet.add_child(nav_agent)
 	
 	func navigate(target: Vector3):
 		has_target = true
 		target_pos = target
+		nav_agent.target_position = target_pos
 	
 	func process(_delta: float):
 		if not has_target: return
-		nav_agent.target_position = target_pos
 		var next_path_pos = nav_agent.get_next_path_position()
 		
 		humanoid.move_to(next_path_pos)
 		
 		if nav_agent.is_navigation_finished():
 			stop()
+			humanoid.stop_move()
 	
 	func stop():
 		has_target = false

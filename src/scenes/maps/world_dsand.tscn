@@ -1,12 +1,9 @@
 [gd_scene format=3 uid="uid://n5inmiln7lwc"]
 
 [ext_resource type="PackedScene" uid="uid://g2qi1ggxwspu" path="res://src/gameplay/items/ammos/ammos.tscn" id="1_07vid"]
-[ext_resource type="Script" uid="uid://dj5nj5a47gkr1" path="res://src/core/components/combat/wave_manager.gd" id="1_rwvjs"]
+[ext_resource type="PackedScene" uid="uid://b1qr4ckjoih8o" path="res://src/core/components/combat/wave_manager.tscn" id="1_daofb"]
 [ext_resource type="PackedScene" uid="uid://dy6oqhri07ybb" path="res://src/gameplay/items/armor_point/armor_point.tscn" id="2_5qocg"]
-[ext_resource type="Script" uid="uid://c0ecj4cxyxvrg" path="res://src/core/components/combat/wave_entry.gd" id="2_jgcle"]
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/object/terrain.tscn" id="3_daofb"]
-[ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_yl2br"]
-[ext_resource type="PackedScene" uid="uid://1yaovy5ukx3o" path="res://src/gameplay/entities/enemies/imp/imp.tscn" id="4_0i5df"]
 [ext_resource type="Material" uid="uid://c5ksbwa35x37f" path="res://assets/materials/sand.tres" id="4_rwvjs"]
 [ext_resource type="PackedScene" uid="uid://y6qhjq06pe6e" path="res://assets/models/walls/plackard/raw/plackard_slab_boken.glb" id="5_giy1m"]
 [ext_resource type="PackedScene" uid="uid://dgo2efymqxyul" path="res://assets/models/walls/plackard/raw/plackard_slab_broken_alt.glb" id="6_jgcle"]
@@ -24,27 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://cfqcowkw03105" path="res://src/scenes/object/wooden_pallet_pile_1v.tscn" id="18_lvd4q"]
 [ext_resource type="PackedScene" uid="uid://ddvxo7cub337f" path="res://assets/models/objects/box/Box.glb" id="19_jqny5"]
 [ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="20_pb3xg"]
-[ext_resource type="PackedScene" uid="uid://daw4e6ejy8xij" path="res://src/gameplay/entities/enemies/pinky/pinky.tscn" id="22_daofb"]
-
-[sub_resource type="Resource" id="Resource_xgxji"]
-script = ExtResource("2_jgcle")
-enemy_scene = ExtResource("3_yl2br")
-weight = 50.0
-metadata/_custom_type_script = "uid://c0ecj4cxyxvrg"
-
-[sub_resource type="Resource" id="Resource_04t5p"]
-script = ExtResource("2_jgcle")
-enemy_scene = ExtResource("4_0i5df")
-wave_appear = 3
-weight = 40.0
-metadata/_custom_type_script = "uid://c0ecj4cxyxvrg"
-
-[sub_resource type="Resource" id="Resource_idh6s"]
-script = ExtResource("2_jgcle")
-enemy_scene = ExtResource("22_daofb")
-wave_appear = 5
-weight = 25.0
-metadata/_custom_type_script = "uid://c0ecj4cxyxvrg"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xqe1h"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -91,14 +67,9 @@ agent_max_climb = 0.1
 
 [node name="World_DSand" type="Node3D" unique_id=1930089467]
 
-[node name="WaveManager" type="Node" parent="." unique_id=112400026 node_paths=PackedStringArray("enemy_spawn_pos", "enemy_patrol_pos")]
-script = ExtResource("1_rwvjs")
+[node name="WaveManager" parent="." unique_id=1523200062 node_paths=PackedStringArray("enemy_spawn_pos", "enemy_patrol_pos") instance=ExtResource("1_daofb")]
 enemy_spawn_pos = [NodePath("SpawnPos"), NodePath("SpawnPos2"), NodePath("SpawnPos3")]
 enemy_patrol_pos = [NodePath("PatrolPos"), NodePath("PatrolPos2"), NodePath("PatrolPos3"), NodePath("PatrolPos4")]
-enemy_wave_entries = Array[ExtResource("2_jgcle")]([SubResource("Resource_xgxji"), SubResource("Resource_04t5p"), SubResource("Resource_idh6s")])
-metadata/_custom_type_script = "uid://dj5nj5a47gkr1"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="WaveManager" unique_id=515465919]
 
 [node name="PatrolPos" type="Marker3D" parent="WaveManager" unique_id=1217666961]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.199999, 1.2, -15.099998)
@@ -963,7 +934,3 @@ navigation_mesh = SubResource("NavigationMesh_kvrig")
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("20_pb3xg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9999995, 0.84999967, -25.500002)
-
-[node name="Pinky" parent="." unique_id=1812481539 instance=ExtResource("22_daofb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.290943, 0.8499999, -60.854378)
-attack_cd = 5.0

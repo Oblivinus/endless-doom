@@ -1,6 +1,7 @@
 class_name EnemyIdleState extends State
 
 const ABSOLUTE_DETECTED_RANGE: float = 2.5
+static var WANDER_RANGE: int = 5
 
 var wander_timer: Timer
 var anchor_pos: Vector3
@@ -56,7 +57,7 @@ func look_for():
 func wander():
 	if wander_timer.time_left > 0 or parent.is_moving: return
 	wander_timer.start()
-	var rand_pos = Vector3(randi_range(-2, 2), 0, randi_range(-2, 2))
+	var rand_pos = Vector3(randi_range(-WANDER_RANGE, WANDER_RANGE), 0, randi_range(-WANDER_RANGE, WANDER_RANGE))
 	
 	if anchor_pos == Vector3.ZERO:
 		anchor_pos = parent.global_position

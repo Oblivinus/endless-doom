@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dsjjd4g2j33rl"]
+
+[ext_resource type="FontFile" uid="uid://bnma8sgnp25e" path="res://assets/fonts/DooM.ttf" id="1_sn8b1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vi1r7"]
+blend_mode = 3
+
+[sub_resource type="Gradient" id="Gradient_6y4uu"]
+colors = PackedColorArray(0.48700923, 0.48700923, 0.4870091, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i5df"]
+gradient = SubResource("Gradient_6y4uu")
+height = 2
+fill_to = Vector2(0, 1)
+
+[node name="ArmorName" type="Label" unique_id=1404116355]
+clip_children = 2
+z_index = 2
+clip_contents = true
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -6.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.37162217, 0.37162223, 0.37162212, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.49019608)
+theme_override_colors/font_outline_color = Color(0.25323752, 0.2532376, 0.25323758, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("1_sn8b1")
+theme_override_font_sizes/font_size = 10
+text = "Armor"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=1799200404]
+material = SubResource("CanvasItemMaterial_vi1r7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_0i5df")

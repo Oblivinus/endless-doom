@@ -26,6 +26,23 @@ var highlights: Array[MeshInstance3D] = []
 signal wave_finished
 signal wave_start
 
+#region UI
+
+@export var wave_name: Label
+@export var remaining_label: Label
+
+func _process_ui():
+	wave_name.text = "WAVE " + str(get_current_wave())
+	
+	if between_wave.time_left > 0:
+		remaining_label.text = str(ceili(between_wave.time_left))
+	elif ongoing:
+		remaining_label.text = str(max_enemies - get_remaining_enemy()) + " / " + str(max_enemies)
+	else:
+		remaining_label.text = ""
+
+#endregion
+
 func _ready() -> void:
 	enemies_parent = Node.new()
 	enemies_parent.name = "Enemies"
@@ -33,7 +50,7 @@ func _ready() -> void:
 	
 	between_wave = Timer.new()
 	between_wave.one_shot = true
-	between_wave.wait_time = 1
+	between_wave.wait_time = 10
 	add_child(between_wave)
 	
 	spawn_timer = Timer.new()
@@ -49,10 +66,12 @@ func _physics_process(_delta: float) -> void:
 	
 	_process_wave()
 	_check_hightlight_remaining()
+	_process_ui()
 	
 	if is_wave_cleared():
 		finish()
 
+#region PRIVATE
 func _process_wave():
 	spawn_next()
 
@@ -92,7 +111,9 @@ func _calculate_wave() -> void:
 	
 	max_enemies = min(max_enemies, 120)
 	max_alive = min(max_alive, 50)
+#endregion
 
+#region WAVE
 func get_remaining_enemy() -> int:
 	return (max_enemies - total_enemies) + alive.size()
 
@@ -143,8 +164,8 @@ func spawn_next():
 		_highlight_enemy(enemy)
 	
 	var patrol_pos = enemy_patrol_pos.pick_random().global_position
-	if Globals.player:
-		patrol_pos = Globals.player.position
+	patrol_pos.x += randi_range(-10, 10)
+	patrol_pos.z += randi_range(-10, 10)
 	
 	enemy.move(patrol_pos)
 
@@ -159,6 +180,7 @@ func simulate_wave(wave: int, count: int = max_enemies) -> Dictionary[String, in
 		var enemy_name: String = entry.enemy_scene.resource_path.get_file().get_basename()
 		result[enemy_name] = result.get(enemy_name, 0) + 1
 	return result
+#endregion
 
 #region HIGHLIGHT
 func _check_hightlight_remaining() -> void:

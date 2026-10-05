@@ -128,6 +128,10 @@ func  _face_rotation(dir: Vector3, delta: float) -> void:
 	var angle = atan2(-dir.x, -dir.z)
 	rotation.y = lerp_angle(rotation.y, angle, rotation_speed * delta)
 
+func get_enemy_floor_Y_offset() -> float:
+	var result = ($CollisionShape3D.shape.height / 2) - 0.1
+	return result
+
 func move_to(target_pos: Vector3) -> void:
 	if is_moving_paused: return
 	move_target = target_pos
