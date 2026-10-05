@@ -131,6 +131,7 @@ func _process_moving(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	pathfind.process(delta)
+	$Sprite3D.modulate = lerp($Sprite3D.modulate, Color.WHITE, delta * 5)
 	super(delta)
 
 func hurt(damage: float, dmg_info: DamageInfo = null) -> void:
@@ -205,7 +206,7 @@ func hurt(damage: float, dmg_info: DamageInfo = null) -> void:
 
 #region CONNECTION
 func _on_hurt(_dmg: float) -> void:
-	flash_sprite(Color(1.0, 0.316, 0.252, 1.0))
+	flash_sprite(Color(1.0, 0.166, 0.09, 1.0))
 	_process_pain()
 
 func _on_hurt_ex(dmg_info: DamageInfo):
@@ -384,8 +385,8 @@ func is_in_sight(target_pos: Vector3) -> bool:
 
 func flash_sprite(color: Color):
 	$Sprite3D.modulate = color
-	await get_tree().create_timer(0.15).timeout
-	$Sprite3D.modulate = Color.WHITE
+	#await get_tree().create_timer(0.15).timeout
+	#$Sprite3D.modulate = Color.WHITE
 
 func play_sound(sound_name: String):
 	var sound_array: Array

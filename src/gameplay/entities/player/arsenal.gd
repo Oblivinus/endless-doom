@@ -23,7 +23,7 @@ var is_moving = false
 var switch_timer: Timer
 var slot_number: int = 2:
 	set(value):
-		slot_number = wrapi(value, 1, 4)
+		slot_number = wrapi(value, 1, guns_slot.size() + 1)
 
 signal on_ammo_used(type: String, amount: int)
 

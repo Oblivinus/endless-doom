@@ -63,8 +63,11 @@ func _check_and_shoot() -> void:
 		if check_count >= max_hit:
 			break
 
-func hurt_enemy(enemy: Enemy):
-	enemy.hurt(damage, DamageInfo.new(damage_type, parent.player))
+func hurt_enemy(enemy: Enemy) -> void:
+	enemy.hurt(damage, get_damage_info())
+
+func get_damage_info() -> DamageInfo:
+	return DamageInfo.new(damage_type, parent.player)
 
 func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 	var raycast = Raycast3d.new(self)
@@ -113,8 +116,11 @@ func shoot() -> void:
 	timer.start()
 	playback.travel("shoot")
 	_check_and_shoot()
-	parent.use_ammo(type)
+	consume_ammo()
 	Globals.trigger_sound_detection(global_position)
+
+func consume_ammo():
+	parent.use_ammo(type)
 
 func set_visibility(value: bool, node: Node = self) -> void:
 	for child in node.get_children():

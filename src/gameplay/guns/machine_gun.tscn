@@ -1,0 +1,216 @@
+[gd_scene format=3 uid="uid://da65jv0ei58yb"]
+
+[ext_resource type="Script" uid="uid://cf1lvdse2mkg8" path="res://src/gameplay/guns/machine_gun.gd" id="1_445m7"]
+[ext_resource type="Texture2D" uid="uid://cu3l172rgap8i" path="res://assets/gameplay/gun/machine_gun.png" id="2_dfs4k"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0k0bv"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hx8r4"]
+animation = &"shoot"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v5br4"]
+animation = &"walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_unhsc"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3m76n"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0k0bv"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "parent.is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hx8r4"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "!parent.is_moving"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_y8p3r"]
+states/idle/node = SubResource("AnimationNodeAnimation_0k0bv")
+states/idle/position = Vector2(363.33, 101.33333)
+states/shoot/node = SubResource("AnimationNodeAnimation_hx8r4")
+states/shoot/position = Vector2(496.33, 149.66669)
+states/walking/node = SubResource("AnimationNodeAnimation_v5br4")
+states/walking/position = Vector2(364.55222, 209.66667)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_unhsc"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_3m76n"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_0k0bv"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_hx8r4")]
+graph_offset = Vector2(-0.33666992, 75)
+
+[sub_resource type="Animation" id="Animation_0k0bv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Control/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 165)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hx8r4"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v5br4"]
+resource_name = "shoot"
+length = 0.15
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 0), Vector2i(2, 0), Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.5, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 175)]
+}
+
+[sub_resource type="Animation" id="Animation_unhsc"]
+resource_name = "walking"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 2, 1, 2, 1),
+"update": 0,
+"values": [Vector2(0, 140), Vector2(47, 165), Vector2(0, 140), Vector2(-47, 165), Vector2(0, 140)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_445m7"]
+_data = {
+&"RESET": SubResource("Animation_0k0bv"),
+&"idle": SubResource("Animation_hx8r4"),
+&"shoot": SubResource("Animation_v5br4"),
+&"walking": SubResource("Animation_unhsc")
+}
+
+[node name="MachineGun" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
+script = ExtResource("1_445m7")
+damage = 20.0
+max_range = 20.0
+fire_rate = 6.0
+hitbox = NodePath("Hit")
+anim_tree = NodePath("AnimationTree")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=2099543344]
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control" unique_id=1501756115]
+position = Vector2(0, 165)
+scale = Vector2(3, 3)
+texture = ExtResource("2_dfs4k")
+hframes = 3
+
+[node name="Hit" type="Area3D" parent="." unique_id=922815929]
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hit" unique_id=975020322]
+debug_color = Color(1, 0, 0.016666412, 1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1575783866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+light_color = Color(1, 0.38039216, 0.023529412, 1)
+light_energy = 0.0
+shadow_enabled = true
+omni_range = 7.5
+
+[node name="FarCenter" type="Marker3D" parent="." unique_id=1227016783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=637375146]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_y8p3r")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=1749064398]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_445m7")

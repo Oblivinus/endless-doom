@@ -50,7 +50,7 @@ func _ready() -> void:
 	
 	between_wave = Timer.new()
 	between_wave.one_shot = true
-	between_wave.wait_time = 10
+	between_wave.wait_time = 1
 	add_child(between_wave)
 	
 	spawn_timer = Timer.new()
