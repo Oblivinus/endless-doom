@@ -58,8 +58,8 @@ func wander():
 	wander_timer.start()
 	var rand_pos = Vector3(randi_range(-2, 2), 0, randi_range(-2, 2))
 	
-	#if anchor_pos == Vector3.ZERO:
-		#anchor_pos = parent.global_position
+	if anchor_pos == Vector3.ZERO:
+		anchor_pos = parent.global_position
 	
 	parent.move(anchor_pos + rand_pos)
 			

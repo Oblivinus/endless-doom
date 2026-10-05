@@ -98,6 +98,8 @@ enemy_patrol_pos = [NodePath("PatrolPos"), NodePath("PatrolPos2"), NodePath("Pat
 enemy_wave_entries = Array[ExtResource("2_jgcle")]([SubResource("Resource_xgxji"), SubResource("Resource_04t5p"), SubResource("Resource_idh6s")])
 metadata/_custom_type_script = "uid://dj5nj5a47gkr1"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="WaveManager" unique_id=515465919]
+
 [node name="PatrolPos" type="Marker3D" parent="WaveManager" unique_id=1217666961]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.199999, 1.2, -15.099998)
 gizmo_extents = 1.0

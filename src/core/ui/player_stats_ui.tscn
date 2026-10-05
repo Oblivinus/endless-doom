@@ -17,6 +17,16 @@ colors = PackedColorArray(0.34407577, 0.34407574, 0.34407574, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_ut4o5")
 width = 10
 
+[sub_resource type="Theme" id="Theme_kvrig"]
+
+[sub_resource type="Gradient" id="Gradient_6y4uu"]
+colors = PackedColorArray(0.34509805, 0.34509805, 0.34509805, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i5df"]
+gradient = SubResource("Gradient_6y4uu")
+height = 2
+fill_to = Vector2(0, 1)
+
 [node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520 node_paths=PackedStringArray("health", "ammo", "armor", "arm", "face_hud", "screen_modulate")]
 layer = 10
 follow_viewport_scale = 2.0
@@ -33,6 +43,17 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1969160535]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 313.0
+offset_bottom = 237.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hello"
 
 [node name="HeadHud" type="Sprite2D" parent="Control" unique_id=1444947873]
 z_index = 5
@@ -161,7 +182,7 @@ anchor_bottom = 1.0
 offset_left = 5.0000267
 offset_top = -45.0
 offset_right = -1.3333054
-offset_bottom = 10.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.79, 0, 0, 1)
@@ -171,25 +192,20 @@ theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/font = ExtResource("1_48p58")
 theme_override_font_sizes/font_size = 20
-text = "100%
-"
+text = "100%"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/HealthFrame/HealthQuantity" unique_id=576376059]
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/HealthFrame/HealthQuantity" unique_id=874257514]
 material = SubResource("CanvasItemMaterial_vi1r7")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 69.64192
-offset_top = 4.1467314
-offset_right = 14.74646
-offset_bottom = 18.788635
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 1.5707964
-texture = SubResource("GradientTexture1D_pewwn")
+theme = SubResource("Theme_kvrig")
+texture = SubResource("GradientTexture2D_0i5df")
 metadata/_edit_use_anchors_ = true
 
 [node name="ArmorFrame" type="NinePatchRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=384423077]
@@ -270,7 +286,7 @@ anchor_bottom = 1.0
 offset_left = 5.0000267
 offset_top = -45.0
 offset_right = -1.3333054
-offset_bottom = 10.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.79, 0, 0, 1)
@@ -280,8 +296,7 @@ theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/font = ExtResource("1_48p58")
 theme_override_font_sizes/font_size = 20
-text = "100%
-"
+text = "100%"
 horizontal_alignment = 1
 uppercase = true
 
@@ -291,14 +306,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 69.64192
-offset_top = 4.1467314
-offset_right = 14.74646
-offset_bottom = 18.788635
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 1.5707964
-texture = SubResource("GradientTexture1D_pewwn")
+texture = SubResource("GradientTexture2D_0i5df")
 metadata/_edit_use_anchors_ = true
 
 [node name="FaceHud" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=683985797]
@@ -398,7 +408,7 @@ anchor_bottom = 1.0
 offset_left = 4.020697
 offset_top = -45.0
 offset_right = 0.02268219
-offset_bottom = 10.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.79, 0, 0, 1)
@@ -408,21 +418,17 @@ theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/font = ExtResource("1_48p58")
 theme_override_font_sizes/font_size = 20
-text = "65
-"
+text = "65"
 horizontal_alignment = 1
 uppercase = true
 
 [node name="TextureRect" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame/AmmoFrame/AmmoQuantity" unique_id=1998603695]
 material = SubResource("CanvasItemMaterial_vi1r7")
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 69.64192
-offset_top = 4.1467314
-offset_right = 14.74646
-offset_bottom = 18.788635
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.3512398
+anchor_bottom = 1.0763229
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 1.5707964
@@ -509,7 +515,7 @@ anchor_bottom = 1.0
 offset_left = 4.020697
 offset_top = -45.0
 offset_right = 0.02268219
-offset_bottom = 10.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.79, 0, 0, 1)
@@ -519,8 +525,7 @@ theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 5
 theme_override_fonts/font = ExtResource("1_48p58")
 theme_override_font_sizes/font_size = 20
-text = "1
-"
+text = "1"
 horizontal_alignment = 1
 uppercase = true
 

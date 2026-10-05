@@ -19,6 +19,10 @@ var ongoing: bool = false
 var between_wave: Timer
 var spawn_timer: Timer
 
+var highlight_triggered: bool = false
+var highlight_threshold: int = 6
+var highlights: Array[MeshInstance3D] = []
+
 signal wave_finished
 signal wave_start
 
@@ -44,6 +48,7 @@ func _physics_process(_delta: float) -> void:
 	alive = alive.filter(_filter_alive)
 	
 	_process_wave()
+	_check_hightlight_remaining()
 	
 	if is_wave_cleared():
 		finish()
@@ -88,13 +93,18 @@ func _calculate_wave() -> void:
 	max_enemies = min(max_enemies, 120)
 	max_alive = min(max_alive, 50)
 
+func get_remaining_enemy() -> int:
+	return (max_enemies - total_enemies) + alive.size()
+
 func next_wave() -> void:
 	if ongoing: return
 	print("Wave %d" % [get_current_wave()])
 	
 	_calculate_wave()
 	
+	total_enemies = 0
 	ongoing = true
+	highlight_triggered = false
 	wave_start.emit()
 
 func finish():
@@ -103,6 +113,7 @@ func finish():
 	wave_finished.emit()
 	between_wave.start()
 	
+	_clear_hl()
 	print("Cleared")
 
 func is_wave_cleared() -> bool:
@@ -128,6 +139,9 @@ func spawn_next():
 	alive.append(enemy)
 	spawn_timer.start()
 	
+	if highlight_triggered:
+		_highlight_enemy(enemy)
+	
 	var patrol_pos = enemy_patrol_pos.pick_random().global_position
 	if Globals.player:
 		patrol_pos = Globals.player.position
@@ -145,3 +159,30 @@ func simulate_wave(wave: int, count: int = max_enemies) -> Dictionary[String, in
 		var enemy_name: String = entry.enemy_scene.resource_path.get_file().get_basename()
 		result[enemy_name] = result.get(enemy_name, 0) + 1
 	return result
+
+#region HIGHLIGHT
+func _check_hightlight_remaining() -> void:
+	if highlight_triggered or not ongoing: return
+	
+	if get_remaining_enemy() > highlight_threshold: return
+	
+	highlight_triggered = true
+	for enemy in alive:
+		_highlight_enemy(enemy)
+
+func _highlight_enemy(enemy: Enemy) -> void:
+	
+	if enemy.has_node("HL"): return
+	var highlight = Ref.highlight_3d.instantiate()
+	highlight.name = "HL"
+	highlights.append(highlight)
+	enemy.add_child(highlight)
+
+func _clear_hl():
+	for hl in highlights:
+		if not is_instance_valid(hl): continue
+		if hl.is_queued_for_deletion(): continue
+		hl.queue_free()
+	highlights.clear()
+
+#endregion

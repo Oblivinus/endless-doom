@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://u56cil4iogmy"]
+
+[ext_resource type="FontFile" uid="uid://bnma8sgnp25e" path="res://assets/fonts/DooM.ttf" id="1_wrwmn"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7jnro"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_alr6h"]
+resource_local_to_scene = true
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_texture = SubResource("ViewportTexture_7jnro")
+texture_filter = 2
+disable_receive_shadows = true
+billboard_mode = 1
+billboard_keep_scale = true
+fixed_size = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_6o5go"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_alr6h")
+size = Vector2(1.5, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7jnro"]
+blend_mode = 3
+
+[sub_resource type="Gradient" id="Gradient_0bubi"]
+colors = PackedColorArray(0.34407577, 0.34407574, 0.34407574, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ef3fu"]
+gradient = SubResource("Gradient_0bubi")
+width = 10
+
+[node name="Marker" type="MeshInstance3D" unique_id=1483663867]
+mesh = SubResource("QuadMesh_6o5go")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=499780113]
+visibility_layer = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=228654272]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(384, 216)
+render_target_update_mode = 4
+
+[node name="AmmoQuantity" type="Label" parent="SubViewportContainer/SubViewport" unique_id=315664521]
+clip_children = 2
+z_index = 3
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.79, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.3, 0, 0, 0.8509804)
+theme_override_colors/font_outline_color = Color(0.5224432, 1.2634322e-06, 3.3691526e-07, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("1_wrwmn")
+theme_override_font_sizes/font_size = 35
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport/AmmoQuantity" unique_id=372683581]
+material = SubResource("CanvasItemMaterial_7jnro")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37156096
+anchor_top = 0.40967086
+anchor_right = 0.5988512
+anchor_bottom = 0.53962106
+offset_left = 69.64192
+offset_top = 4.1467314
+offset_right = 14.74646
+offset_bottom = 18.788635
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+texture = SubResource("GradientTexture1D_ef3fu")
+metadata/_edit_use_anchors_ = true

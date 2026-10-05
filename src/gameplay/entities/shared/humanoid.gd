@@ -104,8 +104,6 @@ func _process_moving(delta: float) -> void:
 			
 			if flat_self.distance_squared_to(flat_target) <= NEAREST_TARGET_LENGTH:
 				var prev_target = move_target
-				global_position.x = move_target.x
-				global_position.z = move_target.z
 				stop_move()
 				move_to_finished.emit(prev_target)
 	else:
