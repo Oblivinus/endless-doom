@@ -1,7 +1,7 @@
 class_name EnemyIdleState extends State
 
 const ABSOLUTE_DETECTED_RANGE: float = 2.5
-static var WANDER_RANGE: int = 5
+static var WANDER_RANGE: int = 3
 
 var wander_timer: Timer
 var anchor_pos: Vector3
@@ -45,6 +45,7 @@ func _on_detection():
 
 func look_for():
 	var player: Player = Globals.player
+	if not player: return
 	
 	var in_fov = check_in_pov(player.global_position)
 	if not in_fov: return

@@ -15,10 +15,11 @@ func hurt_enemy(enemy: Enemy) -> void:
 	var distance: float = global_position.distance_to(enemy.global_position)
 	var t: float = clamp((distance - min_distance) / (max_range - min_distance), 0, 1)
 	var applied_dmg = lerp(damage, min_damage, t)
-	print(applied_dmg)
+	
+	var knock_force = global_position.direction_to(enemy.global_position) * 5
 	
 	enemy.hurt(applied_dmg, get_damage_info())
-	
+	enemy.knockback(knock_force)
 
 func create_spread_bullet_hit(hit_count: int):
 	var pellets_remaining: int = 10 - hit_count

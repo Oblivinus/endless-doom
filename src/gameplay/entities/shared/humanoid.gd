@@ -32,6 +32,7 @@ var move_dir: Vector3 = Vector3.ZERO
 var last_move_dir: Vector3 = Vector3.ZERO
 var move_target = null
 
+var knockback_instance: KnockbackInstance
 #endregion 
 
 signal on_hurt(amount: float)
@@ -40,44 +41,40 @@ signal on_pick_up(item: Item)
 signal move_to_finished(vector3: Vector3)
 signal property_changed(property_name: String, value: Variant)
 
-class Pathfind:
-	var has_target: bool = false
-	var target_pos: Vector3
-	var humanoid: Humanoid
+class KnockbackInstance:
+	const DEACCEL = 8
 	
-	var nav_agent: NavigationAgent3D
+	var knockback_velocity: Vector3
+	var parent: Humanoid
 	
-	func _init(parent: Humanoid) -> void:
-		humanoid = parent
+	func  _init(init_parent: Humanoid) -> void:
+		parent = init_parent
+	
+	func _process(delta: float) -> void:
+		parent.velocity += knockback_velocity
 		
-		nav_agent = NavigationAgent3D.new()
-		nav_agent.debug_enabled = true
-		humanoid.add_child(nav_agent)
-	
-	func navigate(target: Vector3):
-		has_target = true
-		target_pos = target
-	
-	func process(_delta: float):
-		if not has_target: return
-		nav_agent.target_position = target_pos
-		var next_path_pos = nav_agent.get_next_path_position()
-		
-		humanoid.move_to(next_path_pos)
-		
-		if nav_agent.is_navigation_finished():
+		if parent.is_on_wall():
 			stop()
+		
+		if knockback_velocity == Vector3.ZERO: return
+		knockback_velocity.x = move_toward(knockback_velocity.x, 0.0, DEACCEL * delta)
+		knockback_velocity.y = move_toward(knockback_velocity.y, 0.0, DEACCEL * delta)
+		knockback_velocity.z = move_toward(knockback_velocity.z, 0.0, DEACCEL * delta)
 	
-	func stop():
-		has_target = false
-		nav_agent.target_position = humanoid.global_position
+	func launch(velocity: Vector3) -> void:
+		knockback_velocity = velocity
+	
+	func stop() -> void:
+		knockback_velocity = Vector3.ZERO
 
 func _ready() -> void:
 	health = max_health
+	knockback_instance = KnockbackInstance.new(self)
 
 func  _physics_process(delta: float) -> void:
 	_process_moving(delta)
 	_process_gravity(delta)
+	knockback_instance._process(delta)
 	move_and_slide()
 
 func _process_gravity(delta):
@@ -164,13 +161,16 @@ func stop_move() -> void:
 	is_moving_paused = false
 	move_target = null
 
+func knockback(force: Vector3) -> void:
+	knockback_instance.launch(force)
+
 func _modify_move_dir(dir: Vector3) -> Vector3:
 	return dir
 
 func get_facing_direction() -> Vector3:
 	return -global_transform.basis.z
 
-func hurt(damage: float) -> void:
+func hurt(damage: float, ..._args: Array) -> void:
 	if is_dead: return
 	health -= damage
 	if not is_dead: on_hurt.emit(damage)

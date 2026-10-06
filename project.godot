@@ -17,9 +17,9 @@ config/icon="res://assets/texture/icon.svg"
 
 [autoload]
 
+Ref="*uid://bmh5hp2i8c645"
 Enums="*uid://b48nu1y5wvxn8"
 Globals="*uid://lxcs4mge4p3i"
-Ref="*uid://bmh5hp2i8c645"
 
 [display]
 

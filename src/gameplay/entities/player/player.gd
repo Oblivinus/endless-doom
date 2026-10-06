@@ -26,6 +26,8 @@ const TAU_F := TAU
 signal on_kill(enemy: Enemy)
 
 func _ready() -> void:
+	super()
+	
 	base_y = camera.position.y
 	health = 100.0
 	colorrect = player_stat_ui.screen_modulate
@@ -77,7 +79,7 @@ func _on_hurt(_dmg: float):
 func _on_died():
 	pass
 
-func hurt(damage: float) -> void:
+func hurt(damage: float, ..._args: Array) -> void:
 	if is_dead: return
 	if armor > 0:
 		var health_damage = damage * (1 - armor_absorption)

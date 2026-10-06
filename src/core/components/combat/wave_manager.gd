@@ -80,7 +80,7 @@ func _roll_entry(wave: int) -> WaveEntry:
 	var available: Array[WaveEntry] = []
 
 	for entry in enemy_wave_entries:
-		if wave >= entry.wave_appear and entry.weight > 0.0:
+		if wave >= entry.wave_appear - 1 and entry.weight > 0.0:
 			total += entry.weight
 			available.append(entry)
 
@@ -125,7 +125,6 @@ func next_wave() -> void:
 	
 	total_enemies = 0
 	ongoing = true
-	highlight_triggered = false
 	wave_start.emit()
 
 func finish():
@@ -166,6 +165,7 @@ func spawn_next():
 	var patrol_pos = enemy_patrol_pos.pick_random().global_position
 	patrol_pos.x += randi_range(-10, 10)
 	patrol_pos.z += randi_range(-10, 10)
+	patrol_pos.y = enemy.global_position.y
 	
 	enemy.move(patrol_pos)
 
@@ -206,5 +206,6 @@ func _clear_hl():
 		if hl.is_queued_for_deletion(): continue
 		hl.queue_free()
 	highlights.clear()
+	highlight_triggered = false
 
 #endregion

@@ -47,7 +47,8 @@ func _on_attack() -> void:
 	playback.travel("attack")
 
 func _on_died() -> void:
-	if enemy.prev_dmg_type == "forceful" and root.has_node("xdied"):
+	var has_dmg_info = enemy.prev_dmg_info and enemy.prev_dmg_info.type == "forceful"
+	if has_dmg_info and root.has_node("xdied"):
 		playback.start("xdied")
 	else: 
 		playback.start("died")

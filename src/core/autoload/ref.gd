@@ -13,3 +13,5 @@ var projectiles: Dictionary[String, PackedScene] = {
 }
 
 var highlight_3d: PackedScene = preload("uid://u56cil4iogmy")
+
+var player: PackedScene = preload("uid://b413fxhnpypbp")

@@ -38,7 +38,6 @@ signal event (event_name: String)
 
 var range_attack_area: Area3D
 var melee_attack_area: Area3D
-var prev_dmg_type = "normal"
 var pathfind: Pathfind
 
 #region IN COMBAT
@@ -52,6 +51,7 @@ var has_range: bool = false
 
 var is_disturbed: bool = false
 var in_pain: bool = false
+var prev_dmg_info: DamageInfo
 #endregion
 
 class Pathfind:
@@ -95,7 +95,6 @@ class Pathfind:
 
 func _ready() -> void:
 	super()
-	
 	pathfind = Pathfind.new(self)
 	
 	state_machine.init(self)
@@ -134,7 +133,8 @@ func _physics_process(delta: float) -> void:
 	$Sprite3D.modulate = lerp($Sprite3D.modulate, Color.WHITE, delta * 5)
 	super(delta)
 
-func hurt(damage: float, dmg_info: DamageInfo = null) -> void:
+func hurt(damage: float, ...args:Array) -> void:
+	var dmg_info : DamageInfo = args[0]
 	if not is_dead: on_hurt_ex.emit(dmg_info)
 	super(damage)
 
@@ -211,9 +211,9 @@ func _on_hurt(_dmg: float) -> void:
 
 func _on_hurt_ex(dmg_info: DamageInfo):
 	if dmg_info:
-		prev_dmg_type = dmg_info.type
+		prev_dmg_info = dmg_info
 	else:
-		prev_dmg_type = "normal"
+		prev_dmg_info = null
 
 func _on_died() -> void:
 	state_machine.change_state_name("dead")
@@ -268,7 +268,12 @@ func _is_path_clear(target_pos: Vector3, radius: float = 0.7) -> bool:
 	return true
 
 func _process_pain() -> void:
-	if randf() > pain_chance: return
+	var new_pain_chance = pain_chance
+	
+	if prev_dmg_info:
+		new_pain_chance = pain_chance * prev_dmg_info.pain_modifier
+	
+	if randf() > new_pain_chance: return
 	if not is_dead: play_sound("pain")
 	in_pain = true
 	is_hurted = true

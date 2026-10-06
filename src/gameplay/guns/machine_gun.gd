@@ -9,6 +9,12 @@ func shoot():
 	if last_hit_count < 1:
 		create_bullet_hit_ray(farthest_center_vector())
 
+func get_damage_info() -> DamageInfo:
+	var dmg_info = super()
+	dmg_info.pain_modifier = 0.45
+	
+	return dmg_info
+
 func consume_ammo():
 	var chance = randf()
 	if chance <= 0.45:
