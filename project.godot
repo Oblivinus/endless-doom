@@ -19,6 +19,7 @@ config/icon="res://assets/texture/icon.svg"
 
 Ref="*uid://bmh5hp2i8c645"
 Enums="*uid://b48nu1y5wvxn8"
+GameManager="*uid://cb0qw6emd8ja8"
 Globals="*uid://lxcs4mge4p3i"
 
 [display]

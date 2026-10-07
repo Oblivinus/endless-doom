@@ -14,6 +14,8 @@ func _ready() -> void:
 	wander_timer.one_shot = true
 	wander_timer.wait_time = 2
 	add_child(wander_timer)
+	
+	GameManager.on_sound.connect(_check_out_sound)
 
 func _check_ray_cast_query() -> Dictionary:
 	var space_state = parent.get_world_3d().direct_space_state
@@ -42,6 +44,12 @@ func _on_hurt_ex(dmg_info: DamageInfo):
 func _on_detection():
 	parent.event.emit("in_sight")
 	transitioned.emit(self, "attack")
+
+func _check_out_sound(pos: Vector3):
+	if parent.target: return
+	if randf() > 0.45: return
+	anchor_pos = Vector3.ZERO
+	parent.move(pos)
 
 func look_for():
 	var player: Player = Globals.player

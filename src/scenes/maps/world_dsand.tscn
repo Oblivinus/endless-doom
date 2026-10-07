@@ -26,12 +26,12 @@
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_nou0h"]
+[sub_resource type="Sky" id="Sky_5qocg"]
 sky_material = SubResource("ProceduralSkyMaterial_xqe1h")
 
 [sub_resource type="Environment" id="Environment_54ndj"]
 background_mode = 2
-sky = SubResource("Sky_nou0h")
+sky = SubResource("Sky_5qocg")
 tonemap_mode = 2
 glow_enabled = true
 glow_intensity = 1.0
@@ -937,4 +937,4 @@ visible = false
 navigation_mesh = SubResource("NavigationMesh_kvrig")
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("20_pb3xg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9999995, 0.84999967, -25.500002)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9999995, 1.6880419, -18.791788)

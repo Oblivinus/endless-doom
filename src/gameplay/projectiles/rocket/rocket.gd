@@ -11,7 +11,7 @@ func _on_explosion(targets: Array):
 	Globals.world.add_child(vfx)
 	vfx.restart()
 	
-	var audio = Audio3D.new("guns/projectile_contact", last_pos)
+	var audio = GameManager.play_hearable_sound("guns/projectile_contact", last_pos)
 	audio.max_db = 15.0
 	audio.play()
 	

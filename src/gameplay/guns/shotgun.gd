@@ -4,8 +4,6 @@ class_name Shotgun extends Gun
 func shoot() -> void:
 	if not ready_to_shoot(): return
 	super()
-	var sfx = Audio3D.new("guns/shotgun", self)
-	sfx.play()
 	create_spread_bullet_hit(last_hit_count)
 
 func hurt_enemy(enemy: Enemy) -> void:

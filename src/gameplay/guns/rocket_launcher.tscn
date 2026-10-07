@@ -169,6 +169,7 @@ fire_rate = 1.0
 type = 2
 hitbox = NodePath("Hit")
 anim_tree = NodePath("AnimationTree")
+sfx = "guns/rocket_launch"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
 

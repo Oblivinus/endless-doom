@@ -13,7 +13,9 @@ var player: Player:
 		else:
 			return player
 		
-var world: Node3D
+var world: Node3D:
+	get():
+		return get_tree().current_scene
 var item_spawner: ItemSpawner
 
 signal enemy_died(enemy: Enemy, last_pos: Vector3)
@@ -51,7 +53,7 @@ class ItemSpawner:
 		
 func _ready() -> void:
 	item_spawner = ItemSpawner.new(self)
-	world = get_tree().current_scene
+	#world = get_tree().current_scene
 
 func any_enemy_died(enemy: Enemy, last_pos: Vector3):
 	var chance: float = randi_range(1, 2)

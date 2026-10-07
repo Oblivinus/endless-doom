@@ -13,6 +13,7 @@ class_name Gun extends Node3D
 @export_category("Dependecies")
 @export var hitbox: Area3D
 @export var anim_tree: AnimationTree
+@export var sfx: String = "guns/pistol"
 
 var collision_shape3d: CollisionShape3D
 var timer: Timer
@@ -117,7 +118,7 @@ func shoot() -> void:
 	playback.travel("shoot")
 	_check_and_shoot()
 	consume_ammo()
-	Globals.trigger_sound_detection(global_position)
+	play_sfx()
 
 func consume_ammo():
 	parent.use_ammo(type)
@@ -143,6 +144,9 @@ func create_bullet_hit_ray(pos: Vector3):
 	var query = _check_ray_cast(pos)
 	if not query.is_empty():
 		create_bullet_hit(query.position)
+
+func play_sfx():
+	GameManager.play_hearable_sound(sfx, self).play()
 
 func farthest_center_vector() -> Vector3:
 	return global_position + (global_basis * Vector3.FORWARD).normalized() * max_range

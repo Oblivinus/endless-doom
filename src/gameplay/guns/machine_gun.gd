@@ -19,3 +19,8 @@ func consume_ammo():
 	var chance = randf()
 	if chance <= 0.45:
 		parent.use_ammo(type)
+
+func play_sfx():
+	var vfx = GameManager.play_hearable_sound(sfx, self)
+	vfx.pitch_scale = randf_range(0.8, 1.2)
+	vfx.play()

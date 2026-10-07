@@ -154,6 +154,7 @@ script = ExtResource("1_d7xh0")
 damage = 35.0
 hitbox = NodePath("Hit")
 anim_tree = NodePath("AnimationTree")
+sfx = "guns/pistol"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
 

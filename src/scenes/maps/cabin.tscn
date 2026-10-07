@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://83hws12d7iwf"]
+
+[ext_resource type="PackedScene" uid="uid://bp7ivodsc6jje" path="res://assets/models/objects/cabin/Cabin.glb" id="1_tj2g7"]
+[ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/object/terrain.tscn" id="2_momb7"]
+[ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/Outdoors/Foliage/OUTDOOR_foliage_grass_spots_5.png" id="3_g5657"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kvrig"]
+sky_top_color = Color(0.046863213, 0.072100334, 0.105100684, 1)
+sky_horizon_color = Color(0.07590001, 0.17330498, 0.33, 1)
+ground_bottom_color = Color(0.0924, 0.21, 0.19823998, 1)
+ground_horizon_color = Color(0.0252, 0.086800024, 0.21, 1)
+
+[sub_resource type="Sky" id="Sky_kvrig"]
+sky_material = SubResource("ProceduralSkyMaterial_kvrig")
+
+[sub_resource type="Environment" id="Environment_3jhnr"]
+background_mode = 2
+sky = SubResource("Sky_kvrig")
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 1.0
+fog_enabled = true
+fog_light_color = Color(0.27509058, 0.27509058, 0.27509055, 1)
+fog_light_energy = 0.1
+fog_density = 0.1
+fog_sky_affect = 0.8
+fog_height = 5.0
+fog_height_density = 0.1
+volumetric_fog_density = 1.0
+volumetric_fog_albedo = Color(0.35, 0.35, 0.35, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coqrv"]
+albedo_texture = ExtResource("3_g5657")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+texture_filter = 2
+
+[node name="Cabin" type="Node3D" unique_id=340599283]
+
+[node name="Envioroment" type="Node" parent="." unique_id=1170822864]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Envioroment" unique_id=1665533661]
+transform = Transform3D(-3.961597e-08, -0.42261827, 0.90630776, -1.847323e-08, 0.90630776, 0.42261827, -1, 0, -4.3711392e-08, 13.2, 4.6, 0)
+light_color = Color(0.72, 0.87866664, 1, 1)
+light_energy = 0.5
+light_indirect_energy = 10.0
+shadow_enabled = true
+shadow_bias = 1.5
+shadow_normal_bias = 0.5
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Envioroment" unique_id=1927465853]
+environment = SubResource("Environment_3jhnr")
+
+[node name="Maps" type="Node" parent="." unique_id=471168856]
+
+[node name="Cabin" parent="Maps" unique_id=1654614230 instance=ExtResource("1_tj2g7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.1500001, 0.8)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Maps/Cabin" unique_id=1415352579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3000002, 0)
+shadow_enabled = true
+omni_range = 10.0
+
+[node name="Terrain" parent="Maps" unique_id=143276796 instance=ExtResource("2_momb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.2, -0.55)
+size = Vector3(100, 0.1, 100)
+material = SubResource("StandardMaterial3D_coqrv")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Maps/Terrain" unique_id=1418235353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+size = Vector3(100, 0.1, 100)

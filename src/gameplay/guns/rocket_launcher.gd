@@ -7,8 +7,8 @@ func  shoot() -> void:
 	cache_parent = parent
 	parent.use_ammo(type)
 	playback.travel("shoot")
+	play_sfx()
 	timer.start()
-	Audio3D.new("guns/rocket_launch", self).play()
 	
 	var enemies = _check_for_valid_enemies()
 	var origin = global_position + Vector3(0, -0.35, 0)
