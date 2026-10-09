@@ -21,6 +21,7 @@ static func create() -> Ammos:
 
 func _ready() -> void:
 	super()
+	if ammo_type == Enums.GUN_TYPES.NONE: ammo_type = Enums.GUN_TYPES.BULLET
 	sprite_type = type_dict[Enums.GUN_TYPES.find_key(ammo_type)]
 	if amount >= 5: sprite_amount = 1
 	

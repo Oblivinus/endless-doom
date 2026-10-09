@@ -7,6 +7,9 @@ func _ready() -> void:
 	super()
 	collision_shape3d.shape = FrustumShape.new(Vector2(3, 3), h_spread, v_spread, max_range)
 
+func ready_to_shoot() -> bool:
+	return timer.time_left == 0 and parent
+
 func shoot() -> void:
 	if not ready_to_shoot(): return
 	timer.start()
@@ -18,6 +21,7 @@ func shoot() -> void:
 		hit_count = 1
 	_check_and_shoot()
 	
+	play_sfx()
 	if last_hit_count < 1:
 		create_bullet_hit_ray(farthest_center_vector())
 
@@ -40,7 +44,6 @@ func hurt_enemy(enemy: Enemy) -> void:
 	var knock_force = global_position.direction_to(enemy.global_position) * 2.5
 	
 	enemy.hurt(damage, get_damage_info())
-	play_sfx()
 	
 	if enemy.is_dead:
 		knock_force *= 10

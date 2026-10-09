@@ -21,9 +21,9 @@ var available_ammo: Dictionary[String, int] = {
 
 var is_moving = false
 var switch_timer: Timer
-var slot_number: int = 2:
+var slot_number: int = 1:
 	set(value):
-		slot_number = wrapi(value, 1, guns_slot.size() + 1)
+		slot_number = wrapi(value, 0, guns_slot.size())
 
 signal on_ammo_used(type: String, amount: int)
 
@@ -33,12 +33,16 @@ func _ready() -> void:
 	switch_timer.wait_time = 0.15
 	add_child(switch_timer)
 	
+	_init_loadout()
+	equip_slot(slot_number)
+
+func _init_loadout():
+	add_gun("hand", 0)
+	
 	var i_slot = 1
-	for gun_name: String in Ref.guns:
+	for gun_name: String in GameManager.players.get_player_loadout():
 		add_gun(gun_name, i_slot)
 		i_slot += 1
-		
-	equip_slot(slot_number)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if switch_timer.time_left > 0: return
@@ -52,7 +56,10 @@ func _unhandled_input(_event: InputEvent) -> void:
 		equip_slot(slot_number)
 
 func equip_slot(slot: int) -> void:
-	if not guns_slot.has(slot): return
+	if not guns_slot.has(slot): 
+		slot_number = 0
+		equip_slot(slot_number)
+		return
 	var gun_on_slot: Gun = guns_slot[slot]
 	
 	if current_gun: current_gun.unequip()
@@ -68,6 +75,7 @@ func register_kill(enemy: Enemy):
 	player.on_kill.emit(enemy)
 
 func shoot_current() -> void:
+	if player.is_dead: return
 	if current_gun: current_gun.shoot()
 
 func add_gun(gun_name:String, slot: int) -> void:
@@ -80,9 +88,22 @@ func add_gun(gun_name:String, slot: int) -> void:
 	add_child(gun_scene)
 
 func get_ammos(type: Enums.GUN_TYPES) -> int:
+	if type == Enums.GUN_TYPES.NONE: return 0
 	var gun_type: String = Enums.GUN_TYPES.find_key(type)
 	return available_ammo[gun_type]
+
+func get_used_ammo() -> Array[Enums.GUN_TYPES]:
+	var result: Array[Enums.GUN_TYPES] = []
 	
+	for slot in guns_slot:
+		var gun: Gun = guns_slot[slot]
+		if gun.type == Enums.GUN_TYPES.NONE: continue
+		if result.has(gun.type): continue
+		
+		result.append(gun.type)
+	
+	return result
+
 func use_ammo(type: Enums.GUN_TYPES, amount: int = 1) -> bool:
 	var gun_type: String = Enums.GUN_TYPES.find_key(type)
 	if not available_ammo.has(gun_type): return false
@@ -100,4 +121,11 @@ func use_ammo(type: Enums.GUN_TYPES, amount: int = 1) -> bool:
 func change_ammo_display() -> void:
 	var player_stat_ui: PlayerStatUi = player.player_stat_ui
 	if not player_stat_ui: return
+	
+	if current_gun_type ==  Enums.GUN_TYPES.NONE:
+		player_stat_ui.ammo.visible = false
+		return
+	else:
+		player_stat_ui.ammo.visible = true
+		
 	player_stat_ui.ammo.text = str(get_ammos(current_gun_type))

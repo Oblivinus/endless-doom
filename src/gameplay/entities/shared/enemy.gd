@@ -217,7 +217,7 @@ func _on_hurt_ex(dmg_info: DamageInfo):
 
 func _on_died() -> void:
 	state_machine.change_state_name("dead")
-	Globals.any_enemy_died(self, global_position)
+	if GameManager.world: GameManager.world._any_enemy_died(self, global_position)
 	play_sound("dead")
 
 func _on_event(event_name) -> void:

@@ -10,7 +10,8 @@
 light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_u0634"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0.2509804)
+offsets = PackedFloat32Array(0.025362318, 1)
+colors = PackedColorArray(0.27752784, 0.27752766, 0.27752778, 1, 1, 1, 1, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ke6u1"]
 
@@ -59,7 +60,6 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 theme = ExtResource("1_4so1n")
 
 [node name="TextureRect" type="TextureRect" parent="Loadout" unique_id=939302047]
-visible = false
 self_modulate = Color(1, 1, 1, 0.5803922)
 texture_filter = 3
 material = SubResource("CanvasItemMaterial_4aqgx")
@@ -237,7 +237,6 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 theme = ExtResource("1_4so1n")
 
 [node name="TextureRect" type="TextureRect" parent="Selection" unique_id=159549954]
-visible = false
 self_modulate = Color(1, 1, 1, 0.5803922)
 texture_filter = 3
 material = SubResource("CanvasItemMaterial_4aqgx")

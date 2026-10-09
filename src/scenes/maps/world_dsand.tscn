@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://g2qi1ggxwspu" path="res://src/gameplay/items/ammos/ammos.tscn" id="1_07vid"]
 [ext_resource type="PackedScene" uid="uid://b1qr4ckjoih8o" path="res://src/core/components/combat/wave_manager.tscn" id="1_daofb"]
+[ext_resource type="Script" uid="uid://51arrc5g6c6c" path="res://src/gameplay/components/world.gd" id="1_rwvjs"]
 [ext_resource type="PackedScene" uid="uid://dy6oqhri07ybb" path="res://src/gameplay/items/armor_point/armor_point.tscn" id="2_5qocg"]
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/object/terrain.tscn" id="3_daofb"]
 [ext_resource type="Material" uid="uid://c5ksbwa35x37f" path="res://assets/materials/sand.tres" id="4_rwvjs"]
@@ -66,6 +67,7 @@ agent_radius = 0.75
 agent_max_climb = 0.1
 
 [node name="World_DSand" type="Node3D" unique_id=1930089467]
+script = ExtResource("1_rwvjs")
 
 [node name="WaveManager" parent="." unique_id=1523200062 node_paths=PackedStringArray("enemy_spawn_pos", "enemy_patrol_pos") instance=ExtResource("1_daofb")]
 enemy_spawn_pos = [NodePath("SpawnPos"), NodePath("SpawnPos2"), NodePath("SpawnPos3")]

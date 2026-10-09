@@ -193,6 +193,7 @@ script = ExtResource("1_3lqyu")
 damage = 20.0
 max_range = 3.5
 fire_rate = 8.0
+type = 0
 hitbox = NodePath("Hit")
 anim_tree = NodePath("AnimationTree")
 sfx = "guns/punch"

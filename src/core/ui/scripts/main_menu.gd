@@ -55,6 +55,7 @@ func _on_start():
 		_open_loadout()
 	else:
 		var loadout_on_start := loadout_menus.get_equipped_string()
+		GameManager.players.set_player_loadout(loadout_on_start)
 		print("Loadout : ", loadout_on_start)
 		GameManager.change_scene("res://src/scenes/maps/world_dsand.tscn")
 

@@ -6,9 +6,10 @@ enum IDLE_STATUS {
 }
 
 enum GUN_TYPES {
+	NONE,
 	BULLET,
 	SHELL,
-	ROCKET
+	ROCKET,
 }
 
 func get_guns_type() -> Array:
