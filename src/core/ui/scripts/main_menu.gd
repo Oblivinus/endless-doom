@@ -41,12 +41,22 @@ class ButtonInteract:
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	loadout_menus.visible = false
 	
 	start_button = ButtonInteract.new(start_button_node)
 	loadout_button = ButtonInteract.new(loadout_button_node)
 	setting_button = ButtonInteract.new(setting_button_node)
 	
 	start_button.button.pressed.connect(_on_start)
+	loadout_button.button.pressed.connect(_open_loadout)
 
 func _on_start():
-	GameManager.change_scene("res://src/scenes/maps/world_dsand.tscn")
+	if loadout_menus.is_arm_empty():
+		_open_loadout()
+	else:
+		var loadout_on_start := loadout_menus.get_equipped_string()
+		print("Loadout : ", loadout_on_start)
+		GameManager.change_scene("res://src/scenes/maps/world_dsand.tscn")
+
+func _open_loadout():
+	loadout_menus.visible = true

@@ -5,6 +5,7 @@ var guns: Dictionary[String, PackedScene] = {
 	"shotgun": preload("res://src/gameplay/guns/shotgun.tscn"),
 	"rocket_launcher": preload("res://src/gameplay/guns/rocket_launcher.tscn"),
 	"machine_gun": preload("res://src/gameplay/guns/machine_gun.tscn"),
+	"hand": preload("res://src/gameplay/guns/hand.tscn"),
 }
 
 var projectiles: Dictionary[String, PackedScene] = {

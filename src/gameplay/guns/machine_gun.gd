@@ -22,5 +22,5 @@ func consume_ammo():
 
 func play_sfx():
 	var vfx = GameManager.play_hearable_sound(sfx, self)
-	vfx.pitch_scale = randf_range(0.8, 1.2)
+	vfx.pitch_scale = randf_range(0.95, 1.05)
 	vfx.play()

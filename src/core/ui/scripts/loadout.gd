@@ -65,6 +65,9 @@ func _wrap_arms_slot_panel():
 		
 		equip_panel.gui_input.connect(func(input: InputEvent): if input.is_action_pressed("Attack"): unequip(this_i) )
 
+func is_arm_empty() -> bool:
+	return arm_equiped.size() == 0
+
 func equip(gun_panel: GunPanel) -> bool:
 	if arm_equiped.size() >= arm_panels.size(): return false
 	arm_equiped.append(gun_panel)
