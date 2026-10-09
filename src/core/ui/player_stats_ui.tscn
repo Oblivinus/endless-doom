@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cyb13ek6qhogt"]
 
-[ext_resource type="Script" uid="uid://u6at0p1hqtin" path="res://src/core/ui/player_stats_ui.gd" id="1_57dxi"]
+[ext_resource type="Script" uid="uid://u6at0p1hqtin" path="res://src/core/ui/scripts/player_stats_ui.gd" id="1_57dxi"]
 [ext_resource type="Texture2D" uid="uid://ddaluqw77yr0y" path="res://assets/ui/doom_guy_head_hud.png" id="2_6y4uu"]
 [ext_resource type="Texture2D" uid="uid://bw78ldt2gibia" path="res://assets/ui/hud_smooth2.png" id="2_ut4o5"]
 [ext_resource type="Texture2D" uid="uid://bhgx074cuhx14" path="res://assets/ui/hud_smooth.png" id="2_vi1r7"]

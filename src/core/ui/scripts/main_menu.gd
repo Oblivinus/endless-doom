@@ -4,6 +4,7 @@ class_name MainMenus extends CanvasLayer
 @export var loadout_button_node: Button
 @export var setting_button_node: Button
 
+@export var loadout_menus: Loadout
 
 var start_button: ButtonInteract
 var loadout_button: ButtonInteract
@@ -45,4 +46,7 @@ func _ready() -> void:
 	loadout_button = ButtonInteract.new(loadout_button_node)
 	setting_button = ButtonInteract.new(setting_button_node)
 	
-	start_button.button.pressed.connect(func(): GameManager.change_scene("res://src/scenes/maps/world_dsand.tscn") )
+	start_button.button.pressed.connect(_on_start)
+
+func _on_start():
+	GameManager.change_scene("res://src/scenes/maps/world_dsand.tscn")

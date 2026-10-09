@@ -9,11 +9,12 @@ blend_mode = 3
 Label/fonts/font = ExtResource("1_u6stc")
 
 [sub_resource type="Gradient" id="Gradient_6y4uu"]
-colors = PackedColorArray(0.34509805, 0.34509805, 0.34509805, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0.06521739, 1)
+colors = PackedColorArray(0.24356923, 0.24356923, 0.2435692, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0i5df"]
 gradient = SubResource("Gradient_6y4uu")
-height = 2
+height = 20
 fill_to = Vector2(0, 1)
 
 [node name="RedText" type="Label" unique_id=1029813179]
@@ -52,4 +53,3 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_kvrig")
 texture = SubResource("GradientTexture2D_0i5df")
-metadata/_edit_use_anchors_ = true
