@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="6_htym3"]
 [ext_resource type="Texture2D" uid="uid://djv2pfi5pbw2w" path="res://assets/ui/doom_head_hud.png" id="6_lyfa3"]
 [ext_resource type="PackedScene" uid="uid://dsjjd4g2j33rl" path="res://src/core/ui/gray_text.tscn" id="7_htym3"]
+[ext_resource type="Theme" uid="uid://cj1ou66i26pov" path="res://src/core/ui/main_ui_theme.tres" id="8_htym3"]
 
-[node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520 node_paths=PackedStringArray("health", "ammo", "armor", "arm", "face_hud", "screen_modulate")]
+[node name="PlayerStatsUi" type="CanvasLayer" unique_id=1370378520 node_paths=PackedStringArray("health", "ammo", "armor", "arm", "d_point_label", "face_hud", "screen_modulate")]
 layer = 10
 follow_viewport_scale = 2.0
 script = ExtResource("1_57dxi")
@@ -16,6 +17,7 @@ health = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/HealthFrame
 ammo = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/AmmoFrame/AmmoQuantity")
 armor = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/ArmorFrame/ArmorQuantity")
 arm = NodePath("Control/SubViewportContainer/SubViewport/BarFrame/GunFrame/GunQuantity2")
+d_point_label = NodePath("Control/DPoint")
 face_hud = NodePath("Control/HeadHud")
 screen_modulate = NodePath("Control/ColorRect")
 
@@ -264,3 +266,22 @@ offset_right = 0.33333588
 offset_bottom = -4.0
 grow_vertical = 0
 text = "Arm"
+
+[node name="DPoint" parent="Control" unique_id=1978139249 instance=ExtResource("6_htym3")]
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 164.0
+offset_bottom = 24.0
+grow_vertical = 1
+theme = ExtResource("8_htym3")
+theme_override_colors/font_color = Color(1, 0.50200003, 0.17000002, 1)
+theme_override_colors/font_outline_color = Color(0.52, 0.22507331, 0.08840001, 1)
+theme_override_font_sizes/font_size = 15
+text = "DPoint: 99999"
+horizontal_alignment = 0

@@ -4,6 +4,7 @@ class_name PlayerStatUi extends CanvasLayer
 @export var ammo: Label
 @export var armor: Label
 @export var arm: Label
+@export var d_point_label: Label
 
 @export var face_hud: Sprite2D
 @export var screen_modulate: ColorRect
@@ -61,6 +62,8 @@ func _ready() -> void:
 	player.arsenal.on_ammo_used.connect(_on_ammo_used)
 
 func _process(delta: float) -> void:
+	d_point_label.text = "DPoints: " + str(GameManager.players.d_point)
+	
 	if screen_modulate.color.a > 0 and not player.is_dead:
 		screen_modulate.modulate.a = move_toward(screen_modulate.modulate.a, 0, delta)
 

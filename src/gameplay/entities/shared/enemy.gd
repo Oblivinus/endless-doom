@@ -12,6 +12,7 @@ class_name Enemy extends Humanoid
 @export var melee_damage: float = 6.0
 @export var pain_chance: float = 0.8
 @export var pain_time: float = 0.17
+@export var d_point_drop: Array[int] = [5, 10]
 
 @export_category("Range")
 @export var detection_range: float = 12.0
@@ -137,72 +138,6 @@ func hurt(damage: float, ...args:Array) -> void:
 	var dmg_info : DamageInfo = args[0]
 	if not is_dead: on_hurt_ex.emit(dmg_info)
 	super(damage)
-
-##region STEERING
-#var avoid_side: int = 0               # 0 = not avoiding, -1 / 1 = locked side
-#var avoid_step: int = 1               # current detour angle = step * AVOID_STEP_DEG
-#var avoid_clear_time: float = 0.0
-#var avoid_release_time: float = 0.4  # how long the direct path must stay clear before we stop detouring
-#var avoid_look_ahead: float = 2.0
-#var avoid_radius: float = 0.7
-#const AVOID_STEP_DEG := 30.0
-#const AVOID_MAX_STEPS := 5
-#
-#func _modify_move_dir(desired: Vector3) -> Vector3:
-	#if desired == Vector3.ZERO: return desired
-	#var delta := get_physics_process_delta_time()
-#
-	## Direct path is clear
-	#if not _ray_blocked(desired, avoid_look_ahead):
-		#if avoid_side == 0:
-			#return desired
-		## Still detouring: keep the same turn a bit longer so the body clears the corner
-		#avoid_clear_time += delta
-		#if avoid_clear_time >= avoid_release_time:
-			#avoid_side = 0
-			#avoid_clear_time = 0.0
-			#return desired
-		#var held := _rotate_dir(desired, avoid_step, avoid_side)
-		#return desired if _ray_blocked(held, avoid_look_ahead) else held
-		#
-	#avoid_clear_time = 0.0
-	#if avoid_side == 0:
-		#avoid_side = [-1, 1].pick_random()
-#
-	#for attempt in 2:
-		#for step in range(1, AVOID_MAX_STEPS + 1):
-			#var dir := _rotate_dir(desired, step, avoid_side)
-			#if not _ray_blocked(dir, avoid_look_ahead):
-				#avoid_step = step
-				#return dir
-		#avoid_side = -avoid_side
-	#
-	##NOTE: Stop move no path to it
-	#print("not path")
-	#stop_move()
-	#return desired
-#
-#func _rotate_dir(dir: Vector3, step: int, side: int) -> Vector3:
-	#return dir.rotated(Vector3.UP, deg_to_rad(AVOID_STEP_DEG * step) * side)
-#
-#func _ray_blocked(dir: Vector3, length: float) -> bool:
-	#var side_offset := dir.cross(Vector3.UP).normalized() * avoid_radius
-	#for offset in [Vector3.ZERO, side_offset, -side_offset]:
-		#var origin: Vector3 = global_position + offset
-		#var raycast = Raycast3d.new(self)
-		#
-		#origin.y += steer_y_origin_offset
-		#raycast.from_to(origin, origin + dir * length)
-		#raycast.mask([2, 4])
-		#if not raycast.intersect().is_empty():
-			#return true
-	#return false
-#
-#func stop_move() -> void:
-	#super()
-	#avoid_side = 0
-	#avoid_clear_time = 0.0
-##endregion
 
 #region CONNECTION
 func _on_hurt(_dmg: float) -> void:

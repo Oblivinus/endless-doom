@@ -3,6 +3,7 @@ class_name Loadout extends Control
 @export var gun_panel_template: PanelContainer
 @export var selection_container: VBoxContainer
 @export var close_button: Button
+@export var d_point_label: Label
 @export var arm_panels: Array[Panel]
 
 var gun_panels: Dictionary[StringName, GunPanel] = {}
@@ -15,6 +16,8 @@ class GunPanel:
 	var gun_scene: PackedScene
 	var loadout: Loadout
 	var gun_name: StringName
+	
+	var locked: bool = true
 	
 	var equip_arm_slot: int = -1
 	
@@ -29,35 +32,52 @@ class GunPanel:
 		
 		var scene_state = scene.get_state()
 		var gun_label: Label = panel.get_node("GunName")
-		gun_name = scene_state.get_node_name(0)
+		gun_name = scene_state.get_node_name(0).to_snake_case()
 		gun_label.text = loadout.split_pascal(gun_name)
+		
+		if Ref.guns_cost.has(gun_name):
+			var locked_panel: Panel = panel.get_node("Locked")
+			var cost_label: Label = locked_panel.get_node("DPoint")
+			cost_label.text = str(Ref.guns_cost[gun_name]) + "DP"
 		
 		loadout.selection_container.add_child(panel)
 	
-	func select():
-		loadout.equip(self)
+	func select() -> void:
+		if locked:
+			if GameManager.players.buy_gun(gun_name): loadout.update_display()
+		else:
+			loadout.equip(self)
 	
-	func deselect():
+	func deselect() -> void:
 		panel.visible = true
 	
-	func _on_gui_input(input: InputEvent):
+	func lock(value: bool = true):
+		var locked_panel: Panel = panel.get_node("Locked")
+		locked = value
+		locked_panel.visible = locked
+	
+	func _on_gui_input(input: InputEvent) -> void:
 		if input.is_action_pressed("Attack"):
 			select()
 
 func _ready() -> void:
 	close_button.pressed.connect(func(): visible = false)
 	
+	_init_gun_selection()
+	_load_prev_loadout()
+	_wrap_arms_slot_panel()
+
+func _process(_delta: float) -> void:
+	d_point_label.text = "DPoints: " + str(GameManager.players.d_point)
+
+func _init_gun_selection() -> void:
 	for gun_name in Ref.guns:
 		if gun_name == "hand": continue
 		var gun_scene: PackedScene = Ref.guns[gun_name] as PackedScene
 		var gun_panel: GunPanel = GunPanel.new(gun_scene, self)
 		gun_panels[gun_panel.gun_name] = gun_panel
-	
-	_load_prev_loadout()
-	
-	_wrap_arms_slot_panel()
 
-func _wrap_arms_slot_panel():
+func _wrap_arms_slot_panel() -> void:
 	var i = 0
 	
 	for panel in arm_panels:
@@ -78,7 +98,6 @@ func is_arm_empty() -> bool:
 	return arm_equiped.size() == 0
 
 func equip_by_name(gun_name: String) -> bool:
-	gun_name = gun_name.to_pascal_case()
 	if not gun_panels.has(gun_name): return false
 	return equip(gun_panels[gun_name])
 
@@ -86,18 +105,18 @@ func equip(gun_panel: GunPanel) -> bool:
 	if arm_equiped.size() >= arm_panels.size(): return false
 	arm_equiped.append(gun_panel)
 	gun_panel.panel.visible = false
-	update_arm_display()
+	update_display()
 	return true
 
-func unequip(arm_slot: int):
+func unequip(arm_slot: int) -> void:
 	if arm_slot < 0 or arm_slot >= arm_equiped.size(): return
 	
 	var gun_panel: GunPanel = arm_equiped[arm_slot]
 	gun_panel.deselect()
 	arm_equiped.remove_at(arm_slot)
-	update_arm_display()
+	update_display()
 
-func update_arm_display():
+func update_display() -> void:
 	for panel in arm_panels:
 		panel.get_node("GunPanelEquipped").visible = false
 	
@@ -106,7 +125,13 @@ func update_arm_display():
 		equip_panel.get_node("GunName").text = split_pascal(arm_equiped[i].gun_name)
 		equip_panel.visible = true
 	
-	get_equipped_string()
+	for gun_name: StringName in gun_panels:
+		var gun_panel: GunPanel = gun_panels[gun_name]
+		
+		if not Ref.guns_cost.has(gun_name) or GameManager.players.get_owned_guns().has(gun_name):
+			gun_panel.lock(false)
+		else:
+			gun_panel.lock()
 
 func get_equipped_string() -> Array[StringName]:
 	var result: Array[StringName] = []
@@ -117,6 +142,7 @@ func get_equipped_string() -> Array[StringName]:
 	return result
 
 func split_pascal(text: String) -> String:
+	text = text.to_pascal_case()
 	var regex := RegEx.new()
 	regex.compile("([a-z])([A-Z])")
 	var result = regex.sub(text, "$1\n$2", true)

@@ -5,7 +5,7 @@ var speed_multiplier: float = 1.5
 
 func _ready() -> void:
 	super()
-	collision_shape3d.shape = FrustumShape.new(Vector2(3, 3), h_spread, v_spread, max_range)
+	collision_shape3d.shape = FrustumShape.new(Vector2(4, 3), h_spread, v_spread, max_range)
 
 func ready_to_shoot() -> bool:
 	return timer.time_left == 0 and parent

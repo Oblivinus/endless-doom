@@ -8,6 +8,12 @@ var guns: Dictionary[String, PackedScene] = {
 	"hand": preload("res://src/gameplay/guns/hand.tscn"),
 }
 
+var guns_cost: Dictionary[String, int] = {
+	"shotgun": 100,
+	"rocket_launcher": 200,
+	"machine_gun": 50,
+}
+
 var projectiles: Dictionary[String, PackedScene] = {
 	"rocket": preload("res://src/gameplay/projectiles/rocket/rocket.tscn"),
 	"imp_orb": preload("res://src/gameplay/projectiles/imp_orb/imp_orb.tscn")

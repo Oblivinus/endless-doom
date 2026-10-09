@@ -29,7 +29,20 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 region_rect = Rect2(0, 0, 58, 32)
 
-[node name="Control" type="Control" unique_id=894277887 node_paths=PackedStringArray("gun_panel_template", "selection_container", "close_button", "arm_panels")]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ke6u1"]
+blend_mode = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvrig"]
+bg_color = Color(0.3266795, 0.3266795, 0.32667947, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35bqw"]
+content_margin_left = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_s6pcp"]
+Label/styles/normal = SubResource("StyleBoxFlat_35bqw")
+
+[node name="Control" type="Control" unique_id=894277887 node_paths=PackedStringArray("gun_panel_template", "selection_container", "close_button", "d_point_label", "arm_panels")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,6 +53,7 @@ script = ExtResource("1_s6pcp")
 gun_panel_template = NodePath("Selection/VBoxContainer/GunPanelTemplate")
 selection_container = NodePath("Selection/VBoxContainer")
 close_button = NodePath("CloseButton")
+d_point_label = NodePath("DPoint")
 arm_panels = [NodePath("Loadout/Arm1"), NodePath("Loadout/Arm2"), NodePath("Loadout/Arm3")]
 
 [node name="Loadout" type="Panel" parent="." unique_id=292033308]
@@ -271,6 +285,35 @@ layout_mode = 2
 text = "rocket
 Launcher"
 
+[node name="Locked" type="Panel" parent="Selection/VBoxContainer/GunPanelTemplate" unique_id=361483340]
+self_modulate = Color(1, 1, 1, 0.5372549)
+z_index = 4
+material = SubResource("CanvasItemMaterial_ke6u1")
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1.05, 1.05)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvrig")
+
+[node name="DPoint" parent="Selection/VBoxContainer/GunPanelTemplate/Locked" unique_id=1984261128 instance=ExtResource("3_6286w")]
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = -19.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 0
+theme = SubResource("Theme_s6pcp")
+theme_override_colors/font_color = Color(1, 0.50200003, 0.17000002, 1)
+theme_override_colors/font_outline_color = Color(0.52, 0.22507331, 0.08840001, 1)
+theme_override_font_sizes/font_size = 15
+text = "999DP"
+horizontal_alignment = 0
+
 [node name="CloseButton" type="Button" parent="." unique_id=1281854431]
 layout_mode = 1
 anchors_preset = 8
@@ -297,3 +340,20 @@ offset_right = 0.0
 offset_bottom = 6.5
 theme_override_font_sizes/font_size = 10
 text = "close"
+
+[node name="DPoint" parent="." unique_id=686332606 instance=ExtResource("3_6286w")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26000002
+anchor_top = 0.27800003
+anchor_right = 0.49600002
+anchor_bottom = 0.27800003
+offset_left = 103.47998
+offset_top = -26.144012
+offset_right = -1.3920288
+offset_bottom = -9.144012
+theme_override_colors/font_color = Color(1, 0.50200003, 0.17000002, 1)
+theme_override_colors/font_outline_color = Color(0.52, 0.22507331, 0.08840001, 1)
+theme_override_font_sizes/font_size = 13
+text = "DPoint: 99999"
+horizontal_alignment = 2
