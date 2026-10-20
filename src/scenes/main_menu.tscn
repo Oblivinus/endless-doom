@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://b0j625qxg1dh3" path="res://src/core/ui/scripts/main_menu.gd" id="1_iaawh"]
 [ext_resource type="Texture2D" uid="uid://xhn6krco325d" path="res://assets/image/title_endless.png" id="2_kp3xf"]
 [ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="3_chlrs"]
+[ext_resource type="PackedScene" uid="uid://b0hyfw5fjbn7j" path="res://src/core/ui/arms_control.tscn" id="4_iaawh"]
 [ext_resource type="PackedScene" uid="uid://c4eqgmo668a7d" path="res://src/core/ui/loadout.tscn" id="4_yrdre"]
+[ext_resource type="PackedScene" uid="uid://fsbdae8mcvt1" path="res://src/core/ui/loadout_menus.tscn" id="6_chlrs"]
 
 [sub_resource type="Gradient" id="Gradient_fu2dj"]
 colors = PackedColorArray(0.05, 0.05, 0.05, 0.8509804, 0.05, 0.05, 0.05, 0.33333334)
@@ -32,7 +34,7 @@ script = ExtResource("1_iaawh")
 start_button_node = NodePath("SubViewportContainer/SubViewport/Start")
 loadout_button_node = NodePath("SubViewportContainer/SubViewport/Loadout")
 setting_button_node = NodePath("SubViewportContainer/SubViewport/Setting")
-loadout_menus = NodePath("Control")
+loadout_menus = NodePath("LoadoutMenus")
 
 [node name="Title" type="Control" parent="." unique_id=2047332347]
 layout_mode = 3
@@ -221,3 +223,8 @@ texture = SubResource("NoiseTexture2D_x2oeq")
 
 [node name="Control" parent="." unique_id=894277887 instance=ExtResource("4_yrdre")]
 visible = false
+
+[node name="Loadout" parent="." unique_id=346177665 instance=ExtResource("4_iaawh")]
+visible = false
+
+[node name="LoadoutMenus" parent="." unique_id=756494837 instance=ExtResource("6_chlrs")]

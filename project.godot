@@ -39,6 +39,11 @@ folder_colors={
 "res://src/": "orange"
 }
 
+[gui]
+
+theme/custom="uid://cj1ou66i26pov"
+theme/custom_font="uid://bnma8sgnp25e"
+
 [input]
 
 ui_left={

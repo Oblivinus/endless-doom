@@ -24,7 +24,7 @@ metadata/_custom_type_script = "uid://c0ecj4cxyxvrg"
 script = ExtResource("2_1f0c2")
 enemy_scene = ExtResource("5_imkrw")
 wave_appear = 5
-weight = 25.0
+weight = 15.0
 metadata/_custom_type_script = "uid://c0ecj4cxyxvrg"
 
 [sub_resource type="Gradient" id="Gradient_vqsqh"]

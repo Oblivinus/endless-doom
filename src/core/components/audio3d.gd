@@ -22,15 +22,12 @@ func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 		position = Vector3.ZERO
 	elif pos_or_node3d is Vector3:
 		Globals.world.add_child(self)
-		pos = pos_or_node3d
+		position = pos_or_node3d
 	else:
 		push_error("Audio3D parameter 2 is not node3d or vector3")
 		queue_free()
 		return
 	finished.connect(queue_free)
-
-func _ready() -> void:
-	global_position = pos
 
 func _find_audio_path(audio_name: String) -> String:
 	for ext in SUPPORTED_EXTENSIONS:

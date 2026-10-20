@@ -18,9 +18,10 @@ func get_damage_info() -> DamageInfo:
 func consume_ammo():
 	var chance = randf()
 	if chance <= 0.45:
-		parent.use_ammo(type)
+		parent.use_ammo(type, ammo_used)
 
 func play_sfx():
 	var vfx = GameManager.play_hearable_sound(sfx, self)
-	vfx.pitch_scale = randf_range(0.95, 1.05)
+	vfx.pitch_scale = 1.5
+	vfx.max_db = -7.5
 	vfx.play()

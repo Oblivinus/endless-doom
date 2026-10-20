@@ -40,10 +40,10 @@ class Players:
 		var arsenal: Arsenal = player.arsenal
 		return arsenal.get_used_ammo()
 	
-	func get_player_loadout() -> Array[StringName]:
+	func get_player_arms() -> Array[StringName]:
 		return player_loadout
 	
-	func set_player_loadout(value: Array[StringName]) -> void:
+	func set_player_arms(value: Array[StringName]) -> void:
 		player_loadout = value
 	
 	func add_d_coint(value: int) -> void:

@@ -147,6 +147,7 @@ light_energy = 0.2
 shadow_enabled = true
 shadow_bias = 1.5
 shadow_normal_bias = 0.5
+shadow_blur = 0.0
 sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Maps/Enviorment" unique_id=1694381972]

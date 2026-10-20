@@ -4,7 +4,7 @@ class_name MainMenus extends CanvasLayer
 @export var loadout_button_node: Button
 @export var setting_button_node: Button
 
-@export var loadout_menus: Loadout
+@export var loadout_menus: LoadoutMenus
 
 var start_button: ButtonInteract
 var loadout_button: ButtonInteract
@@ -51,11 +51,11 @@ func _ready() -> void:
 	loadout_button.button.pressed.connect(_open_loadout)
 
 func _on_start():
-	if loadout_menus.is_arm_empty():
+	if loadout_menus.arms.is_arm_empty():
 		_open_loadout()
 	else:
-		var loadout_on_start := loadout_menus.get_equipped_string()
-		GameManager.players.set_player_loadout(loadout_on_start)
+		var loadout_on_start := loadout_menus.arms.get_equipped_string()
+		GameManager.players.set_player_arms(loadout_on_start)
 		GameManager.change_playing(true)
 
 func _open_loadout():

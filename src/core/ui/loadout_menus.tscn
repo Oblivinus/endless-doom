@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://fsbdae8mcvt1"]
+
+[ext_resource type="Script" uid="uid://cxpnpqtu5spt0" path="res://src/core/ui/scripts/loadout_menus.gd" id="1_awrch"]
+[ext_resource type="PackedScene" uid="uid://b0hyfw5fjbn7j" path="res://src/core/ui/arms_control.tscn" id="1_nb2ri"]
+[ext_resource type="Theme" uid="uid://cj1ou66i26pov" path="res://src/core/ui/main_ui_theme.tres" id="2_mqjlt"]
+[ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="3_awrch"]
+
+[node name="LoadoutMenus" type="Control" unique_id=756494837 node_paths=PackedStringArray("close_button", "dpoints", "arms")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_awrch")
+close_button = NodePath("CloseButton")
+dpoints = NodePath("DPoint")
+arms = NodePath("TabContainer/Arms/Arms")
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=924510688]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Arms" type="TabBar" parent="TabContainer" unique_id=478250912]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Arms" parent="TabContainer/Arms" unique_id=894277887 instance=ExtResource("1_nb2ri")]
+layout_mode = 1
+
+[node name="Stats" type="TabBar" parent="TabContainer" unique_id=138824114]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="CloseButton" type="Button" parent="." unique_id=529385221]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -147.0
+offset_top = 14.999999
+offset_right = -16.0
+offset_bottom = 50.125725
+grow_horizontal = 0
+scale = Vector2(1, 0.9964208)
+theme = ExtResource("2_mqjlt")
+
+[node name="RedText" parent="CloseButton" unique_id=1029813179 instance=ExtResource("3_awrch")]
+layout_mode = 1
+anchors_preset = 14
+anchor_left = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = -6.5
+offset_right = 0.0
+offset_bottom = 6.5
+theme_override_font_sizes/font_size = 17
+text = "close"
+
+[node name="DPoint" parent="." unique_id=418943030 instance=ExtResource("3_awrch")]
+layout_mode = 1
+anchors_preset = 5
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = -136.0
+offset_top = 10.0
+offset_right = 136.0
+offset_bottom = 41.11135
+grow_vertical = 1
+scale = Vector2(1, 0.9964208)
+theme_override_colors/font_color = Color(1, 0.50200003, 0.17000002, 1)
+theme_override_colors/font_outline_color = Color(0.52, 0.22507331, 0.08840001, 1)
+theme_override_font_sizes/font_size = 15
+text = "DPoint: 99999"
+vertical_alignment = 1

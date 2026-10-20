@@ -40,7 +40,7 @@ func _init_loadout():
 	add_gun("hand", 0)
 	
 	var i_slot = 1
-	for gun_name: String in GameManager.players.get_player_loadout():
+	for gun_name: String in GameManager.players.get_player_arms():
 		add_gun(gun_name, i_slot)
 		i_slot += 1
 
@@ -111,9 +111,21 @@ func use_ammo(type: Enums.GUN_TYPES, amount: int = 1) -> bool:
 	var current_amount: int = available_ammo[gun_type]
 	var new_amount: int = current_amount - amount
 	
-	if new_amount >= 0:
+	if is_ammo_enough(type, amount):
 		available_ammo[gun_type] = max(0, new_amount)
 		on_ammo_used.emit(gun_type, amount)
+		return true
+	else:
+		return false
+
+func is_ammo_enough(type: Enums.GUN_TYPES, amount: int = 1) -> bool:
+	var gun_type: String = Enums.GUN_TYPES.find_key(type)
+	if not available_ammo.has(gun_type): return false
+	
+	var current_amount: int = available_ammo[gun_type]
+	var new_amount: int = current_amount - amount
+	
+	if new_amount >= 0:
 		return true
 	else:
 		return false

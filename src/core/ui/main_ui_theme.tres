@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://bnma8sgnp25e" path="res://assets/fonts/DooM.ttf" id="1_sed83"]
 [ext_resource type="Texture2D" uid="uid://bw78ldt2gibia" path="res://assets/ui/hud_smooth2.png" id="2_kpeoo"]
 [ext_resource type="Texture2D" uid="uid://bhgx074cuhx14" path="res://assets/ui/hud_smooth.png" id="3_rlwyw"]
+[ext_resource type="Texture2D" uid="uid://c8nwjo86p3m0m" path="res://assets/ui/hud_smooth_inset.png" id="4_kpeoo"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sed83"]
 load_path = "res://.godot/imported/hud_smooth.png-cb166d48b8fe506d7e2407513e0ffcd0.ctex"
@@ -63,99 +64,44 @@ expand_margin_bottom = 1.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[sub_resource type="DPITexture" id="DPITexture_gg2ah"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#fff\" fill-opacity=\".75\" d=\"m1 3 2-2 5 5 5-5 2 2-5 5 5 5-2 2-5-5-5 5-2-2 5-5z\"/></svg>
-"
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kaym2"]
+bg_color = Color(1, 1, 1, 0)
 
-[sub_resource type="DPITexture" id="DPITexture_av7p7"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"6\" fill=\"#fefffe\" fill-opacity=\".75\"/><path fill=\"none\" stroke=\"#1a1a1a\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".65\" stroke-width=\"2\" d=\"m9 5-3 3 3 3\"/></svg>
-"
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a01j3"]
+load_path = "res://.godot/imported/hud_smooth_inset.png-53bb0fe66e33d2746d26bb82d2de2631.ctex"
 
-[sub_resource type="DPITexture" id="DPITexture_mc0rs"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"6\" fill=\"#fefffe\"/><path fill=\"none\" stroke=\"#1a1a1a\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m9 5-3 3 3 3\"/></svg>
-"
-
-[sub_resource type="DPITexture" id="DPITexture_p6wgj"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"32\"><path fill=\"#d3d3d3\" d=\"m5 1h6v30h-6z\"/></svg>
-"
-
-[sub_resource type="DPITexture" id="DPITexture_w7qrc"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"6\" fill=\"#fefffe\" fill-opacity=\".75\"/><path fill=\"none\" stroke=\"#1a1a1a\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".65\" stroke-width=\"2\" d=\"m7 5 3 3-3 3\"/></svg>
-"
-
-[sub_resource type="DPITexture" id="DPITexture_6uu7s"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"6\" fill=\"#fefffe\"/><path fill=\"none\" stroke=\"#1a1a1a\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m7 5 3 3-3 3\"/></svg>
-"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_om2yh"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3ahw"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mljjo"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wkpmv"]
 content_margin_left = 10.0
-content_margin_top = 4.0
 content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-border_width_left = 1
-border_width_right = 1
-border_color = Color(0.175, 0.175, 0.175, 1)
-corner_detail = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ehto"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cuch"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-border_width_left = 1
-border_width_right = 1
-border_color = Color(0.175, 0.175, 0.175, 1)
-corner_detail = 1
+texture = SubResource("CompressedTexture2D_a01j3")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gg2ah"]
+content_margin_left = 10.0
+content_margin_right = 10.0
 texture = ExtResource("3_rlwyw")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pqvuf"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+texture = ExtResource("4_kpeoo")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [resource]
 Button/styles/hover = SubResource("StyleBoxTexture_kpeoo")
@@ -166,32 +112,10 @@ Label/fonts/font = ExtResource("1_sed83")
 Label/styles/normal = SubResource("StyleBoxFlat_u6stc")
 Panel/styles/panel = SubResource("StyleBoxTexture_ke6u1")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_sed83")
-TabBar/colors/drop_mark_color = Color(1, 1, 1, 1)
-TabBar/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
-TabBar/colors/font_hovered_color = Color(0.95, 0.95, 0.95, 1)
-TabBar/colors/font_outline_color = Color(0, 0, 0, 1)
-TabBar/colors/font_selected_color = Color(0.95, 0.95, 0.95, 1)
-TabBar/colors/font_unselected_color = Color(0.7, 0.7, 0.7, 1)
-TabBar/colors/icon_disabled_color = Color(1, 1, 1, 1)
-TabBar/colors/icon_hovered_color = Color(1, 1, 1, 1)
-TabBar/colors/icon_selected_color = Color(1, 1, 1, 1)
-TabBar/colors/icon_unselected_color = Color(1, 1, 1, 1)
-TabBar/constants/h_separation = 4
-TabBar/constants/hover_switch_wait_msec = 500
-TabBar/constants/icon_max_width = 0
-TabBar/constants/outline_size = 0
-TabBar/font_sizes/font_size = 10
-TabBar/fonts/font = ExtResource("1_sed83")
-TabBar/icons/close = SubResource("DPITexture_gg2ah")
-TabBar/icons/decrement = SubResource("DPITexture_av7p7")
-TabBar/icons/decrement_highlight = SubResource("DPITexture_mc0rs")
-TabBar/icons/drop_mark = SubResource("DPITexture_p6wgj")
-TabBar/icons/increment = SubResource("DPITexture_w7qrc")
-TabBar/icons/increment_highlight = SubResource("DPITexture_6uu7s")
-TabBar/styles/button_highlight = SubResource("StyleBoxFlat_om2yh")
-TabBar/styles/button_pressed = SubResource("StyleBoxFlat_a3ahw")
-TabBar/styles/tab_disabled = SubResource("StyleBoxFlat_mljjo")
-TabBar/styles/tab_focus = SubResource("StyleBoxFlat_6ehto")
-TabBar/styles/tab_hovered = SubResource("StyleBoxFlat_2cuch")
-TabBar/styles/tab_selected = null
+TabContainer/colors/font_hovered_color = Color(0.9876179, 0.7954939, 0.7865842, 1)
+TabContainer/constants/tab_separation = 2
+TabContainer/font_sizes/font_size = 25
+TabContainer/styles/panel = SubResource("StyleBoxFlat_kaym2")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_wkpmv")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_gg2ah")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_pqvuf")

@@ -3,15 +3,16 @@ extends Node
 var guns: Dictionary[String, PackedScene] = {
 	"pistol": preload("res://src/gameplay/guns/pistol.tscn"),
 	"shotgun": preload("res://src/gameplay/guns/shotgun.tscn"),
+	"super_shotgun": preload("res://src/gameplay/guns/super_shotgun.tscn"),
 	"rocket_launcher": preload("res://src/gameplay/guns/rocket_launcher.tscn"),
 	"machine_gun": preload("res://src/gameplay/guns/machine_gun.tscn"),
 	"hand": preload("res://src/gameplay/guns/hand.tscn"),
 }
 
 var guns_cost: Dictionary[String, int] = {
-	"shotgun": 100,
-	"rocket_launcher": 200,
-	"machine_gun": 50,
+	#"shotgun": 100,
+	#"rocket_launcher": 200,
+	#"machine_gun": 50,
 }
 
 var projectiles: Dictionary[String, PackedScene] = {

@@ -88,8 +88,8 @@ func _wrap_arms_slot_panel() -> void:
 		equip_panel.gui_input.connect(func(input: InputEvent): if input.is_action_pressed("Attack"): unequip(this_i) )
 
 func _load_prev_loadout() -> void:
-	if not GameManager.players.get_player_loadout().is_empty():
-		for gun_name in GameManager.players.get_player_loadout():
+	if not GameManager.players.get_player_arms().is_empty():
+		for gun_name in GameManager.players.get_player_arms():
 			equip_by_name(gun_name)
 	else:
 		equip_by_name("pistol")

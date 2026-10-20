@@ -9,6 +9,7 @@ class_name Gun extends Node3D
 @export var max_hit: int = 1
 @export var type: Enums.GUN_TYPES = Enums.GUN_TYPES.BULLET
 @export var damage_type: String = "normal"
+@export var ammo_used: int = 1
 
 @export_category("Dependecies")
 @export var hitbox: Area3D
@@ -110,7 +111,7 @@ func unequip():
 	parent = null
 
 func ready_to_shoot() -> bool:
-	return timer.time_left == 0 and parent and parent.get_ammos(type) > 0
+	return timer.time_left == 0 and parent and parent.is_ammo_enough(type, ammo_used)
 
 func shoot() -> void:
 	if not ready_to_shoot(): return
@@ -121,7 +122,7 @@ func shoot() -> void:
 	play_sfx()
 
 func consume_ammo():
-	parent.use_ammo(type)
+	parent.use_ammo(type, ammo_used)
 
 func set_visibility(value: bool, node: Node = self) -> void:
 	for child in node.get_children():

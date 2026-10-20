@@ -12,7 +12,7 @@ class_name Enemy extends Humanoid
 @export var melee_damage: float = 6.0
 @export var pain_chance: float = 0.8
 @export var pain_time: float = 0.17
-@export var d_point_drop: Array[int] = [5, 10]
+@export var d_point_drop: Array[int] = [2, 5]
 
 @export_category("Range")
 @export var detection_range: float = 12.0
