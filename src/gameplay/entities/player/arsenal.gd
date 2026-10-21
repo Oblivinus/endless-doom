@@ -1,6 +1,7 @@
 class_name Arsenal extends Node3D
 
 @export var player: Player
+@export var finisher: Finisher
 
 var guns_slot: Dictionary[int, Gun] = {}
 
@@ -20,6 +21,7 @@ var available_ammo: Dictionary[String, int] = {
 }
 
 var is_moving = false
+var on_finisher: bool = false
 var switch_timer: Timer
 var slot_number: int = 1:
 	set(value):
@@ -43,6 +45,10 @@ func _init_loadout():
 	for gun_name: String in GameManager.player_datas.get_player_arms():
 		add_gun(gun_name, i_slot)
 		i_slot += 1
+
+func _process(_delta: float) -> void:
+	if current_gun:
+		current_gun.set_visibility(not finisher.reached)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if switch_timer.time_left > 0: return
@@ -75,7 +81,7 @@ func register_kill(enemy: Enemy):
 	player.on_kill.emit(enemy)
 
 func shoot_current() -> void:
-	if player.is_dead: return
+	if player.is_dead or finisher.finishing: return
 	if current_gun: current_gun.shoot()
 
 func add_gun(gun_name:String, slot: int) -> void:

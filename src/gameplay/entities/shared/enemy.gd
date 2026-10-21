@@ -13,6 +13,7 @@ class_name Enemy extends Humanoid
 @export var pain_chance: float = 0.8
 @export var pain_time: float = 0.17
 @export var d_point_drop: Array[int] = [2, 5]
+@export var item_drop_chance_multiplier: float = 1.0
 
 @export_category("Range")
 @export var detection_range: float = 12.0
@@ -32,7 +33,7 @@ var timer: Timer
 @export var dead_sfx: Array[String] = ["possessed/possessed_activity"]
 @export var hurt_sfx: Array[String] = ["possessed/possessed_pain"]
 
-signal on_hurt_ex(dmg_info: DamageInfo)
+signal on_hurt_ex(dmg_info: CombatManager.CombatInfo)
 signal on_pain()
 signal on_attack
 signal event (event_name: String)
@@ -51,8 +52,9 @@ var has_melee: bool = false
 var has_range: bool = false
 
 var is_disturbed: bool = false
+var finisher_ready: bool = false
 var in_pain: bool = false
-var prev_dmg_info: DamageInfo
+var prev_dmg_info: CombatManager.CombatInfo
 #endregion
 
 class Pathfind:
@@ -135,16 +137,29 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 
 func hurt(damage: float, ...args:Array) -> void:
-	var dmg_info : DamageInfo = args[0]
+	var dmg_info : CombatManager.CombatInfo = args[0]
 	if not is_dead: on_hurt_ex.emit(dmg_info)
-	super(damage)
+	
+	if health - damage <= 0 and not finisher_ready:
+		if randf() <= 1:
+			enter_finisher_state()
+		else:
+			super(damage)
+	else:
+		super(damage)
+
+func enter_finisher_state() -> void:
+	finisher_ready = true
+	health = 1
+	add_to_group("finisher_ready")
+	state_machine.change_state_name("finisher")
 
 #region CONNECTION
 func _on_hurt(_dmg: float) -> void:
 	flash_sprite(Color(1.0, 0.166, 0.09, 1.0))
 	_process_pain()
 
-func _on_hurt_ex(dmg_info: DamageInfo):
+func _on_hurt_ex(dmg_info: CombatManager.CombatInfo):
 	if dmg_info:
 		prev_dmg_info = dmg_info
 	else:
@@ -152,7 +167,6 @@ func _on_hurt_ex(dmg_info: DamageInfo):
 
 func _on_died() -> void:
 	state_machine.change_state_name("dead")
-	if GameManager.world: GameManager.world._any_enemy_died(self, global_position)
 	play_sound("dead")
 
 func _on_event(event_name) -> void:
@@ -325,8 +339,6 @@ func is_in_sight(target_pos: Vector3) -> bool:
 
 func flash_sprite(color: Color):
 	$Sprite3D.modulate = color
-	#await get_tree().create_timer(0.15).timeout
-	#$Sprite3D.modulate = Color.WHITE
 
 func play_sound(sound_name: String):
 	var sound_array: Array

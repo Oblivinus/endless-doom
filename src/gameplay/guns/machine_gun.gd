@@ -9,7 +9,7 @@ func shoot():
 	if last_hit_count < 1:
 		create_bullet_hit_ray(farthest_center_vector())
 
-func get_damage_info() -> DamageInfo:
+func get_damage_info() -> CombatManager.CombatInfo:
 	var dmg_info = super()
 	dmg_info.pain_modifier = 0.45
 	

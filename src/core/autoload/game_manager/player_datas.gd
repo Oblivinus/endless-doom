@@ -63,6 +63,7 @@ func _apply_upgrade() -> void:
 	player.armor_absorption += player_upgrades["armor_absorption"].get_value()
 	player.max_health += player_upgrades["max_health"].get_value()
 	player.damage_boost += player_upgrades["damage"].get_value()
+	player.drop_chance_multiplier += player_upgrades["drop_chance"].get_value()
 	
 	pass
 

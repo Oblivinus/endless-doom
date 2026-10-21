@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://50s3trthvlx"]
+
+[ext_resource type="Script" uid="uid://dg7f7ky5lcvvs" path="res://src/gameplay/entities/player/finisher.gd" id="1_t2drb"]
+[ext_resource type="Texture2D" uid="uid://y4dtdhrop4di" path="res://assets/gameplay/gun/hand.png" id="1_ybgmg"]
+
+[sub_resource type="Animation" id="Animation_ihnmd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6cl6e"]
+resource_name = "finisher_anim"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(0.5, 0.5, 1),
+"update": 0,
+"values": [Vector2i(3, 0), Vector2i(3, 0), Vector2i(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3v83"]
+_data = {
+&"RESET": SubResource("Animation_ihnmd"),
+&"finisher_anim": SubResource("Animation_6cl6e")
+}
+
+[node name="Finisher" type="Node3D" unique_id=1678519482]
+script = ExtResource("1_t2drb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=343518878]
+position = Vector2(815, 407)
+scale = Vector2(3, 3)
+texture = ExtResource("1_ybgmg")
+offset = Vector2(-35, 0)
+flip_h = true
+hframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1699127142]
+libraries/ = SubResource("AnimationLibrary_a3v83")

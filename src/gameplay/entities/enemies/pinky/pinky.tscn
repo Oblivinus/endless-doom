@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="5_b7q7s"]
 [ext_resource type="Script" uid="uid://bmspsn444xjbn" path="res://src/gameplay/entities/enemies/pinky/pinky_attack.gd" id="7_2rpxy"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_onru0"]
+[ext_resource type="Script" uid="uid://htvb8h1ji2l5" path="res://src/gameplay/entities/shared/enemy_finisher.gd" id="11_v0wyv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
 radius = 0.6
@@ -303,4 +304,8 @@ metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]
 script = ExtResource("8_onru0")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Finisher" type="Node" parent="StateMachine" unique_id=396563262]
+script = ExtResource("11_v0wyv")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"

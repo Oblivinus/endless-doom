@@ -29,6 +29,11 @@ func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 		return
 	finished.connect(queue_free)
 
+func _process(_delta: float) -> void:
+	if Engine.time_scale != 0:
+		var pitch_offset: float = 1 - pitch_scale
+		pitch_scale = Engine.time_scale + pitch_offset
+
 func _find_audio_path(audio_name: String) -> String:
 	for ext in SUPPORTED_EXTENSIONS:
 		var path := "res://assets/sounds/%s.%s" % [audio_name, ext]

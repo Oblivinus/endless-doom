@@ -20,7 +20,7 @@ func _on_explosion(targets: Array):
 			var dist: float = target.global_position.distance_to(last_pos)
 			var damage: float = _calculate_damage(dist)
 			
-			target.hurt(damage, DamageInfo.new("forceful", projectile_owner))
+			target.hurt(damage, CombatManager.CombatInfo.new("forceful", projectile_owner))
 			knockback_target(target)
 			
 	on_blast_hit.emit(targets)

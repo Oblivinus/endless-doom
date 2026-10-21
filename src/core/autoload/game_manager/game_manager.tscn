@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dbvc4ruk4f3m5"]
 
-[ext_resource type="Script" uid="uid://cb0qw6emd8ja8" path="res://src/core/autoload/game_manager.gd" id="1_kb0f2"]
+[ext_resource type="Script" uid="uid://cb0qw6emd8ja8" path="res://src/core/autoload/game_manager/game_manager.gd" id="1_kb0f2"]
 [ext_resource type="Script" uid="uid://bsnbfr7v533xs" path="res://src/core/autoload/game_manager/player_datas.gd" id="2_t3yfp"]
 
 [node name="GameManager" type="Node" unique_id=1655949006 node_paths=PackedStringArray("player_datas")]

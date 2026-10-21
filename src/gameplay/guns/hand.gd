@@ -34,7 +34,7 @@ func unequip():
 	if parent: parent.player.move_speed /= speed_multiplier
 	super()
 
-func get_damage_info() -> DamageInfo:
+func get_damage_info() -> CombatManager.CombatInfo:
 	var sup = super()
 	sup.pain_modifier = 2.0
 	sup.type = "forceful"

@@ -71,8 +71,8 @@ func _check_and_shoot() -> void:
 func hurt_enemy(enemy: Enemy) -> void:
 	enemy.hurt(damage, get_damage_info())
 
-func get_damage_info() -> DamageInfo:
-	return DamageInfo.new(damage_type, parent.player)
+func get_damage_info() -> CombatManager.CombatInfo:
+	return CombatManager.CombatInfo.new(damage_type, parent.player)
 
 func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 	var raycast = Raycast3d.new(self)

@@ -37,7 +37,7 @@ func process_physics(_delta: float):
 	wander()
 	look_for()
 
-func _on_hurt_ex(dmg_info: DamageInfo):
+func _on_hurt_ex(dmg_info: CombatManager.CombatInfo):
 	if dmg_info and dmg_info.by is Player:
 		parent.target = dmg_info.by
 

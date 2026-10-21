@@ -17,6 +17,7 @@ const MOUSE_SENS = 0.25
 		armor = clamp(value, 0, max_health)
 		property_changed.emit("armor", armor)
 @export var damage_boost: float = 1.0
+@export var drop_chance_multiplier: float = 1.0
 
 var colorrect: ColorRect
 var sway_speed: float = 2.5
@@ -24,6 +25,10 @@ var sway_amount: float = 0.18
 var time_passed: float = 0.0
 var base_y := 0.0
 const TAU_F := TAU
+
+var movement_disabled: bool = false
+var invincible: bool = false
+var camera_disable: bool = false
 
 signal on_kill(enemy: Enemy)
 
@@ -52,7 +57,7 @@ func _input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not camera_disable:
 		rotation_degrees.y -= event.relative.x * MOUSE_SENS
 
 func _process(_delta: float) -> void:
@@ -63,6 +68,10 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 	
 	cam_sway(delta)
+	
+	if movement_disabled: 
+		stop_move() 
+		return
 	
 	var input_dir: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var new_move_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -82,7 +91,17 @@ func _on_hurt(_dmg: float):
 func _on_died():
 	pass
 
+func look_at_pos(vec3: Vector3) -> void:
+	var flat_target := Vector3(vec3.x, global_position.y, vec3.z)
+	if flat_target.is_equal_approx(global_position): return
+	look_at(flat_target, Vector3.UP)
+
+func disable_movement(value: bool = true) -> void:
+	movement_disabled = value
+	pass
+
 func hurt(damage: float, ..._args: Array) -> void:
+	if invincible: return
 	if is_dead: return
 	if armor > 0:
 		var armor_damage = damage * armor_absorption

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bajene5gm72sy" path="res://src/gameplay/entities/player/player.gd" id="1_uu63q"]
 [ext_resource type="PackedScene" uid="uid://cyb13ek6qhogt" path="res://src/core/ui/player_stats_ui.tscn" id="2_dqloy"]
 [ext_resource type="Script" uid="uid://mkggxa46qv4y" path="res://src/gameplay/entities/player/arsenal.gd" id="2_sv4p1"]
+[ext_resource type="PackedScene" uid="uid://50s3trthvlx" path="res://src/gameplay/entities/player/finisher.tscn" id="4_dqloy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
@@ -27,10 +28,11 @@ shape = SubResource("CapsuleShape3D_u8vuu")
 debug_color = Color(0, 0.5950001, 0.7, 0)
 debug_fill = false
 
-[node name="Arsenal" type="Node3D" parent="." unique_id=1585083455 node_paths=PackedStringArray("player")]
+[node name="Arsenal" type="Node3D" parent="." unique_id=1585083455 node_paths=PackedStringArray("player", "finisher")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40928018, 0)
 script = ExtResource("2_sv4p1")
 player = NodePath("..")
+finisher = NodePath("Camera3D/Finisher")
 
 [node name="Camera3D" type="Camera3D" parent="Arsenal" unique_id=1959136951]
 cull_mask = 1048063
@@ -51,6 +53,9 @@ offset_right = 1155.0
 offset_bottom = 649.0
 mouse_filter = 2
 color = Color(1, 0.13550001, 0.089999974, 1)
+
+[node name="Finisher" parent="Arsenal/Camera3D" unique_id=1678519482 node_paths=PackedStringArray("arsenal") instance=ExtResource("4_dqloy")]
+arsenal = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1647494181]
 layers = 512
