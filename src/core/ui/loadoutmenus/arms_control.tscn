@@ -1,33 +1,36 @@
 [gd_scene format=3 uid="uid://b0hyfw5fjbn7j"]
 
-[ext_resource type="Script" uid="uid://ey7npgkk68po" path="res://src/core/ui/scripts/arms.gd" id="1_7nyer"]
-[ext_resource type="Theme" uid="uid://cj1ou66i26pov" path="res://src/core/ui/main_ui_theme.tres" id="2_1l47o"]
-[ext_resource type="Texture2D" uid="uid://c8nwjo86p3m0m" path="res://assets/ui/hud_smooth_inset.png" id="3_gbyem"]
-[ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="4_fcpn8"]
-[ext_resource type="PackedScene" uid="uid://bm8pxl1mlxyq5" path="res://src/core/ui/red_text2.tscn" id="5_fxwin"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4aqgx"]
-light_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_u0634"]
-offsets = PackedFloat32Array(0.025362318, 1)
-colors = PackedColorArray(0.27752784, 0.27752766, 0.27752778, 1, 1, 1, 1, 0)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ke6u1"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kvrig"]
-noise = SubResource("FastNoiseLite_ke6u1")
-color_ramp = SubResource("Gradient_u0634")
+[ext_resource type="Script" uid="uid://ey7npgkk68po" path="res://src/core/ui/scripts/loadoutmenus/arms.gd" id="1_wl08k"]
+[ext_resource type="Theme" uid="uid://cj1ou66i26pov" path="res://src/core/ui/main_ui_theme.tres" id="2_3kb1l"]
+[ext_resource type="Texture2D" uid="uid://dhvnjodk8hrra" path="res://assets/ui/hud_plain3.png" id="3_r3rq3"]
+[ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="4_vfokx"]
+[ext_resource type="Texture2D" uid="uid://bhqdjk1xb6tuk" path="res://assets/ui/hud_plain2.png" id="5_3gxup"]
+[ext_resource type="PackedScene" uid="uid://bm8pxl1mlxyq5" path="res://src/core/ui/red_text2.tscn" id="6_jtrx1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kvrig"]
-texture = ExtResource("3_gbyem")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_right = 1.0
-texture_margin_bottom = 1.0
+texture = ExtResource("3_r3rq3")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 region_rect = Rect2(0, 0, 58, 32)
+modulate_color = Color(0.83, 0.83, 0.83, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uhhot"]
+texture = ExtResource("5_3gxup")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlwyw"]
+texture = ExtResource("5_3gxup")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ke6u1"]
 blend_mode = 3
@@ -53,7 +56,7 @@ offset_top = -1.871994
 offset_bottom = 1.871994
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_7nyer")
+script = ExtResource("1_wl08k")
 gun_panel_template = NodePath("Selection/MarginContainer/ScrollContainer/VBoxContainer/GunPanelTemplate")
 selection_container = NodePath("Selection/MarginContainer/ScrollContainer/VBoxContainer")
 arm_panels = [NodePath("Loadout/Arm1"), NodePath("Loadout/Arm2"), NodePath("Loadout/Arm3")]
@@ -74,23 +77,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.9964208)
 pivot_offset_ratio = Vector2(0.5, 0.5)
-theme = ExtResource("2_1l47o")
-
-[node name="TextureRect" type="TextureRect" parent="Loadout" unique_id=939302047]
-self_modulate = Color(1, 1, 1, 0.5803922)
-texture_filter = 3
-material = SubResource("CanvasItemMaterial_4aqgx")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -168.5
-offset_top = -208.66666
-offset_right = 168.5
-offset_bottom = 208.66667
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("NoiseTexture2D_kvrig")
+theme = ExtResource("2_3kb1l")
 
 [node name="Arm1" type="Panel" parent="Loadout" unique_id=448722810]
 layout_mode = 1
@@ -103,7 +90,7 @@ offset_bottom = 87.83333
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_kvrig")
 
-[node name="Arm Name" parent="Loadout/Arm1" unique_id=1029813179 instance=ExtResource("4_fcpn8")]
+[node name="Arm Name" parent="Loadout/Arm1" unique_id=1029813179 instance=ExtResource("4_vfokx")]
 layout_mode = 1
 anchors_preset = 0
 anchor_left = 0.0
@@ -116,12 +103,13 @@ offset_right = 89.0
 offset_bottom = -2.0
 grow_horizontal = 1
 grow_vertical = 1
-theme = ExtResource("2_1l47o")
+theme = ExtResource("2_3kb1l")
 theme_override_font_sizes/font_size = 15
 text = "ARM 1"
 horizontal_alignment = 0
 
 [node name="GunPanelEquipped" type="PanelContainer" parent="Loadout/Arm1" unique_id=2140777327]
+visible = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
 anchors_preset = 15
@@ -134,8 +122,9 @@ offset_bottom = -5.8333282
 grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_uhhot")
 
-[node name="GunName" parent="Loadout/Arm1/GunPanelEquipped" unique_id=1011424172 instance=ExtResource("5_fxwin")]
+[node name="GunName" parent="Loadout/Arm1/GunPanelEquipped" unique_id=1011424172 instance=ExtResource("6_jtrx1")]
 layout_mode = 2
 text = "rocket
 Launcher"
@@ -151,7 +140,7 @@ offset_bottom = 175.83333
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_kvrig")
 
-[node name="Arm Name" parent="Loadout/Arm2" unique_id=1760131641 instance=ExtResource("4_fcpn8")]
+[node name="Arm Name" parent="Loadout/Arm2" unique_id=1760131641 instance=ExtResource("4_vfokx")]
 layout_mode = 1
 anchors_preset = 0
 anchor_left = 0.0
@@ -164,7 +153,7 @@ offset_right = 89.0
 offset_bottom = -2.0
 grow_horizontal = 1
 grow_vertical = 1
-theme = ExtResource("2_1l47o")
+theme = ExtResource("2_3kb1l")
 theme_override_font_sizes/font_size = 15
 text = "ARM 2"
 horizontal_alignment = 0
@@ -183,8 +172,9 @@ offset_bottom = -5.8333282
 grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_uhhot")
 
-[node name="GunName" parent="Loadout/Arm2/GunPanelEquipped" unique_id=1280230495 instance=ExtResource("5_fxwin")]
+[node name="GunName" parent="Loadout/Arm2/GunPanelEquipped" unique_id=1280230495 instance=ExtResource("6_jtrx1")]
 layout_mode = 2
 text = "rocket
 Launcher"
@@ -200,7 +190,7 @@ offset_bottom = 264.8333
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_kvrig")
 
-[node name="Arm Name" parent="Loadout/Arm3" unique_id=1209230721 instance=ExtResource("4_fcpn8")]
+[node name="Arm Name" parent="Loadout/Arm3" unique_id=1209230721 instance=ExtResource("4_vfokx")]
 layout_mode = 1
 anchors_preset = 0
 anchor_left = 0.0
@@ -213,7 +203,7 @@ offset_right = 89.0
 offset_bottom = -2.0
 grow_horizontal = 1
 grow_vertical = 1
-theme = ExtResource("2_1l47o")
+theme = ExtResource("2_3kb1l")
 theme_override_font_sizes/font_size = 15
 text = "ARM 3"
 horizontal_alignment = 0
@@ -232,8 +222,9 @@ offset_bottom = -5.8333282
 grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_uhhot")
 
-[node name="GunName" parent="Loadout/Arm3/GunPanelEquipped" unique_id=911250467 instance=ExtResource("5_fxwin")]
+[node name="GunName" parent="Loadout/Arm3/GunPanelEquipped" unique_id=911250467 instance=ExtResource("6_jtrx1")]
 layout_mode = 2
 text = "rocket
 Launcher"
@@ -253,7 +244,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.9964208)
 pivot_offset_ratio = Vector2(0.5, 0.5)
-theme = ExtResource("2_1l47o")
+theme = ExtResource("2_3kb1l")
 
 [node name="MarginContainer" type="MarginContainer" parent="Selection" unique_id=1684381274]
 layout_mode = 1
@@ -267,11 +258,11 @@ offset_bottom = 6.61084
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme = ExtResource("2_1l47o")
+theme = ExtResource("2_3kb1l")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Selection/MarginContainer" unique_id=261067802]
 layout_mode = 2
-theme = ExtResource("2_1l47o")
+theme = ExtResource("2_3kb1l")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Selection/MarginContainer/ScrollContainer" unique_id=1256880265]
 custom_minimum_size = Vector2(0, 400)
@@ -284,8 +275,9 @@ z_index = 2
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_rlwyw")
 
-[node name="GunName" parent="Selection/MarginContainer/ScrollContainer/VBoxContainer/GunPanelTemplate" unique_id=671223723 instance=ExtResource("5_fxwin")]
+[node name="GunName" parent="Selection/MarginContainer/ScrollContainer/VBoxContainer/GunPanelTemplate" unique_id=671223723 instance=ExtResource("6_jtrx1")]
 layout_mode = 2
 text = "rocket
 Launcher"
@@ -300,7 +292,7 @@ offset_transform_scale = Vector2(1, 1.05)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvrig")
 
-[node name="DPoint" parent="Selection/MarginContainer/ScrollContainer/VBoxContainer/GunPanelTemplate/Locked" unique_id=163706725 instance=ExtResource("4_fcpn8")]
+[node name="DPoint" parent="Selection/MarginContainer/ScrollContainer/VBoxContainer/GunPanelTemplate/Locked" unique_id=163706725 instance=ExtResource("4_vfokx")]
 layout_mode = 1
 anchors_preset = 12
 anchor_left = 0.0
@@ -318,20 +310,3 @@ theme_override_colors/font_outline_color = Color(0.52, 0.22507331, 0.08840001, 1
 theme_override_font_sizes/font_size = 15
 text = "999DP"
 horizontal_alignment = 0
-
-[node name="TextureRect" type="TextureRect" parent="Selection" unique_id=159549954]
-self_modulate = Color(1, 1, 1, 0.5803922)
-texture_filter = 3
-material = SubResource("CanvasItemMaterial_4aqgx")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -29.0
-offset_top = -40.0
-offset_right = 308.0
-offset_bottom = 377.33337
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("NoiseTexture2D_kvrig")

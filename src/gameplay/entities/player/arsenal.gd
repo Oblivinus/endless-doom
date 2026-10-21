@@ -40,7 +40,7 @@ func _init_loadout():
 	add_gun("hand", 0)
 	
 	var i_slot = 1
-	for gun_name: String in GameManager.players.get_player_arms():
+	for gun_name: String in GameManager.player_datas.get_player_arms():
 		add_gun(gun_name, i_slot)
 		i_slot += 1
 

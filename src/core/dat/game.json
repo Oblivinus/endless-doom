@@ -1,0 +1,41 @@
+{
+	"GunCost": {
+		"machine_gun": 50,
+		"shotgun": 100,
+		"super_shotgun": 0,
+		"rocket_launcher": 250
+	},
+
+	"Upgrades": {
+		"max_health": {
+			"max": 5,
+			"increase": 25,
+			"cost_increase": 20
+		},
+		
+		"armor_absorption": {
+			"max": 5,
+			"increase": 0.1,
+			"cost_increase": 20
+		},
+		
+		"move_speed": {
+			"max": 5,
+			"increase": 1.2,
+			"cost_increase": 10
+		},
+		
+		"damage": {
+			"max": 10,
+			"increase": 0.05,
+			"cost_increase": 10
+		},
+		
+		"drop_chance": {
+			"max": 3,
+			"increase": 0.1,
+			"cost_increase" : 30,
+			"init_cost" : 30
+		}
+	}
+}

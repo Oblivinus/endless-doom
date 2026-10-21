@@ -7,7 +7,7 @@ var min_hit_count_distance: float
 
 func _ready() -> void:
 	super()
-	min_damage = damage * 0.3
+	min_damage = damage * 0.2
 	min_distance = 2
 	min_hit_count_distance = max_range * 1/3
 

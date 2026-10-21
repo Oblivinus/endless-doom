@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://fsbdae8mcvt1"]
 
-[ext_resource type="Script" uid="uid://cxpnpqtu5spt0" path="res://src/core/ui/scripts/loadout_menus.gd" id="1_awrch"]
-[ext_resource type="PackedScene" uid="uid://b0hyfw5fjbn7j" path="res://src/core/ui/arms_control.tscn" id="1_nb2ri"]
+[ext_resource type="Script" uid="uid://cxpnpqtu5spt0" path="res://src/core/ui/scripts/loadoutmenus/loadout_menus.gd" id="1_awrch"]
+[ext_resource type="PackedScene" uid="uid://b0hyfw5fjbn7j" path="res://src/core/ui/loadoutmenus/arms_control.tscn" id="1_nb2ri"]
 [ext_resource type="Theme" uid="uid://cj1ou66i26pov" path="res://src/core/ui/main_ui_theme.tres" id="2_mqjlt"]
 [ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="3_awrch"]
+[ext_resource type="PackedScene" uid="uid://bvqfpm1naaom1" path="res://src/core/ui/loadoutmenus/stats_control.tscn" id="3_nranv"]
 
 [node name="LoadoutMenus" type="Control" unique_id=756494837 node_paths=PackedStringArray("close_button", "dpoints", "arms")]
 layout_mode = 3
@@ -39,6 +40,11 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
+[node name="Stats" parent="TabContainer/Stats" unique_id=2114732529 instance=ExtResource("3_nranv")]
+layout_mode = 1
+offset_left = -356.5
+offset_right = 356.5
+
 [node name="CloseButton" type="Button" parent="." unique_id=529385221]
 layout_mode = 1
 anchors_preset = 1
@@ -52,7 +58,7 @@ grow_horizontal = 0
 scale = Vector2(1, 0.9964208)
 theme = ExtResource("2_mqjlt")
 
-[node name="RedText" parent="CloseButton" unique_id=1029813179 instance=ExtResource("3_awrch")]
+[node name="RedText" parent="CloseButton" unique_id=1367428730 instance=ExtResource("3_awrch")]
 layout_mode = 1
 anchors_preset = 14
 anchor_left = 0.0

@@ -9,4 +9,4 @@ func _ready() -> void:
 	close_button.pressed.connect(func(): visible = false )
 
 func _process(_delta: float) -> void:
-	dpoints.text = "DPoints: " + str(GameManager.players.d_point)
+	dpoints.text = "DPoints: " + str(GameManager.player_datas.d_point)

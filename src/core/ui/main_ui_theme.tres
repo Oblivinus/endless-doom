@@ -102,6 +102,11 @@ texture_margin_right = 1.0
 texture_margin_bottom = 1.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 58, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdboa"]
+content_margin_left = 3.0
+bg_color = Color(0.12591082, 0.12591085, 0.12591076, 1)
 
 [resource]
 Button/styles/hover = SubResource("StyleBoxTexture_kpeoo")
@@ -119,3 +124,5 @@ TabContainer/styles/panel = SubResource("StyleBoxFlat_kaym2")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_wkpmv")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_gg2ah")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_pqvuf")
+VScrollBar/constants/padding_right = 0
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_rdboa")

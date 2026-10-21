@@ -1,4 +1,4 @@
-extends ExplodingProjectile
+class_name PlayerRocket extends ExplodingProjectile
 
 @export var max_damage: float = 100.0
 @export var full_damage_radius: float = 2.0

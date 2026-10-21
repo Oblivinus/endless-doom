@@ -9,14 +9,16 @@ const MOUSE_SENS = 0.25
 @export var player_stat_ui: PlayerStatUi
 
 @export_category("Stats")
-@export var armor_absorption: float = 0.35
+@export var armor_absorption: float = 0.35:
+	set(value):
+		armor_absorption = clampf(value, 0, 1)
 @export var armor: float = 100:
 	set(value):
 		armor = clamp(value, 0, max_health)
 		property_changed.emit("armor", armor)
+@export var damage_boost: float = 1.0
 
 var colorrect: ColorRect
-
 var sway_speed: float = 2.5
 var sway_amount: float = 0.18
 var time_passed: float = 0.0
@@ -83,8 +85,14 @@ func _on_died():
 func hurt(damage: float, ..._args: Array) -> void:
 	if is_dead: return
 	if armor > 0:
+		var armor_damage = damage * armor_absorption
+		var preclamp_armor_health = armor - armor_damage
 		var health_damage = damage * (1 - armor_absorption)
-		armor -= damage * armor_absorption
+		
+		if preclamp_armor_health < 0:
+			health_damage -= preclamp_armor_health
+		
+		armor = preclamp_armor_health
 		health -= health_damage
 		on_hurt.emit(health_damage)
 	else:

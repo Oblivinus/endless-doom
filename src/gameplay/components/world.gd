@@ -31,9 +31,9 @@ class ItemSpawner:
 		item.apply_central_impulse(launch_vect)
 	
 	func spawn_ammo() -> Ammos:
-		if not GameManager.players.get_player() or GameManager.players.get_player_ammo_used().is_empty(): return
+		if not GameManager.player_datas.get_player() or GameManager.player_datas.get_player_ammo_used().is_empty(): return
 		
-		var used_ammo: Array[Enums.GUN_TYPES] = GameManager.players.get_player_ammo_used()
+		var used_ammo: Array[Enums.GUN_TYPES] = GameManager.player_datas.get_player_ammo_used()
 		var item: Item
 		item = item_dict["ammos"].call() as Ammos
 		item.ammo_type = used_ammo.pick_random()

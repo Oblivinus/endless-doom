@@ -55,7 +55,7 @@ func _on_start():
 		_open_loadout()
 	else:
 		var loadout_on_start := loadout_menus.arms.get_equipped_string()
-		GameManager.players.set_player_arms(loadout_on_start)
+		GameManager.player_datas.set_player_arms(loadout_on_start)
 		GameManager.change_playing(true)
 
 func _open_loadout():

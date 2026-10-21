@@ -8,7 +8,7 @@ var reload_sfx: Array[StringName] = [
 
 func _ready() -> void:
 	super()
-	min_damage = damage * 0.45
+	min_damage = damage * 0.3
 
 func play_sfx(sfx_value: int = 0) -> void:
 	if sfx_value == 0:

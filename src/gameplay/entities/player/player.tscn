@@ -15,7 +15,6 @@ arsenal = NodePath("Arsenal")
 camera = NodePath("Arsenal/Camera3D")
 player_stat_ui = NodePath("PlayerStatsUi")
 move_speed = 7.5
-max_health = 200.0
 use_acceleration = true
 accel = 15.0
 deaccel = 20.0

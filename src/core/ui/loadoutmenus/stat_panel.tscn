@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://bahvkwth7lxaf"]
+
+[ext_resource type="Texture2D" uid="uid://bhqdjk1xb6tuk" path="res://assets/ui/hud_plain2.png" id="1_p3y7r"]
+[ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="2_suuex"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kvrig"]
+texture = ExtResource("1_p3y7r")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(0.79, 0.79, 0.79, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35bqw"]
+content_margin_left = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_s6pcp"]
+Label/styles/normal = SubResource("StyleBoxFlat_35bqw")
+
+[node name="StatPanel" type="Panel" unique_id=416257766]
+custom_minimum_size = Vector2(300, 75)
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 39.0
+offset_bottom = 76.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_kvrig")
+
+[node name="DPoint" parent="." unique_id=1029813179 instance=ExtResource("2_suuex")]
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 236.0
+offset_top = -17.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_vertical = 0
+theme = SubResource("Theme_s6pcp")
+theme_override_colors/font_color = Color(1, 0.50200003, 0.17000002, 1)
+theme_override_colors/font_outline_color = Color(0.52, 0.22507331, 0.08840001, 1)
+theme_override_font_sizes/font_size = 10
+text = "999DP"
+horizontal_alignment = 2
+
+[node name="StatName" parent="." unique_id=1069310243 instance=ExtResource("2_suuex")]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 5.0
+offset_top = -31.0
+offset_right = 76.0
+offset_bottom = -5.0
+grow_horizontal = 1
+text = "MAX HEALTH"
+horizontal_alignment = 0
+
+[node name="StatLvl" parent="." unique_id=1476812397 instance=ExtResource("2_suuex")]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 205.0
+offset_bottom = 22.0
+grow_horizontal = 1
+theme_override_font_sizes/font_size = 15
+text = "lvl: 1"
+horizontal_alignment = 0
+
+[node name="AddButton" type="Button" parent="." unique_id=1123023370]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -12.0
+offset_right = -14.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="RedText" parent="AddButton" unique_id=1582013712 instance=ExtResource("2_suuex")]
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -1.0
+offset_right = 0.0
+offset_bottom = 0.0
+text = "+"

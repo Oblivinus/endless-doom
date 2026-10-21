@@ -62,7 +62,7 @@ func _ready() -> void:
 	player.arsenal.on_ammo_used.connect(_on_ammo_used)
 
 func _process(delta: float) -> void:
-	d_point_label.text = "DPoints: " + str(GameManager.players.d_point)
+	d_point_label.text = "DPoints: " + str(GameManager.player_datas.d_point)
 	
 	if screen_modulate.color.a > 0 and not player.is_dead:
 		screen_modulate.modulate.a = move_toward(screen_modulate.modulate.a, 0, delta)

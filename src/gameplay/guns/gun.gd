@@ -1,7 +1,10 @@
 class_name Gun extends Node3D
 
 @export_category("Stats")
-@export var damage: float = 10.0
+@export var damage: float = 10.0:
+	get():
+		if parent and parent.player: return damage * parent.player.damage_boost
+		else: return damage
 @export var max_range: float = 25.0
 @export var h_spread: float = 0.0
 @export var v_spread: float = 45.0

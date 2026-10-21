@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bvqfpm1naaom1"]
+
+[ext_resource type="Script" uid="uid://cive4netsxxvq" path="res://src/core/ui/scripts/loadoutmenus/stats.gd" id="1_2ymog"]
+[ext_resource type="PackedScene" uid="uid://bahvkwth7lxaf" path="res://src/core/ui/loadoutmenus/stat_panel.tscn" id="1_06u4n"]
+
+[node name="Stats" type="Panel" unique_id=2114732529 node_paths=PackedStringArray("container", "stat_templete")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -352.0
+offset_top = -160.0
+offset_right = 361.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("1_2ymog")
+container = NodePath("GridContainer")
+stat_templete = NodePath("GridContainer/StatPanel")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1918784849]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="StatPanel" parent="GridContainer" unique_id=416257766 instance=ExtResource("1_06u4n")]
+layout_mode = 2
