@@ -25,7 +25,7 @@ func _on_enemy_died(enemy: Enemy):
 			var player: Player = enemy.prev_dmg_info.by as Player
 			player.arsenal.register_kill(enemy)
 	
-	if is_finisher: return
+	if is_finisher or enemy is LostSoul: return
 	
 	var last_pos: Vector3 = enemy.global_position
 	var chance = BASE_DROP_CHANCE * enemy.item_drop_chance_multiplier * GameManager.player_datas.player.drop_chance_multiplier

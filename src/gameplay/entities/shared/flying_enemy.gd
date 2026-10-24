@@ -26,6 +26,10 @@ func get_enemy_floor_Y_offset() -> float:
 		return shape.radius - 0.1
 	return super()
 
+func _ready() -> void:
+	super()
+	motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
+
 func _process_gravity(delta):
 	if is_dead: super(delta)
 

@@ -45,6 +45,7 @@ var pathfind: Pathfind
 #region IN COMBAT
 @export_category("In Combat")
 @export var attack_delay: float = 0.7
+@export var can_be_finish: bool = true
 var attack_timer: Timer
 var attack_pos: Vector3 = Vector3.ZERO
 var is_attacking: bool = false
@@ -116,8 +117,6 @@ func _ready() -> void:
 	add_child(attack_timer)
 	
 	if attack_range > 0:
-		range_attack_area = _create_range_area(FrustumShape.new(Vector2(0.5, 1), 0, 45, attack_range))
-		add_child(range_attack_area)
 		has_range = true
 	if melee_range > 0:
 		melee_attack_area = _create_range_area(FrustumShape.new(Vector2(1.5, 2), 0, 0, melee_range))
@@ -144,7 +143,7 @@ func hurt(damage: float, ...args:Array) -> void:
 	var dmg_info : CombatManager.CombatInfo = args[0]
 	if not is_dead: on_hurt_ex.emit(dmg_info)
 	
-	if health - damage <= 0 and not finisher_ready:
+	if health - damage <= 0 and not finisher_ready and can_be_finish:
 		if randf() <= CombatManager.FINISHER_CHANCE:
 			enter_finisher_state()
 		else:
@@ -312,7 +311,7 @@ func stop_move() -> void:
 	pathfind.stop()
 
 func get_enemies_in_attack_range() -> Array[Player]:
-	if attack_range <= 0: return []
+	if attack_range <= 0 or not range_attack_area: return []
 	var bodies = range_attack_area.get_overlapping_bodies()
 	var players: Array[Player] = []
 	for b in bodies:

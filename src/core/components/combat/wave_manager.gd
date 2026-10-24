@@ -9,7 +9,7 @@ var initial_spawn_interval: float = 0.5
 @export var enemy_wave_entries: Array[WaveEntry]
 
 var enemies_parent: Node
-var current_wave: int = 3
+var current_wave: int = 7
 
 var max_enemies: int = 10
 var total_enemies: int = 0

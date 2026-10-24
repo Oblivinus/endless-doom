@@ -239,7 +239,7 @@ idle_sfx = Array[String]([])
 dead_sfx = Array[String](["pinky/pinky_death"])
 hurt_sfx = Array[String]([])
 attack_delay = 0.6
-move_speed = 6.0
+move_speed = 4.5
 max_health = 200.0
 auto_rotate = true
 

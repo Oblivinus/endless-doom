@@ -29,6 +29,7 @@ size = Vector2(1.5, 1)
 mesh = SubResource("QuadMesh_6o5go")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=499780113]
+process_priority = 5
 visibility_layer = 0
 anchors_preset = 15
 anchor_right = 1.0

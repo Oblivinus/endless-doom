@@ -71,5 +71,6 @@ void fragment() {
 	}
 
 	ALBEDO = base;
+	ALPHA_SCISSOR_THRESHOLD = 0.5;
 	ALPHA = alpha;
 }
