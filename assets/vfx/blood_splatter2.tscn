@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://br0fvb51xshoo"]
+
+[sub_resource type="Curve" id="Curve_08hh8"]
+_limits = [0.0, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0.12715736), 0.0, 0.0, 0, 0, Vector2(0.99600005, 0.031472087), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_71dq4"]
+curve = SubResource("Curve_08hh8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8kbla"]
+use_rotation_3d = true
+rotation_3d_min = Vector3(1, 0, 0)
+rotation_3d_max = Vector3(1, 0, 0)
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+gravity = Vector3(0, -12, 0)
+scale_min = 0.79999995
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_71dq4")
+collision_mode = 1
+collision_friction = 0.25
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w61o3"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_hho48"]
+material = SubResource("StandardMaterial3D_w61o3")
+
+[node name="BloodSplatter" type="Node3D" unique_id=49078262]
+
+[node name="Blood" type="GPUParticles3D" parent="." unique_id=1876923368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55215836, 0)
+emitting = false
+amount = 100
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 0
+collision_base_size = 0.05
+process_material = SubResource("ParticleProcessMaterial_8kbla")
+draw_pass_1 = SubResource("SphereMesh_hho48")

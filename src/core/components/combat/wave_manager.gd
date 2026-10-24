@@ -1,5 +1,7 @@
 class_name WaveManager extends Node
 
+const INTERMISSION_TIME: int = 10
+
 var initial_spawn_interval: float = 0.5
 
 @export var enemy_spawn_pos: Array[Marker3D]
@@ -50,7 +52,7 @@ func _ready() -> void:
 	
 	between_wave = Timer.new()
 	between_wave.one_shot = true
-	between_wave.wait_time = 1
+	between_wave.wait_time = INTERMISSION_TIME
 	add_child(between_wave)
 	
 	spawn_timer = Timer.new()

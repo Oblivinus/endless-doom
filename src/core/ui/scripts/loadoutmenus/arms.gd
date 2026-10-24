@@ -99,6 +99,8 @@ func equip(gun_panel: GunPanel) -> bool:
 	if arm_equiped.size() >= arm_panels.size(): return false
 	arm_equiped.append(gun_panel)
 	gun_panel.panel.visible = false
+	
+	GameManager.player_datas.set_player_arms(get_equipped_string())
 	update_display()
 	return true
 
@@ -108,6 +110,8 @@ func unequip(arm_slot: int) -> void:
 	var gun_panel: GunPanel = arm_equiped[arm_slot]
 	gun_panel.deselect()
 	arm_equiped.remove_at(arm_slot)
+	
+	GameManager.player_datas.set_player_arms(get_equipped_string())
 	update_display()
 
 func update_display() -> void:

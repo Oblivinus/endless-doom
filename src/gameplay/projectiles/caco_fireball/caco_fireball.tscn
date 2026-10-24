@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://x2qt6w4t0dhf"]
+
+[ext_resource type="Texture2D" uid="uid://cheqkc82601wy" path="res://assets/gameplay/enemies/cacodemon.png" id="1_aark5"]
+
+[sub_resource type="GDScript" id="GDScript_kvrig"]
+resource_name = "caco_fireball"
+script/source = "extends DamageProjectile
+
+func _on_hit(other: Node3D):
+	var last_pos = global_position
+	super(other)
+	
+	var vfx = VFX.new(\"caco_fireball_explosion\", last_pos)
+	Globals.world.add_child(vfx)
+	vfx._one_shot = true
+	vfx.restart()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2w7gb"]
+atlas = ExtResource("1_aark5")
+region = Rect2(0, 640, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to2oe"]
+atlas = ExtResource("1_aark5")
+region = Rect2(80, 640, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dc55l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2w7gb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_to2oe")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="CacoFireball" type="RigidBody3D" unique_id=223794259]
+script = SubResource("GDScript_kvrig")
+speed = 20.0
+hit_mask = 3
+metadata/_custom_type_script = "uid://bxkcvbncjy6qo"
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=136299349]
+pixel_size = 0.06
+billboard = 2
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_dc55l")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.88115937

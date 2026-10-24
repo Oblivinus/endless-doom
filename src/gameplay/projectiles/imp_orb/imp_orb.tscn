@@ -20,12 +20,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vae7f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="Projectile" type="RigidBody3D" unique_id=546640503]
+[node name="ImpOrb" type="RigidBody3D" unique_id=546640503]
 script = ExtResource("1_1aslq")
 damage = 8.0
 speed = 20.0

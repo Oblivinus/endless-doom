@@ -1,95 +1,156 @@
 class_name Finisher extends Node3D
 
+const FINISH_DAMAGE: float = 9999.0
+const MOVE_LERP_SPEED: float = 30.0
+const REACH_DISTANCE: float = 0.1
+const STAND_OFFSET: float = 1.2
+const SLOW_TIME_SCALE: float = 0.35
+const SLOW_DURATION: float = 0.35
+const RAY_MASK: Array[int] = [2, 5]
+const INVICIBILITY_GRACE: float = 0.25
+
 @export var arsenal: Arsenal
+@export var finisher_delay: float = 0.05
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var anim: AnimationPlayer = $Sprite2D/AnimationPlayer
 
+var delay_timer: Timer
 var reached: bool = false
 var finishing: bool = false
 var target_pos: Vector3
 var enemy: Enemy
+var time_took: float = 0.0
 
 var hitbox: Area3D
 
 func _ready() -> void:
+	_create_hitbox()
+	_create_delay_timer()
+	sprite.visible = false
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		finish_it()
+
+func _process(delta: float) -> void:
+	if not finishing or target_pos == Vector3.ZERO: 
+		time_took = 0
+		return
+	
+	var player := arsenal.player
+	player.global_position = lerp(player.global_position, target_pos, delta * MOVE_LERP_SPEED)
+	player.look_at_pos(enemy.global_position)
+	if reached: return
+	
+	if time_took >= 0.15:
+		_move_to_reached()
+		return
+	
+	if player.global_position.distance_to(target_pos) <= REACH_DISTANCE:
+		_move_to_reached()
+	
+	time_took += delta
+
+#region SETUP
+func _create_hitbox() -> void:
 	hitbox = Area3D.new()
 	hitbox.collision_layer = 0
 	hitbox.collision_mask = (1 << 2)
 	add_child(hitbox)
 	
-	var collision_shape3d: CollisionShape3D = CollisionShape3D.new()
+	var collision_shape3d := CollisionShape3D.new()
 	collision_shape3d.shape = FrustumShape.new(Vector2(2, 3), 15, 45, 12)
 	hitbox.add_child(collision_shape3d)
-	
-	sprite.visible = false
 
-func _input(event: InputEvent) -> void:
-	if not event.is_action_pressed("interact"): return
-	finish_it()
+func _create_delay_timer() -> void:
+	delay_timer = Timer.new()
+	delay_timer.one_shot = true
+	delay_timer.wait_time = finisher_delay
+	add_child(delay_timer)
+#endregion
 
-func _process(delta: float) -> void:
-	if not finishing or target_pos == Vector3.ZERO: return
-	var player_pos := arsenal.player.global_position
-	
-	arsenal.player.global_position = lerp(player_pos, target_pos, delta * 30.0)
-	arsenal.player.look_at_pos(enemy.global_position)
-	
-	if arsenal.player.global_position.distance_to(target_pos) <= 0.1:
-		_move_to_reached()
+#region FINISHER LOGIC
+func finish_it() -> void:
+	if finishing or delay_timer.time_left > 0: return
+	_check_for_finisher()
 
 func _check_for_finisher() -> void:
-	var enemies = hitbox.get_overlapping_bodies()
-	enemies = enemies.filter(func(body): return body.is_in_group("finisher_ready"))
-	enemies.sort_custom(func(a: Node3D, b: Node3D): return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position))
-	
+	var enemies := hitbox.get_overlapping_bodies().filter(
+		func(body): return body.is_in_group("finisher_ready")
+	)
 	if enemies.is_empty(): return
+	
+	enemies.sort_custom(
+		func(a: Node3D, b: Node3D):
+			return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position)
+	)
+	
+	var nearest: Enemy = enemies[0]
+	if not _check_ray_cast(nearest.global_position).is_empty(): return
+	
 	finishing = true
-	
-	var enemy: Enemy = enemies[0]
-	var query = _check_ray_cast(enemy.global_position)
-	
-	if not query.is_empty(): 
-		finishing = false
-		return
-	_move_to_enemy(enemy)
+	_move_to_enemy(nearest)
 
 func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 	var raycast = Raycast3d.new(self)
 	raycast.from_to(global_position, final_pos)
-	raycast.mask([2, 5])
-	var query = raycast.intersect()
-	
-	return query
+	raycast.mask(RAY_MASK)
+	return raycast.intersect()
 
 func _move_to_enemy(target_enemy: Enemy) -> void:
 	enemy = target_enemy
-	target_pos = enemy.global_position + (arsenal.player.global_basis.z * 2)
-	
+	target_pos = enemy.global_position + (arsenal.player.global_basis.z * STAND_OFFSET)
 	_set_player_for_finisher(true)
 
-func _set_player_for_finisher(value: bool) -> void:
-	arsenal.player.disable_movement(value)
-	arsenal.player.camera_disable = value
-	arsenal.player.invincible = value
-
 func _move_to_reached() -> void:
-	var combat_info = CombatManager.CombatInfo.new("forceful", arsenal.player)
-	play_anim()
-	enemy.hurt(9999, combat_info)
 	reached = true
+	play_anim()
 	
-	Engine.time_scale = 0.35
-	await get_tree().create_timer(0.35).timeout
+	var combat_info = CombatManager.CombatInfo.new("forceful", arsenal.player)
+	combat_info.finisher = true
+	enemy.hurt(enemy.max_health, combat_info, true)
+	arsenal.player.health += 8
+	CombatManager._on_finisher(enemy)
+	
+	Audio3D.new("guns/projectile_contact", arsenal).play()
+	
+	arsenal.player.global_position = target_pos
+	arsenal.player.player_camera.shake(0.5)
+	arsenal.finisher_signal.emit(enemy)
+	
+	Engine.time_scale = SLOW_TIME_SCALE
+	await get_tree().create_timer(SLOW_DURATION).timeout
 	Engine.time_scale = 1.0
-	_set_player_for_finisher(false)
 	
+	_reset()
+	delay_timer.start(finisher_delay)
+
+func _reset() -> void:
+	_set_player_for_finisher(false)
 	reached = false
 	target_pos = Vector3.ZERO
 	enemy = null
 	finishing = false
 	stop_anim()
 
+func _set_player_for_finisher(value: bool) -> void:
+	var player := arsenal.player
+	player.disable_movement(value)
+	player.camera_disable = value
+	
+	if value:
+		player.invincible = true
+	else:
+		_end_invincibility()
+
+func _end_invincibility() -> void:
+	await get_tree().create_timer(INVICIBILITY_GRACE).timeout
+	if not finishing:
+		arsenal.player.invincible = false
+#endregion
+
+#region ANIMATION
 func play_anim() -> void:
 	sprite.visible = true
 	anim.play("finisher_anim")
@@ -97,7 +158,4 @@ func play_anim() -> void:
 func stop_anim() -> void:
 	sprite.visible = false
 	anim.stop()
-
-func finish_it() -> void:
-	if finishing: return
-	_check_for_finisher()
+#endregion

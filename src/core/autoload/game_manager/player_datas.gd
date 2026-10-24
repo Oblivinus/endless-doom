@@ -4,11 +4,11 @@ static var upgrades_dat: Dictionary = GameData.get_upgrades_dictionary()
 
 var player: Player
 var game_manager: GameManager
-var d_point: int = 9999:
+var d_point: int = 1000:
 	set(value):
 		d_point = clamp(value, 0, 999_999)
 
-var player_loadout: Array[StringName]
+var player_arms: Array[StringName]
 var owned_gun: Array[StringName] = []
 var player_upgrades: Dictionary[StringName, Upgrade] = {}
 
@@ -18,6 +18,7 @@ class Upgrade:
 	var current_lvl: int = 1
 	var max_lvl: int
 	var increase: float
+	var base_cost: int = 20
 	var cost: int = 20
 	var cost_increase: int;
 	
@@ -25,19 +26,34 @@ class Upgrade:
 		up_name =nameStr
 		max_lvl = int( def["max"] )
 		increase = def["increase"]
-		cost = def.get("init_cost", 20)
+		
+		base_cost = def.get("init_cost", 20)
+		cost = get_cost()
 		cost_increase = def.get("cost_increase", 5)
 	
-	func up():
+	func up(level: int = 0):
 		if is_maxed(): return
-		current_lvl += 1
-		cost += cost_increase
+		if level > 0:
+			current_lvl = min(level, max_lvl)
+		else:
+			current_lvl = min(current_lvl + 1, max_lvl)
+		cost = get_cost()
+	
+	func get_cost() -> int:
+		return base_cost + (current_lvl - 1) * cost_increase
 	
 	func is_maxed() -> bool:
 		return current_lvl >= max_lvl
 	
 	func get_value() -> float:
 		return (current_lvl - 1) * increase
+	
+	func to_dict() -> Dictionary:
+		var result = {
+			"name": up_name,
+			"lvl": current_lvl
+		}
+		return result
 
 
 
@@ -47,6 +63,8 @@ func init(parent) -> void:
 	for upgrade_name: StringName in upgrades_dat:
 		player_upgrades[upgrade_name] = Upgrade.new( upgrade_name, upgrades_dat[upgrade_name] )
 	
+	load_player_data()
+
 func _on_player_respawn(new_player: Player):
 	player = new_player
 	player.on_kill.connect(_on_enemy_kill)
@@ -64,9 +82,8 @@ func _apply_upgrade() -> void:
 	player.max_health += player_upgrades["max_health"].get_value()
 	player.damage_boost += player_upgrades["damage"].get_value()
 	player.drop_chance_multiplier += player_upgrades["drop_chance"].get_value()
-	
-	pass
 
+#region PUBLIC PLAYER METHOD
 func get_player() -> Player:
 	return player
 	
@@ -75,13 +92,37 @@ func get_player_ammo_used() -> Array[Enums.GUN_TYPES]:
 	return arsenal.get_used_ammo()
 	
 func get_player_arms() -> Array[StringName]:
-	return player_loadout
+	return player_arms
 	
 func set_player_arms(value: Array[StringName]) -> void:
-	player_loadout = value
+	player_arms = value
 
+func load_player_data() -> void:
+	var disk_data: Dictionary = GameData.get_player_data()
+	print(disk_data)
+	
+	owned_gun.assign( disk_data.get("GunOwned", []) )
+	player_arms.assign( disk_data.get("PrevArm", []) )
+	d_point = disk_data.get("DPoints", d_point)
+	
+	for upgrade_data in disk_data.get("Upgrades", []):
+		if not player_upgrades.has(upgrade_data["name"]) or not upgrade_data.has("lvl"): continue
+		var upgrade = player_upgrades[upgrade_data["name"]]
+		upgrade.up(upgrade_data["lvl"])
+#endregion
+
+#region PLAYER DATA METHOD
 func get_upgrades() -> Dictionary:
 	return player_upgrades
+
+func get_upgrades_data() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	
+	for upgrade_name: StringName in player_upgrades:
+		var upgrade = player_upgrades[upgrade_name]
+		result.append(upgrade.to_dict())
+	
+	return result
 
 func up_upgrade(up_name: StringName) -> bool:
 	if not player_upgrades.has(up_name): return false
@@ -108,6 +149,21 @@ func buy_gun(gun_name: StringName) -> bool:
 		owned_gun.append(gun_name)
 			
 	return true
-	
+
 func get_owned_guns() -> Array[StringName]:
 	return owned_gun
+
+func get_player_data() -> Dictionary:
+	var gun_owned = get_owned_guns()
+	var upgrades = get_upgrades_data()
+	var prev_arm = get_player_arms()
+	
+	var result = {
+		"GunOwned": gun_owned,
+		"Upgrades": upgrades,
+		"PrevArm": prev_arm,
+		"DPoints": d_point,
+	}
+	
+	return result
+#endregion

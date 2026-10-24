@@ -28,6 +28,7 @@ var slot_number: int = 1:
 		slot_number = wrapi(value, 0, guns_slot.size())
 
 signal on_ammo_used(type: String, amount: int)
+signal finisher_signal(enemy: Enemy)
 
 func _ready() -> void:
 	switch_timer = Timer.new()
@@ -82,7 +83,9 @@ func register_kill(enemy: Enemy):
 
 func shoot_current() -> void:
 	if player.is_dead or finisher.finishing: return
-	if current_gun: current_gun.shoot()
+	if current_gun: 
+		if current_gun.ready_to_shoot(): player.player_camera.shake(current_gun.gun_shake)
+		current_gun.shoot()
 
 func add_gun(gun_name:String, slot: int) -> void:
 	if not Ref.guns.has(gun_name): return

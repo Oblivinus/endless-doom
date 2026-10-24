@@ -14,7 +14,7 @@ class ItemSpawner:
 	func _init(new_parent: World) -> void:
 		parent = new_parent
 	
-	func spawn(item_name: String, pos: Vector3 = Vector3.ZERO) -> void:
+	func spawn(item_name: String, pos: Vector3 = Vector3.ZERO, offset: Vector3 = Vector3.ZERO) -> void:
 		if not item_dict.has(item_name.to_lower()): return
 		var launch_vect: Vector3 = Vector3(0, 5, -5).normalized()  * 20
 		var rand_angle: int = randi_range(-180, 180)
@@ -25,10 +25,11 @@ class ItemSpawner:
 			item = spawn_ammo()
 		else:
 			item = item_dict[item_name].call()
-		item.position =  pos
+		item.position =  pos + offset
 		item.expired = true
 		parent.get_items_node().add_child(item)
 		item.apply_central_impulse(launch_vect)
+		delay_pick(item)
 	
 	func spawn_ammo() -> Ammos:
 		if not GameManager.player_datas.get_player() or GameManager.player_datas.get_player_ammo_used().is_empty(): return
@@ -39,6 +40,11 @@ class ItemSpawner:
 		item.ammo_type = used_ammo.pick_random()
 		item.amount = [2, 6].pick_random()
 		return item
+	
+	func delay_pick(item: Item) -> void:
+		item.pickable = false
+		await parent.get_tree().create_timer(0.15).timeout
+		item.pickable = true
 
 var item_spawner: ItemSpawner
 

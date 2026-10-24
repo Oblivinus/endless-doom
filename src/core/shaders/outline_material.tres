@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b8h43iixq7gia"]
+
+[ext_resource type="Shader" uid="uid://om752ncohwmo" path="res://src/core/shaders/blinking_outline.gdshader" id="1_85rar"]
+[ext_resource type="Texture2D" uid="uid://c1x7wpl4omija" path="res://assets/gameplay/enemies/zombie.png" id="2_oxtyc"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_85rar")
+shader_parameter/texture_albedo = ExtResource("2_oxtyc")
+shader_parameter/outline_opacity = 0.400000019
+shader_parameter/hframes = 1
+shader_parameter/vframes = 1
+shader_parameter/billboard_mode = 2
+shader_parameter/outline_enabled = true
+shader_parameter/outline_width = 1
+shader_parameter/blink_interval = 0.1
+shader_parameter/color_a = Color(1, 0.9, 0, 1)
+shader_parameter/color_b = Color(0.6, 0, 1, 1)

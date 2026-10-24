@@ -183,6 +183,7 @@ _data = {
 
 [node name="SuperShotgun" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
 script = ExtResource("1_3p03c")
+gun_shake = 0.45
 damage = 120.0
 max_range = 18.0
 h_spread = 25.0

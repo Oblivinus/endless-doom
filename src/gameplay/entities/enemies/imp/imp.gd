@@ -1,8 +1,8 @@
 class_name Imp extends Enemy
 
 func attack_action() -> void:
-	await get_tree().create_timer(0.35).timeout
 	var projectile = ProjectileLauncher.new("imp_orb", global_position)
+	projectile.projectile.damage = attack_damage
 	projectile.launch(attack_pos)
 
 func melee_attack_action() -> void:

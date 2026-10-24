@@ -7,6 +7,7 @@
 @export var expired: bool = false
 @export var lifetime: float = 30
 
+var pickable: bool = true
 var collision_area: Area3D
 var _lifetime_timer: Timer
 
@@ -51,6 +52,7 @@ func _ready() -> void:
 		_lifetime_timer.start()
 
 func _on_pickup(other: Node3D) -> void:
+	if not pickable: return
 	var hum: Humanoid = other
 	if hum is Humanoid: hum.on_pick_up.emit(self)
 	

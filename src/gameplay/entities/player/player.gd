@@ -7,6 +7,7 @@ const MOUSE_SENS = 0.25
 @export var camera: Camera3D
 
 @export var player_stat_ui: PlayerStatUi
+var player_camera: Camera
 
 @export_category("Stats")
 @export var armor_absorption: float = 0.35:
@@ -35,9 +36,9 @@ signal on_kill(enemy: Enemy)
 func _ready() -> void:
 	super()
 	
-	base_y = camera.position.y
 	health = 100.0
 	colorrect = player_stat_ui.screen_modulate
+	player_camera = Camera.new(self)
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	on_hurt.connect(_on_hurt)
@@ -67,7 +68,7 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	
-	cam_sway(delta)
+	player_camera._process(delta)
 	
 	if movement_disabled: 
 		stop_move() 
@@ -116,6 +117,8 @@ func hurt(damage: float, ..._args: Array) -> void:
 		on_hurt.emit(health_damage)
 	else:
 		super(damage)
+	
+	player_camera.shake(0.1)
 
 var sway_reset_deadzone: float
 func cam_sway(delta):
@@ -128,3 +131,58 @@ func cam_sway(delta):
 		if sway_reset_deadzone >= 0.15:
 			camera.position.y = move_toward(camera.position.y, base_y, delta * sway_speed)
 			time_passed = 0
+
+class Camera:
+	
+	var player: Player
+	var camera_node: Camera3D
+	
+	#region SWAY
+	var sway_reset_deadzone: float
+	var sway_speed: float = 2.5
+	var sway_amount: float = 0.18
+	var time_passed: float = 0.0
+	var base_y := 0.0
+	const TAU_F := TAU
+	#endregion
+	
+	#region SHAKE
+	var shake_fade: float = 10.0
+	var shake_strength: float = 0.0
+	#endregion
+	
+	func _init(i_player: Player) -> void:
+		player = i_player
+		camera_node = player.camera
+		base_y = camera_node.position.y
+	
+	func _process(delta: float) -> void:
+		_cam_sway(delta)
+		_cam_shake_process(delta)
+	
+	func _cam_shake_process(delta: float) -> void:
+		if shake_strength <= 0.0:
+			return
+		
+		camera_node.h_offset = randf_range(-shake_strength, shake_strength)
+		camera_node.v_offset = randf_range(-shake_strength, shake_strength)
+		shake_strength = lerpf(shake_strength, 0.0, delta * shake_fade)
+		
+		if shake_strength < 0.001:
+			shake_strength = 0.0
+			camera_node.h_offset = 0.0
+			camera_node.v_offset = 0.0
+	
+	func _cam_sway(delta):
+		if player.is_moving: 
+			sway_reset_deadzone = 0.0
+			time_passed= fmod(time_passed + delta * sway_speed, TAU_F)
+			camera_node.position.y = base_y + sin(time_passed * sway_speed) * sway_amount
+		else:
+			sway_reset_deadzone += delta
+			if sway_reset_deadzone >= 0.15:
+				camera_node.position.y = move_toward(camera_node.position.y, base_y, delta * sway_speed)
+				time_passed = 0
+	
+	func shake(strength: float = 0.2) -> void:
+		shake_strength = maxf(shake_strength, strength)

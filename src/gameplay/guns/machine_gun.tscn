@@ -163,6 +163,7 @@ _data = {
 
 [node name="MachineGun" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
 script = ExtResource("1_445m7")
+gun_shake = 0.15
 damage = 20.0
 max_range = 20.0
 fire_rate = 6.0

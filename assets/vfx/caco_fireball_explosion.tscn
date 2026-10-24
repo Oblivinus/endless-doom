@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bv8wdg01pvrmy"]
+
+[ext_resource type="Texture2D" uid="uid://cheqkc82601wy" path="res://assets/gameplay/enemies/cacodemon.png" id="1_pnnpa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4c1m"]
+atlas = ExtResource("1_pnnpa")
+region = Rect2(160, 640, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2fve"]
+atlas = ExtResource("1_pnnpa")
+region = Rect2(240, 640, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0xfk"]
+atlas = ExtResource("1_pnnpa")
+region = Rect2(320, 640, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2chtt"]
+atlas = ExtResource("1_pnnpa")
+region = Rect2(400, 640, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2chtt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4c1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2fve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0xfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2chtt")
+}],
+"loop": 0,
+"name": &"play",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_fn3cr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_s4c1m"]
+resource_name = "play"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t2fve"]
+_data = {
+&"RESET": SubResource("Animation_fn3cr"),
+&"play": SubResource("Animation_s4c1m")
+}
+
+[node name="ImpOrbExplosion" type="Node3D" unique_id=1834059931]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=271614373]
+pixel_size = 0.08
+billboard = 1
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_2chtt")
+animation = &"play"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1566530047]
+libraries/ = SubResource("AnimationLibrary_t2fve")

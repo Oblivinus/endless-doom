@@ -55,11 +55,11 @@ func _ready() -> void:
 	player.property_changed.connect(_on_property_changed)
 	player.on_hurt.connect(_on_hurt)
 	player.on_died.connect(_on_died)
-	player.on_kill.connect(_on_kill)
 	player.on_pick_up.connect(_on_pick_up)
 	
 	idle_timer.timeout.connect(idle)
 	player.arsenal.on_ammo_used.connect(_on_ammo_used)
+	player.arsenal.finisher_signal.connect(_on_finisher)
 
 func _process(delta: float) -> void:
 	d_point_label.text = "DPoints: " + str(GameManager.player_datas.d_point)
@@ -125,7 +125,7 @@ func idle():
 	await play_face_anim("eye_right", 1.5)
 	idle_timer.start()
 
-func _on_kill(enemy: Enemy):
+func _on_finisher(enemy: Enemy):
 	if not on_smile_anim:
 		on_smile_anim = true
 		await play_face_anim("evil_smile", 1)

@@ -1,5 +1,7 @@
 class_name Gun extends Node3D
 
+@export var gun_shake: float = 0.2
+
 @export_category("Stats")
 @export var damage: float = 10.0:
 	get():
@@ -59,7 +61,7 @@ func _check_and_shoot() -> void:
 		var query = _check_ray_cast(enemy.global_position)
 		if query.is_empty():
 			hurt_enemy(enemy)
-			if enemy.is_dead: parent.register_kill(enemy)
+			parent.player.player_camera.shake(0.1)
 		else:
 			create_bullet_hit(query.position)
 		

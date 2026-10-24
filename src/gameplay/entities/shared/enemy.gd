@@ -55,6 +55,7 @@ var is_disturbed: bool = false
 var finisher_ready: bool = false
 var in_pain: bool = false
 var prev_dmg_info: CombatManager.CombatInfo
+var invincible: bool = false
 #endregion
 
 class Pathfind:
@@ -137,11 +138,14 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 
 func hurt(damage: float, ...args:Array) -> void:
+	var invincible_bypass: bool = args[1] if args.size() > 1 else false
+	if invincible and not invincible_bypass: return
+	
 	var dmg_info : CombatManager.CombatInfo = args[0]
 	if not is_dead: on_hurt_ex.emit(dmg_info)
 	
 	if health - damage <= 0 and not finisher_ready:
-		if randf() <= 1:
+		if randf() <= CombatManager.FINISHER_CHANCE:
 			enter_finisher_state()
 		else:
 			super(damage)
@@ -153,6 +157,12 @@ func enter_finisher_state() -> void:
 	health = 1
 	add_to_group("finisher_ready")
 	state_machine.change_state_name("finisher")
+	
+	_do_pain()
+	
+	invincible = true
+	await get_tree().create_timer(0.25).timeout
+	invincible = false
 
 #region CONNECTION
 func _on_hurt(_dmg: float) -> void:
@@ -223,6 +233,9 @@ func _process_pain() -> void:
 		new_pain_chance = pain_chance * prev_dmg_info.pain_modifier
 	
 	if randf() > new_pain_chance: return
+	_do_pain()
+
+func _do_pain() -> void:
 	if not is_dead: play_sound("pain")
 	in_pain = true
 	is_hurted = true
@@ -340,9 +353,17 @@ func is_in_sight(target_pos: Vector3) -> bool:
 func flash_sprite(color: Color):
 	$Sprite3D.modulate = color
 
+func flash_finisher_outline(value: bool = true) -> void:
+	var sprite: Sprite3D = get_node("Sprite3D")
+	if value:
+		sprite.material_override = Ref.outline_material.duplicate()
+		sprite.material_override.set_shader_parameter("texture_albedo", sprite.texture)
+	else:
+		sprite.material_override = null
+
 func play_sound(sound_name: String):
 	var sound_array: Array
-	var volume: float = -5.0
+	var volume: float = -2.5
 	
 	if sound_name.to_lower() == "pain":
 		sound_array = hurt_sfx

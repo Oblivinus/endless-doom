@@ -102,11 +102,12 @@ anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.0
-offset_top = -44.0
-offset_right = 0.0
-offset_bottom = -18.0
+offset_left = 2.0
+offset_top = -41.0
+offset_right = 2.0
+offset_bottom = -17.0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 19
 
 [node name="HealthName" parent="Control/SubViewportContainer/SubViewport/BarFrame/HealthFrame" unique_id=1404116355 instance=ExtResource("7_htym3")]
 layout_mode = 1
@@ -154,11 +155,13 @@ anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.5431314e-06
-offset_top = -44.0
-offset_right = -7.6293945e-06
-offset_bottom = -18.0
+offset_left = 1.0000026
+offset_top = -41.333336
+offset_right = 0.9999924
+offset_bottom = -17.333334
 grow_vertical = 0
+offset_transform_scale = Vector2(0.95, 0.95)
+theme_override_font_sizes/font_size = 19
 
 [node name="FaceHud" type="TextureRect" parent="Control/SubViewportContainer/SubViewport/BarFrame" unique_id=683985797]
 z_index = 2

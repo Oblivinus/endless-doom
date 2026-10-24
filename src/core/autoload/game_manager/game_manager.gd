@@ -21,6 +21,22 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_round") and playing:
 		change_playing(false)
+	
+	if event.is_action_pressed("clear_data"):
+		print("Clearing data")
+		clear_save_file()
+		
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			quit_game()
+		NOTIFICATION_WM_GO_BACK_REQUEST:
+			quit_game()
+		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_FOCUS_OUT:
+			save_game()
+		NOTIFICATION_CRASH:
+			save_game()
 
 func play_hearable_sound(audio_name: String, pos_or_node3: Variant) -> Audio3D:
 	var audio = Audio3D.new(audio_name, pos_or_node3)
@@ -50,3 +66,13 @@ func change_playing(value: bool = true):
 
 func change_scene(path: String):
 	get_tree().change_scene_to_file(path)
+
+func save_game() -> void:
+	GameData.save_player_data(player_datas.get_player_data())
+
+func clear_save_file() -> void:
+	GameData.save_player_data({})
+	quit_game()
+
+func quit_game() -> void:
+	get_tree().quit()

@@ -21,11 +21,10 @@ func  shoot() -> void:
 		launcher.launch(farthest_center_vector())
 	else:
 		for enemy: Humanoid in enemies:
-			launcher.launch(enemy.global_position + Vector3(0, -0.75, 0))
+			launcher.launch(enemy.global_position)
 			
 	launcher.projectile.on_blast_hit.connect(_on_blast_hit)
 
 func _on_blast_hit(targets: Array):
 	for humanoid: Humanoid in targets:
 		if humanoid is Player: continue
-		if humanoid is Humanoid and humanoid.is_dead: cache_parent.register_kill(humanoid)

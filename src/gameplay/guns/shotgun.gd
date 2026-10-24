@@ -24,7 +24,6 @@ func _check_and_shoot() -> void:
 		var query = _check_ray_cast(enemy.global_position)
 		if query.is_empty():
 			hurt_enemy(enemy)
-			if enemy.is_dead: parent.register_kill(enemy)
 		else:
 			create_bullet_hit(query.position)
 		
