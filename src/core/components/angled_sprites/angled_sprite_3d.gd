@@ -16,11 +16,11 @@ class_name AngledSprite3D extends Sprite3D
 }
 
 var playback: AnimationNodeStateMachinePlayback
-var blend_data: Dictionary[Vector2, AngleParameter]
 var facing_reference: Node3D
 
-var _last_param: AngleParameter
-var _last_node: StringName
+var _sector_params: Array[AngleParameter] = []
+var _base_angle: float = 0.0
+var _step: float = TAU / 8.0
 
 func _default_value() -> void:
 	angle_params = _default_table()
@@ -33,7 +33,7 @@ func _default_table() -> Array[AngleParameter]:
 		AngleParameter.new(AngleParameter.ANGLE.L, 2),
 		AngleParameter.new(AngleParameter.ANGLE.B_L, 3),
 		AngleParameter.new(AngleParameter.ANGLE.B, 4),
-		
+
 		AngleParameter.new(AngleParameter.ANGLE.F_R, 1, true),
 		AngleParameter.new(AngleParameter.ANGLE.R, 2, true),
 		AngleParameter.new(AngleParameter.ANGLE.B_R, 3, true)
@@ -41,25 +41,49 @@ func _default_table() -> Array[AngleParameter]:
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
-	
+
 	process_priority = 100
-	
+
 	if facing_reference == null:
 		facing_reference = get_parent() as Node3D
-	
+
 	if angle_params.is_empty():
 		angle_params = _default_table()
-	
+
+	_build_sector_table()
+
 	if anim_tree:
 		playback = anim_tree.get("parameters/playback") as AnimationNodeStateMachinePlayback
 
+func _build_sector_table() -> void:
+	var sorted := angle_params.duplicate()
+	sorted.sort_custom(func(a: AngleParameter, b: AngleParameter) -> bool:
+		return fposmod(a.angle_vect.angle(), TAU) < fposmod(b.angle_vect.angle(), TAU))
+	_sector_params.assign(sorted)
+
+	var n := _sector_params.size()
+	_step = TAU / n
+	_base_angle = fposmod(_sector_params[0].angle_vect.angle(), TAU)
+
+	for i in n:
+		var expected := fposmod(_base_angle + i * _step, TAU)
+		var actual := fposmod(_sector_params[i].angle_vect.angle(), TAU)
+		if absf(angle_difference(expected, actual)) > 0.05:
+			push_warning("AngledSprite3D: angle_params are not evenly spaced, sector lookup will be inaccurate.")
+			break
+
+func _get_sector(dir: Vector2) -> AngleParameter:
+	var a := fposmod(dir.angle() - _base_angle, TAU)
+	var idx := int(roundf(a / _step)) % _sector_params.size()
+	return _sector_params[idx]
+
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): return
-	if Globals.player == null or facing_reference == null or angle_params.is_empty(): return
+	if Globals.player == null or facing_reference == null or _sector_params.is_empty(): return
 
 	var dir: Vector2 = get_local_direction(Globals.player.global_position)
 	if dir == Vector2.ZERO: return
-	var angle_param := _get_nearest(dir)
+	var angle_param := _get_sector(dir)
 
 	var current_node: StringName
 	if anim_tree and playback:
@@ -82,29 +106,6 @@ func _process(_delta: float) -> void:
 	if flip_h != angle_param.flip:
 		flip_h = angle_param.flip
 
-func _get_nearest(input: Vector2) -> AngleParameter:
-	var best: AngleParameter = angle_params[0]
-	var best_dot := -INF
-	for p in angle_params:
-		var d := input.dot(p.angle_vect.normalized())
-		if d > best_dot:
-			best_dot = d
-			best = p
-	return best
-
 func get_local_direction(target_pos: Vector3) -> Vector2:
-	var d := target_pos - facing_reference.global_position
-	var flat := Vector2(d.x, d.z)
-	if flat.is_zero_approx(): return Vector2.ZERO
-	return flat.rotated(facing_reference.global_rotation.y)
-
-func get_nearest_blend_data(input: Vector2) -> AngleParameter:
-	var nearest_dist := INF
-	var result: AngleParameter = blend_data[Vector2(0, -1)]
-	
-	for key in blend_data.keys():
-		var dist = key.distance_squared_to(input)
-		if dist < nearest_dist:
-			nearest_dist = dist
-			result = blend_data[key]
-	return result
+	var local_pos := facing_reference.to_local(target_pos)
+	return Vector2(local_pos.x, local_pos.z)

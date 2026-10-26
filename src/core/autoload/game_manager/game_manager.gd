@@ -1,5 +1,7 @@
 extends Node
 
+const TESTING: bool = false
+
 static var guns_cost: Dictionary[StringName, int] = GameData.get_gun_cost_dictionary()
 
 signal on_sound(pos: Vector3)
@@ -17,6 +19,7 @@ var world: World:
 
 func _ready() -> void:
 	player_datas.init(self)
+	get_tree().scene_changed.connect(_scene_change)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_round") and playing:
@@ -38,6 +41,10 @@ func _notification(what: int) -> void:
 		NOTIFICATION_CRASH:
 			save_game()
 
+func _scene_change():
+	VFX.clear_line_pool()
+	ProjectileLauncher.clear_pool()
+
 func play_hearable_sound(audio_name: String, pos_or_node3: Variant) -> Audio3D:
 	var audio = Audio3D.new(audio_name, pos_or_node3)
 	var pos: Vector3
@@ -58,8 +65,8 @@ func player_respawn(new_player: Player):
 
 func change_playing(value: bool = true):
 	if value:
-		#change_scene("uid://behldxhl6rro4") #Test Map
-		change_scene("uid://n5inmiln7lwc")
+		if TESTING: change_scene("uid://behldxhl6rro4") #Test Map
+		else: change_scene("uid://n5inmiln7lwc")
 		playing = true
 	else:
 		change_scene("uid://b7bfro4lxkq1t")

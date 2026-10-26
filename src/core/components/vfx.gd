@@ -14,7 +14,7 @@ static var _line_pool: Array[Node3D] = []
 static func _get_line() -> Node3D:
 	while not _line_pool.is_empty():
 		var line: Node3D = _line_pool.pop_back()
-		if is_instance_valid(line):   # skips nodes freed by a scene change
+		if is_instance_valid(line):
 			return line
 	var new_line: Node3D = bullet_line_scene.instantiate()
 	new_line.visible = false
@@ -33,6 +33,9 @@ static func create_bullet_line(from: Vector3, to: Vector3) -> Node3D:
 
 static func create_bullet_line_direction(from: Vector3, to: Vector3, length: float) -> Node3D:
 	return create_bullet_line(from, from + from.direction_to(to) * length)
+
+static func clear_line_pool() -> void:
+	_line_pool.clear()
 
 func  _init(vfx_name: String, pos: Vector3 = Vector3.ZERO) -> void:
 	if vfx_name != "":

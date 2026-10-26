@@ -9,6 +9,11 @@ const SLOW_DURATION: float = 0.35
 const RAY_MASK: Array[int] = [2, 5]
 const INVICIBILITY_GRACE: float = 0.5
 
+const APPROACH_SPEED: float = 60.0
+const MAX_APPROACH_TIME: float = 0.4
+
+var stand_dir: Vector3
+
 @export var arsenal: Arsenal
 @export var finisher_delay: float = 0.05
 
@@ -34,23 +39,24 @@ func _input(event: InputEvent) -> void:
 		finish_it()
 
 func _process(delta: float) -> void:
-	if not finishing or target_pos == Vector3.ZERO: 
-		time_took = 0
+	if not finishing: 
+		time_took = 0.0
+		return
+	if not is_instance_valid(enemy):
+		_reset()
 		return
 	
 	var player := arsenal.player
-	player.global_position = lerp(player.global_position, target_pos, delta * MOVE_LERP_SPEED)
+	_update_target_pos()
 	player.look_at_pos(enemy.global_position)
 	if reached: return
 	
-	if time_took >= 0.15:
-		_move_to_reached()
-		return
-	
-	if player.global_position.distance_to(target_pos) <= REACH_DISTANCE:
-		_move_to_reached()
-	
+	player.global_position = player.global_position.move_toward(target_pos, APPROACH_SPEED * delta)
 	time_took += delta
+	
+	if player.global_position.distance_to(target_pos) <= REACH_DISTANCE \
+			or time_took >= MAX_APPROACH_TIME:
+		_move_to_reached()
 
 #region SETUP
 func _create_hitbox() -> void:
@@ -99,7 +105,13 @@ func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 
 func _move_to_enemy(target_enemy: Enemy) -> void:
 	enemy = target_enemy
-	target_pos = enemy.global_position + (arsenal.player.global_basis.z * STAND_OFFSET)
+	var player := arsenal.player
+	# horizontal direction from enemy toward the player, fixed at start
+	stand_dir = player.global_position - enemy.global_position
+	stand_dir.y = 0
+	stand_dir = stand_dir.normalized() if not stand_dir.is_zero_approx() else player.global_basis.z
+	_update_target_pos()
+	time_took = 0.0
 	_set_player_for_finisher(true)
 
 func _move_to_reached() -> void:
@@ -114,9 +126,11 @@ func _move_to_reached() -> void:
 	
 	Audio3D.new("guns/projectile_contact", arsenal).play()
 	
-	arsenal.player.global_position = target_pos
 	arsenal.player.player_camera.shake(0.5)
 	arsenal.finisher_signal.emit(enemy)
+	
+	if arsenal.player.global_position.distance_to(target_pos) < 1.0:
+		arsenal.player.global_position = target_pos
 	
 	Engine.time_scale = SLOW_TIME_SCALE
 	await get_tree().create_timer(SLOW_DURATION).timeout
@@ -124,6 +138,11 @@ func _move_to_reached() -> void:
 	
 	_reset()
 	delay_timer.start(finisher_delay)
+
+func _update_target_pos() -> void:
+	var player := arsenal.player
+	target_pos = enemy.global_position + stand_dir * STAND_OFFSET
+	#target_pos.y = player.global_position.y   # or clamp to a sane range for flyers
 
 func _reset() -> void:
 	_set_player_for_finisher(false)
