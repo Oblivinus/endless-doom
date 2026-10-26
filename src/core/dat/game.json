@@ -71,7 +71,7 @@
 		},
 		
 		"cyber_demon": {
-			"wave_appeared": 1,
+			"wave_appeared": 10,
 			"weight": 0.0,
 			"boss": true,
 			"wave_step": 5,

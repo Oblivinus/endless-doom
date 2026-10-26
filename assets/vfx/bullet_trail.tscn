@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cs8fnp8d00ruf"]
+
+[sub_resource type="GDScript" id="GDScript_u2sfu"]
+script/source = "extends Node3D
+
+@export var speed: float = 75.0
+@export var min_duration: float = 0.05
+@export var max_duration: float = 0.3
+
+var _age := 0.0
+var _duration := 0.1
+var _base_scale := Vector3.ONE
+
+func _ready() -> void:
+	set_process(false)
+
+func fire(from: Vector3, to: Vector3) -> void:
+	var dist := from.distance_to(to)
+	if dist < 0.01:
+		VFX.release_line(self)
+		return
+
+	scale = Vector3.ONE   # pooled nodes keep their old scale, reset before look_at
+	global_position = to
+	var dir := (to - from) / dist
+	var up := Vector3.UP if absf(dir.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT
+	look_at(from, up)
+
+	_base_scale = Vector3(1.0, 1.0, dist)
+	scale = _base_scale
+	_duration = clampf(dist / speed, min_duration, max_duration)
+	_age = 0.0
+	visible = true
+	set_process(true)
+
+func _process(delta: float) -> void:
+	_age += delta
+	if _age >= _duration:
+		VFX.release_line(self)
+		return
+	scale = _base_scale * (1.0 - _age / _duration)
+"
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_kvrig"]
+size = 0.1
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_31leo"]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.7607843, 0.2784314, 1)
+emission_enabled = true
+emission = Color(1, 0.7607843, 0.2784314, 1)
+emission_energy_multiplier = 2.0
+disable_receive_shadows = true
+
+[node name="BulletTrail" type="Node3D" unique_id=982074583]
+script = SubResource("GDScript_u2sfu")
+speed = null
+min_duration = null
+max_duration = null
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=277355497]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.5)
+mesh = SubResource("RibbonTrailMesh_kvrig")
+surface_material_override/0 = SubResource("ORMMaterial3D_31leo")

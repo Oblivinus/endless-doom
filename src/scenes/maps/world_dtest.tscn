@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bfkps1qbyrjm8" path="res://src/gameplay/entities/enemies/pain_elemental/pain_elemental.tscn" id="7_tty06"]
 [ext_resource type="PackedScene" uid="uid://daw4e6ejy8xij" path="res://src/gameplay/entities/enemies/pinky/pinky.tscn" id="9_0ls5i"]
 [ext_resource type="PackedScene" uid="uid://dor4qbs588l55" path="res://src/gameplay/entities/enemies/cacodemon/cacodemon.tscn" id="10_u2sfu"]
+[ext_resource type="PackedScene" uid="uid://1yaovy5ukx3o" path="res://src/gameplay/entities/enemies/imp/imp.tscn" id="11_yno3m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vhxb"]
 albedo_texture = ExtResource("5_2vhxb")
@@ -119,3 +120,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.188147, 0.8499994, 36.9440
 
 [node name="Cacodemon" parent="." unique_id=216759969 instance=ExtResource("10_u2sfu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7, 6.8, 70.7)
+
+[node name="Imp" parent="." unique_id=69260843 instance=ExtResource("11_yno3m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6, 0.8499992, 46)

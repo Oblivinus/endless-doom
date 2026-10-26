@@ -4,10 +4,10 @@ const FINISH_DAMAGE: float = 9999.0
 const MOVE_LERP_SPEED: float = 30.0
 const REACH_DISTANCE: float = 0.1
 const STAND_OFFSET: float = 1.2
-const SLOW_TIME_SCALE: float = 0.35
+const SLOW_TIME_SCALE: float = 0.9
 const SLOW_DURATION: float = 0.35
 const RAY_MASK: Array[int] = [2, 5]
-const INVICIBILITY_GRACE: float = 0.25
+const INVICIBILITY_GRACE: float = 0.5
 
 @export var arsenal: Arsenal
 @export var finisher_delay: float = 0.05

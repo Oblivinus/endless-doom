@@ -12,13 +12,13 @@ func _on_explosion(targets: Array):
 	vfx.restart()
 	
 	var audio = GameManager.play_hearable_sound("guns/projectile_contact", last_pos)
-	audio.max_db = 15.0
 	audio.play()
 	
 	for target in targets:
 		if target is Humanoid:
 			var dist: float = target.global_position.distance_to(last_pos)
 			var damage: float = _calculate_damage(dist)
+			if target is Player: damage = 0
 			
 			target.hurt(damage, CombatManager.CombatInfo.new("forceful", projectile_owner))
 			knockback_target(target)

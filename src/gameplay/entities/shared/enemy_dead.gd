@@ -1,7 +1,7 @@
 class_name EnemyDeadState extends State
 
 func enter() -> void:
-	parent.set_collision_layer_value(3, false)
+	parent.collision_layer = 0
 	CombatManager._on_enemy_died(parent)
 	
 	get_tree().create_timer(5).timeout.connect(func():

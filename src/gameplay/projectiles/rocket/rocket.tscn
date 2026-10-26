@@ -99,7 +99,6 @@ material = SubResource("StandardMaterial3D_nii7v")
 [node name="Rocket" type="RigidBody3D" unique_id=806922509]
 script = ExtResource("1_4056u")
 blast_radius = 5.0
-blast_mask = 5
 speed = 20.0
 collision_radius = 0.25
 hit_mask = 6

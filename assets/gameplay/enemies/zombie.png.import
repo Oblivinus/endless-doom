@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1x7wpl4omija"
-path="res://.godot/imported/zombie.png-a3586571b70416ce651760b0ad729bfb.ctex"
+path.s3tc="res://.godot/imported/zombie.png-a3586571b70416ce651760b0ad729bfb.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/gameplay/enemies/zombie.png"
-dest_files=["res://.godot/imported/zombie.png-a3586571b70416ce651760b0ad729bfb.ctex"]
+dest_files=["res://.godot/imported/zombie.png-a3586571b70416ce651760b0ad729bfb.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

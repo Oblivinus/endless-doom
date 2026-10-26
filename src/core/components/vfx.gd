@@ -8,6 +8,32 @@ var _content: Node3D
 
 var this_pos: Vector3
 
+static var bullet_line_scene: PackedScene = preload("uid://cs8fnp8d00ruf")
+static var _line_pool: Array[Node3D] = []
+
+static func _get_line() -> Node3D:
+	while not _line_pool.is_empty():
+		var line: Node3D = _line_pool.pop_back()
+		if is_instance_valid(line):   # skips nodes freed by a scene change
+			return line
+	var new_line: Node3D = bullet_line_scene.instantiate()
+	new_line.visible = false
+	GameManager.world.add_child(new_line)
+	return new_line
+
+static func release_line(line: Node3D) -> void:
+	line.visible = false
+	line.set_process(false)
+	_line_pool.append(line)
+
+static func create_bullet_line(from: Vector3, to: Vector3) -> Node3D:
+	var line := _get_line()
+	line.fire(from, to)
+	return line
+
+static func create_bullet_line_direction(from: Vector3, to: Vector3, length: float) -> Node3D:
+	return create_bullet_line(from, from + from.direction_to(to) * length)
+
 func  _init(vfx_name: String, pos: Vector3 = Vector3.ZERO) -> void:
 	if vfx_name != "":
 		_load(vfx_name)

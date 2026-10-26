@@ -2,8 +2,6 @@ class_name LostSoul extends FlyingEnemy
 
 const DASH_DURATION: float = 1.0
 
-var explode_hitbox: Area3D
-@export var explode_damage: float = 8.0
 var lifetime: float = -1
 var life_timer: Timer
 
@@ -24,6 +22,7 @@ static func spawn_to_attack(i_target: Humanoid, pos: Vector3, parent: Node, targ
 	this_lost_soul.target = i_target
 	this_lost_soul.lifetime = i_lifetime
 	
+	if this_lost_soul.target == null: return
 	var launch_pos = this_lost_soul.target.global_position
 	if target_pos != Vector3.ZERO:
 		launch_pos = target_pos
@@ -47,12 +46,10 @@ func _ready() -> void:
 		add_child(life_timer)
 		life_timer.start()
 		
-	explode_hitbox = _create_sphere_hitbox(2, [1])
 	dash_hitbox = _create_sphere_hitbox(0.55, [1])
 	
 	dash_hitbox.body_entered.connect( _on_hit )
 	
-	add_child(explode_hitbox)
 	add_child(dash_hitbox)
 
 func _create_sphere_hitbox(radius: float, masks: Array[int]) -> Area3D:
@@ -91,13 +88,6 @@ func _process_moving(delta: float) -> void:
 func _on_hit(obj: Humanoid):
 	if not obj is Humanoid: return
 	obj.hurt(attack_damage)
-
-func _on_died() -> void:
-	super()
-	var targets = explode_hitbox.get_overlapping_bodies()
-	
-	for hum: Humanoid in targets:
-		hum.hurt(explode_damage)
 
 func attack_at_position(target_pos: Vector3, delay: bool = true, force: bool = false) -> void:
 	if in_pain or is_on_cooldown() or is_attacking: return

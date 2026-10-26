@@ -23,6 +23,11 @@ func _on_missed_or_blocked(pos: Vector3 = Vector3.ZERO, _context: String = "none
 func attack_action() -> void:
 	if is_dead: return
 	Audio3D.new("guns/pistol", self).play()
+	
+	var query = _raycast_check(attack_pos)
+	if query.is_empty(): VFX.create_bullet_line(global_position, attack_pos)
+	else: VFX.create_bullet_line(global_position, query.position)
+	
 	var humanoid: Humanoid = _check_for_target()
 	if humanoid:
 		humanoid.hurt(attack_damage)

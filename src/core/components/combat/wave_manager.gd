@@ -1,7 +1,7 @@
 class_name WaveManager extends Node
 
 const INTERMISSION_TIME: int = 10
-const INIT_WAVE: int = 0
+const INIT_WAVE: int = 9
 
 var initial_spawn_interval: float = 0.5
 
@@ -148,7 +148,7 @@ func _calculate_wave() -> void:
 	max_alive = int( 10 + (current_wave * 5) )
 	
 	max_enemies = min(max_enemies, 120)
-	max_alive = min(max_alive, 50)
+	max_alive = min(max_alive, 45)
 #endregion
 
 #region WAVE DATA INIT

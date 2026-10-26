@@ -19,6 +19,9 @@ var playback: AnimationNodeStateMachinePlayback
 var blend_data: Dictionary[Vector2, AngleParameter]
 var facing_reference: Node3D
 
+var _last_param: AngleParameter
+var _last_node: StringName
+
 func _default_value() -> void:
 	angle_params = _default_table()
 	notify_property_list_changed()
@@ -53,30 +56,31 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): return
 	if Globals.player == null or facing_reference == null or angle_params.is_empty(): return
-	
+
 	var dir: Vector2 = get_local_direction(Globals.player.global_position)
 	if dir == Vector2.ZERO: return
-	var angle_param = _get_nearest(dir)
+	var angle_param := _get_nearest(dir)
+
 	var current_node: StringName
-	
 	if anim_tree and playback:
 		current_node = playback.get_current_node()
-	
-	if current_node:
-		var anim_axis: StringName = "x"
-		if anim_angle_axis_dict.has(current_node):
-			anim_axis  = anim_angle_axis_dict[current_node]
-		
-		if anim_axis == "n/a":
-			return
-		elif anim_axis == "y":
-			frame_coords.y = angle_param.value
-		elif anim_axis == "x":
-			frame_coords.x = angle_param.value
+
+	var anim_axis: StringName = "x"
+	if current_node and anim_angle_axis_dict.has(current_node):
+		anim_axis = anim_angle_axis_dict[current_node]
+
+	if anim_axis == "n/a": return
+
+	var fc := frame_coords
+	if anim_axis == "y":
+		fc.y = angle_param.value
 	else:
-		frame_coords.x = angle_param.value
-	
-	flip_h = angle_param.flip
+		fc.x = angle_param.value
+
+	if fc != frame_coords:
+		frame_coords = fc
+	if flip_h != angle_param.flip:
+		flip_h = angle_param.flip
 
 func _get_nearest(input: Vector2) -> AngleParameter:
 	var best: AngleParameter = angle_params[0]
@@ -89,8 +93,10 @@ func _get_nearest(input: Vector2) -> AngleParameter:
 	return best
 
 func get_local_direction(target_pos: Vector3) -> Vector2:
-	var local_pos = facing_reference.to_local(target_pos)
-	return Vector2(local_pos.x, local_pos.z).normalized()
+	var d := target_pos - facing_reference.global_position
+	var flat := Vector2(d.x, d.z)
+	if flat.is_zero_approx(): return Vector2.ZERO
+	return flat.rotated(facing_reference.global_rotation.y)
 
 func get_nearest_blend_data(input: Vector2) -> AngleParameter:
 	var nearest_dist := INF
