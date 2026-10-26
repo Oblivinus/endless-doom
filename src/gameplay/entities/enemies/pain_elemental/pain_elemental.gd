@@ -8,14 +8,14 @@ func _process_gravity(delta):
 
 func attack_action() -> void:
 	var spawn_offset = global_position + (-global_basis.z * 1.2)
-	LostSoul.spawn_to_attack(target, spawn_offset, get_parent(), attack_pos, 18)
+	LostSoul.spawn_to_attack(target, spawn_offset, get_parent(), attack_pos, 1.0, 18)
 
 func _on_died() -> void:
 	super()
 	for dir in get_spread_directions(3):
 		var spawn_pos := global_position + dir * spawn_distance
 		var dash_target := spawn_pos + dir
-		LostSoul.spawn_to_attack(target, spawn_pos, get_parent(), dash_target, 18)
+		LostSoul.spawn_to_attack(target, spawn_pos, get_parent(), dash_target, 0.5)
 
 func get_spread_directions(count: int) -> Array[Vector3]:
 	var result: Array[Vector3] = []

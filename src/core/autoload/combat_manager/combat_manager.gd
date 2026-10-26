@@ -48,3 +48,4 @@ func drop_random_item(amount: int, pos: Vector3):
 	for i: int in range(amount):
 		var world = GameManager.world
 		world.item_spawner.spawn(world.item_spawner.item_dict.keys().pick_random(), pos)
+	

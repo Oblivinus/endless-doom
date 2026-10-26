@@ -1,5 +1,6 @@
 class_name LostSoul extends FlyingEnemy
 
+const DASH_DURATION: float = 1.0
 
 var explode_hitbox: Area3D
 @export var explode_damage: float = 8.0
@@ -8,7 +9,7 @@ var life_timer: Timer
 
 var dash_hitbox: Area3D
 var dash_speed: float = 17.5
-var dash_duration: float = 1.0
+var dash_duration: float = DASH_DURATION
 
 var is_dashing: bool = false
 var dash_dir: Vector3 = Vector3.ZERO
@@ -16,7 +17,8 @@ var dash_dir: Vector3 = Vector3.ZERO
 @onready var char_hitbox = $CollisionShape3D
 
 static var lost_soul_scene: PackedScene = preload("uid://h28jo08emsc6")
-static func spawn_to_attack(i_target: Humanoid, pos: Vector3, parent: Node, target_pos: Vector3 = Vector3.ZERO, i_lifetime: float = -1) -> void:
+
+static func spawn_to_attack(i_target: Humanoid, pos: Vector3, parent: Node, target_pos: Vector3 = Vector3.ZERO, duration: float = -1, i_lifetime: float = -1) -> void:
 	var this_lost_soul: LostSoul = lost_soul_scene.instantiate() as LostSoul
 	
 	this_lost_soul.target = i_target
@@ -26,9 +28,13 @@ static func spawn_to_attack(i_target: Humanoid, pos: Vector3, parent: Node, targ
 	if target_pos != Vector3.ZERO:
 		launch_pos = target_pos
 	
+	if duration > 0: this_lost_soul.dash_duration = duration
+	
 	parent.add_child(this_lost_soul)
 	this_lost_soul.global_position = pos
-	this_lost_soul.attack_at_position(launch_pos, false)
+	this_lost_soul.attack_at_position(launch_pos, false, true)  # force = true
+	this_lost_soul.dash_duration = DASH_DURATION
+	
 
 func _ready() -> void:
 	super()
@@ -71,6 +77,8 @@ func _process_gravity(delta):
 		velocity.y = 0
 
 func _process_moving(delta: float) -> void:
+	if in_pain: _end_dash()
+	
 	if is_dashing and not is_dead:
 		velocity = dash_dir * dash_speed
 		
@@ -91,7 +99,7 @@ func _on_died() -> void:
 	for hum: Humanoid in targets:
 		hum.hurt(explode_damage)
 
-func attack_at_position(target_pos: Vector3, delay: bool = true) -> void:
+func attack_at_position(target_pos: Vector3, delay: bool = true, force: bool = false) -> void:
 	if in_pain or is_on_cooldown() or is_attacking: return
 	
 	var target_no_y := Vector3(target_pos.x, global_position.y, target_pos.z)
@@ -106,7 +114,11 @@ func attack_at_position(target_pos: Vector3, delay: bool = true) -> void:
 	attack_pos = target_pos
 	
 	if delay: await get_tree().create_timer(attack_delay).timeout
-	_attack_sequeance(current_distance)
+	
+	if force:
+		if not is_dead: attack_action()
+	else:
+		_attack_sequeance(current_distance)
 	is_attacking = false
 
 func attack_action() -> void:

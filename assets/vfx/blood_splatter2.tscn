@@ -20,9 +20,6 @@ gravity = Vector3(0, -12, 0)
 scale_min = 0.79999995
 scale_max = 1.5
 scale_curve = SubResource("CurveTexture_71dq4")
-collision_mode = 1
-collision_friction = 0.25
-collision_bounce = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w61o3"]
 vertex_color_use_as_albedo = true

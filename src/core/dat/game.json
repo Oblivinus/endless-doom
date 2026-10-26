@@ -37,5 +37,46 @@
 			"cost_increase" : 30,
 			"init_cost" : 30
 		}
+	},
+	
+	"WavesEntries": {
+		"zombie": {
+			"wave_appeared": 1,
+			"weight": 50.0,
+			"max_alive": -1,
+		},
+		
+		"imp": {
+			"wave_appeared": 3,
+			"weight": 40.0,
+			"max_alive": -1,
+		},
+		
+		"cacodemon": {
+			"wave_appeared": 4,
+			"weight": 15.0,
+			"max_alive": -1,
+		},
+		
+		"pinky": {
+			"wave_appeared": 5,
+			"weight": 15.0,
+			"max_alive": -1,
+		},
+		
+		"pain_elemental": {
+			"wave_appeared": 7,
+			"weight": 9.0,
+			"max_alive": -1,
+		},
+		
+		"cyber_demon": {
+			"wave_appeared": 1,
+			"weight": 0.0,
+			"boss": true,
+			"wave_step": 5,
+			"appear_after": 5,
+			"wave_plus_max_alive": 10,
+		}
 	}
 }

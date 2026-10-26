@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://leaqmp3rfm7v" path="res://src/core/components/angled_sprites/angle_parameters.gd" id="4_b7q7s"]
 [ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="4_v0wyv"]
 [ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="5_b7q7s"]
-[ext_resource type="Script" uid="uid://bmspsn444xjbn" path="res://src/gameplay/entities/enemies/pinky/pinky_attack.gd" id="7_2rpxy"]
 [ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="8_onru0"]
+[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://src/gameplay/entities/shared/enemy_attack.gd" id="11_b7q7s"]
 [ext_resource type="Script" uid="uid://htvb8h1ji2l5" path="res://src/gameplay/entities/shared/enemy_finisher.gd" id="11_v0wyv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
@@ -240,7 +240,8 @@ dead_sfx = Array[String](["pinky/pinky_death"])
 hurt_sfx = Array[String]([])
 attack_delay = 0.6
 move_speed = 4.5
-max_health = 200.0
+max_health = 135.0
+mass = 15.0
 auto_rotate = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]
@@ -298,10 +299,6 @@ metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 script = ExtResource("5_b7q7s")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=792155077]
-script = ExtResource("7_2rpxy")
-metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
-
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]
 script = ExtResource("8_onru0")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
@@ -309,3 +306,7 @@ metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
 [node name="Finisher" type="Node" parent="StateMachine" unique_id=396563262]
 script = ExtResource("11_v0wyv")
 metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=2005428138]
+script = ExtResource("11_b7q7s")
+metadata/_custom_type_script = "uid://bo164wq6lfma8"

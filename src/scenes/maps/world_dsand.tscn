@@ -22,7 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://cfqcowkw03105" path="res://src/scenes/object/wooden_pallet_pile_1v.tscn" id="18_lvd4q"]
 [ext_resource type="PackedScene" uid="uid://ddvxo7cub337f" path="res://assets/models/objects/box/Box.glb" id="19_jqny5"]
 [ext_resource type="PackedScene" uid="uid://b413fxhnpypbp" path="res://src/gameplay/entities/player/player.tscn" id="20_pb3xg"]
-[ext_resource type="PackedScene" uid="uid://bfkps1qbyrjm8" path="res://src/gameplay/entities/enemies/pain_elemental/pain_elemental.tscn" id="23_rwvjs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xqe1h"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -942,6 +941,3 @@ navigation_mesh = SubResource("NavigationMesh_kvrig")
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("20_pb3xg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.603498, 0.84999967, 40.6512)
-
-[node name="PainElemental" parent="." unique_id=1812481539 instance=ExtResource("23_rwvjs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2588022, 0.8499994, 33.132603)

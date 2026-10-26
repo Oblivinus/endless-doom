@@ -10,20 +10,18 @@ func process_physics(delta: float):
 	var distance = parent.global_position.distance_to(target_pos)
 	target_pos = parent.target.global_position
 	
-	var attack_range_valid: bool = distance <= parent.attack_range and parent.attack_range > 0.0
-	var melee_range_valid: bool = distance <= parent.melee_range and parent.melee_range > 0.0
-	
-	if distance > parent.detection_range * 4:
+	if distance > parent.detection_range + 20:
 		_on_outside_range()
 		parent.stop_move()
 		transitioned.emit(self, "idle")
 		parent.target = null
 		return
 	
-	if attack_range_valid or melee_range_valid:
+	if distance <= parent.get_max_range():
 		_on_inside_range()
 		parent.stop_move()
 		transitioned.emit(self, "attack")
+		return
 	else:
 		_on_outside_attack_range()
 

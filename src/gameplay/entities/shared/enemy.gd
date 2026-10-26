@@ -125,6 +125,11 @@ func _ready() -> void:
 
 func _process_moving(delta: float) -> void:
 	if in_pain: is_disturbed = true
+	
+	if is_attacking: 
+		velocity = Vector3.ZERO
+		return
+	
 	if in_pain and not is_moving_paused:
 		pause_move()
 	elif not in_pain and is_moving_paused:
@@ -194,11 +199,11 @@ func _attack_sequeance(current_distance: float):
 	if is_dead or is_disturbed: return
 	
 	if has_melee and current_distance <= melee_range:
-		melee_attack_action();
+		await melee_attack_action()
 		return
 	
 	if has_range and current_distance <= attack_range:
-		attack_action();
+		await attack_action()
 		return
 
 #endregion
@@ -237,11 +242,9 @@ func _process_pain() -> void:
 func _do_pain() -> void:
 	if not is_dead: play_sound("pain")
 	in_pain = true
-	is_hurted = true
 	animation_tree.travel("hurt")
 	await get_tree().create_timer(pain_time).timeout
 	in_pain = false
-	is_hurted = false
 
 func _create_range_area(frustum_shape: FrustumShape) -> Area3D:
 	var area = Area3D.new()
@@ -328,6 +331,9 @@ func get_enemies_in_melee_range() -> Array[Player]:
 			players.append(b)
 	return players
 
+func get_max_range() -> float:
+	return max(melee_range, attack_range)
+
 func get_facing_direction() -> Vector3:
 	return -global_transform.basis.z
 	
@@ -389,7 +395,6 @@ func attack_at_position(target_pos: Vector3) -> void:
 	var current_distance: float = get_target_distance()
 	
 	on_attack.emit()
-	attack_timer.start()
 	look_at(target_no_y)
 	stop_move()
 	is_disturbed = false
@@ -397,8 +402,10 @@ func attack_at_position(target_pos: Vector3) -> void:
 	attack_pos = target_pos
 	
 	await get_tree().create_timer(attack_delay).timeout
-	_attack_sequeance(current_distance)
+	await _attack_sequeance(current_distance)
+	
 	is_attacking = false
+	attack_timer.start()
 
 func is_on_cooldown() -> bool:
 	return attack_timer.time_left > 0

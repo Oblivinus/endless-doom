@@ -16,6 +16,7 @@ static func get_gun_cost_dictionary() -> Dictionary[StringName, int]:
 	for gun_name: StringName in guns_cost:
 		result[gun_name] = int(guns_cost[gun_name])
 	
+	file.close()
 	return result
 
 static func get_upgrades_dictionary() -> Dictionary:
@@ -23,7 +24,16 @@ static func get_upgrades_dictionary() -> Dictionary:
 	var data: Dictionary = JSON.parse_string(file.get_as_text())
 	var upgrades: Dictionary = data["Upgrades"]
 	
+	file.close()
 	return upgrades
+
+static func get_wave_entries() -> Dictionary:
+	var file = FileAccess.open(game_dat, FileAccess.READ)
+	var data: Dictionary = JSON.parse_string(file.get_as_text())
+	var wave_entries: Dictionary = data.get("WavesEntries", {})
+	
+	file.close()
+	return wave_entries
 
 static func get_player_data() -> Dictionary:
 	var file_path: StringName = save_path + player_dat_file

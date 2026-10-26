@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://bsmwpidwvam4v"]
+
+[ext_resource type="Script" uid="uid://drynndg85ikfw" path="res://src/gameplay/projectiles/rocket/rocket.gd" id="1_jkpgg"]
+[ext_resource type="Texture2D" uid="uid://ddakd0wgwibol" path="res://assets/gameplay/gun/rocket_launcher/rocket.png" id="2_miiq3"]
+[ext_resource type="Script" uid="uid://c7idyy17w1qo5" path="res://src/core/components/angled_sprites/angled_sprite_3d.gd" id="3_5870f"]
+[ext_resource type="Script" uid="uid://leaqmp3rfm7v" path="res://src/core/components/angled_sprites/angle_parameters.gd" id="4_53yo0"]
+[ext_resource type="Texture2D" uid="uid://c3786tear6s05" path="res://assets/texture/vfx_texture/particles/alpha/circle_01_a.png" id="5_tmugb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8rg7t"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Resource" id="Resource_4pyrm"]
+script = ExtResource("4_53yo0")
+
+[sub_resource type="Resource" id="Resource_8ltr7"]
+script = ExtResource("4_53yo0")
+ANGLE_STRING = "F_L"
+angle_vect = Vector2(-0.5, -0.5)
+value = 4
+flip = true
+
+[sub_resource type="Resource" id="Resource_5a2jo"]
+script = ExtResource("4_53yo0")
+ANGLE_STRING = "L"
+angle_vect = Vector2(-1, 0)
+value = 3
+flip = true
+
+[sub_resource type="Resource" id="Resource_aldy3"]
+script = ExtResource("4_53yo0")
+ANGLE_STRING = "B_L"
+angle_vect = Vector2(-0.5, 0.5)
+value = 2
+flip = true
+
+[sub_resource type="Resource" id="Resource_ko02i"]
+script = ExtResource("4_53yo0")
+ANGLE_STRING = "B"
+angle_vect = Vector2(0, 1)
+value = 1
+
+[sub_resource type="Resource" id="Resource_d43bc"]
+script = ExtResource("4_53yo0")
+ANGLE_STRING = "F_R"
+angle_vect = Vector2(0.5, -0.5)
+value = 4
+
+[sub_resource type="Resource" id="Resource_x8pge"]
+script = ExtResource("4_53yo0")
+ANGLE_STRING = "R"
+angle_vect = Vector2(1, 0)
+value = 3
+
+[sub_resource type="Resource" id="Resource_wu4ma"]
+script = ExtResource("4_53yo0")
+ANGLE_STRING = "B_R"
+angle_vect = Vector2(0.5, 0.5)
+value = 2
+
+[sub_resource type="Curve" id="Curve_nii7v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7exm1"]
+curve = SubResource("Curve_nii7v")
+
+[sub_resource type="Curve" id="Curve_4pyrm"]
+_limits = [0.0, 1.5, 0.0, 1.0]
+_data = [Vector2(0, 0.6019466), 0.0, 0.0, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8ltr7"]
+curve = SubResource("Curve_4pyrm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7exm1"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_8ltr7")
+alpha_curve = SubResource("CurveTexture_7exm1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nii7v"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_tmugb")
+billboard_mode = 2
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_7exm1"]
+lightmap_size_hint = Vector2i(7, 7)
+material = SubResource("StandardMaterial3D_nii7v")
+
+[node name="EnemyRocket" type="RigidBody3D" unique_id=806922509]
+script = ExtResource("1_jkpgg")
+blast_radius = 3.5
+blast_mask = 1
+speed = 20.0
+collision_radius = 0.25
+hit_mask = 11
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=982684613]
+visible = false
+mesh = SubResource("SphereMesh_8rg7t")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1982590585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.100000024)
+pixel_size = 0.04
+billboard = 2
+texture_filter = 2
+texture = ExtResource("2_miiq3")
+hframes = 5
+frame = 1
+script = ExtResource("3_5870f")
+angle_params = Array[ExtResource("4_53yo0")]([SubResource("Resource_4pyrm"), SubResource("Resource_8ltr7"), SubResource("Resource_5a2jo"), SubResource("Resource_aldy3"), SubResource("Resource_ko02i"), SubResource("Resource_d43bc"), SubResource("Resource_x8pge"), SubResource("Resource_wu4ma")])
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1763680557]
+amount = 10
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_7exm1")
+draw_pass_1 = SubResource("QuadMesh_7exm1")

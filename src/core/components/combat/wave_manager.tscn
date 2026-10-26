@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dor4qbs588l55" path="res://src/gameplay/entities/enemies/cacodemon/cacodemon.tscn" id="6_1f0c2"]
 [ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="6_o6mvx"]
 [ext_resource type="PackedScene" uid="uid://bfkps1qbyrjm8" path="res://src/gameplay/entities/enemies/pain_elemental/pain_elemental.tscn" id="7_1acc7"]
+[ext_resource type="Script" uid="uid://bq6nokqfrgjpe" path="res://src/core/components/combat/boss_entry.gd" id="8_imkrw"]
+[ext_resource type="PackedScene" uid="uid://bcq4bvgohx3mj" path="res://src/gameplay/entities/enemies/cyber_demon/cyber_demon.tscn" id="9_o6mvx"]
 
 [sub_resource type="Resource" id="Resource_xgxji"]
 script = ExtResource("2_1f0c2")
@@ -43,6 +45,12 @@ wave_appear = 7
 weight = 9.0
 metadata/_custom_type_script = "uid://c0ecj4cxyxvrg"
 
+[sub_resource type="Resource" id="Resource_imkrw"]
+script = ExtResource("8_imkrw")
+enemy_scene = ExtResource("9_o6mvx")
+wave_appear = 10
+metadata/_custom_type_script = "uid://bq6nokqfrgjpe"
+
 [sub_resource type="Gradient" id="Gradient_vqsqh"]
 colors = PackedColorArray(0.47918302, 0.47918272, 0.47918284, 1, 1, 1, 1, 1)
 
@@ -60,7 +68,7 @@ fill_to = Vector2(0, 1)
 script = ExtResource("1_vqsqh")
 enemy_spawn_pos = [null, null, null]
 enemy_patrol_pos = [null, null, null, null]
-enemy_wave_entries = Array[ExtResource("2_1f0c2")]([SubResource("Resource_xgxji"), SubResource("Resource_04t5p"), SubResource("Resource_1acc7"), SubResource("Resource_idh6s"), SubResource("Resource_rlvr5")])
+enemy_wave_entries = Array[ExtResource("2_1f0c2")]([SubResource("Resource_xgxji"), SubResource("Resource_04t5p"), SubResource("Resource_1acc7"), SubResource("Resource_idh6s"), SubResource("Resource_rlvr5"), SubResource("Resource_imkrw")])
 wave_name = NodePath("CanvasLayer/SubViewportContainer/SubViewport/Control/WaveNumber")
 remaining_label = NodePath("CanvasLayer/SubViewportContainer/SubViewport/Control/RemainingNumber")
 metadata/_custom_type_script = "uid://dj5nj5a47gkr1"

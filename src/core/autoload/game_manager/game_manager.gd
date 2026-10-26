@@ -58,6 +58,7 @@ func player_respawn(new_player: Player):
 
 func change_playing(value: bool = true):
 	if value:
+		#change_scene("uid://behldxhl6rro4") #Test Map
 		change_scene("uid://n5inmiln7lwc")
 		playing = true
 	else:

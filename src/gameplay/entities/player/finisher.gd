@@ -56,7 +56,8 @@ func _process(delta: float) -> void:
 func _create_hitbox() -> void:
 	hitbox = Area3D.new()
 	hitbox.collision_layer = 0
-	hitbox.collision_mask = (1 << 2)
+	hitbox.collision_mask = 0
+	hitbox.set_collision_mask_value(8, true)
 	add_child(hitbox)
 	
 	var collision_shape3d := CollisionShape3D.new()
@@ -76,9 +77,7 @@ func finish_it() -> void:
 	_check_for_finisher()
 
 func _check_for_finisher() -> void:
-	var enemies := hitbox.get_overlapping_bodies().filter(
-		func(body): return body.is_in_group("finisher_ready")
-	)
+	var enemies := hitbox.get_overlapping_bodies()
 	if enemies.is_empty(): return
 	
 	enemies.sort_custom(

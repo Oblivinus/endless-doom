@@ -6,6 +6,7 @@ var attacking := false
 var strafe_timer: Timer
 
 var strafing := false
+var strafe_direction_angle: Array[int] = [0, 90, -90, -180]
 var dist_to_target: float = 0.0
 
 func enter() -> void:
@@ -23,18 +24,18 @@ func process_physics(_delta: float) -> void:
 		return
 	
 	_check_distance()
-	var strafe_condition = _strafe_condition()
 	
-	if not check_if_target_valid(): 
+	if _is_target_escape():
 		parent.target = null
 		return
-	if check_if_in_range(): 
+	
+	if _is_target_in_range():
 		ready_to_attack = true
-		if strafe_condition: strafe()
 	else:
 		ready_to_attack = false
-		chase()
-		return
+		if _chase_condtion(): chase()
+	
+	if _strafe_condition(): strafe()
 	
 	if ready_to_attack:
 		parent.attack_at_position(parent.target.global_position)
@@ -45,22 +46,22 @@ func _check_distance() -> void:
 		return 
 	dist_to_target = parent.global_position.distance_to(parent.target.global_position)
 
-func _strafe_condition() -> bool:
-	if strafe_timer.is_stopped(): strafing = false
-	if not parent.is_on_cooldown() or parent.is_attacking: return false
-	if strafing or parent.is_moving: return false
+func _is_target_in_range() -> bool:
+	if dist_to_target <= parent.get_max_range(): return true
+	else: return false
+
+func _is_target_escape() -> bool:
+	if dist_to_target < parent.detection_range + 20: return false
 	return true
 
-func check_if_target_valid() -> bool:
-	return not parent.target.is_dead
+func _chase_condtion() -> bool:
+	if parent.is_on_cooldown(): return false
+	if dist_to_target <= parent.get_max_range(): return false
+	
+	return true
 
-func check_if_in_detection_range():
-	return dist_to_target <= parent.detection_range
-
-func check_if_in_range() -> bool:
-	var attack_range_valid: bool = dist_to_target <= parent.attack_range and parent.has_range
-	var melee_range_valid: bool = dist_to_target <= parent.melee_range and parent.has_melee
-	return attack_range_valid or melee_range_valid
+func chase():
+	transitioned.emit(self, "chase")
 
 func strafe() -> void:
 	if not strafing and not parent.is_moving:
@@ -71,16 +72,17 @@ func strafe() -> void:
 		away_dir.y = 0
 		away_dir = away_dir.normalized()
 		
-		var angle_offset = [-80, 80]
-		angle_offset = angle_offset[randi_range(0, angle_offset.size() - 1)]
+		var angle_offset = strafe_direction_angle.pick_random()
 		away_dir = away_dir.rotated(Vector3.UP, angle_offset)
 		
-		var retreat_distance = randf_range(1, 1.5)
+		var retreat_distance = randf_range(1, 3)
 		var target_pos = parent.global_position + away_dir * retreat_distance
 		parent.move_to(target_pos)
 
-func chase():
-	transitioned.emit(self, "chase")
-
-func on_missed_or_blocked(block_pos: Vector3 = Vector3.ZERO) -> void:
-	pass
+func _strafe_condition() -> bool:
+	if strafe_timer.is_stopped(): strafing = false
+	if not parent.is_on_cooldown(): return false
+	if parent.is_attacking: return false
+	if strafing or parent.is_moving: return false
+	
+	return true

@@ -43,8 +43,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_attack() -> void:
-	if enemy.in_pain: return
-	playback.travel("attack")
+	play_attack_anim()
 
 func _on_died() -> void:
 	var has_dmg_info = enemy.prev_dmg_info and enemy.prev_dmg_info.type == "forceful"
@@ -55,3 +54,10 @@ func _on_died() -> void:
 
 func travel(node_name: StringName):
 	playback.travel(node_name)
+
+func start(node_name: StringName):
+	playback.start(node_name, true)
+
+func play_attack_anim() -> void:
+	if enemy.in_pain: return
+	playback.travel("attack")

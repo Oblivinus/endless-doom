@@ -245,6 +245,7 @@ animation_tree = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
 attack_damage = 3.0
 melee_damage = 0.0
+pain_chance = 1.0
 d_point_drop = Array[int]([0, 0])
 detection_range = 20.0
 attack_range = 15.0
@@ -256,7 +257,7 @@ hurt_sfx = Array[String]([])
 attack_delay = 0.35
 can_be_finish = false
 move_speed = 3.75
-max_health = 40.0
+max_health = 60.0
 auto_rotate = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]

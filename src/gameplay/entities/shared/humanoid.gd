@@ -1,8 +1,11 @@
 class_name Humanoid extends CharacterBody3D
 
+const REFERENCE_MASS: float = 10.0
+
 @export_category("Stats")
 @export var move_speed: float = 2.5
 @export var max_health: float = 100.0
+@export var mass: float = 10.0
 @export var health: float:
 	set(value):
 		if is_dead: return
@@ -20,7 +23,6 @@ class_name Humanoid extends CharacterBody3D
 @export var rotation_speed: float = 5.0 ##Rad/sec
 
 var is_dead: bool = false
-var is_hurted: bool = false
 
 #region Movement
 const NEAREST_TARGET_LENGTH = 0.05
@@ -63,6 +65,10 @@ class KnockbackInstance:
 	
 	func launch(velocity: Vector3) -> void:
 		knockback_velocity = velocity
+		knockback_velocity.y = 0
+	
+	func launch_y(velocity: float) -> void:
+		knockback_velocity.y = velocity
 	
 	func stop() -> void:
 		knockback_velocity = Vector3.ZERO
@@ -126,8 +132,8 @@ func  _face_rotation(dir: Vector3, delta: float) -> void:
 	rotation.y = lerp_angle(rotation.y, angle, rotation_speed * delta)
 
 func get_enemy_floor_Y_offset() -> float:
-	var result = ($CollisionShape3D.shape.height / 2) - 0.1
-	return result
+	var col: CollisionShape3D = $CollisionShape3D
+	return (col.shape.height / 2.0) - col.position.y - 0.1
 
 func move_to(target_pos: Vector3) -> void:
 	if is_moving_paused: return

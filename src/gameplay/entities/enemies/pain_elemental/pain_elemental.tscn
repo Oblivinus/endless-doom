@@ -239,7 +239,7 @@ idle_sfx = Array[String]([])
 dead_sfx = Array[String](["cacodemon/cacodemon_death"])
 hurt_sfx = Array[String]([])
 move_speed = 3.75
-max_health = 150.0
+max_health = 200.0
 auto_rotate = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]

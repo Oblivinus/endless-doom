@@ -16,6 +16,7 @@ func _ready() -> void:
 	add_child(wander_timer)
 	
 	GameManager.on_sound.connect(_check_out_sound)
+	wander_timer.start(1)
 
 func _check_ray_cast_query() -> Dictionary:
 	var space_state = parent.get_world_3d().direct_space_state
@@ -65,14 +66,12 @@ func look_for():
 
 func wander():
 	if wander_timer.time_left > 0 or parent.is_moving: return
+	if parent.pathfind.has_target: return
 	wander_timer.start()
 	var rand_pos = Vector3(randi_range(-WANDER_RANGE, WANDER_RANGE), 0, randi_range(-WANDER_RANGE, WANDER_RANGE))
 	
-	if anchor_pos == Vector3.ZERO:
-		anchor_pos = parent.global_position
+	parent.move(parent.global_position + rand_pos)
 	
-	parent.move(anchor_pos + rand_pos)
-			
 	if randi_range(1, 5) == 1: parent.event.emit("random_idle")
 
 func check_in_pov(target_pos: Vector3) -> bool:
