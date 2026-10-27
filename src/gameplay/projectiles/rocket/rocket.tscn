@@ -96,6 +96,13 @@ billboard_keep_scale = true
 lightmap_size_hint = Vector2i(7, 7)
 material = SubResource("StandardMaterial3D_nii7v")
 
+[sub_resource type="GDScript" id="GDScript_imkrw"]
+script/source = "extends GPUParticles3D
+
+func _enter_tree() -> void:
+	restart()
+"
+
 [node name="Rocket" type="RigidBody3D" unique_id=806922509]
 script = ExtResource("1_4056u")
 blast_radius = 5.0
@@ -123,3 +130,4 @@ amount = 10
 lifetime = 1.5
 process_material = SubResource("ParticleProcessMaterial_7exm1")
 draw_pass_1 = SubResource("QuadMesh_7exm1")
+script = SubResource("GDScript_imkrw")

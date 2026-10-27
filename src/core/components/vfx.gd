@@ -10,7 +10,9 @@ var this_pos: Vector3
 
 static var bullet_line_scene: PackedScene = preload("uid://cs8fnp8d00ruf")
 static var _line_pool: Array[Node3D] = []
+static var _vfx_pool: Dictionary[StringName, Array] = {}
 
+#region LINE POOL - Why? im to lazy to merge it to normal pool
 static func _get_line() -> Node3D:
 	while not _line_pool.is_empty():
 		var line: Node3D = _line_pool.pop_back()
@@ -36,6 +38,10 @@ static func create_bullet_line_direction(from: Vector3, to: Vector3, length: flo
 
 static func clear_line_pool() -> void:
 	_line_pool.clear()
+#endregion
+
+static func _pull_from_pool(vfx_name: StringName) -> void:
+	pass
 
 func  _init(vfx_name: String, pos: Vector3 = Vector3.ZERO) -> void:
 	if vfx_name != "":

@@ -3,6 +3,7 @@ class_name World extends Node3D
 signal enemy_died(enemy: Enemy, last_pos: Vector3)
 
 class ItemSpawner:
+	const AUTO_PICKUP_RADIUS = 10
 	var parent: World
 	
 	var item_dict: Dictionary[String, Callable] = {
@@ -13,6 +14,11 @@ class ItemSpawner:
 	
 	func _init(new_parent: World) -> void:
 		parent = new_parent
+	
+	func _auto_pickup(item: Item, follow_target: Node3D, pick_up: bool = true) -> void:
+		if not item is Item: return
+		if pick_up: item.follow(follow_target)
+		else: item.stop_follow()
 	
 	func spawn(item_name: String, pos: Vector3 = Vector3.ZERO, offset: Vector3 = Vector3.ZERO) -> void:
 		if not item_dict.has(item_name.to_lower()): return
@@ -25,6 +31,7 @@ class ItemSpawner:
 			item = spawn_ammo()
 		else:
 			item = item_dict[item_name].call()
+		
 		item.position =  pos + offset
 		item.expired = true
 		parent.get_items_node().add_child(item)
@@ -43,12 +50,21 @@ class ItemSpawner:
 	
 	func delay_pick(item: Item) -> void:
 		item.pickable = false
-		await parent.get_tree().create_timer(0.15).timeout
+		await parent.get_tree().create_timer(3).timeout
 		item.pickable = true
+	
+	func create_auto_pickup_area(player: Player) -> void:
+		var shape: SphereShape3D = SphereShape3D.new()
+		shape.radius = AUTO_PICKUP_RADIUS
+		
+		var area: Area3D = Util.create_area_3d(player, shape, [7])
+		area.body_entered.connect( func(item: Item): _auto_pickup(item, player) )
+		area.body_exited.connect( func(item: Item): _auto_pickup(item, player, false) )
+		
 
 var item_spawner: ItemSpawner
 
-func _ready() -> void:
+func _init() -> void:
 	item_spawner = ItemSpawner.new(self)
 
 func _any_enemy_died(enemy: Enemy, last_pos: Vector3):

@@ -1,6 +1,8 @@
 class_name RocketLauncher extends Gun
 
 var cache_parent: Arsenal #NOTE: when switch gun the parent is null, this is the reason.
+var connection: Signal
+
 
 func  shoot() -> void:
 	if not ready_to_shoot(): return
@@ -22,8 +24,9 @@ func  shoot() -> void:
 	else:
 		for enemy: Humanoid in enemies:
 			launcher.launch(enemy.global_position)
-			
-	launcher.projectile.on_blast_hit.connect(_on_blast_hit)
+	
+	if not projectile.on_blast_hit.is_connected(_on_blast_hit):
+		projectile.on_blast_hit.connect(_on_blast_hit, CONNECT_ONE_SHOT)
 
 func _on_blast_hit(targets: Array):
 	for humanoid: Humanoid in targets:

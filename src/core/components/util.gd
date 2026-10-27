@@ -33,3 +33,17 @@ static func split_pascal_enter(text: String) -> String:
 	regex.compile("([a-z])([A-Z])")
 	var result = regex.sub(text, "$1\n$2", true)
 	return result
+
+static func create_area_3d(parent: Node3D, shape: Shape3D, collision_mask: Array[int]) -> Area3D:
+	var area = Area3D.new()
+	area.collision_layer = 0
+	area.collision_mask = 0
+	for layer in collision_mask:
+		area.collision_mask |= (1 << layer - 1)
+	
+	var collision_shape: CollisionShape3D = CollisionShape3D.new()
+	collision_shape.shape = shape
+	area.add_child(collision_shape)
+	parent.add_child(area)
+	
+	return area

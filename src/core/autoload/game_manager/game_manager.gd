@@ -61,7 +61,7 @@ func play_hearable_sound(audio_name: String, pos_or_node3: Variant) -> Audio3D:
 
 func player_respawn(new_player: Player):
 	player_datas._on_player_respawn(new_player)
-	#players._on_player_respawn(new_player)
+	if world: world.item_spawner.create_auto_pickup_area.call_deferred(new_player)
 
 func change_playing(value: bool = true):
 	if value:

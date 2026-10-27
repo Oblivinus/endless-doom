@@ -32,3 +32,7 @@ func _on_explosion(targets: Array):
 
 func get_blast_target():
 	return blast_area.get_overlapping_bodies()
+
+func _clear_connection() -> void:
+	super()
+	_disconnect(on_blast_hit)

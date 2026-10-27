@@ -18,7 +18,6 @@ func _on_explosion(targets: Array):
 		if target is Humanoid:
 			var dist: float = target.global_position.distance_to(last_pos)
 			var damage: float = _calculate_damage(dist)
-			if target is Player: damage = 0
 			
 			target.hurt(damage, CombatManager.CombatInfo.new("forceful", projectile_owner))
 			knockback_target(target)
@@ -41,5 +40,8 @@ func knockback_target(target: Humanoid):
 	
 	var launchVec: Vector3 = dir * force
 	launchVec.y = min(launchVec.y, 0.5)
+	
+	if target is Player:
+		launchVec = launchVec / 2
 	
 	target.knockback(launchVec)

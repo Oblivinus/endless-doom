@@ -14,6 +14,7 @@ func exit() -> void:
 	parent.set_collision_layer_value(8, false)
 
 func process_physics(delta: float):
+	if parent.is_dead: transitioned.emit(self, "dead") # when failed to transition to dead state
 	parent.in_pain = true
 	
 	if dead_timer >= 15:

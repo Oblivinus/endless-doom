@@ -4,10 +4,10 @@ const FINISH_DAMAGE: float = 9999.0
 const MOVE_LERP_SPEED: float = 30.0
 const REACH_DISTANCE: float = 0.1
 const STAND_OFFSET: float = 1.2
-const SLOW_TIME_SCALE: float = 0.9
+const SLOW_TIME_SCALE: float = 1.0
 const SLOW_DURATION: float = 0.35
 const RAY_MASK: Array[int] = [2, 5]
-const INVICIBILITY_GRACE: float = 0.5
+const INVICIBILITY_GRACE: float = 1.0
 
 const APPROACH_SPEED: float = 60.0
 const MAX_APPROACH_TIME: float = 0.4
@@ -67,7 +67,7 @@ func _create_hitbox() -> void:
 	add_child(hitbox)
 	
 	var collision_shape3d := CollisionShape3D.new()
-	collision_shape3d.shape = FrustumShape.new(Vector2(2, 3), 15, 45, 12)
+	collision_shape3d.shape = FrustumShape.new(Vector2(2, 4.5), 15, 45, 12)
 	hitbox.add_child(collision_shape3d)
 
 func _create_delay_timer() -> void:
@@ -140,8 +140,8 @@ func _move_to_reached() -> void:
 	delay_timer.start(finisher_delay)
 
 func _update_target_pos() -> void:
-	var player := arsenal.player
 	target_pos = enemy.global_position + stand_dir * STAND_OFFSET
+	#var player := arsenal.player
 	#target_pos.y = player.global_position.y   # or clamp to a sane range for flyers
 
 func _reset() -> void:

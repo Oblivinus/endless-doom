@@ -97,13 +97,18 @@ func _set_inactive_state() -> void:
 func _release() -> void:
 	_set_inactive_state()
 	
-	# Drop all listeners from the previous shot
-	for c in on_hit.get_connections():
-		on_hit.disconnect(c.callable)
+	_clear_connection()
 	
 	if get_parent():
 		get_parent().remove_child(self)
 	ProjectileLauncher.return_to_pool(self)
+
+func _clear_connection() -> void:
+	_disconnect(on_hit)
+
+func _disconnect(sig: Signal) -> void:
+	for c in sig.get_connections():
+		sig.disconnect(c.callable)
 
 func is_active() -> bool:
 	return _active

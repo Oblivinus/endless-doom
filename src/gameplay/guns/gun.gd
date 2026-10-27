@@ -38,7 +38,7 @@ func _ready() -> void:
 		push_error("Collision Shape cannot be found")
 		return
 	else:
-		collision_shape3d.shape = FrustumShape.new(Vector2(1, 3), h_spread, v_spread, max_range)
+		collision_shape3d.shape = FrustumShape.new(Vector2(1, 4.5), h_spread, v_spread, max_range)
 	
 	timer = Timer.new()
 	timer.one_shot = true
