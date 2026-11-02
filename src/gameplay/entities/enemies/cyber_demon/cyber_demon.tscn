@@ -261,7 +261,7 @@ dead_sfx = Array[String](["imp/imp_death 1", "imp/imp_death 2"])
 hurt_sfx = Array[String]([])
 attack_delay = 0.1
 max_health = 1000.0
-mass = 15.0
+mass = 20.0
 auto_rotate = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]

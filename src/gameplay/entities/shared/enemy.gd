@@ -1,11 +1,11 @@
 @abstract
 class_name Enemy extends Humanoid
 
-@export_category("Dependecies")
+@export_group("Dependecies")
 @export var animation_tree: AnimationTree
 @export var state_machine: StateMachine
 
-@export_category("Combat")
+@export_group("Combat")
 @export var target: Humanoid
 @export var attack_cd: float = 4.0
 @export var attack_damage: float = 5.0
@@ -15,16 +15,16 @@ class_name Enemy extends Humanoid
 @export var d_point_drop: Array[int] = [2, 5]
 @export var item_drop_chance_multiplier: float = 1.0
 
-@export_category("Range")
+@export_group("Range")
 @export var detection_range: float = 12.0
 @export var attack_range: float = 10.0
 @export var melee_range: float = 0.0
 @export var fov: int = 90
 
-@export_category("Movement")
+@export_group("Movement")
 @export var steer_y_origin_offset: float = -0.75
 
-@export_category("Resources")
+@export_group("Resources")
 
 var timer: Timer
 
@@ -43,7 +43,7 @@ var melee_attack_area: Area3D
 var pathfind: Pathfind
 
 #region IN COMBAT
-@export_category("In Combat")
+@export_group("In Combat")
 @export var attack_delay: float = 0.7
 @export var can_be_finish: bool = true
 var attack_timer: Timer
@@ -172,6 +172,9 @@ func enter_finisher_state() -> void:
 func _on_hurt(_dmg: float) -> void:
 	flash_sprite(Color(1.0, 0.166, 0.09, 1.0))
 	_process_pain()
+	
+	var blood = VfxConstructor.new("blood_splatter")
+	blood.restart_at(self)
 
 func _on_hurt_ex(dmg_info: CombatManager.CombatInfo):
 	if dmg_info:

@@ -3,7 +3,8 @@
 		"machine_gun": 50,
 		"shotgun": 100,
 		"super_shotgun": 0,
-		"rocket_launcher": 250
+		"rocket_launcher": 250,
+		"bfg_9000": 0,
 	},
 
 	"Upgrades": {

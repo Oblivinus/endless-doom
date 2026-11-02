@@ -29,7 +29,7 @@ func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 		return
 	finished.connect(queue_free)
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Engine.time_scale != 0:
 		var pitch_offset: float = 1 - pitch_scale
 		pitch_scale = Engine.time_scale + pitch_offset

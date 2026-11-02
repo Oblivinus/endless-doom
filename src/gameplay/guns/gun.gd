@@ -2,7 +2,7 @@ class_name Gun extends Node3D
 
 @export var gun_shake: float = 0.2
 
-@export_category("Stats")
+@export_group("Stats")
 @export var damage: float = 10.0:
 	get():
 		if parent and parent.player: return damage * parent.player.damage_boost
@@ -16,7 +16,7 @@ class_name Gun extends Node3D
 @export var damage_type: String = "normal"
 @export var ammo_used: int = 1
 
-@export_category("Dependecies")
+@export_group("Dependecies")
 @export var hitbox: Area3D
 @export var anim_tree: AnimationTree
 @export var sfx: String = "guns/pistol"
@@ -51,9 +51,7 @@ func _ready() -> void:
 func _check_and_shoot() -> void:
 	last_hit_count = 0
 	
-	var enemies = hitbox.get_overlapping_bodies()
-	enemies.sort_custom(func(a: Node3D, b: Node3D): return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position))
-	
+	var enemies = _check_for_valid_enemies()
 	if enemies.is_empty(): return
 	
 	var check_count = 0
@@ -86,21 +84,27 @@ func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 
 func _check_for_valid_enemies() -> Array[Humanoid]:
 	var result: Array[Humanoid] = []
-	var enemies = hitbox.get_overlapping_bodies()
-	enemies.sort_custom(func(a: Node3D, b: Node3D): return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position))
+	var bodies := hitbox.get_overlapping_bodies()
+	if bodies.is_empty(): return result
 	
-	if enemies.is_empty(): return result
+	var origin := global_position
 	
-	var check_count = 0
-	for enemy: Humanoid in enemies:
-		var query = _check_ray_cast(enemy.global_position)
-		if query.is_empty():
+	var candidates: Array = []
+	for b in bodies:
+		if b is Humanoid and not b.is_dead:
+			candidates.append([origin.distance_squared_to(b.global_position), b])
+	
+	if candidates.is_empty(): return result
+	
+	candidates.sort_custom(func(a, b): return a[0] < b[0])
+	
+	for c in candidates:
+		var enemy: Humanoid = c[1]
+		if _check_ray_cast(enemy.global_position).is_empty():
 			result.append(enemy)
-		
-		check_count += 1
-		if check_count >= max_hit:
-			break
-	
+			if result.size() >= max_hit:
+				break
+
 	return result
 
 func equip(new_owner: Arsenal):
@@ -134,17 +138,15 @@ func set_visibility(value: bool, node: Node = self) -> void:
 		if child is CanvasLayer: child.visible = value
 
 func create_bullet_hit(pos: Vector3):
-	var vfx = VFX.new("bullet_hit", pos)
-	Globals.world.add_child(vfx)
-	vfx.global_position = pos
+	var vfx = VfxConstructor.new("bullet_hit")
 
 	var away_point: Vector3 = pos + (pos - global_position).normalized()
 	var up: Vector3 = Vector3.UP
 	if abs((pos - global_position).normalized().dot(up)) > 0.999:
 		up = Vector3.FORWARD
-
+	
+	vfx.restart_at(pos)
 	vfx.look_at(away_point, up)
-	vfx.restart()
 	
 func create_bullet_hit_ray(pos: Vector3):
 	var query = _check_ray_cast(pos)

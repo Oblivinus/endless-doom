@@ -21,6 +21,7 @@ var guns: Dictionary[String, PackedScene] = {
 	"super_shotgun": preload("res://src/gameplay/guns/super_shotgun.tscn"),
 	"rocket_launcher": preload("res://src/gameplay/guns/rocket_launcher.tscn"),
 	"machine_gun": preload("res://src/gameplay/guns/machine_gun.tscn"),
+	"bfg_9000": preload("res://src/gameplay/guns/bfg9000.tscn"),
 	"hand": preload("res://src/gameplay/guns/hand.tscn"),
 }
 
@@ -28,7 +29,8 @@ var projectiles: Dictionary[String, PackedScene] = {
 	"rocket": preload("res://src/gameplay/projectiles/rocket/rocket.tscn"),
 	"enemy_rocket": preload("res://src/gameplay/projectiles/rocket/enemy_rocket.tscn"),
 	"imp_orb": preload("res://src/gameplay/projectiles/imp_orb/imp_orb.tscn"),
-	"caco_fireball": preload("res://src/gameplay/projectiles/caco_fireball/caco_fireball.tscn")
+	"caco_fireball": preload("res://src/gameplay/projectiles/caco_fireball/caco_fireball.tscn"),
+	"bfg_orb": preload("res://src/gameplay/projectiles/bfg_orb/bfg_orb.tscn"),
 }
 
 var highlight_3d: PackedScene = preload("uid://u56cil4iogmy")

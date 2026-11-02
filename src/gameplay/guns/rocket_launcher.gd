@@ -7,7 +7,7 @@ var connection: Signal
 func  shoot() -> void:
 	if not ready_to_shoot(): return
 	cache_parent = parent
-	parent.use_ammo(type)
+	consume_ammo()
 	playback.travel("shoot")
 	play_sfx()
 	timer.start()

@@ -1,4 +1,4 @@
-extends Node
+class_name Enums extends Node
 
 enum IDLE_STATUS {
 	WANDERING,
@@ -10,6 +10,7 @@ enum GUN_TYPES {
 	BULLET,
 	SHELL,
 	ROCKET,
+	CELL,
 }
 
 func get_guns_type() -> Array:

@@ -38,9 +38,8 @@ func _on_enemy_died(enemy: Enemy):
 func _on_finisher(enemy: Enemy) -> void:
 	if not Globals.world: return
 	var last_pos: Vector3 = enemy.global_position
-	var vfx = VFX.new("blood_splatter2", last_pos)
-	enemy.add_child(vfx)
-	vfx.restart()
+	var vfx = VfxConstructor.new("blood_splatter")
+	vfx.restart_at(enemy)
 	
 	drop_random_item(3, last_pos)
 

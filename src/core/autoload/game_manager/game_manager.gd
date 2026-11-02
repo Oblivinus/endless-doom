@@ -43,7 +43,7 @@ func _notification(what: int) -> void:
 
 func _scene_change():
 	VFX.clear_line_pool()
-	ProjectileLauncher.clear_pool()
+	ObjPool.clear()
 
 func play_hearable_sound(audio_name: String, pos_or_node3: Variant) -> Audio3D:
 	var audio = Audio3D.new(audio_name, pos_or_node3)

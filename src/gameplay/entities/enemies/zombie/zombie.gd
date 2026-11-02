@@ -15,10 +15,9 @@ func _ready() -> void:
 
 func _on_missed_or_blocked(pos: Vector3 = Vector3.ZERO, _context: String = "none") -> void:
 	if pos == Vector3.ZERO: return
-	var vfx = VFX.new("bullet_hit", pos)
-	Globals.world.add_child(vfx)
+	var vfx = VfxConstructor.new("bullet_hit")
+	vfx.restart_at(pos)
 	vfx.global_basis = global_basis
-	vfx.restart()
 
 func attack_action() -> void:
 	if is_dead: return
@@ -31,9 +30,3 @@ func attack_action() -> void:
 	var humanoid: Humanoid = _check_for_target()
 	if humanoid:
 		humanoid.hurt(attack_damage)
-
-func _on_hurt(dmg: float) -> void:
-	super(dmg)
-	var blood = VFX.new("blood_splatter", global_position)
-	add_child(blood)
-	blood.restart()

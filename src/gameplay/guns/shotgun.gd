@@ -14,8 +14,7 @@ func _ready() -> void:
 func _check_and_shoot() -> void:
 	last_hit_count = 0
 	
-	var enemies = hitbox.get_overlapping_bodies()
-	enemies.sort_custom(func(a: Node3D, b: Node3D): return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position))
+	var enemies = _check_for_valid_enemies()
 	
 	if enemies.is_empty(): return
 	

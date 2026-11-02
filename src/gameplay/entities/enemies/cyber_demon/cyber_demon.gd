@@ -12,10 +12,17 @@ func attack_action() -> void:
 			
 			if is_dead or is_disturbed: return
 			
-			if target: aim_pos = target.global_position
+			if target: aim_pos = target.global_position + _random_aim_offset()
 			animation_tree.start("attack")
 		
 		launch_rocket(aim_pos)
+
+func _random_aim_offset() -> Vector3:
+	var length: float = randf_range(-1, 1)
+	var angles: int = randi_range(-180, 180)
+	var desired_vector: Vector3 = global_basis.x * length
+	desired_vector = desired_vector.rotated(global_basis.z, angles)
+	return desired_vector
 
 func get_enemy_floor_Y_offset() -> float:
 	var col: CollisionShape3D = $CollisionShape3D

@@ -66,15 +66,20 @@ func _on_hit(other: Node3D) -> void:
 	if not _active: return
 	_active = false
 	on_hit.emit(other)
-	_release.call_deferred()
+	ObjPool.despawn.call_deferred(self)
 
 func trigger_on_hit() -> void:
 	_on_hit(null)
+	lifetime_timer.stop()
 
 #region POOLING
+func _on_pool_despawn() -> void:
+	_set_inactive_state()
+	_clear_connection()
+
 func activate(pos: Vector3) -> void:
 	global_position = pos
-	hit_area.collision_mask = hit_mask   # reset any overwritten mask
+	hit_area.collision_mask = hit_mask
 	hit_area.set_deferred("monitoring", true)
 	freeze = false
 	set_process(true)
@@ -93,15 +98,6 @@ func _set_inactive_state() -> void:
 	set_process(false)
 	set_physics_process(false)
 	hide()
-
-func _release() -> void:
-	_set_inactive_state()
-	
-	_clear_connection()
-	
-	if get_parent():
-		get_parent().remove_child(self)
-	ProjectileLauncher.return_to_pool(self)
 
 func _clear_connection() -> void:
 	_disconnect(on_hit)

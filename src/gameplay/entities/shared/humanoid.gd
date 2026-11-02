@@ -2,7 +2,7 @@ class_name Humanoid extends CharacterBody3D
 
 const REFERENCE_MASS: float = 10.0
 
-@export_category("Stats")
+@export_group("Stats")
 @export var move_speed: float = 2.5
 @export var max_health: float = 100.0
 @export var mass: float = 10.0
@@ -15,7 +15,7 @@ const REFERENCE_MASS: float = 10.0
 			is_dead = true
 			on_died.emit()
 			
-@export_category("Movement")
+@export_group("Movement")
 @export var use_acceleration: bool = false
 @export var accel: float
 @export var deaccel: float
@@ -77,7 +77,7 @@ func _ready() -> void:
 	health = max_health
 	knockback_instance = KnockbackInstance.new(self)
 
-func  _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	_process_moving(delta)
 	_process_gravity(delta)
 	knockback_instance._process(delta)
@@ -168,6 +168,9 @@ func stop_move() -> void:
 	move_target = null
 
 func knockback(force: Vector3) -> void:
+	var force_factor: float = REFERENCE_MASS/maxf(mass, 0.01)
+	force = force * force_factor
+	
 	knockback_instance.launch(force)
 
 func _modify_move_dir(dir: Vector3) -> Vector3:

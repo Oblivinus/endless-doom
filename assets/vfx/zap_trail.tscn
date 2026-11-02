@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://oelbtcgjwi8n"]
+
+[sub_resource type="GDScript" id="GDScript_u2sfu"]
+script/source = "extends Node3D
+
+@export var speed: float = 75.0
+@export var min_duration: float = 0.05
+@export var max_duration: float = 0.3
+
+var _age := 0.0
+var _duration := 0.1
+var _base_scale := Vector3.ONE
+var sections: Array[Node]
+
+func _ready() -> void:
+	sections = get_children()
+	set_process(false)
+
+func fire(from: Vector3, to: Vector3) -> void:
+	var dist := from.distance_to(to)
+	var section_distance = dist/sections.size()
+
+func stretch_from_to(section: Node3D,from: Vector3, to: Vector3) -> void:
+	pass
+
+func _get_offset() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	_age += delta
+	if _age >= _duration:
+		VFX.release_line(self)
+		return
+	scale = _base_scale * (1.0 - _age / _duration)
+"
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_kvrig"]
+size = 0.1
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_31leo"]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 0.36666656, 1)
+emission_enabled = true
+emission = Color(0, 1, 0.2833333, 1)
+emission_energy_multiplier = 2.0
+disable_receive_shadows = true
+
+[node name="BulletTrail" type="Node3D" unique_id=982074583]
+script = SubResource("GDScript_u2sfu")
+
+[node name="Sec1" type="Node3D" parent="." unique_id=2097827105]
+
+[node name="Section" type="MeshInstance3D" parent="Sec1" unique_id=277355497]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.5)
+mesh = SubResource("RibbonTrailMesh_kvrig")
+surface_material_override/0 = SubResource("ORMMaterial3D_31leo")
+
+[node name="Sec2" type="Node3D" parent="." unique_id=1485511557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Section" type="MeshInstance3D" parent="Sec2" unique_id=282437820]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.5)
+mesh = SubResource("RibbonTrailMesh_kvrig")
+surface_material_override/0 = SubResource("ORMMaterial3D_31leo")
+
+[node name="Sec3" type="Node3D" parent="." unique_id=565046778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Section" type="MeshInstance3D" parent="Sec3" unique_id=1613883702]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.5)
+mesh = SubResource("RibbonTrailMesh_kvrig")
+surface_material_override/0 = SubResource("ORMMaterial3D_31leo")

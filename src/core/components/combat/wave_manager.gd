@@ -124,8 +124,9 @@ func _roll_entry(wave: int) -> WaveEntry:
 	return available.back()
 
 func _spawn_boss_entry(wave: int, entry: BossEntry) -> BossEntry:
-	#print("Max alive ", entry.max_alive, " Total Count : ", entry.total_count)
-	if wave < entry.wave_appear - 1: return null
+	var wave_number = wave + 1
+	if wave_number < entry.wave_appear: return null
+	if (wave_number - entry.wave_appear) % entry.wave_step != 0: return null
 	if entry.total_count >= entry.max_alive: return  null
 	if total_enemies < entry.appear_after: return null
 	

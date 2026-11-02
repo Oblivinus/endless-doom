@@ -12,12 +12,14 @@ var max_ammo: Dictionary[String, int] = {
 	"BULLET" = 200,
 	"SHELL" = 75,
 	"ROCKET" = 50,
+	"CELL" = 300,
 }
 
 var available_ammo: Dictionary[String, int] = {
 	"BULLET" = 100,
 	"SHELL" = 75,
 	"ROCKET" = 50,
+	"CELL" = 150,
 }
 
 var is_moving = false

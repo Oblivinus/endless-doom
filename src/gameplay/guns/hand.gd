@@ -47,9 +47,8 @@ func hurt_enemy(enemy: Enemy) -> void:
 	
 	if enemy.is_dead:
 		knock_force *= 10
-		var vfx = VFX.new("explosion", enemy.global_position + Vector3(0, -0.5, 0))
-		Globals.world.add_child(vfx)
-		vfx.restart()
+		var vfx = VfxConstructor.new("explosion")
+		vfx.restart_at(enemy.global_position + Vector3(0, -0.5, 0))
 	
 		var audio = GameManager.play_hearable_sound("gameplay/explode",  vfx)
 		audio.max_db = 10
