@@ -24,8 +24,8 @@ func attack_action() -> void:
 	Audio3D.new("guns/pistol", self).play()
 	
 	var query = _raycast_check(attack_pos)
-	if query.is_empty(): VFX.create_bullet_line(global_position, attack_pos)
-	else: VFX.create_bullet_line(global_position, query.position)
+	if query.is_empty(): VfxConstructor.Line.create_line("bullet_line").fire(global_position, attack_pos)
+	else: VfxConstructor.Line.create_line("bullet_line").fire(global_position, query.position)
 	
 	var humanoid: Humanoid = _check_for_target()
 	if humanoid:

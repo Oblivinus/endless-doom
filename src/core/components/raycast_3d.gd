@@ -6,9 +6,11 @@ var query: PhysicsRayQueryParameters3D
 
 func _init(node3d: Node3D) -> void:
 	direct_body_state = node3d.get_world_3d().direct_space_state
+	query = PhysicsRayQueryParameters3D.new()
 
 func from_to(origin: Vector3, target_pos: Vector3) -> void:
-	query = PhysicsRayQueryParameters3D.create(origin, target_pos)
+	query.from = origin
+	query.to = target_pos
 
 func mask(mask_layers: Array[int]) -> void:
 	query.collision_mask = 0

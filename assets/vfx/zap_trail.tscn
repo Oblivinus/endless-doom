@@ -3,35 +3,139 @@
 [sub_resource type="GDScript" id="GDScript_u2sfu"]
 script/source = "extends Node3D
 
+enum Mode { ONE_SHOT, FOLLOW }
+
 @export var speed: float = 75.0
 @export var min_duration: float = 0.05
-@export var max_duration: float = 0.3
+@export var max_duration: float = 0.5
+@export var jitter: float = 1.0
+@export var refresh_interval: float = 0.05  # how often a followed bolt re-rolls its shape
 
+var _mode: Mode = Mode.ONE_SHOT
 var _age := 0.0
-var _duration := 0.1
-var _base_scale := Vector3.ONE
-var sections: Array[Node]
+var _duration := 0.75
+var _refresh_timer := 0.0
+var sections: Array[Node3D]
+
+var follow_origin: Node3D
+var follow_target: Node3D
 
 func _ready() -> void:
-	sections = get_children()
+	for c in get_children():
+		if c is Node3D:
+			c.top_level = true  # sections use global transforms, ignore parent
+			sections.append(c)
 	set_process(false)
 
+# --- Public API -------------------------------------------------------------
+
+## One-shot bolt between two fixed points. Plays once, then despawns.
 func fire(from: Vector3, to: Vector3) -> void:
 	var dist := from.distance_to(to)
-	var section_distance = dist/sections.size()
+	if dist < 0.01:
+		ObjPool.despawn(self)
+		return
 
-func stretch_from_to(section: Node3D,from: Vector3, to: Vector3) -> void:
-	pass
+	_reset_state()
+	_mode = Mode.ONE_SHOT
+	_duration = clampf(dist / speed, min_duration, max_duration)
 
-func _get_offset() -> void:
-	pass
+	_build_bolt(from, to)
+	set_process(true)
+
+## Continuous zap that tracks two nodes. duration <= 0 means \"until stop() is called\".
+func fire_follow(origin: Node3D, target: Node3D, duration: float = 0.0) -> void:
+	if not is_instance_valid(origin) or not is_instance_valid(target):
+		ObjPool.despawn(self)
+		return
+
+	_reset_state()
+	_mode = Mode.FOLLOW
+	follow_origin = origin
+	follow_target = target
+	_duration = duration
+
+	_build_bolt(origin.global_position, target.global_position)
+	set_process(true)
+
+func stop() -> void:
+	set_process(false)
+	ObjPool.despawn(self)
+
+# Called by ObjPool.despawn
+func _on_pool_despawn() -> void:
+	set_process(false)
+	follow_origin = null
+	follow_target = null
+
+# --- Internals --------------------------------------------------------------
+
+func _reset_state() -> void:
+	_age = 0.0
+	_refresh_timer = 0.0
+	follow_origin = null
+	follow_target = null
+	visible = true
+
+func _build_bolt(from: Vector3, to: Vector3) -> void:
+	var dist := from.distance_to(to)
+	if dist < 0.01:
+		for s in sections:
+			s.visible = false
+		return
+
+	# Offsets perpendicular to the beam, so they work in any direction
+	var dir := (to - from) / dist
+	var up := Vector3.UP if absf(dir.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT
+	var right := dir.cross(up).normalized()
+	var true_up := right.cross(dir).normalized()
+
+	var p1 := from.lerp(to, 1.0 / 3.0) + _get_offset(right, true_up)
+	var p2 := from.lerp(to, 2.0 / 3.0) + _get_offset(right, true_up)
+
+	stretch_from_to(sections[0], from, p1)
+	stretch_from_to(sections[1], p1, p2)
+	stretch_from_to(sections[2], p2, to)
+
+func stretch_from_to(section: Node3D, from: Vector3, to: Vector3) -> void:
+	var dist := from.distance_to(to)
+	if dist < 0.001:
+		section.visible = false
+		return
+	section.visible = true
+
+	var dir := (to - from) / dist
+	var up := Vector3.UP if absf(dir.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT
+
+	section.global_position = from
+	section.look_at(to, up)
+	section.scale = Vector3(1.0, 1.0, dist)
+
+func _get_offset(right: Vector3, up: Vector3) -> Vector3:
+	return right * randf_range(-jitter, jitter) + up * randf_range(-jitter, jitter)
 
 func _process(delta: float) -> void:
 	_age += delta
-	if _age >= _duration:
-		VFX.release_line(self)
-		return
-	scale = _base_scale * (1.0 - _age / _duration)
+
+	match _mode:
+		Mode.ONE_SHOT:
+			if _age >= _duration:
+				stop()
+
+		Mode.FOLLOW:
+			# Target or origin got freed (enemy died, etc.)
+			if not is_instance_valid(follow_origin) or not is_instance_valid(follow_target):
+				stop()
+				return
+			if _duration > 0.0 and _age >= _duration:
+				stop()
+				return
+
+			# Re-roll the zigzag on an interval, but track endpoints every frame
+			_refresh_timer += delta
+			if _refresh_timer >= refresh_interval:
+				_refresh_timer = 0.0
+				_build_bolt(follow_origin.global_position, follow_target.global_position)
 "
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_kvrig"]

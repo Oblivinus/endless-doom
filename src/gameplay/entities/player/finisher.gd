@@ -132,10 +132,11 @@ func _move_to_reached() -> void:
 	if arsenal.player.global_position.distance_to(target_pos) < 1.0:
 		arsenal.player.global_position = target_pos
 	
+	arsenal.player.knockback(arsenal.player.global_basis.z * 10)
+	
 	Engine.time_scale = SLOW_TIME_SCALE
 	await get_tree().create_timer(SLOW_DURATION).timeout
 	Engine.time_scale = 1.0
-	
 	_reset()
 	delay_timer.start(finisher_delay)
 

@@ -1,5 +1,7 @@
 class_name Shotgun extends Gun
 
+@export var aim_cone_deg: float = 30.0 
+
 var min_damage: float
 var min_distance: float
 var max_hit_count_distance: float = 1.5
@@ -20,20 +22,48 @@ func _check_and_shoot() -> void:
 	
 	var check_count = 0
 	for enemy: Enemy in enemies:
-		var query = _check_ray_cast(enemy.global_position)
-		if query.is_empty():
-			hurt_enemy(enemy)
-		else:
-			create_bullet_hit(query.position)
+		hurt_enemy(enemy)
 		
 		var enemy_distance = global_position.distance_to(enemy.global_position)
-		
 		var hit_cost: int = roundi( Util.value_falloff_distance(enemy_distance, max_hit, 1, max_hit_count_distance, min_hit_count_distance) )
+		
 		check_count += hit_cost
 		last_hit_count += 1
 		
 		if check_count >= max_hit:
 			break
+
+#this one is ai generated, just for temporary. cause the lag is insane
+func _check_for_valid_enemies() -> Array[Humanoid]:
+	var result: Array[Humanoid] = []
+	var origin := global_position
+	var fwd := -global_basis.z
+	var max_sq := max_range * max_range
+	var cos_limit := cos(deg_to_rad(aim_cone_deg))
+
+	var nodes: Array[Humanoid] = []
+	var dists: Array[float] = []
+
+	for n in get_tree().get_nodes_in_group("enemies"):
+		var h := n as Humanoid
+		if h == null or h.is_dead:
+			continue
+		var to := h.global_position - origin
+		var d2 := to.length_squared()
+		if d2 > max_sq:
+			continue
+		if d2 > 0.0001 and fwd.dot(to) < cos_limit * sqrt(d2):
+			continue
+		var i := dists.bsearch(d2)
+		dists.insert(i, d2)
+		nodes.insert(i, h)
+	
+	for h in nodes:
+		if _check_ray_cast(h.global_position).is_empty():
+			result.append(h)
+			if result.size() >= max_hit:
+				break
+	return result
 
 func _get_hit_cost(distance: float) -> int:
 	var t: float = clamp(

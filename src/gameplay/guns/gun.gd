@@ -26,6 +26,9 @@ var timer: Timer
 var parent: Arsenal
 var playback: AnimationNodeStateMachinePlayback
 
+var combat_info: CombatManager.CombatInfo
+var _raycast: Raycast3d
+
 var last_hit_count: int = 0
 
 func _ready() -> void:
@@ -72,15 +75,18 @@ func hurt_enemy(enemy: Enemy) -> void:
 	enemy.hurt(damage, get_damage_info())
 
 func get_damage_info() -> CombatManager.CombatInfo:
-	return CombatManager.CombatInfo.new(damage_type, parent.player)
+	if not combat_info:
+		combat_info = CombatManager.CombatInfo.new(damage_type, parent.player)
+	
+	return combat_info
 
 func _check_ray_cast(final_pos: Vector3) -> Dictionary:
-	var raycast = Raycast3d.new(self)
-	raycast.from_to(global_position, final_pos)
-	raycast.mask([2])
-	var query = raycast.intersect()
+	if _raycast == null:
+		_raycast = Raycast3d.new(self)
+		_raycast.mask([2])
+	_raycast.from_to(global_position, final_pos)
 	
-	return query
+	return _raycast.intersect()
 
 func _check_for_valid_enemies() -> Array[Humanoid]:
 	var result: Array[Humanoid] = []

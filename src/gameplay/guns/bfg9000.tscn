@@ -168,7 +168,6 @@ damage = 100.0
 max_range = 30.0
 fire_rate = 1.35
 type = 4
-ammo_used = 20
 hitbox = NodePath("Hit")
 anim_tree = NodePath("AnimationTree")
 sfx = "guns/bfg/bfg_9000"

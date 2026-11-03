@@ -101,6 +101,7 @@ class Pathfind:
 func _ready() -> void:
 	super()
 	pathfind = Pathfind.new(self)
+	add_to_group("enemies")
 	
 	state_machine.init(self)
 	set_collision_layer_value(3, true)
@@ -172,9 +173,6 @@ func enter_finisher_state() -> void:
 func _on_hurt(_dmg: float) -> void:
 	flash_sprite(Color(1.0, 0.166, 0.09, 1.0))
 	_process_pain()
-	
-	var blood = VfxConstructor.new("blood_splatter")
-	blood.restart_at(self)
 
 func _on_hurt_ex(dmg_info: CombatManager.CombatInfo):
 	if dmg_info:

@@ -85,18 +85,23 @@ func _collect(vfx: Node3D) -> void:
 				if anim.length > max_duration: max_duration = anim.length
 
 class Line:
-	static var _pool_line: Dictionary[StringName, Array] = {}
+	static var _lines: Dictionary[StringName, PackedScene] = {
+		&"bullet_line": preload("uid://cs8fnp8d00ruf"),
+		&"zap": preload("uid://oelbtcgjwi8n"),
+	}
 	
-	static func create_line(line_type: StringName) -> void:
-		pass
+	static func create_line(line_type: StringName) -> Line:
+		if not _lines.has(line_type): return null
+		var scene: PackedScene = _lines[line_type]
+		var node_inst: Node3D = ObjPool.spawn(scene)
+		
+		return new(node_inst)
 	
-	static func _pull_from_pool() -> void:
-		pass
+	var node: Node3D
 	
-	static func _release(line: Node3D) -> void:
-		pass
+	func _init(i_node: Node3D) -> void:
+		node = i_node
 	
-	var line: Node3D
-	
-	func _init(line_type) -> void:
-		pass
+	func fire(from: Vector3, to: Vector3) -> void:
+		if not node.has_method(&"fire"): return
+		node.fire(from, to)
