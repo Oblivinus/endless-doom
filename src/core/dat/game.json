@@ -59,6 +59,12 @@
 			"max_alive": -1,
 		},
 		
+		"hell_knight": {
+			"wave_appeared": 5,
+			"weight": 10.0,
+			"max_alive": -1,
+		},
+		
 		"pinky": {
 			"wave_appeared": 5,
 			"weight": 15.0,

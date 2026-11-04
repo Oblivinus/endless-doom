@@ -9,10 +9,10 @@ var current_gun: Gun
 var current_gun_type: Enums.GUN_TYPES
 
 var max_ammo: Dictionary[String, int] = {
-	"BULLET" = 200,
-	"SHELL" = 75,
-	"ROCKET" = 50,
-	"CELL" = 300,
+	"BULLET" = 400,
+	"SHELL" = 150,
+	"ROCKET" = 100,
+	"CELL" = 400,
 }
 
 var available_ammo: Dictionary[String, int] = {
@@ -27,7 +27,10 @@ var on_finisher: bool = false
 var switch_timer: Timer
 var slot_number: int = 1:
 	set(value):
-		slot_number = wrapi(value, 0, guns_slot.size())
+		if value == 0: 
+			slot_number = 0 
+			return
+		slot_number = wrapi(value, 1, guns_slot.size())
 
 signal on_ammo_used(type: String, amount: int)
 signal finisher_signal(enemy: Enemy)
@@ -55,6 +58,11 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if switch_timer.time_left > 0: return
+	
+	if Input.is_action_just_pressed("switch_melee"):
+		slot_number = 0
+		equip_slot(slot_number)
+		return
 	
 	if Input.is_action_pressed("change_gun_up"):
 		slot_number += 1
@@ -120,10 +128,11 @@ func use_ammo(type: Enums.GUN_TYPES, amount: int = 1) -> bool:
 	if not available_ammo.has(gun_type): return false
 	
 	var current_amount: int = available_ammo[gun_type]
+	var max_amount: int = max_ammo[gun_type]
 	var new_amount: int = current_amount - amount
 	
 	if is_ammo_enough(type, amount):
-		available_ammo[gun_type] = max(0, new_amount)
+		available_ammo[gun_type] = clampi(new_amount, 0, max_amount)
 		on_ammo_used.emit(gun_type, amount)
 		return true
 	else:

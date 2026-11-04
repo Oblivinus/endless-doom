@@ -11,6 +11,7 @@ var d_point: int = 1000:
 var player_arms: Array[StringName]
 var owned_gun: Array[StringName] = []
 var player_upgrades: Dictionary[StringName, Upgrade] = {}
+var player_setting: Setting
 
 class Upgrade:
 	var up_name: StringName
@@ -55,10 +56,37 @@ class Upgrade:
 		}
 		return result
 
-
+class Setting:
+	const REFERENCE_SEN: float = 100.0
+	var sensitivity: float = 100.0
+	
+	func _init() -> void:
+		var player_config: Dictionary = GameData.get_player_setting()
+		for config_name: StringName in player_config:
+			var value: Variant = player_config[config_name]
+			if self.get(config_name): self.set(config_name, value)
+	
+	func apply_setting_from_dict(dict: Dictionary[StringName, Variant]) -> void:
+		for sett_name: StringName in dict:
+			var value: Variant = dict[sett_name]
+			if self.get(sett_name): self.set(sett_name, value)
+		
+		apply_setting()
+	
+	func apply_setting() -> void:
+		Player.mouse_sens = 0.25 * (sensitivity / REFERENCE_SEN)
+		Player.mouse_sens = max(Player.mouse_sens, 0.05)
+	
+	func get_setting_dict() -> Dictionary[StringName, Variant]:
+		var result: Dictionary[StringName, Variant] = {
+			&"sensitivity": sensitivity,
+		}
+		
+		return result
 
 func init(parent) -> void:
 	game_manager = parent
+	player_setting = Setting.new()
 	
 	for upgrade_name: StringName in upgrades_dat:
 		player_upgrades[upgrade_name] = Upgrade.new( upgrade_name, upgrades_dat[upgrade_name] )
@@ -157,12 +185,15 @@ func get_player_data() -> Dictionary:
 	var gun_owned = get_owned_guns()
 	var upgrades = get_upgrades_data()
 	var prev_arm = get_player_arms()
+	var max_wave: int = game_manager.last_wave
 	
 	var result = {
 		"GunOwned": gun_owned,
 		"Upgrades": upgrades,
 		"PrevArm": prev_arm,
 		"DPoints": d_point,
+		"MaxWave": max_wave,
+		"config": player_setting.get_setting_dict()
 	}
 	
 	return result

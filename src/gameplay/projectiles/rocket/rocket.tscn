@@ -107,7 +107,7 @@ func _enter_tree() -> void:
 script = ExtResource("1_4056u")
 blast_radius = 5.0
 speed = 20.0
-collision_radius = 0.25
+collision_radius = 0.4
 hit_mask = 6
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=982684613]

@@ -20,7 +20,7 @@ func fire(from: Vector3, to: Vector3) -> void:
 		VFX.release_line(self)
 		return
 
-	scale = Vector3.ONE   # pooled nodes keep their old scale, reset before look_at
+	scale = Vector3.ONE
 	global_position = to
 	var dir := (to - from) / dist
 	var up := Vector3.UP if absf(dir.dot(Vector3.UP)) < 0.99 else Vector3.RIGHT

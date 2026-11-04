@@ -106,7 +106,7 @@ func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 func _move_to_enemy(target_enemy: Enemy) -> void:
 	enemy = target_enemy
 	var player := arsenal.player
-	# horizontal direction from enemy toward the player, fixed at start
+	#horizontal direction from enemy toward the player.
 	stand_dir = player.global_position - enemy.global_position
 	stand_dir.y = 0
 	stand_dir = stand_dir.normalized() if not stand_dir.is_zero_approx() else player.global_basis.z
@@ -119,20 +119,22 @@ func _move_to_reached() -> void:
 	play_anim()
 	
 	var combat_info = CombatManager.CombatInfo.new("forceful", arsenal.player)
+	var player: Player = arsenal.player
 	combat_info.finisher = true
-	enemy.hurt(enemy.max_health, combat_info, true)
-	arsenal.player.health += 8
-	CombatManager._on_finisher(enemy)
 	
+	enemy.hurt(enemy.max_health, combat_info, true)
+	player.health += 8
+	
+	CombatManager._on_finisher(enemy)
 	Audio3D.new("guns/projectile_contact", arsenal).play()
 	
-	arsenal.player.player_camera.shake(0.5)
+	player.player_camera.shake(0.5)
 	arsenal.finisher_signal.emit(enemy)
 	
-	if arsenal.player.global_position.distance_to(target_pos) < 1.0:
-		arsenal.player.global_position = target_pos
+	if player.global_position.distance_to(target_pos) < 1.0:
+		player.global_position = target_pos
 	
-	arsenal.player.knockback(arsenal.player.global_basis.z * 10)
+	player.knockback(arsenal.player.global_basis.z * 10)
 	
 	Engine.time_scale = SLOW_TIME_SCALE
 	await get_tree().create_timer(SLOW_DURATION).timeout

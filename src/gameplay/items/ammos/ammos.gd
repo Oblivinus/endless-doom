@@ -16,14 +16,26 @@ var type_dict: Dictionary[String, int] = {
 	"CELL" = 3,
 }
 
+var amount_sprite_coord: Dictionary[String, int] = {
+	"BULLET" = 6,
+	"SHELL" = 3,
+	"ROCKET" = 3,
+	"CELL" = 15,
+}
+
 static func create() -> Ammos:
 	return _create_from_script(Ammos) as Ammos
 
 func _ready() -> void:
 	super()
 	if ammo_type == Enums.GUN_TYPES.NONE: ammo_type = Enums.GUN_TYPES.BULLET
-	sprite_type = type_dict[Enums.GUN_TYPES.find_key(ammo_type)]
-	if amount >= 5: sprite_amount = 1
+	
+	var enum_str: String = Enums.GUN_TYPES.find_key(ammo_type)
+	var sprite_amount_change: int = amount_sprite_coord[enum_str]
+	
+	sprite_type = type_dict[enum_str]
+	
+	if amount >= sprite_amount_change: sprite_amount = 1
 	
 	if give_all:
 		sprite.frame_coords = Vector2i(1, 1)

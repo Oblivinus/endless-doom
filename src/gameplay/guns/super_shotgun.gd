@@ -26,6 +26,8 @@ func hurt_enemy(enemy: Enemy) -> void:
 	
 	if distance > max_range/2:
 		dmg_info.type = "normal"
+	else:
+		dmg_info.type = damage_type
 	
 	enemy.hurt(applied_dmg, dmg_info)
 	knockback_enemy(distance, enemy)

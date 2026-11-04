@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://daw4e6ejy8xij" path="res://src/gameplay/entities/enemies/pinky/pinky.tscn" id="9_0ls5i"]
 [ext_resource type="PackedScene" uid="uid://dor4qbs588l55" path="res://src/gameplay/entities/enemies/cacodemon/cacodemon.tscn" id="10_u2sfu"]
 [ext_resource type="PackedScene" uid="uid://1yaovy5ukx3o" path="res://src/gameplay/entities/enemies/imp/imp.tscn" id="11_yno3m"]
+[ext_resource type="PackedScene" uid="uid://4xj3wp65his7" path="res://src/gameplay/entities/enemies/hell_knight/hell_knight.tscn" id="12_ia4ul"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vhxb"]
 albedo_texture = ExtResource("5_2vhxb")
@@ -94,7 +95,7 @@ size = Vector3(100, 0.1, 100)
 environment = SubResource("Environment_rwgxs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Maps" unique_id=99490598]
-transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 4.7351747)
+transform = Transform3D(1, 0, 0, 0, 0.8741285, 0.48569477, 0, -0.48569477, 0.8741285, 0, 4.819479, 44.235176)
 light_energy = 0.2
 shadow_enabled = true
 shadow_bias = 1.5
@@ -123,3 +124,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7, 6.8, 70.7)
 
 [node name="Imp" parent="." unique_id=69260843 instance=ExtResource("11_yno3m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6, 0.8499992, 46)
+
+[node name="HellKnight" parent="." unique_id=490144621 instance=ExtResource("12_ia4ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.8499999, 74)

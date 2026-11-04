@@ -47,3 +47,10 @@ static func create_area_3d(parent: Node3D, shape: Shape3D, collision_mask: Array
 	parent.add_child(area)
 	
 	return area
+
+static func fakeout_input(input_name: StringName) -> void:
+	var event: InputEventAction = InputEventAction.new()
+	event.action = input_name
+	event.pressed = true
+	
+	Input.parse_input_event(event)

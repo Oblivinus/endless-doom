@@ -46,6 +46,7 @@ var pathfind: Pathfind
 @export_group("In Combat")
 @export var attack_delay: float = 0.7
 @export var can_be_finish: bool = true
+@export_range(-1.0, 1.0, 0.01) var finisher_chance_override: float = -1.0
 var attack_timer: Timer
 var attack_pos: Vector3 = Vector3.ZERO
 var is_attacking: bool = false
@@ -150,12 +151,18 @@ func hurt(damage: float, ...args:Array) -> void:
 	if not is_dead: on_hurt_ex.emit(dmg_info)
 	
 	if health - damage <= 0 and not finisher_ready and can_be_finish:
-		if randf() <= CombatManager.FINISHER_CHANCE:
+		if roll_for_finisher():
 			enter_finisher_state()
 		else:
 			super(damage)
 	else:
 		super(damage)
+
+func roll_for_finisher() -> bool:
+	var chance: float = finisher_chance_override
+	if finisher_chance_override < 0: chance = CombatManager.FINISHER_CHANCE
+	if randf() <= chance: return true
+	return false
 
 func enter_finisher_state() -> void:
 	finisher_ready = true
@@ -182,6 +189,7 @@ func _on_hurt_ex(dmg_info: CombatManager.CombatInfo):
 
 func _on_died() -> void:
 	state_machine.change_state_name("dead")
+	remove_from_group("enemies")
 	play_sound("dead")
 
 func _on_event(event_name) -> void:

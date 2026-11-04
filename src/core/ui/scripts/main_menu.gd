@@ -5,6 +5,7 @@ class_name MainMenus extends CanvasLayer
 @export var setting_button_node: Button
 
 @export var loadout_menus: LoadoutMenus
+@export var settings: SettingUI
 
 var start_button: ButtonInteract
 var loadout_button: ButtonInteract
@@ -42,6 +43,7 @@ class ButtonInteract:
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	loadout_menus.visible = false
+	settings.visible = false
 	
 	start_button = ButtonInteract.new(start_button_node)
 	loadout_button = ButtonInteract.new(loadout_button_node)
@@ -49,6 +51,7 @@ func _ready() -> void:
 	
 	start_button.button.pressed.connect(_on_start)
 	loadout_button.button.pressed.connect(_open_loadout)
+	setting_button.button.pressed.connect(_open_setting)
 
 func _on_start():
 	if loadout_menus.arms.is_arm_empty():
@@ -58,3 +61,6 @@ func _on_start():
 
 func _open_loadout():
 	loadout_menus.visible = true
+	
+func _open_setting():
+	settings.visible = true

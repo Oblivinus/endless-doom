@@ -1,7 +1,7 @@
 extends Node
 
 static var BASE_DROP_CHANCE: float = 0.08
-static  var FINISHER_CHANCE: float = 0.35
+static  var FINISHER_CHANCE: float = 0.1
 
 
 class CombatInfo:
@@ -41,10 +41,9 @@ func _on_finisher(enemy: Enemy) -> void:
 	var vfx = VfxConstructor.new("blood_splatter")
 	vfx.restart_at(enemy)
 	
-	drop_random_item(3, last_pos)
+	drop_random_item(4, last_pos)
 
 func drop_random_item(amount: int, pos: Vector3):
-	for i: int in range(amount):
-		var world = GameManager.world
-		world.item_spawner.spawn(world.item_spawner.item_dict.keys().pick_random(), pos)
+	var world = GameManager.world
+	world.item_spawner.spawn_random_batch(amount, pos)
 	

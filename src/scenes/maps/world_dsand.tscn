@@ -66,8 +66,9 @@ agent_height = 3.0
 agent_radius = 0.75
 agent_max_climb = 0.1
 
-[node name="World_DSand" type="Node3D" unique_id=1930089467]
+[node name="World_DSand" type="Node3D" unique_id=1930089467 node_paths=PackedStringArray("wave_manager")]
 script = ExtResource("1_rwvjs")
+wave_manager = NodePath("WaveManager")
 
 [node name="WaveManager" parent="." unique_id=1523200062 node_paths=PackedStringArray("enemy_spawn_pos", "enemy_patrol_pos") instance=ExtResource("1_daofb")]
 enemy_spawn_pos = [NodePath("SpawnPos"), NodePath("SpawnPos2"), NodePath("SpawnPos3")]

@@ -7,8 +7,11 @@ static var guns_cost: Dictionary[StringName, int] = GameData.get_gun_cost_dictio
 signal on_sound(pos: Vector3)
 
 @export var player_datas: PlayerData
+@export var paused_screen: CanvasLayer
+@export var main_menus_button: Button
 
 var playing: bool = false
+var last_wave: int = 1
 var world: World:
 	get():
 		var current_scene = get_tree().current_scene
@@ -19,7 +22,13 @@ var world: World:
 
 func _ready() -> void:
 	player_datas.init(self)
+	paused(false, true)
 	get_tree().scene_changed.connect(_scene_change)
+	main_menus_button.pressed.connect(func(): Util.fakeout_input("exit_round"))
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		paused(not get_tree().paused)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_round") and playing:
@@ -37,11 +46,15 @@ func _notification(what: int) -> void:
 		NOTIFICATION_WM_GO_BACK_REQUEST:
 			quit_game()
 		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_FOCUS_OUT:
+			paused(true)
 			save_game()
 		NOTIFICATION_CRASH:
 			save_game()
 
 func _scene_change():
+	if world and world.wave_manager:
+		last_wave = world.wave_manager.get_current_wave()
+	
 	VFX.clear_line_pool()
 	ObjPool.clear()
 
@@ -71,9 +84,21 @@ func change_playing(value: bool = true):
 	else:
 		change_scene("uid://b7bfro4lxkq1t")
 		playing = false
+		paused(false, true)
 
 func change_scene(path: String):
 	get_tree().change_scene_to_file(path)
+
+func paused(value: bool, force: bool = false) -> void:
+	if not playing and not force: return
+	get_tree().paused = value
+	paused_screen.visible = value
+	
+	if value:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 
 func save_game() -> void:
 	GameData.save_player_data(player_datas.get_player_data())

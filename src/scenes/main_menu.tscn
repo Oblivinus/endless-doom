@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b0j625qxg1dh3" path="res://src/core/ui/scripts/main_menu.gd" id="1_iaawh"]
 [ext_resource type="Texture2D" uid="uid://xhn6krco325d" path="res://assets/image/title_endless.png" id="2_kp3xf"]
 [ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="3_chlrs"]
+[ext_resource type="PackedScene" uid="uid://ck320bo2wfvdx" path="res://src/core/ui/setting_ui.tscn" id="5_kp3xf"]
 [ext_resource type="PackedScene" uid="uid://fsbdae8mcvt1" path="res://src/core/ui/loadoutmenus/loadout_menus.tscn" id="6_chlrs"]
 
 [sub_resource type="Gradient" id="Gradient_fu2dj"]
@@ -27,12 +28,13 @@ noise = SubResource("FastNoiseLite_x2oeq")
 color_ramp = SubResource("Gradient_f5lm1")
 seamless_blend_skirt = 0.595
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1110908169 node_paths=PackedStringArray("start_button_node", "loadout_button_node", "setting_button_node", "loadout_menus")]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1110908169 node_paths=PackedStringArray("start_button_node", "loadout_button_node", "setting_button_node", "loadout_menus", "settings")]
 script = ExtResource("1_iaawh")
 start_button_node = NodePath("SubViewportContainer/SubViewport/Start")
 loadout_button_node = NodePath("SubViewportContainer/SubViewport/Loadout")
 setting_button_node = NodePath("SubViewportContainer/SubViewport/Setting")
 loadout_menus = NodePath("LoadoutMenus")
+settings = NodePath("SettingUi")
 
 [node name="Title" type="Control" parent="." unique_id=2047332347]
 layout_mode = 3
@@ -220,4 +222,9 @@ grow_vertical = 2
 texture = SubResource("NoiseTexture2D_x2oeq")
 
 [node name="LoadoutMenus" parent="." unique_id=756494837 instance=ExtResource("6_chlrs")]
+visible = false
+z_index = 10
+
+[node name="SettingUi" parent="." unique_id=648731797 instance=ExtResource("5_kp3xf")]
+visible = false
 z_index = 10

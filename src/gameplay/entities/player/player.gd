@@ -1,6 +1,6 @@
 class_name Player extends Humanoid
 
-const MOUSE_SENS = 0.25
+static var mouse_sens = 0.25
 
 @export var arsenal: Arsenal
 @export var gun: Gun
@@ -49,17 +49,9 @@ func _ready() -> void:
 	_on_property_changed("health", health)
 	GameManager.player_respawn(self)
 
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not camera_disable:
-		rotation_degrees.y -= event.relative.x * MOUSE_SENS
+		rotation_degrees.y -= event.relative.x * mouse_sens
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("Attack"):

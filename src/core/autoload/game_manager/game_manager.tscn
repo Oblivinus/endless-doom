@@ -2,10 +2,133 @@
 
 [ext_resource type="Script" uid="uid://cb0qw6emd8ja8" path="res://src/core/autoload/game_manager/game_manager.gd" id="1_kb0f2"]
 [ext_resource type="Script" uid="uid://bsnbfr7v533xs" path="res://src/core/autoload/game_manager/player_datas.gd" id="2_t3yfp"]
+[ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="3_4q0ca"]
 
-[node name="GameManager" type="Node" unique_id=1655949006 node_paths=PackedStringArray("player_datas")]
+[sub_resource type="GDScript" id="GDScript_4q0ca"]
+script/source = "extends Button
+
+var tween: Tween
+
+func  _init() -> void:
+		mouse_entered.connect(_on_enter)
+		mouse_exited.connect(_on_leave)
+	
+func _animate_scale(target: Vector2, duration: float = 0.1) -> void:
+	if tween and tween.is_valid():
+		tween.kill()
+	tween = create_tween()
+	tween.tween_property(self, \"scale\", target, duration)\\
+		.set_trans(Tween.TRANS_QUAD)\\
+		.set_ease(Tween.EASE_OUT)
+
+func _on_enter():
+	_animate_scale(Vector2(1.1, 1.1))
+	#button.offset_transform_scale = Vector2(1.1, 1.1)
+
+func _on_leave():
+	_animate_scale(Vector2.ONE)
+"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4q0ca"]
+blend_mode = 3
+
+[sub_resource type="Gradient" id="Gradient_f5lm1"]
+colors = PackedColorArray(0.39688924, 0.39688927, 0.3968891, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x2oeq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4qq85"]
+width = 100
+height = 100
+noise = SubResource("FastNoiseLite_x2oeq")
+color_ramp = SubResource("Gradient_f5lm1")
+seamless_blend_skirt = 0.595
+
+[node name="GameManager" type="Node" unique_id=1655949006 node_paths=PackedStringArray("player_datas", "paused_screen", "main_menus_button")]
+process_mode = 3
 script = ExtResource("1_kb0f2")
 player_datas = NodePath("PlayerDatas")
+paused_screen = NodePath("CanvasLayer")
+main_menus_button = NodePath("CanvasLayer/Control/MainMenu")
 
 [node name="PlayerDatas" type="Node" parent="." unique_id=1607028700]
 script = ExtResource("2_t3yfp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=491347473]
+layer = 99
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1938068029]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control" unique_id=1152544470]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.06, 0.06, 0.06, 0.8039216)
+
+[node name="RedText" parent="CanvasLayer/Control" unique_id=1029813179 instance=ExtResource("3_4q0ca")]
+layout_mode = 1
+offset_left = -99.0
+offset_top = -19.0
+offset_right = 99.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.58, 0.58, 0.58, 1)
+theme_override_font_sizes/font_size = 30
+text = "paused"
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/Control" unique_id=1454022557]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -141.5
+offset_top = -130.66663
+offset_right = 141.5
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+flat = true
+script = SubResource("GDScript_4q0ca")
+
+[node name="Label" parent="CanvasLayer/Control/MainMenu" unique_id=1891012365 instance=ExtResource("3_4q0ca")]
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -1.6666718
+offset_right = 7.0
+offset_bottom = 1.7333221
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 30
+text = "main menu"
+
+[node name="Noise" type="TextureRect" parent="CanvasLayer/Control/MainMenu/Label" unique_id=300181153]
+self_modulate = Color(0.9064933, 0.9064934, 0.9064934, 1)
+texture_filter = 3
+material = SubResource("CanvasItemMaterial_4q0ca")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_4qq85")

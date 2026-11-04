@@ -135,7 +135,7 @@ func _on_finisher(enemy: Enemy):
 func calculate_dmg_intensity(dmg) -> String:
 	var damage_intensity = dmg / player.max_health
 	
-	if damage_intensity <= 0.025:
+	if damage_intensity <= 0.1:
 		return "hurt_little"
 	else:
 		return "hurt_alot"

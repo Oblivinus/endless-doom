@@ -1,9 +1,9 @@
-extends Node
+class_name Ref
 
 static var enemy_scenes: Dictionary[StringName, Variant] = {}
 static var ENEMY_FOLDER_PATH = "res://src/gameplay/entities/enemies/"
 
-func get_enemy_scene_by_name(scene_name: StringName) -> PackedScene:
+static func get_enemy_scene_by_name(scene_name: StringName) -> PackedScene:
 	scene_name = scene_name.to_lower()
 	if enemy_scenes.has(scene_name): return enemy_scenes[scene_name]
 	
@@ -15,7 +15,7 @@ func get_enemy_scene_by_name(scene_name: StringName) -> PackedScene:
 	enemy_scenes[scene_name] = enemy_scene
 	return enemy_scene
 
-var guns: Dictionary[String, PackedScene] = {
+static var guns: Dictionary[String, PackedScene] = {
 	"pistol": preload("res://src/gameplay/guns/pistol.tscn"),
 	"shotgun": preload("res://src/gameplay/guns/shotgun.tscn"),
 	"super_shotgun": preload("res://src/gameplay/guns/super_shotgun.tscn"),
@@ -25,15 +25,16 @@ var guns: Dictionary[String, PackedScene] = {
 	"hand": preload("res://src/gameplay/guns/hand.tscn"),
 }
 
-var projectiles: Dictionary[String, PackedScene] = {
+static var projectiles: Dictionary[String, PackedScene] = {
 	"rocket": preload("res://src/gameplay/projectiles/rocket/rocket.tscn"),
 	"enemy_rocket": preload("res://src/gameplay/projectiles/rocket/enemy_rocket.tscn"),
 	"imp_orb": preload("res://src/gameplay/projectiles/imp_orb/imp_orb.tscn"),
 	"caco_fireball": preload("res://src/gameplay/projectiles/caco_fireball/caco_fireball.tscn"),
 	"bfg_orb": preload("res://src/gameplay/projectiles/bfg_orb/bfg_orb.tscn"),
+	"hell_knight_projectile": preload("res://src/gameplay/projectiles/hell_knight_projectile/hell_knight_projectile.tscn")
 }
 
-var highlight_3d: PackedScene = preload("uid://u56cil4iogmy")
-var outline_material: ShaderMaterial = preload("res://src/core/shaders/outline_material.tres")
+static var highlight_3d: PackedScene = preload("uid://u56cil4iogmy")
+static var outline_material: ShaderMaterial = preload("res://src/core/shaders/outline_material.tres")
 
-var player: PackedScene = preload("uid://b413fxhnpypbp")
+static var player: PackedScene = preload("uid://b413fxhnpypbp")

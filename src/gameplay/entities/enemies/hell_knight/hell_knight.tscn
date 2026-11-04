@@ -1,0 +1,315 @@
+[gd_scene format=3 uid="uid://4xj3wp65his7"]
+
+[ext_resource type="Script" uid="uid://b6sn4lm2ll7y6" path="res://src/gameplay/entities/enemies/hell_knight/hell_knight.gd" id="1_clqpn"]
+[ext_resource type="Texture2D" uid="uid://v1nkxqmuidq1" path="res://assets/gameplay/enemies/hell_knight.png" id="2_clqpn"]
+[ext_resource type="Script" uid="uid://c7idyy17w1qo5" path="res://src/core/components/angled_sprites/angled_sprite_3d.gd" id="3_job75"]
+[ext_resource type="Script" uid="uid://leaqmp3rfm7v" path="res://src/core/components/angled_sprites/angle_parameters.gd" id="4_g1hk1"]
+[ext_resource type="Script" uid="uid://c6vjvkg7pkvv6" path="res://src/gameplay/entities/shared/animation_handler.gd" id="5_3xe7i"]
+[ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="6_meey3"]
+[ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="7_wcud4"]
+[ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="8_boklb"]
+[ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="9_rtj4e"]
+[ext_resource type="Script" uid="uid://htvb8h1ji2l5" path="res://src/gameplay/entities/shared/enemy_finisher.gd" id="10_16hcy"]
+[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://src/gameplay/entities/shared/enemy_attack.gd" id="11_xfc86"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
+radius = 0.6
+
+[sub_resource type="Resource" id="Resource_iqgtt"]
+script = ExtResource("4_g1hk1")
+
+[sub_resource type="Resource" id="Resource_t8omw"]
+script = ExtResource("4_g1hk1")
+ANGLE_STRING = "F_L"
+angle_vect = Vector2(-0.5, -0.5)
+value = 1
+
+[sub_resource type="Resource" id="Resource_onru0"]
+script = ExtResource("4_g1hk1")
+ANGLE_STRING = "L"
+angle_vect = Vector2(-1, 0)
+value = 2
+
+[sub_resource type="Resource" id="Resource_lbbyf"]
+script = ExtResource("4_g1hk1")
+ANGLE_STRING = "B_L"
+angle_vect = Vector2(-0.5, 0.5)
+value = 3
+
+[sub_resource type="Resource" id="Resource_ocada"]
+script = ExtResource("4_g1hk1")
+ANGLE_STRING = "B"
+angle_vect = Vector2(0, 1)
+value = 4
+
+[sub_resource type="Resource" id="Resource_qghvt"]
+script = ExtResource("4_g1hk1")
+ANGLE_STRING = "F_R"
+angle_vect = Vector2(0.5, -0.5)
+value = 7
+
+[sub_resource type="Resource" id="Resource_kyagj"]
+script = ExtResource("4_g1hk1")
+ANGLE_STRING = "R"
+angle_vect = Vector2(1, 0)
+value = 6
+
+[sub_resource type="Resource" id="Resource_t6c8n"]
+script = ExtResource("4_g1hk1")
+ANGLE_STRING = "B_R"
+angle_vect = Vector2(0.5, 0.5)
+value = 5
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v0wyv"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b7q7s"]
+animation = &"died"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p1r2f"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tngwj"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2rpxy"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p1r2f"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v0wyv"]
+advance_mode = 2
+advance_expression = "is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b7q7s"]
+advance_mode = 2
+advance_expression = "!is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iqgtt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t8omw"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iqgtt"]
+states/attack/node = SubResource("AnimationNodeAnimation_v0wyv")
+states/attack/position = Vector2(515.6996, 97.82716)
+states/died/node = SubResource("AnimationNodeAnimation_b7q7s")
+states/died/position = Vector2(625.3333, 100.111115)
+states/hurt/node = SubResource("AnimationNodeAnimation_p1r2f")
+states/hurt/position = Vector2(515.6667, 200.66666)
+states/idle/node = SubResource("AnimationNodeAnimation_tngwj")
+states/idle/position = Vector2(354.6667, 99.333336)
+states/walk/node = SubResource("AnimationNodeAnimation_2rpxy")
+states/walk/position = Vector2(353.44446, 194.66667)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_p1r2f"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_v0wyv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_b7q7s"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_iqgtt"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_t8omw")]
+graph_offset = Vector2(72, 56)
+
+[sub_resource type="Animation" id="Animation_t8omw"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_onru0"]
+resource_name = "attack"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(3, 0), Vector2i(5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p1r2f"]
+resource_name = "died"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 9), Vector2i(6, 9)]
+}
+
+[sub_resource type="Animation" id="Animation_2rpxy"]
+resource_name = "hurt"
+length = 0.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_lbbyf"]
+resource_name = "idle"
+length = 0.9
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ocada"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qghvt"]
+_data = {
+&"RESET": SubResource("Animation_t8omw"),
+&"attack": SubResource("Animation_onru0"),
+&"died": SubResource("Animation_p1r2f"),
+&"hurt": SubResource("Animation_2rpxy"),
+&"idle": SubResource("Animation_lbbyf"),
+&"walk": SubResource("Animation_ocada")
+}
+
+[node name="HellKnight" type="CharacterBody3D" unique_id=1812481539 node_paths=PackedStringArray("animation_tree", "state_machine")]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_clqpn")
+animation_tree = NodePath("AnimationTree")
+state_machine = NodePath("StateMachine")
+attack_cd = 1.25
+attack_damage = 15.0
+melee_damage = 8.0
+pain_chance = 0.2
+pain_time = 0.15
+detection_range = 20.0
+attack_range = 15.0
+melee_range = 3.0
+fov = 75
+in_sight_sfx = Array[String](["pinky/pinky_sight"])
+idle_sfx = Array[String]([])
+dead_sfx = Array[String](["pinky/pinky_death"])
+hurt_sfx = Array[String]([])
+attack_delay = 0.41
+finisher_chance_override = 0.5
+move_speed = 4.0
+max_health = 400.0
+mass = 15.0
+auto_rotate = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3040085)
+visible = false
+light_color = Color(1, 0.38039216, 0.023529412, 1)
+light_energy = 1.5
+shadow_enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]
+shape = SubResource("CapsuleShape3D_4wyf3")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2136194707]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -1.3214824)
+visible = false
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=934707470 node_paths=PackedStringArray("anim_tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29764894, 0)
+offset = Vector2(0, 15.5)
+pixel_size = 0.04
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 2
+texture = ExtResource("2_clqpn")
+hframes = 8
+vframes = 10
+script = ExtResource("3_job75")
+anim_tree = NodePath("../AnimationTree")
+angle_params = Array[ExtResource("4_g1hk1")]([SubResource("Resource_iqgtt"), SubResource("Resource_t8omw"), SubResource("Resource_onru0"), SubResource("Resource_lbbyf"), SubResource("Resource_ocada"), SubResource("Resource_qghvt"), SubResource("Resource_kyagj"), SubResource("Resource_t6c8n")])
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=987326939 node_paths=PackedStringArray("enemy", "sprite")]
+active = false
+root_node = NodePath(".")
+tree_root = SubResource("AnimationNodeStateMachine_iqgtt")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("AnimationPlayer")
+script = ExtResource("5_3xe7i")
+enemy = NodePath("..")
+sprite = NodePath("../Sprite3D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=1308300900]
+libraries/ = SubResource("AnimationLibrary_qghvt")
+
+[node name="StateMachine" type="Node" parent="." unique_id=456199103 node_paths=PackedStringArray("starting_state")]
+script = ExtResource("6_meey3")
+starting_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://b6ssqeh0ysa1u"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=216964935]
+script = ExtResource("7_wcud4")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=2038298742]
+script = ExtResource("8_boklb")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]
+script = ExtResource("9_rtj4e")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Finisher" type="Node" parent="StateMachine" unique_id=396563262]
+script = ExtResource("10_16hcy")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=2005428138]
+script = ExtResource("11_xfc86")
+metadata/_custom_type_script = "uid://bo164wq6lfma8"

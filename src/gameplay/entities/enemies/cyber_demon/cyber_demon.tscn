@@ -260,6 +260,7 @@ idle_sfx = Array[String](["imp/imp_activity"])
 dead_sfx = Array[String](["imp/imp_death 1", "imp/imp_death 2"])
 hurt_sfx = Array[String]([])
 attack_delay = 0.1
+finisher_chance_override = 1.0
 max_health = 1000.0
 mass = 20.0
 auto_rotate = true

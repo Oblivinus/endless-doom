@@ -45,6 +45,16 @@ static func get_player_data() -> Dictionary:
 	
 	return data if data is Dictionary else {}
 
+static func get_player_setting() -> Dictionary:
+	var file_path: StringName = save_path + player_dat_file
+	if not FileAccess.file_exists(file_path): return {}
+	
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	var data: Dictionary = str_to_var(file.get_as_text())
+	var config: Dictionary = data.get("config", {})
+	
+	return config
+
 static func save_player_data(new_data: Dictionary) -> void:
 	var file_path: StringName = save_path + player_dat_file
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
