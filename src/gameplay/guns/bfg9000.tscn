@@ -164,7 +164,7 @@ _data = {
 [node name="BFG9000" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
 script = ExtResource("1_tn3eh")
 gun_shake = 0.45
-damage = 100.0
+damage_range = Array[float]([100.0, 8.0])
 max_range = 30.0
 fire_rate = 1.35
 type = 4

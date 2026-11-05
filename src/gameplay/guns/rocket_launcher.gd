@@ -17,7 +17,7 @@ func  shoot() -> void:
 	var launcher: ProjectileLauncher = ProjectileLauncher.new("rocket", origin)
 	var projectile: PlayerRocket = launcher.projectile as PlayerRocket
 	projectile.projectile_owner = cache_parent.player
-	projectile.max_damage = damage
+	projectile.damage_range = damage_range
 	
 	if enemies.is_empty():
 		launcher.launch(farthest_center_vector())

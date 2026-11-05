@@ -1,5 +1,6 @@
 class_name DamageProjectile extends Projectile
 
+@export var damage_range: Array[float] = [20.0, 3.0, 1.0]
 @export var damage: float = 1.0
 
 func  _on_hit(other: Node3D):

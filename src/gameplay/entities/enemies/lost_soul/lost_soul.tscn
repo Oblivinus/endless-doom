@@ -252,12 +252,12 @@ attack_range = 15.0
 fov = 75
 in_sight_sfx = Array[String]([])
 idle_sfx = Array[String]([])
-dead_sfx = Array[String](["cacodemon/cacodemon_death"])
+dead_sfx = Array[String]([])
 hurt_sfx = Array[String]([])
 attack_delay = 0.35
 can_be_finish = false
 move_speed = 3.75
-max_health = 60.0
+max_health = 30.0
 auto_rotate = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]

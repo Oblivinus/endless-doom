@@ -259,6 +259,7 @@ idle_sfx = Array[String](["imp/imp_activity"])
 dead_sfx = Array[String](["imp/imp_death 1", "imp/imp_death 2"])
 hurt_sfx = Array[String]([])
 attack_delay = 0.65
+max_health = 60.0
 auto_rotate = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]

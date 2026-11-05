@@ -8,7 +8,7 @@ var reload_sfx: Array[StringName] = [
 
 func _ready() -> void:
 	super()
-	min_damage = damage * 0.3
+	min_damage_multiplier = 0.3
 
 func play_sfx(sfx_value: int = 0) -> void:
 	if sfx_value == 0:
@@ -19,8 +19,10 @@ func play_sfx(sfx_value: int = 0) -> void:
 	Audio3D.new(reload_path, self).play()
 
 func hurt_enemy(enemy: Enemy) -> void:
+	var this_dmg: float = damage
+	var min_dmg: float = this_dmg * min_damage_multiplier
 	var distance: float = global_position.distance_to(enemy.global_position)
-	var applied_dmg = Util.value_falloff_distance(distance, damage, min_damage, min_distance, max_range)
+	var applied_dmg = Util.value_falloff_distance(distance, this_dmg, min_dmg, min_distance, max_range)
 	
 	var dmg_info = get_damage_info()
 	

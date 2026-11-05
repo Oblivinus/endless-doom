@@ -28,8 +28,9 @@ animations = [{
 [node name="BfgOrb" type="RigidBody3D" unique_id=1780348378]
 script = ExtResource("1_ujgng")
 blast_radius = 10.0
+speed = 15.0
 collision_radius = 0.5
-hit_mask = 2
+hit_mask = 6
 metadata/_custom_type_script = "uid://byswwte4drs1k"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1925630145]

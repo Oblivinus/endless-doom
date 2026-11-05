@@ -275,6 +275,7 @@ animation_tree = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
 detection_range = 20.0
 fov = 75
+max_health = 20.0
 auto_rotate = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]

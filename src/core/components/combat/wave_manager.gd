@@ -1,7 +1,7 @@
 class_name WaveManager extends Node
 
 const INTERMISSION_TIME: int = 10
-const INIT_WAVE: int = 4
+const INIT_WAVE: int = 9
 
 var initial_spawn_interval: float = 0.5
 

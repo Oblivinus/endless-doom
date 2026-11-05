@@ -3,6 +3,15 @@ extends Node
 static var BASE_DROP_CHANCE: float = 0.08
 static  var FINISHER_CHANCE: float = 0.1
 
+func roll_damage_range(d_range: Array[float]) -> float:
+	var base_damage: float = d_range[0]
+	var max_damage: float = base_damage * d_range[1]
+	var multiplier: float = d_range[2] if d_range.size() >= 0 and 2 < d_range.size() else 1.0
+	
+	var result: float = range(base_damage, max_damage + base_damage, base_damage).pick_random()
+	result *= multiplier
+	
+	return result
 
 class CombatInfo:
 	var by: Humanoid

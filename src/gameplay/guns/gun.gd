@@ -3,10 +3,7 @@ class_name Gun extends Node3D
 @export var gun_shake: float = 0.2
 
 @export_group("Stats")
-@export var damage: float = 10.0:
-	get():
-		if parent and parent.player: return damage * parent.player.damage_boost
-		else: return damage
+@export var damage_range: Array[float] = [5, 3, 1.0]: get = get_damage_range ## [base, step, modifier]
 @export var max_range: float = 25.0
 @export var h_spread: float = 0.0
 @export var v_spread: float = 45.0
@@ -30,6 +27,7 @@ var combat_info: CombatManager.CombatInfo
 var _raycast: Raycast3d
 
 var last_hit_count: int = 0
+var damage: float: get = get_damage
 
 func _ready() -> void:
 	for child in hitbox.get_children():
@@ -79,6 +77,22 @@ func get_damage_info() -> CombatManager.CombatInfo:
 		combat_info = CombatManager.CombatInfo.new(damage_type, parent.player)
 	
 	return combat_info
+
+func get_damage_range() -> Array[float]:
+	var range_copy: Array = damage_range.duplicate()
+	if parent and parent.player:
+		if range_copy.size() > 2:
+			range_copy[2] = parent.player.damage_boost
+		else:
+			range_copy.append(parent.player.damage_boost)
+	
+	return range_copy
+
+func get_damage() -> float:
+	var range_copy: Array = damage_range.duplicate()
+	var result: float = CombatManager.roll_damage_range(range_copy)
+	
+	return result
 
 func _check_ray_cast(final_pos: Vector3) -> Dictionary:
 	if _raycast == null:

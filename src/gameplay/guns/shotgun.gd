@@ -2,14 +2,14 @@ class_name Shotgun extends Gun
 
 @export var aim_cone_deg: float = 30.0 
 
-var min_damage: float
+var min_damage_multiplier: float
 var min_distance: float
 var max_hit_count_distance: float = 1.5
 var min_hit_count_distance: float
 
 func _ready() -> void:
 	super()
-	min_damage = damage * 0.2
+	min_damage_multiplier = 0.2
 	min_distance = 2
 	min_hit_count_distance = max_range * 1/3
 
@@ -77,8 +77,10 @@ func shoot() -> void:
 	create_spread_bullet_hit(last_hit_count)
 
 func hurt_enemy(enemy: Enemy) -> void:
+	var this_dmg: float = damage
+	var min_dmg: float = this_dmg * min_damage_multiplier
 	var distance: float = global_position.distance_to(enemy.global_position)
-	var applied_dmg = Util.value_falloff_distance(distance, damage, min_damage, min_distance, max_range)
+	var applied_dmg = Util.value_falloff_distance(distance, this_dmg, min_dmg, min_distance, max_range)
 	
 	enemy.hurt(applied_dmg, get_damage_info())
 	knockback_enemy(distance, enemy)

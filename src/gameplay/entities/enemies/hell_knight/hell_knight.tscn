@@ -236,14 +236,14 @@ detection_range = 20.0
 attack_range = 15.0
 melee_range = 3.0
 fov = 75
-in_sight_sfx = Array[String](["pinky/pinky_sight"])
+in_sight_sfx = Array[String](["hell_knight/hell_knight_sight"])
 idle_sfx = Array[String]([])
-dead_sfx = Array[String](["pinky/pinky_death"])
+dead_sfx = Array[String](["hell_knight/hell_knight_death"])
 hurt_sfx = Array[String]([])
 attack_delay = 0.41
 finisher_chance_override = 0.5
 move_speed = 4.0
-max_health = 400.0
+max_health = 500.0
 mass = 15.0
 auto_rotate = true
 
