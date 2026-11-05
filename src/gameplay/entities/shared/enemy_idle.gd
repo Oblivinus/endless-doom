@@ -21,10 +21,10 @@ func _ready() -> void:
 func _check_ray_cast_query() -> Dictionary:
 	var space_state = parent.get_world_3d().direct_space_state
 	var origin = parent.global_position
-	var end_pos = Globals.player.global_position
+	var end_pos = GameManager.player.global_position
 	
 	var query = PhysicsRayQueryParameters3D.create(origin, end_pos)
-	query.exclude = [parent, Globals.player]
+	query.exclude = [parent, GameManager.player]
 	query.collision_mask = (1 << 1) | (1 << 3)
 	
 	var result = space_state.intersect_ray(query)
@@ -53,7 +53,7 @@ func _check_out_sound(pos: Vector3):
 	parent.move(pos)
 
 func look_for():
-	var player: Player = Globals.player
+	var player: Player = GameManager.player
 	if not player: return
 	
 	var in_fov = check_in_pov(player.global_position)

@@ -1,6 +1,9 @@
 @abstract
 class_name Enemy extends Humanoid
 
+var _cache_attack_damage_range: Array[float] = []
+var _cache_melee_damage_range: Array[float] = []
+
 @export_group("Dependecies")
 @export var animation_tree: AnimationTree
 @export var state_machine: StateMachine
@@ -8,12 +11,16 @@ class_name Enemy extends Humanoid
 @export_group("Combat")
 @export var target: Humanoid
 @export var attack_cd: float = 4.0
-@export var attack_damage: float = 5.0
-@export var melee_damage: float = 6.0
 @export var pain_chance: float = 0.8
 @export var pain_time: float = 0.17
 @export var d_point_drop: Array[int] = [2, 5]
 @export var item_drop_chance_multiplier: float = 1.0
+
+@export_group("Attack")
+@export var attack_damage_range: Array[float] = [4.0, 4.0, 1.0] ##[base, steps, modifier]
+@export var melee_damage_range: Array[float] = [0.0, 0.0, 1.0] ##[base, steps, modifier]
+var attack_damage: float: get = get_attack_damage
+var melee_damage: float: get = get_melee_damage
 
 @export_group("Range")
 @export var detection_range: float = 12.0
@@ -204,17 +211,6 @@ func _on_attack():
 func _on_missed_or_blocked(pos: Vector3 = Vector3.ZERO, context: String = "none") -> void:
 	pass
 
-func _attack_sequeance(current_distance: float):
-	if is_dead or is_disturbed: return
-	
-	if has_melee and current_distance <= melee_range:
-		await melee_attack_action()
-		return
-	
-	if has_range and current_distance <= attack_range:
-		await attack_action()
-		return
-
 #endregion
 
 #region HELPER
@@ -397,6 +393,12 @@ func play_sound(sound_name: String):
 #endregion
 
 #region ATTACK METHOD
+func get_attack_damage() -> float:
+	return CombatManager.roll_damage_range(attack_damage_range)
+
+func get_melee_damage() -> float:
+	return CombatManager.roll_damage_range(melee_damage_range)
+
 func attack_at_position(target_pos: Vector3) -> void:
 	if in_pain or is_on_cooldown() or is_attacking: return
 	
@@ -415,6 +417,17 @@ func attack_at_position(target_pos: Vector3) -> void:
 	
 	is_attacking = false
 	attack_timer.start()
+
+func _attack_sequeance(current_distance: float):
+	if is_dead or is_disturbed: return
+	
+	if has_melee and current_distance <= melee_range:
+		await melee_attack_action()
+		return
+	
+	if has_range and current_distance <= attack_range:
+		await attack_action()
+		return
 
 func is_on_cooldown() -> bool:
 	return attack_timer.time_left > 0

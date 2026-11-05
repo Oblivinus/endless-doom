@@ -1,20 +1,7 @@
 [gd_scene format=3 uid="uid://x2qt6w4t0dhf"]
 
+[ext_resource type="Script" uid="uid://du54mvlqjhmsh" path="res://src/gameplay/projectiles/caco_fireball/caco_fireball.gd" id="1_2w7gb"]
 [ext_resource type="Texture2D" uid="uid://cheqkc82601wy" path="res://assets/gameplay/enemies/cacodemon.png" id="1_aark5"]
-
-[sub_resource type="GDScript" id="GDScript_kvrig"]
-resource_name = "caco_fireball"
-script/source = "extends DamageProjectile
-
-func _on_hit(other: Node3D):
-	var last_pos = global_position
-	super(other)
-	
-	var vfx = VFX.new(\"caco_fireball_explosion\", last_pos)
-	Globals.world.add_child(vfx)
-	vfx._one_shot = true
-	vfx.restart()
-"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2w7gb"]
 atlas = ExtResource("1_aark5")
@@ -39,8 +26,9 @@ animations = [{
 }]
 
 [node name="CacoFireball" type="RigidBody3D" unique_id=223794259]
-script = SubResource("GDScript_kvrig")
-speed = 20.0
+script = ExtResource("1_2w7gb")
+speed = 17.5
+collision_radius = 0.4
 hit_mask = 3
 metadata/_custom_type_script = "uid://bxkcvbncjy6qo"
 

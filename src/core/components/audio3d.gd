@@ -21,7 +21,7 @@ func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 		pos_or_node3d.add_child(self)
 		position = Vector3.ZERO
 	elif pos_or_node3d is Vector3:
-		Globals.world.add_child(self)
+		GameManager.world.add_child(self)
 		position = pos_or_node3d
 	else:
 		push_error("Audio3D parameter 2 is not node3d or vector3")

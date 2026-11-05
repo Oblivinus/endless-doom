@@ -5,10 +5,12 @@ static  var FINISHER_CHANCE: float = 0.1
 
 func roll_damage_range(d_range: Array[float]) -> float:
 	var base_damage: float = d_range[0]
-	var max_damage: float = base_damage * d_range[1]
+	var steps: int = int(d_range[1])
 	var multiplier: float = d_range[2] if d_range.size() >= 0 and 2 < d_range.size() else 1.0
 	
-	var result: float = range(base_damage, max_damage + base_damage, base_damage).pick_random()
+	var random_i: int = randi_range(1, steps)
+	
+	var result: float = random_i * base_damage
 	result *= multiplier
 	
 	return result
@@ -24,7 +26,7 @@ class CombatInfo:
 		by = ini_by
 
 func _on_enemy_died(enemy: Enemy):
-	if not Globals.world: return
+	if not GameManager.world: return
 	
 	var is_finisher: bool = false
 	
@@ -45,7 +47,7 @@ func _on_enemy_died(enemy: Enemy):
 	drop_random_item(2, last_pos)
 
 func _on_finisher(enemy: Enemy) -> void:
-	if not Globals.world: return
+	if not GameManager.world: return
 	var last_pos: Vector3 = enemy.global_position
 	var vfx = VfxConstructor.new("blood_splatter")
 	vfx.restart_at(enemy)

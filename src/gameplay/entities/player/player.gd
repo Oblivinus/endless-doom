@@ -44,10 +44,10 @@ func _ready() -> void:
 	on_hurt.connect(_on_hurt)
 	on_died.connect(_on_died)
 	property_changed.connect(_on_property_changed)
-	Globals.player = self
 	
 	_on_property_changed("health", health)
 	GameManager.player_respawn(self)
+	GameManager.player = self
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not camera_disable:

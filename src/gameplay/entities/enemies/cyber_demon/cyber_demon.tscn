@@ -250,6 +250,7 @@ script = ExtResource("1_32xdj")
 animation_tree = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
 attack_cd = 3.0
+attack_damage_range = Array[float]([20.0, 8.0, 1.0])
 attack_damage = 20.0
 detection_range = 15.0
 attack_range = 15.0

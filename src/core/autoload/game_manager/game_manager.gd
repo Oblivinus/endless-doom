@@ -20,6 +20,16 @@ var world: World:
 		else:
 			return null
 
+var player: Player:
+	set(value):
+		player = value
+		if value: player.on_died.connect(_on_player_died, CONNECT_ONE_SHOT)
+	get:
+		if not is_instance_valid(player) or player.is_queued_for_deletion():
+			return null
+		else:
+			return player
+
 func _ready() -> void:
 	player_datas.init(self)
 	paused(false, true)
@@ -76,6 +86,12 @@ func player_respawn(new_player: Player):
 	player_datas._on_player_respawn(new_player)
 	if world: world.item_spawner.create_auto_pickup_area.call_deferred(new_player)
 
+func _on_player_died():
+	await  get_tree().create_timer(2).timeout
+	if not playing: return
+	GameManager.change_scene("uid://b7bfro4lxkq1t")
+	if player: player.queue_free()
+
 func change_playing(value: bool = true):
 	if value:
 		if TESTING: change_scene("uid://behldxhl6rro4") #Test Map
@@ -84,7 +100,10 @@ func change_playing(value: bool = true):
 	else:
 		change_scene("uid://b7bfro4lxkq1t")
 		playing = false
+	
+	if not playing:
 		paused(false, true)
+		player = null
 
 func change_scene(path: String):
 	get_tree().change_scene_to_file(path)

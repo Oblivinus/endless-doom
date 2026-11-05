@@ -79,9 +79,9 @@ func _get_sector(dir: Vector2) -> AngleParameter:
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): return
-	if Globals.player == null or facing_reference == null or _sector_params.is_empty(): return
+	if GameManager.player == null or facing_reference == null or _sector_params.is_empty(): return
 
-	var dir: Vector2 = get_local_direction(Globals.player.global_position)
+	var dir: Vector2 = get_local_direction(GameManager.player.global_position)
 	if dir == Vector2.ZERO: return
 	var angle_param := _get_sector(dir)
 

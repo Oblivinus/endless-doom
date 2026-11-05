@@ -17,7 +17,6 @@ config/icon="res://assets/texture/icon.svg"
 
 [autoload]
 
-Globals="*uid://lxcs4mge4p3i"
 GameManager="*uid://dbvc4ruk4f3m5"
 CombatManager="*uid://b23y377elcvva"
 

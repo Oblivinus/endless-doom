@@ -273,6 +273,7 @@ collision_mask = 10
 script = ExtResource("1_httt1")
 animation_tree = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
+attack_damage_range = Array[float]([3.0, 5.0, 1.0])
 detection_range = 20.0
 fov = 75
 max_health = 20.0

@@ -151,7 +151,6 @@ _data = {
 
 [node name="Pistol" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
 script = ExtResource("1_d7xh0")
-damage = 35.0
 hitbox = NodePath("Hit")
 anim_tree = NodePath("AnimationTree")
 
