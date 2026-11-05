@@ -39,3 +39,9 @@ billboard = 1
 texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_kvrig")
 autoplay = "default"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=71701685]
+light_color = Color(0, 0.81, 0.18900001, 1)
+light_energy = 2.5
+shadow_enabled = true
+omni_range = 7.5

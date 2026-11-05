@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bpu58jvco52dt"]
+
+[ext_resource type="Script" uid="uid://c0yiketxcu2y8" path="res://src/gameplay/projectiles/plasma_bolt/plasma_bolt.gd" id="1_m3wii"]
+[ext_resource type="Texture2D" uid="uid://b63a68ceyk5sp" path="res://assets/gameplay/gun/plasma_rifle/plasma_bolt.png" id="2_m3wii"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lew33"]
+atlas = ExtResource("2_m3wii")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2sho"]
+atlas = ExtResource("2_m3wii")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dc55l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lew33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2sho")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 7.5
+}]
+
+[node name="PlasmaBolt" type="RigidBody3D" unique_id=546640503]
+script = ExtResource("1_m3wii")
+homing_mask = 4
+speed = 25.0
+life_time = 3.0
+hit_mask = 6
+metadata/_custom_type_script = "uid://dv1non72mtx1i"
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=136299349]
+pixel_size = 0.04
+billboard = 2
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_dc55l")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.11610824
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=974562298]
+light_color = Color(0, 0.3333335, 1, 1)
+light_energy = 2.5
+shadow_enabled = true
+omni_range = 7.5

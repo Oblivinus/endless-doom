@@ -18,7 +18,7 @@ func  shoot() -> void:
 	timer.start()
 	
 	var enemies = _check_for_valid_enemies()
-	var origin = global_position + Vector3(0, -0.35, 0)
+	var origin = global_position + Vector3(0, -0.35, 0) + (-global_basis.z)
 	var launcher: ProjectileLauncher = ProjectileLauncher.new("bfg_orb", origin)
 	var projectile: BfgOrb = launcher.projectile as BfgOrb
 	projectile.projectile_owner = cache_parent.player

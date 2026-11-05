@@ -1,34 +1,42 @@
 [gd_scene format=3 uid="uid://d26b34swbtre8"]
 
 [ext_resource type="Texture2D" uid="uid://c8wptsr7p51wx" path="res://assets/gameplay/enemies/imp_orb.png" id="1_fn3cr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s4c1m"]
-atlas = ExtResource("1_fn3cr")
-region = Rect2(128, 0, 64, 64)
+[ext_resource type="Texture2D" uid="uid://c2o1sxgu43dp" path="res://assets/gameplay/enemies/hell_knight_projectile.png" id="2_s4c1m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t2fve"]
 atlas = ExtResource("1_fn3cr")
-region = Rect2(192, 0, 64, 64)
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g0xfk"]
 atlas = ExtResource("1_fn3cr")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2chtt"]
+atlas = ExtResource("1_fn3cr")
 region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oat2y"]
+atlas = ExtResource("2_s4c1m")
+region = Rect2(240, 180, 80, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2chtt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s4c1m")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_t2fve")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g0xfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2chtt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oat2y")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"play",
-"speed": 5.0
+"speed": 12.5
 }]
 
 [sub_resource type="Animation" id="Animation_fn3cr"]
@@ -60,7 +68,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0, 2]
+"values": [0, 3]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t2fve"]

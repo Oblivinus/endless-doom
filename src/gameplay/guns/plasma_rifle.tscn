@@ -1,0 +1,296 @@
+[gd_scene format=3 uid="uid://bqf30w8rs3b1e"]
+
+[ext_resource type="Script" uid="uid://c8fsjsgklwvfd" path="res://src/gameplay/guns/plasma_rifle.gd" id="1_tnr1g"]
+[ext_resource type="Texture2D" uid="uid://c8xbfb1t350pa" path="res://assets/gameplay/gun/plasma_rifle/plasma_rifle.png" id="2_82sxn"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0k0bv"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_82sxn"]
+animation = &"overheat"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hx8r4"]
+animation = &"shoot"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tnr1g"]
+animation = &"shoot2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v5br4"]
+animation = &"walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_unhsc"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3m76n"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0k0bv"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "parent.is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hx8r4"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "!parent.is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_82sxn"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gyrmi"]
+advance_mode = 2
+advance_expression = "timer.time_left <= 0"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_y8p3r"]
+states/idle/node = SubResource("AnimationNodeAnimation_0k0bv")
+states/idle/position = Vector2(363.33, 101.33333)
+states/overheat/node = SubResource("AnimationNodeAnimation_82sxn")
+states/overheat/position = Vector2(496.70038, 60.666664)
+states/shoot/node = SubResource("AnimationNodeAnimation_hx8r4")
+states/shoot/position = Vector2(496.33, 149.66669)
+states/shoot2/node = SubResource("AnimationNodeAnimation_tnr1g")
+states/shoot2/position = Vector2(497.21887, 227)
+states/walking/node = SubResource("AnimationNodeAnimation_v5br4")
+states/walking/position = Vector2(364.55222, 209.66667)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_unhsc"), "shoot", "idle", SubResource("AnimationNodeStateMachineTransition_3m76n"), "idle", "walking", SubResource("AnimationNodeStateMachineTransition_0k0bv"), "walking", "idle", SubResource("AnimationNodeStateMachineTransition_hx8r4"), "shoot2", "idle", SubResource("AnimationNodeStateMachineTransition_82sxn"), "overheat", "idle", SubResource("AnimationNodeStateMachineTransition_gyrmi")]
+graph_offset = Vector2(11.66333, -58)
+
+[sub_resource type="Animation" id="Animation_6pvbs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control/Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5actc"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_82sxn"]
+resource_name = "overheat"
+length = 0.15
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [5.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_14i4f"]
+resource_name = "shoot"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [5.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_tnr1g"]
+resource_name = "shoot2"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [5.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_igd8l"]
+resource_name = "walking"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, -20), Vector2(50, 0), Vector2(0, -20), Vector2(-50, 0), Vector2(0, -20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Control/Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dh1g2"]
+_data = {
+&"RESET": SubResource("Animation_6pvbs"),
+&"idle": SubResource("Animation_5actc"),
+&"overheat": SubResource("Animation_82sxn"),
+&"shoot": SubResource("Animation_14i4f"),
+&"shoot2": SubResource("Animation_tnr1g"),
+&"walking": SubResource("Animation_igd8l")
+}
+
+[node name="PlasmaRifle" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
+script = ExtResource("1_tnr1g")
+gun_shake = 0.05
+damage_range = Array[float]([5.0, 6.0, 1.0])
+max_range = 30.0
+fire_rate = 10.0
+type = 4
+hitbox = NodePath("Hit")
+anim_tree = NodePath("AnimationTree")
+sfx = "guns/plasma"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=607178716]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=2099543344]
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control" unique_id=1501756115]
+scale = Vector2(3, 3)
+texture = ExtResource("2_82sxn")
+offset = Vector2(0, 38)
+hframes = 4
+
+[node name="Hit" type="Area3D" parent="." unique_id=922815929]
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hit" unique_id=975020322]
+debug_color = Color(1, 0, 0.016666412, 1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1575783866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+light_color = Color(0, 0.3333335, 1, 1)
+light_energy = 0.0
+shadow_enabled = true
+omni_range = 7.5
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=637375146]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_y8p3r")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree" unique_id=1749064398]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_dh1g2")

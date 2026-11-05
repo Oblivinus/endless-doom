@@ -32,5 +32,5 @@ func get_enemy_floor_Y_offset() -> float:
 func launch_rocket(pos: Vector3):
 	var launcher = ProjectileLauncher.new("enemy_rocket", global_position)
 	var proj: PlayerRocket = launcher.projectile
-	proj.absolute_damage = attack_damage
+	proj.damage_range = attack_damage_range
 	launcher.launch(pos)

@@ -12,10 +12,11 @@ func _ready() -> void:
 	super()
 	blast_area.body_entered.connect(_tracer_hit)
 
-func _enter_tree() -> void:
+func launch(direction: Vector3) -> void:
 	hit_count = 0
 	max_reached = false
 	has_triggered = false
+	super(direction)
 
 func _on_explosion(targets: Array):
 	var last_pos: Vector3 = global_position + global_basis.z * 0.5

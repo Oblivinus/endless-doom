@@ -116,6 +116,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.300001, 5.6, 25.300001)
 [node name="Zombie" parent="." unique_id=1701460766 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.1, 0.8499999, 33.4)
 
+[node name="Zombie2" parent="." unique_id=2130321747 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.7, 0.8499999, 33.4)
+
+[node name="Zombie3" parent="." unique_id=128033939 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0.8499999, 30.900002)
+
 [node name="Pinky" parent="." unique_id=1181583485 instance=ExtResource("9_0ls5i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.188147, 0.8499994, 36.94408)
 

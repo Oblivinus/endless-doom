@@ -18,7 +18,7 @@ func get_damage_info() -> CombatManager.CombatInfo:
 func consume_ammo():
 	var chance = randf()
 	if chance <= 0.45:
-		parent.use_ammo(type, ammo_used)
+		super()
 
 func play_sfx():
 	var vfx = GameManager.play_hearable_sound(sfx, self)

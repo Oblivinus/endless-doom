@@ -142,10 +142,13 @@ func unequip():
 func ready_to_shoot() -> bool:
 	return timer.time_left == 0 and parent and parent.is_ammo_enough(type, ammo_used)
 
+func play_shoot_anim() -> void:
+	playback.start("shoot")
+
 func shoot() -> void:
 	if not ready_to_shoot(): return
 	timer.start()
-	playback.travel("shoot")
+	play_shoot_anim()
 	_check_and_shoot()
 	consume_ammo()
 	play_sfx()
