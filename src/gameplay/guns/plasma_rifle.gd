@@ -68,7 +68,5 @@ func  shoot() -> void:
 	last_shot = Time.get_ticks_msec()
 	timer.start()
 
-func _on_hit(target: Node3D):
-	if not target is Humanoid: return
-	target.hurt(damage, get_damage_info())
-	if target.is_dead: cache_parent.register_kill(target)
+func _on_hit(target: Humanoid):
+	hurt_enemy(target)

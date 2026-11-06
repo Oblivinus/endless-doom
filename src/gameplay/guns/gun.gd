@@ -18,9 +18,11 @@ class_name Gun extends Node3D
 @export var anim_tree: AnimationTree
 @export var sfx: String = "guns/pistol"
 
+var _cache_parent: Arsenal
+
 var collision_shape3d: CollisionShape3D
 var timer: Timer
-var parent: Arsenal
+var parent: Arsenal: set = _set_parent, get = _get_parent
 var playback: AnimationNodeStateMachinePlayback
 
 var combat_info: CombatManager.CombatInfo
@@ -28,6 +30,7 @@ var _raycast: Raycast3d
 
 var last_hit_count: int = 0
 var damage: float: get = get_damage
+var equipped: bool = false
 
 func _ready() -> void:
 	for child in hitbox.get_children():
@@ -70,7 +73,9 @@ func _check_and_shoot() -> void:
 			break
 
 func hurt_enemy(enemy: Enemy) -> void:
+	if enemy == null: return
 	enemy.hurt(damage, get_damage_info())
+	if enemy.is_dead: parent.register_kill(enemy)
 
 func get_damage_info() -> CombatManager.CombatInfo:
 	if not combat_info:
@@ -127,17 +132,28 @@ func _check_for_valid_enemies() -> Array[Humanoid]:
 
 	return result
 
+func _set_parent(value: Arsenal) -> void:
+	if value != null:
+		_cache_parent = value
+	parent = value
+
+func _get_parent() -> Arsenal:
+	if parent: return parent
+	else: return _cache_parent
+
 func equip(new_owner: Arsenal):
 	set_visibility(true, self)
 	set_process(true)
 	visible = true
 	parent = new_owner
+	equipped = true
 
 func unequip():
 	set_visibility(false, self)
 	set_process(false)
 	visible = false
 	parent = null
+	equipped = false
 
 func ready_to_shoot() -> bool:
 	return timer.time_left == 0 and parent and parent.is_ammo_enough(type, ammo_used)

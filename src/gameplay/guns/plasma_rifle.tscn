@@ -242,8 +242,9 @@ _data = {
 
 [node name="PlasmaRifle" type="Node3D" unique_id=641094842 node_paths=PackedStringArray("hitbox", "anim_tree")]
 script = ExtResource("1_tnr1g")
-gun_shake = 0.05
-damage_range = Array[float]([5.0, 6.0, 1.0])
+shot_before_cooldown = 30
+gun_shake = 0.1
+damage_range = Array[float]([6.0, 6.0, 1.0])
 max_range = 30.0
 fire_rate = 10.0
 type = 4

@@ -5,13 +5,11 @@ class_name BFG9000 extends Gun
 var tracer_damage: float = 50.0:
 	get = get_tracer_damage
 
-var cache_parent: Arsenal #NOTE: when switch gun the parent is null, this is the reason.
 var connection: Signal
 
 
 func  shoot() -> void:
 	if not ready_to_shoot(): return
-	cache_parent = parent
 	consume_ammo()
 	playback.travel("shoot")
 	play_sfx()
@@ -21,9 +19,6 @@ func  shoot() -> void:
 	var origin = global_position + Vector3(0, -0.35, 0) + (-global_basis.z)
 	var launcher: ProjectileLauncher = ProjectileLauncher.new("bfg_orb", origin)
 	var projectile: BfgOrb = launcher.projectile as BfgOrb
-	projectile.projectile_owner = cache_parent.player
-	projectile.max_damage = damage
-	projectile.tracer_damage = tracer_damage
 	
 	if enemies.is_empty():
 		launcher.launch(farthest_center_vector())
@@ -31,8 +26,8 @@ func  shoot() -> void:
 		for enemy: Humanoid in enemies:
 			launcher.launch(enemy.global_position)
 	
-	if not projectile.on_blast_hit.is_connected(_on_blast_hit):
-		projectile.on_blast_hit.connect(_on_blast_hit, CONNECT_ONE_SHOT)
+	projectile.on_hit.connect(_on_hit)
+	projectile.on_tracer_hit.connect(_on_tracer_hit)
 
 func get_tracer_damage() -> float:
 	var range_copy: Array[float] = tracer_damage_range.duplicate()
@@ -45,6 +40,11 @@ func get_tracer_damage() -> float:
 	var result: float = CombatManager.roll_damage_range(range_copy)
 	return result
 
-func _on_blast_hit(targets: Array):
-	for humanoid: Humanoid in targets:
-		if humanoid is Player: continue
+func _on_tracer_hit(target: Humanoid) -> void:
+	if not target is Humanoid: return
+	target.hurt(tracer_damage, get_damage_info())
+	if target.is_dead: parent.register_kill(target)
+
+func _on_hit(target: Humanoid) -> void:
+	GameManager.play_hearable_sound("guns/bfg/bfg_explode", global_position).play()
+	hurt_enemy(target)

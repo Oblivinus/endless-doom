@@ -26,8 +26,12 @@ func _ready() -> void:
 	shape.radius = homing_radius
 	homing_area = Util.create_area_3d(self, shape)
 	homing_area.collision_mask = homing_mask
-	
-	homing_area.body_entered.connect(_queue_follow)
+
+func _establish_connection(value: bool = true):
+	if value:
+		if not homing_area.body_entered.is_connected(_queue_follow): homing_area.body_entered.connect(_queue_follow)
+	else:
+		if homing_area.body_entered.is_connected(_queue_follow): homing_area.body_entered.disconnect(_queue_follow)
 
 func _on_pool_spawn() -> void:
 	_accel_delta = 0

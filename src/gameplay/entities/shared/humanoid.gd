@@ -6,15 +6,8 @@ const REFERENCE_MASS: float = 10.0
 @export var move_speed: float = 2.5
 @export var max_health: float = 100.0
 @export var mass: float = 10.0
-@export var health: float:
-	set(value):
-		if is_dead: return
-		health = clamp(value, 0, max_health)
-		property_changed.emit("health", health)
-		if health <= 0:
-			is_dead = true
-			on_died.emit()
-			
+@export var health: float: set = _set_health
+
 @export_group("Movement")
 @export var use_acceleration: bool = false
 @export var accel: float
@@ -125,6 +118,14 @@ func _process_moving(delta: float) -> void:
 	else :
 		velocity.x = move_dir.x * move_speed
 		velocity.z = move_dir.z * move_speed
+
+func _set_health(value: float) -> void:
+	if is_dead: return
+	health = clamp(value, 0, max_health)
+	property_changed.emit("health", health)
+	if health <= 0:
+		is_dead = true
+		on_died.emit()
 
 func  _face_rotation(dir: Vector3, delta: float) -> void:
 	if dir == Vector3.ZERO or not auto_rotate or not is_moving: return

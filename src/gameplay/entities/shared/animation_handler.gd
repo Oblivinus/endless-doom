@@ -7,15 +7,6 @@ var playback: AnimationNodeStateMachinePlayback
 var root: AnimationNodeStateMachine
 
 var current_state
-var angle_axis: String = "y"
-
-class AngleParameters:
-	var frame_value: int
-	var flip_h: bool
-	
-	func _init(init_value: int = 0, init_flip_h: bool = false) -> void:
-		frame_value = init_value
-		flip_h = init_flip_h
 
 func _ready() -> void:
 	playback = get("parameters/playback")
@@ -40,7 +31,8 @@ func _ready() -> void:
 	enemy.on_died.connect(_on_died)
 
 func _process(_delta: float) -> void:
-	pass
+	if enemy.is_dead and playback.get_current_node() not in [&"died", &"xdied"]:
+		_on_died()
 
 func _on_attack() -> void:
 	play_attack_anim()

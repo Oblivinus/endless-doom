@@ -24,10 +24,3 @@ func  shoot() -> void:
 	else:
 		for enemy: Humanoid in enemies:
 			launcher.launch(enemy.global_position)
-	
-	if not projectile.on_blast_hit.is_connected(_on_blast_hit):
-		projectile.on_blast_hit.connect(_on_blast_hit, CONNECT_ONE_SHOT)
-
-func _on_blast_hit(targets: Array):
-	for humanoid: Humanoid in targets:
-		if humanoid is Player: continue

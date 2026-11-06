@@ -28,8 +28,11 @@ animations = [{
 [node name="PlasmaBolt" type="RigidBody3D" unique_id=546640503]
 script = ExtResource("1_m3wii")
 homing_mask = 4
+turning_speed = 10.0
+max_turning_speed = 30.0
+turn_speed_accel = 15.0
 speed = 25.0
-life_time = 3.0
+life_time = 1.5
 hit_mask = 6
 metadata/_custom_type_script = "uid://dv1non72mtx1i"
 

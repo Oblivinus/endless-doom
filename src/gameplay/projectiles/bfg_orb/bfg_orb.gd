@@ -2,72 +2,97 @@ class_name BfgOrb extends ExplodingProjectile
 
 @export var max_damage: float
 @export var tracer_damage: float
-@export var max_hit: int = 5
+@export var max_tracer: int = 5
+@export var tracer_tick: float = 0.1
 
-var hit_count: int = 0
-var max_reached: bool = false
-var has_triggered: bool = false
+var tracer_hit_total: int = 5
+
+var _queue: Array[Humanoid]= []
+var _in_effect_dict: Dictionary[Humanoid, bool]= {}
+
+signal on_tracer_hit(target: Humanoid)
 
 func _ready() -> void:
 	super()
-	blast_area.body_entered.connect(_tracer_hit)
+	blast_area.body_entered.connect(_queue_target)
 
-func launch(direction: Vector3) -> void:
-	hit_count = 0
-	max_reached = false
-	has_triggered = false
-	super(direction)
+func _on_pool_spawn() -> void:
+	_queue.clear()
+	stop_all()
 
 func _on_explosion(targets: Array):
-	var last_pos: Vector3 = global_position + global_basis.z * 0.5
+	super(targets)
 	
+	stop_all()
 	var vfx = VfxConstructor.new("bfg_explosion")
-	vfx.restart_at(last_pos + Vector3(0, 0.05, 0))
+	vfx.restart_at(global_position)
 	
-	var audio = GameManager.play_hearable_sound("guns/bfg/bfg_explode", last_pos)
-	audio.play()
+	var anchor = Node3D.new()
+	GameManager.world.add_child(anchor)
+	anchor.global_position = global_position
+	_anchor_lifetime(anchor)
 	
 	for target in targets:
-		if target is Humanoid:
-			_hurt_target(target, max_damage)
-			_tracer_vfx(target)
-			
-	on_blast_hit.emit(targets)
+		if not target is Humanoid: continue
+		start_out_queue_dot(target, anchor)
 
-func _hurt_target(target: Humanoid, damage: float):
-	var combat_info: CombatManager.CombatInfo = CombatManager.CombatInfo.new("forceful", projectile_owner)
-	combat_info.pain_modifier = 2.0
-	
-	target.hurt(damage, combat_info)
+func _physics_process(delta: float) -> void:
+	while _queue.size() > 0 and _in_effect_dict.size() < max_tracer:
+		var candidate: Humanoid = _queue.pop_front()
+		if not is_instance_valid(candidate): continue
+		if _end_tracer_condition(candidate): continue
+		start_dot(candidate)
 
-func _tracer_hit(target: Node3D) -> void:
+func _queue_target(target: Node3D) -> void:
 	if not target is Humanoid: return
-	if max_reached or has_triggered: return
-	
-	_tracer_vfx(target, true)
-	
-	if hit_count >= max_hit:
-		max_reached = true
-		await get_tree().create_timer(0.25).timeout
-		if not is_inside_tree() or has_triggered: return
-		_trigger_once()
-		return
-	
-	_hurt_target(target, tracer_damage)
-	hit_count += 1
+	_queue.append(target)
 
-func _trigger_once() -> void:
-	if has_triggered: return
-	has_triggered = true
-	trigger_on_hit()
+func _end_tracer_condition(target: Humanoid) -> bool:
+	var dead: bool = target.is_dead
+	var finisher: bool = false
+	
+	if target is Enemy:
+		finisher = target.finisher_ready
+	
+	return dead or finisher
 
-func _tracer_vfx(target: Humanoid, zap_follow: bool = false):
-	if zap_follow:
-		VfxConstructor.Line.create_line("zap").node.fire_follow(self, target, 1.0)
-	else:
-		VfxConstructor.Line.create_line("zap").fire(global_position, target.global_position)
-		
+func start_dot(target: Humanoid) -> void:
+	_in_effect_dict[target] = true
+	
+	for i in range(tracer_hit_total):
+		tracer_hit(target)
+		if not _in_effect_dict.get(target, false): break
+		if _end_tracer_condition(target): break
+		await get_tree().create_timer(tracer_tick).timeout
+	
+	stop_tracer_for(target)
+
+func start_out_queue_dot(target: Humanoid, anchor: Node3D = null) -> void:
+	for i in range(tracer_hit_total):
+		tracer_hit(target)
+		if not is_instance_valid(target): break
+		if _end_tracer_condition(target): break
+		await get_tree().create_timer(tracer_tick).timeout
+
+func tracer_hit(target: Humanoid, anchor: Node3D = null) -> void:
+	if anchor == null: anchor = self
+	VfxConstructor.Line.create_line("zap").node.fire_follow(anchor, target, 0.075)
+	
+	on_tracer_hit.emit(target)
+	
 	var vfx = VfxConstructor.new("bfg_tracer")
 	vfx.position = Vector3.ZERO
 	vfx.one_shot = true
 	vfx.restart_at(target)
+
+func stop_tracer_for(target: Humanoid) -> void:
+	if not _in_effect_dict.has(target): return
+	_in_effect_dict.erase(target)
+
+func stop_all() -> void:
+	_queue.clear()
+	_in_effect_dict.clear()
+
+func _anchor_lifetime(node: Node3D) -> void:
+	await get_tree().create_timer(5).timeout
+	if is_instance_valid(node): node.queue_free()
