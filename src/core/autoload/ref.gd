@@ -21,6 +21,7 @@ static var guns: Dictionary[String, PackedScene] = {
 	"super_shotgun": preload("res://src/gameplay/guns/super_shotgun.tscn"),
 	"rocket_launcher": preload("res://src/gameplay/guns/rocket_launcher.tscn"),
 	"machine_gun": preload("res://src/gameplay/guns/machine_gun.tscn"),
+	"chaingun": preload("res://src/gameplay/guns/chaingun.tscn"),
 	"plasma_rifle": preload("res://src/gameplay/guns/plasma_rifle.tscn"),
 	"bfg_9000": preload("res://src/gameplay/guns/bfg9000.tscn"),
 	"hand": preload("res://src/gameplay/guns/hand.tscn"),

@@ -180,7 +180,7 @@ func enter_finisher_state() -> void:
 	_do_pain()
 	
 	invincible = true
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(1).timeout
 	invincible = false
 
 #region CONNECTION

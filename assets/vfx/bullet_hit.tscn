@@ -58,7 +58,7 @@ size = Vector2(0.5, 0.5)
 
 [node name="Sparks" type="GPUParticles3D" parent="." unique_id=1221029587]
 emitting = false
-amount = 5
+amount = 3
 one_shot = true
 explosiveness = 1.0
 collision_base_size = 0.05
@@ -68,6 +68,7 @@ draw_pass_1 = SubResource("CylinderMesh_oll44")
 [node name="Smoke" type="GPUParticles3D" parent="." unique_id=426506980]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14999998, 0.100000024)
 emitting = false
+amount = 3
 lifetime = 1.5
 one_shot = true
 explosiveness = 0.9

@@ -94,7 +94,7 @@ _data = {
 [node name="HellKnightProjectile" type="RigidBody3D" unique_id=546640503]
 script = ExtResource("1_jiago")
 damage = 8.0
-speed = 25.0
+speed = 20.0
 collision_radius = 0.6
 hit_mask = 3
 metadata/_custom_type_script = "uid://dv1non72mtx1i"

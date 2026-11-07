@@ -20,7 +20,7 @@ class ItemSpawner:
 	}
 	
 	var ammo_base_amount: Dictionary[Enums.GUN_TYPES, Array] = {
-		Enums.GUN_TYPES.BULLET: [2, 8],
+		Enums.GUN_TYPES.BULLET: [3, 12],
 		Enums.GUN_TYPES.SHELL: [1, 4],
 		Enums.GUN_TYPES.ROCKET: [1, 4],
 		Enums.GUN_TYPES.CELL: [5, 20],

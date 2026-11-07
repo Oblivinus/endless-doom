@@ -1,6 +1,7 @@
 {
 	"GunCost": {
 		"machine_gun": 50,
+		"chaingun": 0,
 		"shotgun": 100,
 		"super_shotgun": 0,
 		"rocket_launcher": 250,
