@@ -1,0 +1,352 @@
+[gd_scene format=3 uid="uid://chqj0e41wvq7v"]
+
+[ext_resource type="Script" uid="uid://c5m0nccon2px5" path="res://src/gameplay/entities/enemies/chaingunner/chaingunner.gd" id="1_vjwcb"]
+[ext_resource type="Texture2D" uid="uid://drr7pqhkwikwd" path="res://assets/gameplay/enemies/chaingunner.png" id="2_vjwcb"]
+[ext_resource type="Script" uid="uid://c7idyy17w1qo5" path="res://src/core/components/angled_sprites/angled_sprite_3d.gd" id="3_uc7p6"]
+[ext_resource type="Script" uid="uid://leaqmp3rfm7v" path="res://src/core/components/angled_sprites/angle_parameters.gd" id="4_38p52"]
+[ext_resource type="Script" uid="uid://b6ssqeh0ysa1u" path="res://src/core/state_machine/state_machine.gd" id="6_wtorl"]
+[ext_resource type="Script" uid="uid://jjee04hj2x2g" path="res://src/gameplay/entities/shared/enemy_idle.gd" id="7_oqo5s"]
+[ext_resource type="Script" uid="uid://bri1ixwcpyne0" path="res://src/gameplay/entities/shared/enemy_dead.gd" id="8_wvadi"]
+[ext_resource type="Script" uid="uid://bo164wq6lfma8" path="res://src/gameplay/entities/shared/enemy_attack.gd" id="9_xjbuw"]
+[ext_resource type="Script" uid="uid://csxxff8l42ggr" path="res://src/gameplay/entities/shared/enemy_chase.gd" id="10_bflgs"]
+[ext_resource type="Script" uid="uid://htvb8h1ji2l5" path="res://src/gameplay/entities/shared/enemy_finisher.gd" id="11_p8712"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
+
+[sub_resource type="Resource" id="Resource_molof"]
+script = ExtResource("4_38p52")
+
+[sub_resource type="Resource" id="Resource_4cnso"]
+script = ExtResource("4_38p52")
+ANGLE_STRING = "F_L"
+angle_vect = Vector2(-0.5, -0.5)
+value = 1
+
+[sub_resource type="Resource" id="Resource_66vg1"]
+script = ExtResource("4_38p52")
+ANGLE_STRING = "L"
+angle_vect = Vector2(-1, 0)
+value = 2
+
+[sub_resource type="Resource" id="Resource_vj6am"]
+script = ExtResource("4_38p52")
+ANGLE_STRING = "B_L"
+angle_vect = Vector2(-0.5, 0.5)
+value = 3
+
+[sub_resource type="Resource" id="Resource_7wbhk"]
+script = ExtResource("4_38p52")
+ANGLE_STRING = "B"
+angle_vect = Vector2(0, 1)
+value = 4
+
+[sub_resource type="Resource" id="Resource_4dq4q"]
+script = ExtResource("4_38p52")
+ANGLE_STRING = "F_R"
+angle_vect = Vector2(0.5, -0.5)
+value = 7
+
+[sub_resource type="Resource" id="Resource_5vo2a"]
+script = ExtResource("4_38p52")
+ANGLE_STRING = "R"
+angle_vect = Vector2(1, 0)
+value = 6
+
+[sub_resource type="Resource" id="Resource_8b0yi"]
+script = ExtResource("4_38p52")
+ANGLE_STRING = "B_R"
+angle_vect = Vector2(0.5, 0.5)
+value = 5
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4xsjr"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_afe4i"]
+animation = &"died"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nlxyr"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i3hy4"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u74di"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o30ei"]
+animation = &"xdied"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ynrl7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jmxx6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qwo7k"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yacme"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4xsjr"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0bubi"]
+states/Start/position = Vector2(108.666664, 100)
+states/attack/node = SubResource("AnimationNodeAnimation_4xsjr")
+states/attack/position = Vector2(410.44443, 206.88339)
+states/died/node = SubResource("AnimationNodeAnimation_afe4i")
+states/died/position = Vector2(542.00006, 99.59396)
+states/hurt/node = SubResource("AnimationNodeAnimation_nlxyr")
+states/hurt/position = Vector2(408.99585, 100.34842)
+states/idle/node = SubResource("AnimationNodeAnimation_i3hy4")
+states/idle/position = Vector2(240.66666, 99.893005)
+states/walk/node = SubResource("AnimationNodeAnimation_u74di")
+states/walk/position = Vector2(241.01234, 205.33333)
+states/xdied/node = SubResource("AnimationNodeAnimation_o30ei")
+states/xdied/position = Vector2(540.3704, 207.03337)
+transitions = ["walk", "idle", SubResource("AnimationNodeStateMachineTransition_ynrl7"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_jmxx6"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_qwo7k"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_yacme"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_4xsjr")]
+graph_offset = Vector2(-43, 68)
+
+[sub_resource type="GDScript" id="GDScript_vjwcb"]
+script/source = "extends AnimationHandler
+
+func _on_attack() -> void:
+	return
+"
+
+[sub_resource type="Animation" id="Animation_ef3fu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(4, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_q2t7v"]
+resource_name = "attack"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(5, 0), Vector2i(4, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_molof"]
+resource_name = "died"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 9), Vector2i(6, 9)]
+}
+
+[sub_resource type="Animation" id="Animation_4cnso"]
+resource_name = "hurt"
+length = 0.1
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_66vg1"]
+resource_name = "idle"
+length = 0.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vj6am"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0023256838, 0.15232569, 0.3023257, 0.45058146),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7wbhk"]
+resource_name = "xdied"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite3D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2i(0, 10), Vector2i(5, 10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4dq4q"]
+_data = {
+&"RESET": SubResource("Animation_ef3fu"),
+&"attack": SubResource("Animation_q2t7v"),
+&"died": SubResource("Animation_molof"),
+&"hurt": SubResource("Animation_4cnso"),
+&"idle": SubResource("Animation_66vg1"),
+&"walk": SubResource("Animation_vj6am"),
+&"xdied": SubResource("Animation_7wbhk")
+}
+
+[node name="Chaingunner" type="CharacterBody3D" unique_id=1812481539 node_paths=PackedStringArray("animation_tree", "state_machine")]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_vjwcb")
+animation_tree = NodePath("AnimationHandler")
+state_machine = NodePath("StateMachine")
+attack_damage_range = Array[float]([2.0, 4.0, 1.0])
+detection_range = 20.0
+attack_range = 15.0
+fov = 75
+idle_sfx = Array[String](["possessed/possessed_activity"])
+dead_sfx = Array[String](["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"])
+attack_delay = 1.0
+move_speed = 3.0
+max_health = 60.0
+auto_rotate = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=716034328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3040085)
+light_color = Color(1, 0.38039216, 0.023529412, 1)
+light_energy = 0.0
+shadow_enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1831283125]
+shape = SubResource("CapsuleShape3D_4wyf3")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=934707470 node_paths=PackedStringArray("anim_tree")]
+offset = Vector2(0, 15)
+pixel_size = 0.04
+billboard = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 2
+texture = ExtResource("2_vjwcb")
+hframes = 8
+vframes = 11
+frame = 4
+script = ExtResource("3_uc7p6")
+anim_tree = NodePath("../AnimationHandler")
+angle_params = Array[ExtResource("4_38p52")]([SubResource("Resource_molof"), SubResource("Resource_4cnso"), SubResource("Resource_66vg1"), SubResource("Resource_vj6am"), SubResource("Resource_7wbhk"), SubResource("Resource_4dq4q"), SubResource("Resource_5vo2a"), SubResource("Resource_8b0yi")])
+
+[node name="AnimationHandler" type="AnimationTree" parent="." unique_id=2076683951 node_paths=PackedStringArray("enemy", "sprite")]
+active = false
+root_node = NodePath(".")
+tree_root = SubResource("AnimationNodeStateMachine_0bubi")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("AnimationPlayer")
+script = SubResource("GDScript_vjwcb")
+enemy = NodePath("..")
+sprite = NodePath("../Sprite3D")
+metadata/_custom_type_script = "uid://c6vjvkg7pkvv6"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationHandler" unique_id=1539913278]
+libraries/ = SubResource("AnimationLibrary_4dq4q")
+
+[node name="StateMachine" type="Node" parent="." unique_id=456199103 node_paths=PackedStringArray("starting_state")]
+script = ExtResource("6_wtorl")
+starting_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://b6ssqeh0ysa1u"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=216964935]
+script = ExtResource("7_oqo5s")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=2038298742]
+script = ExtResource("8_wvadi")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=792155077]
+script = ExtResource("9_xjbuw")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Chase" type="Node" parent="StateMachine" unique_id=1899298995]
+script = ExtResource("10_bflgs")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"
+
+[node name="Finisher" type="Node" parent="StateMachine" unique_id=573188012]
+script = ExtResource("11_p8712")
+metadata/_custom_type_script = "uid://cpx5ygsmymmvw"

@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://dor4qbs588l55" path="res://src/gameplay/entities/enemies/cacodemon/cacodemon.tscn" id="10_u2sfu"]
 [ext_resource type="PackedScene" uid="uid://1yaovy5ukx3o" path="res://src/gameplay/entities/enemies/imp/imp.tscn" id="11_yno3m"]
 [ext_resource type="PackedScene" uid="uid://4xj3wp65his7" path="res://src/gameplay/entities/enemies/hell_knight/hell_knight.tscn" id="12_ia4ul"]
+[ext_resource type="PackedScene" uid="uid://dsq82ibj1nkkc" path="res://src/gameplay/entities/enemies/sergeant/sergeant.tscn" id="13_oqbs5"]
+[ext_resource type="PackedScene" uid="uid://chqj0e41wvq7v" path="res://src/gameplay/entities/enemies/chaingunner/chaingunner.tscn" id="14_lyx4k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vhxb"]
 albedo_texture = ExtResource("5_2vhxb")
@@ -108,7 +110,7 @@ visible = false
 navigation_mesh = SubResource("NavigationMesh_kvrig")
 
 [node name="Player" parent="." unique_id=556148557 instance=ExtResource("1_nnsk1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.603498, 0.84999967, 40.6512)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99.8965, 0.84999967, 62.251198)
 
 [node name="PainElemental" parent="." unique_id=1812481539 instance=ExtResource("7_tty06")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.300001, 5.6, 25.300001)
@@ -133,3 +135,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6, 0.8499992, 46)
 
 [node name="HellKnight" parent="." unique_id=490144621 instance=ExtResource("12_ia4ul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.8499999, 74)
+
+[node name="Sergeant" parent="." unique_id=198488801 instance=ExtResource("13_oqbs5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 0.8500004, 81)
+
+[node name="Sergeant2" parent="." unique_id=1520204605 instance=ExtResource("13_oqbs5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.3, 0.8500004, 81)
+
+[node name="Sergeant3" parent="." unique_id=1097836122 instance=ExtResource("13_oqbs5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.7, 0.8500004, 81)
+
+[node name="Chaingunner" parent="." unique_id=1796692622 instance=ExtResource("14_lyx4k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.9, 0.8499999, 75.9)
+
+[node name="Chaingunner2" parent="." unique_id=1306773315 instance=ExtResource("14_lyx4k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.3, 0.8499999, 75.6)

@@ -4,8 +4,8 @@ const FIRING_TIMEOUT: float = 0.15
 
 @onready var sprite: Sprite2D = $CanvasLayer/Control/Sprite2D
 @export var init_firerate: float = 10.0
-@export var fr_accel: float = 0.1
-@export var fr_deaccel: float = 0.2
+@export var fr_accel: float = 0.2
+@export var fr_deaccel: float = 0.3
 
 var last_fire: float = 0
 var max_firerate: float

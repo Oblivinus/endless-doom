@@ -276,6 +276,8 @@ state_machine = NodePath("StateMachine")
 attack_damage_range = Array[float]([3.0, 5.0, 1.0])
 detection_range = 20.0
 fov = 75
+idle_sfx = Array[String](["possessed/possessed_activity"])
+dead_sfx = Array[String](["possessed/possessed_death 1", "possessed/possessed_death 2", "possessed/possessed_death 3"])
 max_health = 20.0
 auto_rotate = true
 

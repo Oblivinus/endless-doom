@@ -110,7 +110,7 @@ func _process_moving(delta: float) -> void:
 		last_move_dir = move_dir
 	else:
 		cur_speed = move_toward(cur_speed, 0.0, deaccel * delta)
-	_face_rotation(last_move_dir, delta)
+	face_rotation(last_move_dir, delta)
 	
 	if use_acceleration:
 		velocity.x = cur_speed * last_move_dir.x
@@ -127,7 +127,7 @@ func _set_health(value: float) -> void:
 		is_dead = true
 		on_died.emit()
 
-func  _face_rotation(dir: Vector3, delta: float) -> void:
+func  face_rotation(dir: Vector3, delta: float) -> void:
 	if dir == Vector3.ZERO or not auto_rotate or not is_moving: return
 	var angle = atan2(-dir.x, -dir.z)
 	rotation.y = lerp_angle(rotation.y, angle, rotation_speed * delta)

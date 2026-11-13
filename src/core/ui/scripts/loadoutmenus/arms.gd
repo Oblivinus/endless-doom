@@ -26,7 +26,6 @@ class GunPanel:
 		
 		panel.visible = true
 		panel.gui_input.connect(_on_gui_input)
-		#panel.self_modulate = unselected_color
 		
 		var scene_state = scene.get_state()
 		var gun_label: Label = panel.get_node("GunName")
