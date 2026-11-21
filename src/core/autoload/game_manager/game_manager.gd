@@ -30,11 +30,22 @@ var player: Player:
 		else:
 			return player
 
+func _init() -> void:
+	GameData.init()
+
 func _ready() -> void:
 	player_datas.init(self)
 	paused(false, true)
 	get_tree().scene_changed.connect(_scene_change)
 	main_menus_button.pressed.connect(func(): Util.fakeout_input("exit_round"))
+
+func _process(_delta: float) -> void:
+	var desired: Input.MouseMode = Input.MOUSE_MODE_VISIBLE
+	if playing and not get_tree().paused:
+		desired = Input.MOUSE_MODE_CAPTURED
+	
+	if Input.mouse_mode != desired:
+		Input.mouse_mode = desired
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -87,9 +98,9 @@ func player_respawn(new_player: Player):
 	if world: world.item_spawner.create_auto_pickup_area.call_deferred(new_player)
 
 func _on_player_died():
-	await  get_tree().create_timer(2).timeout
+	await  get_tree().create_timer(2, false).timeout
 	if not playing: return
-	GameManager.change_scene("uid://b7bfro4lxkq1t")
+	GameManager.change_playing(false)
 	if player: player.queue_free()
 
 func change_playing(value: bool = true):
@@ -107,16 +118,17 @@ func change_playing(value: bool = true):
 
 func change_scene(path: String):
 	get_tree().change_scene_to_file(path)
+	GameData.data_exist_on_boot_up = true
 
 func paused(value: bool, force: bool = false) -> void:
 	if not playing and not force: return
 	get_tree().paused = value
 	paused_screen.visible = value
 	
-	if value:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#if value:
+		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	#else:
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 
 func save_game() -> void:

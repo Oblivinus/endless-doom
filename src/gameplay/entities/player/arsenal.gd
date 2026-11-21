@@ -25,12 +25,7 @@ var available_ammo: Dictionary[String, int] = {
 var is_moving = false
 var on_finisher: bool = false
 var switch_timer: Timer
-var slot_number: int = 1:
-	set(value):
-		if value == 0: 
-			slot_number = 0 
-			return
-		slot_number = wrapi(value, 1, guns_slot.size())
+var slot_number: int = 1
 
 signal on_ammo_used(type: String, amount: int)
 signal finisher_signal(enemy: Enemy)
@@ -65,11 +60,11 @@ func _unhandled_input(_event: InputEvent) -> void:
 		return
 	
 	if Input.is_action_pressed("change_gun_up"):
-		slot_number += 1
+		slot_number = wrapi(slot_number + 1, 1, guns_slot.size())
 		equip_slot(slot_number)
 		
 	if Input.is_action_pressed("change_gun_down"):
-		slot_number -= 1
+		slot_number = wrapi(slot_number - 1, 1, guns_slot.size())
 		equip_slot(slot_number)
 
 func equip_slot(slot: int) -> void:

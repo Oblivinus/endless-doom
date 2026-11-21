@@ -63,7 +63,7 @@ func start_dot(target: Humanoid) -> void:
 		tracer_hit(target)
 		if not _in_effect_dict.get(target, false): break
 		if _end_tracer_condition(target): break
-		await get_tree().create_timer(tracer_tick).timeout
+		await get_tree().create_timer(tracer_tick, false).timeout
 	
 	stop_tracer_for(target)
 
@@ -72,7 +72,7 @@ func start_out_queue_dot(target: Humanoid, anchor: Node3D = null) -> void:
 		tracer_hit(target)
 		if not is_instance_valid(target): break
 		if _end_tracer_condition(target): break
-		await get_tree().create_timer(tracer_tick).timeout
+		await get_tree().create_timer(tracer_tick, false).timeout
 
 func tracer_hit(target: Humanoid, anchor: Node3D = null) -> void:
 	if anchor == null: anchor = self
@@ -94,5 +94,5 @@ func stop_all() -> void:
 	_in_effect_dict.clear()
 
 func _anchor_lifetime(node: Node3D) -> void:
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(5, false).timeout
 	if is_instance_valid(node): node.queue_free()

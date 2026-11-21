@@ -14,7 +14,7 @@ func _on_pool_despawn() -> void:
 
 func launch(direction: Vector3) -> void:
 	super(direction)
-	await get_tree().create_timer(home_delay).timeout
+	await get_tree().create_timer(home_delay, false).timeout
 	_establish_connection()
 
 func  _on_hit(other: Node3D):

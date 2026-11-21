@@ -5,13 +5,16 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vi1r7"]
 blend_mode = 3
 
-[sub_resource type="Gradient" id="Gradient_6y4uu"]
-colors = PackedColorArray(0.48700923, 0.48700923, 0.4870091, 1, 1, 1, 1, 1)
+[sub_resource type="Gradient" id="Gradient_31leo"]
+colors = PackedColorArray(0.66, 0.66, 0.66, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i5df"]
-gradient = SubResource("Gradient_6y4uu")
-height = 2
-fill_to = Vector2(0, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ke6u1"]
+seed = 696969
+frequency = 0.0085
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kvrig"]
+noise = SubResource("FastNoiseLite_ke6u1")
+color_ramp = SubResource("Gradient_31leo")
 
 [node name="ArmorName" type="Label" unique_id=1404116355]
 clip_children = 2
@@ -46,4 +49,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_0i5df")
+texture = SubResource("NoiseTexture2D_kvrig")

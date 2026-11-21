@@ -1,11 +1,11 @@
 shader_type canvas_item;
 
-uniform float pixel_size = 2.0; // block size, in font texture pixels
+uniform float pixel_size = 2.0;
 
 varying vec4 v_color;
 
 void vertex() {
-	v_color = COLOR; // keep font color / modulate
+	v_color = COLOR;
 }
 
 void fragment() {

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="3_chlrs"]
 [ext_resource type="PackedScene" uid="uid://ck320bo2wfvdx" path="res://src/core/ui/setting_ui.tscn" id="5_kp3xf"]
 [ext_resource type="PackedScene" uid="uid://fsbdae8mcvt1" path="res://src/core/ui/loadoutmenus/loadout_menus.tscn" id="6_chlrs"]
+[ext_resource type="PackedScene" uid="uid://b3mgi48hqdm48" path="res://src/core/ui/guide.tscn" id="6_yrdre"]
 
 [sub_resource type="Gradient" id="Gradient_fu2dj"]
 colors = PackedColorArray(0.05, 0.05, 0.05, 0.8509804, 0.05, 0.05, 0.05, 0.33333334)
@@ -225,6 +226,11 @@ texture = SubResource("NoiseTexture2D_x2oeq")
 visible = false
 z_index = 10
 
-[node name="SettingUi" parent="." unique_id=648731797 instance=ExtResource("5_kp3xf")]
+[node name="SettingUi" parent="." unique_id=648731797 node_paths=PackedStringArray("guide_window") instance=ExtResource("5_kp3xf")]
 visible = false
 z_index = 10
+guide_window = NodePath("../Guide")
+
+[node name="Guide" parent="." unique_id=1791363663 instance=ExtResource("6_yrdre")]
+visible = false
+z_index = 20

@@ -58,7 +58,10 @@ class Upgrade:
 
 class Setting:
 	const REFERENCE_SEN: float = 100.0
+	const REFERENCE_VOLUME: float = 100.0
+	
 	var sensitivity: float = 100.0
+	var volume: float = 100.0
 	
 	func _init() -> void:
 		var player_config: Dictionary = GameData.get_player_setting()
@@ -76,10 +79,16 @@ class Setting:
 	func apply_setting() -> void:
 		Player.mouse_sens = 0.25 * (sensitivity / REFERENCE_SEN)
 		Player.mouse_sens = max(Player.mouse_sens, 0.05)
+		
+		var bus_idx: int = AudioServer.get_bus_index(&"Master")
+		var ratio: float = volume / REFERENCE_VOLUME
+		AudioServer.set_bus_mute(bus_idx, ratio <= 0.0)
+		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(maxf(ratio, 0.0001)))
 	
 	func get_setting_dict() -> Dictionary[StringName, Variant]:
 		var result: Dictionary[StringName, Variant] = {
 			&"sensitivity": sensitivity,
+			&"volume": volume,
 		}
 		
 		return result

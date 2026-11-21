@@ -1,0 +1,221 @@
+[gd_scene format=3 uid="uid://b3mgi48hqdm48"]
+
+[ext_resource type="Theme" uid="uid://cj1ou66i26pov" path="res://src/core/ui/main_ui_theme.tres" id="1_ag7mn"]
+[ext_resource type="PackedScene" uid="uid://dsjjd4g2j33rl" path="res://src/core/ui/gray_text.tscn" id="2_xr03q"]
+[ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="3_06y4j"]
+
+[sub_resource type="GDScript" id="GDScript_klrpn"]
+script/source = "extends Control
+
+@export var close_button: Button
+
+func _ready() -> void:
+	close_button.pressed.connect(close)
+
+func close():
+	visible = false
+
+func open():
+	visible = true
+"
+
+[sub_resource type="Shader" id="Shader_ke6u1"]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise : repeat_enable, filter_linear;
+uniform vec2 rect_size = vec2(100.0, 100.0);
+
+uniform float noise_scale : hint_range(0.1, 8.0) = 1.0;
+uniform vec2 noise_offset = vec2(0.0);
+
+uniform float strength : hint_range(0.0, 1.0) = 0.3;
+uniform vec3 tint_a : source_color = vec3(0.8, 0.85, 1.0);
+uniform vec3 tint_b : source_color = vec3(1.0, 0.95, 0.85);
+uniform float tint_amount : hint_range(0.0, 1.0) = 0.3;
+
+varying vec2 local_pos;
+
+void vertex() {
+	local_pos = VERTEX;
+}
+
+vec3 overlay(vec3 base, vec3 blend) {
+	return mix(
+		2.0 * base * blend,
+		1.0 - 2.0 * (1.0 - base) * (1.0 - blend),
+		step(0.5, base)
+	);
+}
+
+void fragment() {
+	vec2 uv = (local_pos / rect_size) * noise_scale + noise_offset;
+	float n = texture(noise, uv).r;
+
+	vec3 base = COLOR.rgb; // frame texture (times modulate)
+
+	// 1. Overlay blend: keeps the frame's contrast and detail
+	vec3 varied = overlay(base, vec3(n));
+	vec3 result = mix(base, varied, strength);
+
+	// 2. Subtle color shift between two tints
+	vec3 tint = mix(tint_a, tint_b, n);
+	result = mix(result, result * tint, tint_amount);
+
+	COLOR.rgb = result; // COLOR.a stays untouched, so the 9-slice shape is kept
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_31leo"]
+seed = 100
+frequency = 0.006
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4aqgx"]
+noise = SubResource("FastNoiseLite_31leo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kvrig"]
+shader = SubResource("Shader_ke6u1")
+shader_parameter/noise = SubResource("NoiseTexture2D_4aqgx")
+shader_parameter/rect_size = Vector2(1000, 1000)
+shader_parameter/noise_scale = 1.00000004424012
+shader_parameter/noise_offset = Vector2(0, 0)
+shader_parameter/strength = 0.06800000323
+shader_parameter/tint_a = Color(0.75327075, 0.3991044, 0, 1)
+shader_parameter/tint_b = Color(0.40547565, 0.77363276, 0.95955414, 1)
+shader_parameter/tint_amount = 0.22400001064
+
+[node name="Guide" type="Control" unique_id=1791363663 node_paths=PackedStringArray("close_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_klrpn")
+close_button = NodePath("Panel/CloseButton")
+
+[node name="Panel" type="Panel" parent="." unique_id=1941976361]
+material = SubResource("ShaderMaterial_kvrig")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -262.5
+offset_top = -254.0
+offset_right = 262.5
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RedText" parent="Panel" unique_id=39412309 instance=ExtResource("3_06y4j")]
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 5.0
+offset_right = 0.0
+offset_bottom = 43.0
+grow_vertical = 1
+theme_override_font_sizes/font_size = 30
+text = "guide"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=1958611131]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ag7mn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=2101551]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="T1" type="MarginContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=2055876508]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" parent="Panel/ScrollContainer/VBoxContainer/T1" unique_id=1404116355 instance=ExtResource("2_xr03q")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Walk - W, A, S, D"
+horizontal_alignment = 0
+
+[node name="T2" type="MarginContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1203975733]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" parent="Panel/ScrollContainer/VBoxContainer/T2" unique_id=650355771 instance=ExtResource("2_xr03q")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Shoot - Lmb"
+horizontal_alignment = 0
+
+[node name="T3" type="MarginContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=707825368]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" parent="Panel/ScrollContainer/VBoxContainer/T3" unique_id=345861051 instance=ExtResource("2_xr03q")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Change arm Up / down
+- scrollup / scrolldown
+- q / e"
+horizontal_alignment = 0
+
+[node name="T4" type="MarginContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1031622482]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" parent="Panel/ScrollContainer/VBoxContainer/T4" unique_id=1547448869 instance=ExtResource("2_xr03q")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "finisher - when target
+blinking \"RMB\" to finish it"
+horizontal_alignment = 0
+
+[node name="CloseButton" type="Button" parent="Panel" unique_id=126043890]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -42.0
+offset_right = 40.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("1_ag7mn")
+
+[node name="RedText" parent="Panel/CloseButton" unique_id=1029813179 instance=ExtResource("3_06y4j")]
+layout_mode = 1
+anchors_preset = 14
+anchor_left = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = -6.5
+offset_right = 0.0
+offset_bottom = 6.5
+theme_override_font_sizes/font_size = 13
+text = "close"

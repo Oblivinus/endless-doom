@@ -8,7 +8,7 @@ func attack_action() -> void:
 	
 	for i in volley_count:
 		if i > 0:
-			await get_tree().create_timer(volley_interval).timeout
+			await get_tree().create_timer(volley_interval, false).timeout
 			
 			if is_dead or is_disturbed: return
 			

@@ -103,7 +103,7 @@ func attack_at_position(target_pos: Vector3, delay: bool = true, force: bool = f
 	is_attacking = true
 	attack_pos = target_pos
 	
-	if delay: await get_tree().create_timer(attack_delay).timeout
+	if delay: await get_tree().create_timer(attack_delay, false).timeout
 	
 	if force:
 		if not is_dead: attack_action()
@@ -123,7 +123,7 @@ func dash_to_pos(target_pos: Vector3) -> void:
 	knockback_instance.stop()
 	is_dashing = true
 	
-	await get_tree().create_timer(dash_duration).timeout
+	await get_tree().create_timer(dash_duration, false).timeout
 	_end_dash()
 
 func _end_dash() -> void:

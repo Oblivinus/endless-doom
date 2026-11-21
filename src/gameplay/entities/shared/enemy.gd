@@ -180,7 +180,7 @@ func enter_finisher_state() -> void:
 	_do_pain()
 	
 	invincible = true
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	invincible = false
 
 #region CONNECTION
@@ -248,7 +248,7 @@ func _do_pain() -> void:
 	if not is_dead: play_sound("pain")
 	in_pain = true
 	animation_tree.travel("hurt")
-	await get_tree().create_timer(pain_time).timeout
+	await get_tree().create_timer(pain_time, false).timeout
 	in_pain = false
 
 func _create_range_area(frustum_shape: FrustumShape) -> Area3D:
@@ -412,7 +412,7 @@ func attack_at_position(target_pos: Vector3) -> void:
 	is_attacking = true
 	attack_pos = target_pos
 	
-	await get_tree().create_timer(attack_delay).timeout
+	await get_tree().create_timer(attack_delay, false).timeout
 	await _attack_sequeance(current_distance)
 	
 	is_attacking = false

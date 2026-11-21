@@ -27,6 +27,7 @@ func _init(audio_name: String, pos_or_node3d: Variant) -> void:
 		push_error("Audio3D parameter 2 is not node3d or vector3")
 		queue_free()
 		return
+		
 	finished.connect(queue_free)
 
 func _physics_process(_delta: float) -> void:

@@ -57,7 +57,7 @@ func stop() -> void:
 
 func _auto_release() -> void:
 	if not one_shot: return
-	await get_tree().create_timer(max_duration + 0.1).timeout
+	await get_tree().create_timer(max_duration + 0.1, false).timeout
 	queue_free()
 
 func _load(vfx_name: StringName) -> PackedScene:

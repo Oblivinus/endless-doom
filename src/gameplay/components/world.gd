@@ -77,7 +77,7 @@ class ItemSpawner:
 	
 	func delay_pick(item: Item) -> void:
 		item.pickable = false
-		await parent.get_tree().create_timer(3).timeout
+		await parent.get_tree().create_timer(3, false).timeout
 		item.pickable = true
 	
 	func create_auto_pickup_area(player: Player) -> void:

@@ -28,7 +28,7 @@ func attack_action() -> void:
 		if is_disturbed or is_dead: break
 		animation_tree.play_attack_anim()
 		_shot()
-		await get_tree().create_timer(shot_interval).timeout
+		await get_tree().create_timer(shot_interval, false).timeout
 		if target: attack_pos = target.global_position
 
 func _shot() -> void:

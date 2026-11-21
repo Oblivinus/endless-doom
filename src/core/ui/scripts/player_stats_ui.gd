@@ -97,7 +97,7 @@ func _hurt_face(dmg: float) -> void:
 	change_face_hud(hurt_face, 2)
 	on_hurt_anim = true
 	
-	get_tree().create_timer(0.5).timeout.connect(func():
+	get_tree().create_timer(0.5, false).timeout.connect(func():
 		change_face_hud(0, 3)
 		face_animation_priority = 0
 		on_hurt_anim = false
@@ -129,7 +129,7 @@ func _on_finisher(enemy: Enemy):
 	if not on_smile_anim:
 		on_smile_anim = true
 		await play_face_anim("evil_smile", 1)
-		await get_tree().create_timer(4).timeout
+		await get_tree().create_timer(4, false).timeout
 		on_smile_anim = false
 
 func calculate_dmg_intensity(dmg) -> String:
@@ -147,7 +147,7 @@ func play_face_anim(anim_name: String, duration: float) -> void:
 	var anim_priority = face_anim_face_priority[anim_name]
 	change_face_hud(anim_value, anim_priority)
 	
-	await get_tree().create_timer(duration).timeout
+	await get_tree().create_timer(duration, false).timeout
 	
 	change_face_hud(0, 10)
 	face_animation_priority = 0

@@ -137,7 +137,7 @@ func _move_to_reached() -> void:
 	player.knockback(arsenal.player.global_basis.z * 10)
 	
 	Engine.time_scale = SLOW_TIME_SCALE
-	await get_tree().create_timer(SLOW_DURATION).timeout
+	await get_tree().create_timer(SLOW_DURATION, false).timeout
 	Engine.time_scale = 1.0
 	_reset()
 	delay_timer.start(finisher_delay)
@@ -166,7 +166,7 @@ func _set_player_for_finisher(value: bool) -> void:
 		_end_invincibility()
 
 func _end_invincibility() -> void:
-	await get_tree().create_timer(INVICIBILITY_GRACE).timeout
+	await get_tree().create_timer(INVICIBILITY_GRACE, false).timeout
 	if not finishing:
 		arsenal.player.invincible = false
 #endregion

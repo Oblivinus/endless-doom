@@ -119,6 +119,6 @@ func _auto_free() -> void:
 		max_time = max(max_time, _anim.current_animation_length)
 	if not is_inside_tree():
 		await ready
-	await get_tree().create_timer(max_time + 0.1).timeout
+	await get_tree().create_timer(max_time + 0.1, false).timeout
 	if is_instance_valid(self):
 		queue_free()

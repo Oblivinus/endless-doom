@@ -40,7 +40,6 @@ func _ready() -> void:
 	colorrect = player_stat_ui.screen_modulate
 	player_camera = Camera.new(self)
 	
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	on_hurt.connect(_on_hurt)
 	on_died.connect(_on_died)
 	property_changed.connect(_on_property_changed)
