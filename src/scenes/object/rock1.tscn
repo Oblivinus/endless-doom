@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvxxkemiata6d"]
 
-[ext_resource type="Texture2D" uid="uid://b4yxydpdqudg2" path="res://assets/texture/Outdoors/Trim rocks/OUTDOOR_Trim_rocks_1.png" id="1_fyui0"]
+[ext_resource type="Texture2D" uid="uid://b4yxydpdqudg2" path="res://assets/texture/OUTDOOR_Trim_rocks_1.png" id="1_fyui0"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_71j4m"]
 albedo_color = Color(0.98234254, 0.9823423, 0.9823424, 1)

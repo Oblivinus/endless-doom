@@ -118,7 +118,6 @@ func change_playing(value: bool = true):
 
 func change_scene(path: String):
 	get_tree().change_scene_to_file(path)
-	GameData.data_exist_on_boot_up = true
 
 func paused(value: bool, force: bool = false) -> void:
 	if not playing and not force: return

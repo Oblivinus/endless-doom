@@ -1,5 +1,6 @@
 class_name SettingUI extends Control
 
+static var show_guide_on_ready: bool = false
 static var player_setting: PlayerData.Setting:
 	get():
 		return GameManager.player_datas.player_setting

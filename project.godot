@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Doom Godot"
-run/main_scene="uid://b7bfro4lxkq1t"
+config/name="Endless Doom"
+run/main_scene="uid://c86ginv8jw064"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://assets/texture/icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+config/icon="uid://ci35dcqelk226"
 
 [autoload]
 

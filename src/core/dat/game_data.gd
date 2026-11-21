@@ -10,8 +10,10 @@ const SAVE_PASS := "67sIgmA69tUnG3sAHur" #HEY! NO CHEATING ALLOWED, SKILL ISSUE.
 static var data_exist_on_boot_up: bool = true
 
 static func init():
-	update_first_boot_status()
-	print(_player_data_path())
+	var path := _player_data_path()
+	var already_exist = FileAccess.file_exists(path)
+	
+	if not already_exist: data_exist_on_boot_up = false
 
 static func update_first_boot_status() -> void:
 	data_exist_on_boot_up = FileAccess.file_exists(save_path + player_dat_file)
@@ -43,7 +45,7 @@ static func _read_save() -> Dictionary:
 		if parsed is Dictionary:
 			save_player_data(parsed)
 			return parsed
-
+	
 	return {}
 
 static func get_player_data() -> Dictionary:

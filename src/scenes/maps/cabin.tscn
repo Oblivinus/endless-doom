@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bp7ivodsc6jje" path="res://assets/models/objects/cabin/Cabin.glb" id="1_tj2g7"]
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/object/terrain.tscn" id="2_momb7"]
-[ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/Outdoors/Foliage/OUTDOOR_foliage_grass_spots_5.png" id="3_g5657"]
+[ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/OUTDOOR_foliage_grass_spots_5.png" id="3_g5657"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kvrig"]
 sky_top_color = Color(0.046863213, 0.072100334, 0.105100684, 1)

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bnfhtb51lg76f" path="res://src/scenes/object/terrain.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://slpsiu8xyi43" path="res://src/gameplay/entities/enemies/zombie/zombie.tscn" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://g2qi1ggxwspu" path="res://src/gameplay/items/ammos/ammos.tscn" id="3_ccq23"]
-[ext_resource type="Texture2D" uid="uid://cj1o4hf1p2gx" path="res://assets/texture/David pattern/STONE_david_pattern_subtle_1.png" id="5_2vhxb"]
+[ext_resource type="Texture2D" uid="uid://cj1o4hf1p2gx" path="res://assets/texture/STONE_david_pattern_subtle_1.png" id="5_2vhxb"]
 [ext_resource type="PackedScene" uid="uid://bfkps1qbyrjm8" path="res://src/gameplay/entities/enemies/pain_elemental/pain_elemental.tscn" id="7_tty06"]
 [ext_resource type="PackedScene" uid="uid://daw4e6ejy8xij" path="res://src/gameplay/entities/enemies/pinky/pinky.tscn" id="9_0ls5i"]
 [ext_resource type="PackedScene" uid="uid://dor4qbs588l55" path="res://src/gameplay/entities/enemies/cacodemon/cacodemon.tscn" id="10_u2sfu"]

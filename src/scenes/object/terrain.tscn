@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bnfhtb51lg76f"]
 
-[ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/Outdoors/Foliage/OUTDOOR_foliage_grass_spots_5.png" id="1_b0j75"]
+[ext_resource type="Texture2D" uid="uid://b1sbjwb8o8uvs" path="res://assets/texture/OUTDOOR_foliage_grass_spots_5.png" id="1_b0j75"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_4wyf3"]
 albedo_texture = ExtResource("1_b0j75")

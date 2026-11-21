@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://c86ginv8jw064"]
+
+[sub_resource type="GDScript" id="GDScript_kvrig"]
+script/source = "extends Control
+
+@onready var made_by: Label = $ColorRect/Madeby
+@onready var name_label: Label = $ColorRect/Name
+
+
+func _ready() -> void:
+	made_by.modulate.a = 0.0
+	name_label.modulate.a = 0.0
+	
+	var fade_in: Tween = get_tree().create_tween().set_parallel()
+	fade_in.tween_property(made_by, \"modulate:a\", 1.0, 1)
+	fade_in.tween_property(name_label, \"modulate:a\", 1.0, 1)
+	
+	await fade_in.finished
+	await get_tree().create_timer(0.5).timeout
+	var fade_out := get_tree().create_tween().set_parallel()
+	fade_out.tween_property(made_by, \"modulate:a\", 0.0, 1)
+	fade_out.tween_property(name_label, \"modulate:a\", 0.0, 1)
+	
+	await fade_out.finished
+	await get_tree().create_timer(0.25).timeout
+	GameManager.change_playing(false)
+"
+
+[node name="SplashScreen" type="Control" unique_id=1889670441]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_kvrig")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1459015378]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Madeby" type="Label" parent="ColorRect" unique_id=257829911]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -124.0
+offset_right = 87.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Made by"
+horizontal_alignment = 1
+
+[node name="Note" type="Label" parent="ColorRect" unique_id=1489469163]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -24.0
+offset_right = 312.0
+offset_bottom = -5.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 15
+text = "sorry for bad splash screen"
+horizontal_alignment = 1
+
+[node name="Engine" type="Label" parent="ColorRect" unique_id=1486390656]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -311.0
+offset_top = -22.0
+offset_right = -6.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 15
+text = "Powered by Godot 4"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="ColorRect" unique_id=1177298920]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.5
+offset_top = -50.5
+offset_right = 215.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Vinus"
+horizontal_alignment = 1
