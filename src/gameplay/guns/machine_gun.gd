@@ -19,6 +19,6 @@ func consume_ammo():
 
 func play_sfx():
 	var vfx = GameManager.play_hearable_sound(sfx, self)
-	vfx.pitch_scale = 1.5
-	vfx.max_db = -7.5
+	vfx.pitch_scale = 1.2
+	vfx.max_db = -0.5
 	vfx.play()

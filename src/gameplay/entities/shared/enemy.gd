@@ -13,7 +13,7 @@ var _cache_melee_damage_range: Array[float] = []
 @export var attack_cd: float = 4.0
 @export var pain_chance: float = 0.8
 @export var pain_time: float = 0.17
-@export var d_point_drop: Array[int] = [2, 5]
+@export var d_point_drop: Array[int] = [1, 2]
 @export var item_drop_chance_multiplier: float = 1.0
 
 @export_group("Attack")

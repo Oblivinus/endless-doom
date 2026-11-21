@@ -20,7 +20,7 @@ func _on_missed_or_blocked(pos: Vector3 = Vector3.ZERO, _context: String = "none
 
 func attack_action() -> void:
 	if is_dead: return
-	Audio3D.new("guns/pistol", self).play()
+	Audio3D.new("guns/shotgun", self).play()
 	
 	create_spread_bullet_hit()
 	

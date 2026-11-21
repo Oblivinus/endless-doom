@@ -1,12 +1,12 @@
 {
 	"GunCost": {
 		"machine_gun": 50,
-		"chaingun": 0,
 		"shotgun": 100,
-		"super_shotgun": 0,
-		"rocket_launcher": 250,
-		"bfg_9000": 0,
-		"plasma_rifle": 0,
+		"chaingun": 200,
+		"super_shotgun": 500,
+		"rocket_launcher": 500,
+		"plasma_rifle": 700,
+		"bfg_9000": 1250,
 	},
 
 	"Upgrades": {
@@ -45,7 +45,12 @@
 	"WavesEntries": {
 		"zombie": {
 			"wave_appeared": 1,
-			"weight": 50.0,
+			"weight": 25.0,
+			"max_alive": -1,
+		},
+		"sergeant": {
+			"wave_appeared": 1,
+			"weight": 25.0,
 			"max_alive": -1,
 		},
 		
@@ -56,6 +61,12 @@
 		},
 		
 		"cacodemon": {
+			"wave_appeared": 4,
+			"weight": 15.0,
+			"max_alive": -1,
+		},
+		
+		"chaingunner": {
 			"wave_appeared": 4,
 			"weight": 15.0,
 			"max_alive": -1,

@@ -1,6 +1,6 @@
 extends Node
 
-const TESTING: bool = true#false
+const TESTING: bool = false
 
 static var guns_cost: Dictionary[StringName, int] = GameData.get_gun_cost_dictionary()
 

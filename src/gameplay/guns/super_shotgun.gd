@@ -6,10 +6,6 @@ var reload_sfx: Array[StringName] = [
 	"guns/super_shotgun/SSG_close",
 ]
 
-func _ready() -> void:
-	super()
-	min_damage_multiplier = 0.3
-
 func play_sfx(sfx_value: int = 0) -> void:
 	if sfx_value == 0:
 		GameManager.play_hearable_sound(sfx, self).play()

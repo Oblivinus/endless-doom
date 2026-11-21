@@ -4,7 +4,7 @@ static var upgrades_dat: Dictionary = GameData.get_upgrades_dictionary()
 
 var player: Player
 var game_manager: GameManager
-var d_point: int = 1000:
+var d_point: int = 0:
 	set(value):
 		d_point = clamp(value, 0, 999_999)
 
@@ -113,7 +113,6 @@ func _on_enemy_kill(enemy: Enemy) -> void:
 	add_d_coint(d_point_earned)
 
 func _apply_upgrade() -> void:
-	
 	player.move_speed += player_upgrades["move_speed"].get_value()
 	player.armor_absorption += player_upgrades["armor_absorption"].get_value()
 	player.max_health += player_upgrades["max_health"].get_value()

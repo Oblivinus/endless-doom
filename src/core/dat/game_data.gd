@@ -2,10 +2,10 @@ class_name GameData extends Node
 
 static var game_dat: StringName = "res://src/core/dat/game.json"
 static var save_path: StringName = OS.get_executable_path().get_base_dir() + "/"
-static var player_dat_file: StringName = "endless_plrdat.json"
+static var player_dat_file: StringName = "endless_plrdat.doomsav"
 
 const LEGACY_DAT_FILE := "endless_plrdat.json"
-const SAVE_PASS := "67sIgmA69tUnG3sAHur"
+const SAVE_PASS := "67sIgmA69tUnG3sAHur" #HEY! NO CHEATING ALLOWED, SKILL ISSUE.
 
 static var data_exist_on_boot_up: bool = true
 
@@ -21,16 +21,6 @@ static func _player_data_path() -> String:
 
 static func _legacy_path() -> String:
 	return String(save_path).path_join(LEGACY_DAT_FILE)
-
-static func get_player_data() -> Dictionary:
-	var file_path: StringName = save_path + player_dat_file
-	if not FileAccess.file_exists(file_path): return {}
-	
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	var data = str_to_var(file.get_as_text())
-	file.close()
-	
-	return data if data is Dictionary else {}
 
 # ---------- player save (encrypted) ----------
 
@@ -51,26 +41,29 @@ static func _read_save() -> Dictionary:
 		var parsed = JSON.parse_string(old.get_as_text())
 		old.close()
 		if parsed is Dictionary:
-			save_player_data(parsed)  # writes the new encrypted file
+			save_player_data(parsed)
 			return parsed
 
 	return {}
 
+static func get_player_data() -> Dictionary:
+	return _read_save()
+
 static func get_player_setting() -> Dictionary:
-	var file_path: StringName = save_path + player_dat_file
-	if not FileAccess.file_exists(file_path): return {}
-	
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	var data: Dictionary = str_to_var(file.get_as_text())
-	var config: Dictionary = data.get("config", {})
-	
-	return config
+	return _read_save().get("config", {})
 
 static func save_player_data(new_data: Dictionary) -> void:
-	var file_path: StringName = save_path + player_dat_file
-	var file = FileAccess.open(file_path, FileAccess.WRITE)
-	file.store_string(JSON.stringify(new_data, "\t"))
-	file.close()
+	var path := _player_data_path()
+	var tmp := path + ".tmp"
+	
+	var f := FileAccess.open_encrypted_with_pass(tmp, FileAccess.WRITE, SAVE_PASS)
+	if f == null:
+		push_error("Can't write save: %s" % error_string(FileAccess.get_open_error()))
+		return
+	f.store_string(JSON.stringify(new_data, "\t"))
+	f.close()
+	
+	DirAccess.rename_absolute(tmp, path)
 
 # ---------- game.json ----------
 static func get_gun_cost_dictionary() -> Dictionary[StringName, int]:

@@ -75,7 +75,6 @@ func _check_and_shoot() -> void:
 func hurt_enemy(enemy: Enemy) -> void:
 	if enemy == null: return
 	enemy.hurt(damage, get_damage_info())
-	if enemy.is_dead: parent.register_kill(enemy)
 
 func get_damage_info() -> CombatManager.CombatInfo:
 	if not combat_info:

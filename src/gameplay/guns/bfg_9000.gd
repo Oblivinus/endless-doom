@@ -43,7 +43,6 @@ func get_tracer_damage() -> float:
 func _on_tracer_hit(target: Humanoid) -> void:
 	if not target is Humanoid: return
 	target.hurt(tracer_damage, get_damage_info())
-	if target.is_dead: parent.register_kill(target)
 
 func _on_hit(target: Humanoid) -> void:
 	GameManager.play_hearable_sound("guns/bfg/bfg_explode", global_position).play()
