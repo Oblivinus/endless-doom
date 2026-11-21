@@ -25,7 +25,6 @@ CombatManager="*uid://b23y377elcvva"
 [display]
 
 window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
 
 [editor_plugins]
 

@@ -138,4 +138,5 @@ func clear_save_file() -> void:
 	quit_game()
 
 func quit_game() -> void:
+	save_game()
 	get_tree().quit()

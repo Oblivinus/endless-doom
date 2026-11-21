@@ -1,7 +1,7 @@
 class_name GameData extends Node
 
 static var game_dat: StringName = "res://src/core/dat/game.json"
-static var save_path: StringName = OS.get_executable_path().get_base_dir() + "/"
+static var save_path: StringName = _resolve_save_dir()
 static var player_dat_file: StringName = "endless_plrdat.doomsav"
 
 const LEGACY_DAT_FILE := "endless_plrdat.json"
@@ -10,13 +10,9 @@ const SAVE_PASS := "67sIgmA69tUnG3sAHur" #HEY! NO CHEATING ALLOWED, SKILL ISSUE.
 static var data_exist_on_boot_up: bool = true
 
 static func init():
-	var path := _player_data_path()
-	var already_exist = FileAccess.file_exists(path)
-	
-	if not already_exist: data_exist_on_boot_up = false
-
-static func update_first_boot_status() -> void:
-	data_exist_on_boot_up = FileAccess.file_exists(save_path + player_dat_file)
+	data_exist_on_boot_up = FileAccess.file_exists(_player_data_path())
+	if not data_exist_on_boot_up:
+		save_player_data({})
 
 static func _player_data_path() -> String:
 	return String(save_path).path_join(player_dat_file)
@@ -24,8 +20,21 @@ static func _player_data_path() -> String:
 static func _legacy_path() -> String:
 	return String(save_path).path_join(LEGACY_DAT_FILE)
 
-# ---------- player save (encrypted) ----------
+static func _resolve_save_dir() -> String:
+	if OS.has_feature("editor"):
+		return ProjectSettings.globalize_path("res://")  # next to project.godot
+	var dir := OS.get_executable_path().get_base_dir()
+	
+	var test_path := dir.path_join(".write_test")
+	var t := FileAccess.open(test_path, FileAccess.WRITE)
+	if t == null:
+		push_warning("Exe dir not writable (%s), falling back to user://" % error_string(FileAccess.get_open_error()))
+		return ProjectSettings.globalize_path("user://")
+	t.close()
+	DirAccess.remove_absolute(test_path)
+	return dir
 
+# ---------- player save (encrypted) ----------
 static func _read_save() -> Dictionary:
 	var path := _player_data_path()
 
@@ -65,7 +74,18 @@ static func save_player_data(new_data: Dictionary) -> void:
 	f.store_string(JSON.stringify(new_data, "\t"))
 	f.close()
 	
-	DirAccess.rename_absolute(tmp, path)
+	if FileAccess.file_exists(path):
+		DirAccess.remove_absolute(path)
+	
+	var err := DirAccess.rename_absolute(tmp, path)
+	if err != OK:
+		push_error("Rename failed (%s), writing directly" % error_string(err))
+		
+		var direct := FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, SAVE_PASS)
+		if direct:
+			direct.store_string(JSON.stringify(new_data, "\t"))
+			direct.close()
+	
 
 # ---------- game.json ----------
 static func get_gun_cost_dictionary() -> Dictionary[StringName, int]:
