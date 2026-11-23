@@ -1,7 +1,7 @@
 class_name WaveManager extends Node
 
 const INTERMISSION_TIME: int = 10
-const INIT_WAVE: int = 0
+static var init_wave: int = 0
 
 var initial_spawn_interval: float = 0.5
 
@@ -11,7 +11,7 @@ var initial_spawn_interval: float = 0.5
 var boss_entries: Array[BossEntry] = []
 
 var enemies_parent: Node
-var current_wave: int = INIT_WAVE
+var current_wave: int = init_wave
 
 var max_enemies: int = 10
 var total_enemies: int = 0

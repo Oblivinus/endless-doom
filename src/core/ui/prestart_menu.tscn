@@ -1,0 +1,204 @@
+[gd_scene format=3 uid="uid://b11k6o0cyxyo1"]
+
+[ext_resource type="PackedScene" uid="uid://ccfavjmpv3tj0" path="res://src/core/ui/custom_value_label.tscn" id="1_i7uxb"]
+[ext_resource type="PackedScene" uid="uid://dcqrrxjgkxa17" path="res://src/core/ui/red_text.tscn" id="2_8ww2s"]
+[ext_resource type="Theme" uid="uid://cj1ou66i26pov" path="res://src/core/ui/main_ui_theme.tres" id="3_w5lx6"]
+
+[sub_resource type="GDScript" id="GDScript_i7uxb"]
+script/source = "extends Control
+
+@export var confirm: Button
+@export var close_button: Button
+@export var wave_value: CustomValueLabel
+
+func _ready() -> void:
+	
+	confirm.pressed.connect(_on_confirm)
+	close_button.pressed.connect(close)
+
+func _on_confirm():
+	GameManager.change_playing(true)
+	pass
+
+func open():
+	wave_value.set_value(1)
+	visible = true
+
+func close():
+	visible = false
+"
+
+[sub_resource type="Shader" id="Shader_ke6u1"]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise : repeat_enable, filter_linear;
+uniform vec2 rect_size = vec2(100.0, 100.0);
+
+uniform float noise_scale : hint_range(0.1, 8.0) = 1.0;
+uniform vec2 noise_offset = vec2(0.0);
+
+uniform float strength : hint_range(0.0, 1.0) = 0.3;
+uniform vec3 tint_a : source_color = vec3(0.8, 0.85, 1.0);
+uniform vec3 tint_b : source_color = vec3(1.0, 0.95, 0.85);
+uniform float tint_amount : hint_range(0.0, 1.0) = 0.3;
+
+varying vec2 local_pos;
+
+void vertex() {
+	local_pos = VERTEX;
+}
+
+vec3 overlay(vec3 base, vec3 blend) {
+	return mix(
+		2.0 * base * blend,
+		1.0 - 2.0 * (1.0 - base) * (1.0 - blend),
+		step(0.5, base)
+	);
+}
+
+void fragment() {
+	vec2 uv = (local_pos / rect_size) * noise_scale + noise_offset;
+	float n = texture(noise, uv).r;
+
+	vec3 base = COLOR.rgb; // frame texture (times modulate)
+
+	// 1. Overlay blend: keeps the frame's contrast and detail
+	vec3 varied = overlay(base, vec3(n));
+	vec3 result = mix(base, varied, strength);
+
+	// 2. Subtle color shift between two tints
+	vec3 tint = mix(tint_a, tint_b, n);
+	result = mix(result, result * tint, tint_amount);
+
+	COLOR.rgb = result; // COLOR.a stays untouched, so the 9-slice shape is kept
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2jbi8"]
+seed = 100
+frequency = 0.006
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4aqgx"]
+noise = SubResource("FastNoiseLite_2jbi8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qv7d2"]
+shader = SubResource("Shader_ke6u1")
+shader_parameter/noise = SubResource("NoiseTexture2D_4aqgx")
+shader_parameter/rect_size = Vector2(1000, 1000)
+shader_parameter/noise_scale = 1.00000004424012
+shader_parameter/noise_offset = Vector2(0, 0)
+shader_parameter/strength = 0.06800000323
+shader_parameter/tint_a = Color(0.75327075, 0.3991044, 0, 1)
+shader_parameter/tint_b = Color(0.40547565, 0.77363276, 0.95955414, 1)
+shader_parameter/tint_amount = 0.22400001064
+
+[sub_resource type="GDScript" id="GDScript_8ww2s"]
+script/source = "extends CustomValueLabel
+
+func set_value(value: float):
+	value -= 1
+	value = maxf(0.0, value)
+	WaveManager.init_wave = int(value)
+	display_label.text = \"%d\" % (WaveManager.init_wave + 1)
+"
+
+[node name="PrestartMenu" type="Control" unique_id=2121044009 node_paths=PackedStringArray("confirm", "close_button", "wave_value")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_i7uxb")
+confirm = NodePath("Panel/ConfirmButton")
+close_button = NodePath("CloseButton")
+wave_value = NodePath("Panel/CustomValue")
+
+[node name="Panel" type="Panel" parent="." unique_id=1793647240]
+material = SubResource("ShaderMaterial_qv7d2")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -262.5
+offset_top = -93.5
+offset_right = 262.5
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CustomValue" parent="Panel" unique_id=2117715851 instance=ExtResource("1_i7uxb")]
+layout_mode = 1
+script = SubResource("GDScript_8ww2s")
+
+[node name="RedText" parent="Panel" unique_id=1029813179 instance=ExtResource("2_8ww2s")]
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 8.0
+offset_right = 0.0
+offset_bottom = 46.0
+grow_vertical = 1
+theme_override_font_sizes/font_size = 30
+text = "Wave"
+
+[node name="ConfirmButton" type="Button" parent="Panel" unique_id=377337858]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.5
+offset_top = -42.0
+offset_right = 53.5
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("3_w5lx6")
+
+[node name="RedText" parent="Panel/ConfirmButton" unique_id=815230812 instance=ExtResource("2_8ww2s")]
+layout_mode = 1
+anchors_preset = 14
+anchor_left = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = -6.5
+offset_right = 0.0
+offset_bottom = 6.5
+theme_override_font_sizes/font_size = 13
+text = "confirm"
+
+[node name="CloseButton" type="Button" parent="." unique_id=17349630]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 192.0
+offset_top = -117.0
+offset_right = 263.0
+offset_bottom = -94.92096
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.9964208)
+theme = ExtResource("3_w5lx6")
+
+[node name="RedText" parent="CloseButton" unique_id=332486447 instance=ExtResource("2_8ww2s")]
+layout_mode = 1
+anchors_preset = 14
+anchor_left = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = -6.5
+offset_right = 0.0
+offset_bottom = 6.5
+theme_override_font_sizes/font_size = 10
+text = "close"

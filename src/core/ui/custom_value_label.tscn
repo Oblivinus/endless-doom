@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://ccfavjmpv3tj0"]
+
+[ext_resource type="Script" uid="uid://bsnxq7gwnw0rd" path="res://src/core/ui/scripts/custom_value_label.gd" id="1_w517e"]
+[ext_resource type="PackedScene" uid="uid://dsjjd4g2j33rl" path="res://src/core/ui/gray_text.tscn" id="2_umw5y"]
+
+[node name="CustomValue" type="Control" unique_id=2117715851 node_paths=PackedStringArray("display_label", "input_label")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w517e")
+display_label = NodePath("WaveSelect")
+input_label = NodePath("InputText")
+regex_pattern = "^[0-9]*$"
+
+[node name="InputText" type="LineEdit" parent="." unique_id=489585056]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -32.5
+offset_right = 114.0
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+placeholder_text = "Set"
+alignment = 1
+
+[node name="WaveSelect" parent="." unique_id=1404116355 instance=ExtResource("2_umw5y")]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -242.75
+offset_top = -28.5
+offset_right = 242.75
+offset_bottom = 28.5
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 45
+text = "1"

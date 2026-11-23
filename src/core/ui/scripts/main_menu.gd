@@ -6,6 +6,7 @@ class_name MainMenus extends CanvasLayer
 
 @export var loadout_menus: LoadoutMenus
 @export var settings: SettingUI
+@export var prestart: Control
 
 var start_button: ButtonInteract
 var loadout_button: ButtonInteract
@@ -56,7 +57,8 @@ func _on_start():
 	if loadout_menus.arms.is_arm_empty():
 		_open_loadout()
 	else:
-		GameManager.change_playing(true)
+		prestart.open()
+		#GameManager.change_playing(true)
 
 func _open_loadout():
 	loadout_menus.visible = true
