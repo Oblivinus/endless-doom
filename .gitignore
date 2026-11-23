@@ -1,3 +1,5 @@
+endless_plrdat.doomsav
+
 # Godot 4+ specific ignores
 .godot/
 .nomedia
@@ -14,3 +16,4 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+endless_plrdat.doomsav
